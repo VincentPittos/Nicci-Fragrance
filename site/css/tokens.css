@@ -20,6 +20,8 @@
   --n-taupe-300: #A99789;   /* tekst drugorzędny na ciemnym, 5,32 na graficie */
   --n-gold: #D5A865;
   --n-gold-soft: #E9D2AF;   /* hover, poświata, fokus na ciemnym */
+  --n-gold-300: #E6C88E;    /* światło na złotym przycisku (artifact sekcji 2) */
+  --n-gold-600: #B08A4E;    /* cień na złotym przycisku (artifact sekcji 2) */
   --n-gold-700: #75582F;    /* złoty tekst na jasnym, 4,68 na kremie */
   --n-cream: #E8D7C3;
   --n-cream-100: #F3EADF;   /* jasny krem: tło sekcji 3 i dalej */
@@ -92,6 +94,8 @@
 
   --accent: var(--n-gold);
   --accent-soft: var(--n-gold-soft);
+  --accent-hi: var(--n-gold-300);
+  --accent-lo: var(--n-gold-600);
   --on-accent: var(--n-black);
 
   --border-gold: var(--n-gold);
@@ -145,7 +149,25 @@
 }
 .theme-dark { background-color: var(--bg-dark); }
 .theme-graphite { background-color: var(--bg-graphite); }
-.theme-light { background-color: var(--bg-light); color: var(--text); }
+/* Kontekst jasny wewnątrz ciemnego (np. panel w szufladzie): przywraca semantykę z :root */
+.theme-light {
+  --text-strong: var(--n-black);
+  --text: var(--n-graphite);
+  --text-muted: var(--n-taupe-700);
+  --text-accent: var(--n-gold-700);
+  --text-inverse: var(--n-cream-50);
+  --border-hairline: rgba(4, 4, 4, 0.14);
+  --border-strong: var(--n-black);
+  --focus-ring: var(--n-black);
+  --danger: var(--n-red-700);
+  --surface: var(--n-cream-50);
+  --selected-bg: var(--n-black);
+  --selected-fg: var(--n-cream-50);
+  --border-input: rgba(4, 4, 4, 0.28);
+  --border-input-focus: var(--n-black);
+  background-color: var(--bg-light);
+  color: var(--text);
+}
 
 /* ---------- 3. KOMPONENTY ----------
  * Deklarowane na samym komponencie, a nie na :root. Wartość var() w zmiennej rozwiązuje się tam,

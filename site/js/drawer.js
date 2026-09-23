@@ -55,7 +55,11 @@
     var sbw = window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.classList.add('drawer-open');
     document.documentElement.style.setProperty('--sbw', sbw + 'px');
-    if (pageRoot) pageRoot.inert = true;
+    if (pageRoot) {
+      pageRoot.inert = true;
+      // głębia względem środka widocznego ekranu; od góry dokumentu przewinięta strona uciekałaby w górę
+      pageRoot.style.transformOrigin = '50% ' + Math.round(scrollY + window.innerHeight / 2) + 'px';
+    }
 
     function depth(progress) {
       // progress 1 = otwarta. Tło przyciemnia się i cofa proporcjonalnie do ruchu panelu.
@@ -86,7 +90,7 @@
       var finish = function () {
         root.remove();
         document.documentElement.classList.remove('drawer-open');
-        if (pageRoot) { pageRoot.inert = false; M.set(pageRoot, { scale: 1 }); pageRoot.style.transform = ''; }
+        if (pageRoot) { pageRoot.inert = false; M.set(pageRoot, { scale: 1 }); pageRoot.style.transform = ''; pageRoot.style.transformOrigin = ''; }
         window.scrollTo(0, scrollY);
         if (trigger && document.contains(trigger)) trigger.focus({ preventScroll: true });
         if (current === api) current = null;

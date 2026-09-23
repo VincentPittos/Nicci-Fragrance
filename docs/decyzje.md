@@ -38,6 +38,15 @@
 | 20 | Źródło packshotów | Tylko oficjalne strony i sklepy producentów, z zapisem źródła każdego pliku. Nie obchodzimy zabezpieczeń przed botami: marki, które je stosują (LV, MFK, Dior, Versace, YSL, Hermès), zostają z kadrem zastępczym do czasu własnych zdjęć. | wniosek |
 | 21 | Nuty bez miniatury | Nuty rzadsze niż 3 wystąpienia bez własnego kafelka (gruszka, fiołek, herbata i 10 pojedynczych) wyświetlamy jako tekst. | wniosek |
 
+## 23.09.2026, etap 4
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 22 | Hero | Układ z referencji (tekst na pustej ścianie zdjęcia) od 80rem. Węższe ekrany: tekst, pod nim zdjęcie w całości. Pusta część kadru jest za wąska na tekst przy 1024 px, a zdjęcia nie przycinamy. | wniosek |
+| 23 | Sekcja 2 | Znaczniki artifactu bez zmian. Kolory na tokenach, tło grafit, zdjęcie karty 3 z kadru odlewania, licznik 23:59:59 zamieniony na stałe „24 h”. Dwa odcienie tekstu z 3,0:1 podniesione do tokenu tekstu drugorzędnego (5,3:1). | właściciel, wniosek |
+| 24 | Pasek zaufania | Zamiast „Ponad 70 zapachów” dokładna liczba z katalogu z odmianą („64 zapachy”), bo aktywnych jest 64. | wniosek |
+| 25 | Szuflady | Głębia strony pod szufladą liczona od środka widocznego ekranu (wcześniej od góry dokumentu, co przesuwało przewiniętą stronę). | wniosek |
+
 ## Otwarte
 
 * Weryfikacja 114 pozycji z `dev/dane/do-weryfikacji.csv`, w tym profil wszystkich zapachów i rodziny z członem spoza listy.

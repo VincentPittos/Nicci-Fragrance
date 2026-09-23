@@ -1,0 +1,170 @@
+/*
+ * Sekcja 2 „Jak to działa”: artifact właściciela (refs/sekcja-2-jak-to-dziala.html).
+ * Układ, proporcje i ruch bez zmian. Zmienione wyłącznie:
+ *   kolory na tokeny (zmienne --nf-* czytają semantykę kontekstu grafitowego),
+ *   tło sekcji na grafit (decyzja właściciela), typografia na fonty strony,
+ *   dwa kolory tekstu podniesione do --text-muted, bo miały 3,0:1 (WCAG wymaga 4,5:1),
+ *   responsywność i animacja wejścia (js/sekcja2.js), licznik rezerwacji zamieniony na stałe „24 h”.
+ * Kolory ilustracji na kafelkach quizu to rysunek, nie interfejs, więc zostają lokalnie w sekcji.
+ */
+.nf-how{
+  --nf-black:var(--bg-dark); --nf-char:var(--bg-graphite); --nf-card:var(--surface);
+  --nf-gold:var(--accent); --nf-gold-hi:var(--accent-hi); --nf-gold-lo:var(--accent-lo); --nf-cream:var(--text);
+  --nf-cream-2:var(--text-muted); --nf-line:color-mix(in srgb, var(--accent) 22%, transparent);
+  --nf-serif:var(--font-display);
+  --nf-sans:var(--font-text);
+  /* ilustracja kafelków: ciepły i chłodny klimat */
+  --nf-warm:radial-gradient(120% 90% at 85% 10%,#E6C88E 0%,#B9854A 35%,#5a3b1f 75%,#2a1c10 100%);
+  --nf-cool:radial-gradient(120% 90% at 85% 10%,#DCE4E0 0%,#98AAA6 35%,#4d5c5a 75%,#1f2626 100%);
+  font-family:var(--nf-sans);
+}
+
+/* ================= SEKCJA: JAK TO DZIAŁA ================= */
+.nf-how{padding:112px 24px 104px;overflow:hidden;background:var(--nf-char);color:var(--nf-cream);scroll-margin-top:4rem}
+.nf-how__head{text-align:center;max-width:640px;margin:0 auto 72px}
+.nf-how__title{font-family:var(--nf-serif);font-weight:500;font-size:var(--n-size-h2);line-height:1.05;letter-spacing:-0.016em;margin:0 0 16px;color:var(--text-strong)}
+.nf-how__lead{font-weight:300;font-size:18px;line-height:1.6;margin:0;color:var(--nf-cream-2)}
+
+.nf-steps{list-style:none;margin:0 auto;padding:24px 0 0;max-width:1240px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.nf-step{--r:0deg;--y:0px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.nf-step:nth-child(1){--r:-6deg;--y:30px}
+.nf-step:nth-child(2){--r:-2deg;--y:6px}
+.nf-step:nth-child(3){--r:2deg;--y:6px}
+.nf-step:nth-child(4){--r:6deg;--y:30px}
+
+.nf-card{position:relative;width:100%;max-width:280px;height:372px;border-radius:22px;background:var(--nf-card);
+  border:1px solid var(--nf-line);box-shadow:0 30px 60px -30px rgba(0,0,0,.9), inset 0 1px 0 color-mix(in srgb, var(--nf-cream) 6%, transparent);
+  transform:translateY(var(--y)) rotate(var(--r));transform-origin:50% 100%;
+  transition:transform var(--n-spring-lift-ms) var(--n-spring-lift), border-color .4s;padding:20px;overflow:hidden}
+.nf-step:hover .nf-card,.nf-step:focus-within .nf-card{transform:translateY(calc(var(--y) - 10px)) rotate(0deg);border-color:color-mix(in srgb, var(--nf-gold) 50%, transparent)}
+.nf-card__top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;font-size:12px;letter-spacing:.04em;color:var(--nf-cream-2)}
+.nf-card__top strong{font-family:var(--nf-serif);font-style:italic;font-weight:500;font-size:19px;letter-spacing:0;color:var(--nf-cream)}
+
+.nf-step__text{margin-top:calc(34px + var(--y));max-width:270px}
+.nf-step__num{font-family:var(--nf-serif);font-size:22px;color:var(--nf-gold);display:block;margin-bottom:6px;font-variant-numeric:lining-nums}
+.nf-step__title{font-family:var(--nf-serif);font-weight:600;font-size:26px;line-height:1.15;margin:0 0 10px;color:var(--text-strong)}
+.nf-step__desc{font-weight:300;font-size:15.5px;line-height:1.6;margin:0;color:var(--nf-cream-2)}
+
+/* ---------- Karta 1: quiz ---------- */
+.nf-progress{height:2px;background:color-mix(in srgb, var(--nf-cream) 12%, transparent);border-radius:2px;margin:-4px 0 14px;overflow:hidden}
+.nf-progress span{display:block;height:100%;width:40%;background:var(--nf-gold)}
+.nf-q{font-family:var(--nf-serif);font-size:20px;line-height:1.2;margin:0 0 12px;color:var(--nf-cream);text-align:left}
+.nf-tiles{display:flex;flex-direction:column;gap:8px;position:relative}
+.nf-tile{all:unset;box-sizing:border-box;cursor:pointer;position:relative;height:104px;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;justify-content:flex-end;
+  text-align:left;overflow:hidden;border:1px solid transparent;opacity:.55;transform:scale(.97);transition:opacity .5s, transform var(--n-spring-snappy-ms) var(--n-spring-snappy), border-color .5s}
+.nf-tile:focus-visible{outline:2px solid var(--nf-gold);outline-offset:2px}
+.nf-tile[aria-pressed="true"]{opacity:1;transform:scale(1);border-color:var(--nf-gold)}
+.nf-tile--warm{background:var(--nf-warm)}
+.nf-tile--cool{background:var(--nf-cool)}
+.nf-tile svg.nf-deco{position:absolute;right:10px;top:8px;width:78px;height:78px;opacity:.55}
+.nf-tile--warm svg.nf-deco{animation:nf-float 6s ease-in-out infinite}
+.nf-tile--cool svg.nf-deco{animation:nf-float 7s ease-in-out infinite reverse}
+.nf-tile b{font-family:var(--nf-serif);font-weight:600;font-size:24px;color:#fff;line-height:1;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.nf-tile small{font-size:12px;color:rgba(255,255,255,.85);margin-top:4px}
+.nf-check{position:absolute;left:14px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--nf-gold);color:var(--on-accent);display:grid;place-items:center;transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.nf-tile[aria-pressed="true"] .nf-check{transform:scale(1)}
+.nf-or{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;background:var(--nf-card);color:var(--nf-cream-2);font-family:var(--nf-serif);font-style:italic;font-size:14px;padding:2px 10px;border-radius:20px;border:1px solid var(--nf-line)}
+
+/* ---------- Karta 2: koszyk ---------- */
+.nf-items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.nf-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:color-mix(in srgb, var(--nf-cream) 4%, transparent);border:1px solid color-mix(in srgb, var(--nf-cream) 7%, transparent);
+  opacity:0;transform:translateY(10px)}
+.is-live .nf-item{animation:nf-in .6s cubic-bezier(.2,.8,.2,1) forwards}
+.is-live .nf-item:nth-child(2){animation-delay:.25s}
+.is-live .nf-item:nth-child(3){animation-delay:.5s}
+.nf-item svg{flex:none}
+.nf-vial{fill:var(--nf-gold)}
+.nf-vial-band{fill:var(--nf-cream)}
+.nf-vial-label{fill:var(--nf-black)}
+.nf-item__name{flex:1;text-align:left;font-size:13.5px;line-height:1.25;color:var(--nf-cream)}
+.nf-item__name span{display:block;font-size:11.5px;color:var(--nf-cream-2)}
+.nf-ml{display:flex;gap:3px}
+.nf-ml button{all:unset;box-sizing:border-box;cursor:pointer;min-width:28px;height:24px;padding:0 5px;border-radius:12px;font-size:11px;text-align:center;line-height:24px;color:var(--nf-cream-2);border:1px solid color-mix(in srgb, var(--nf-cream) 14%, transparent);transition:background .35s,color .35s,border-color .35s}
+.nf-ml button[aria-pressed="true"]{background:var(--nf-gold);color:var(--on-accent);border-color:var(--nf-gold)}
+.nf-ml button:focus-visible{outline:2px solid var(--nf-gold);outline-offset:1px}
+.nf-hold{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px dashed color-mix(in srgb, var(--nf-gold) 40%, transparent);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--nf-cream-2);text-align:left}
+.nf-hold b{font-family:var(--nf-serif);font-size:22px;font-weight:600;color:var(--nf-gold);font-variant-numeric:tabular-nums lining-nums;letter-spacing:.02em}
+
+/* ---------- Karta 3: zdjęcie ---------- */
+.nf-card--photo{padding:0}
+.nf-photo{position:absolute;inset:0;overflow:hidden}
+.nf-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;transform:scale(1.04);animation:nf-kenburns 16s ease-in-out infinite alternate}
+.nf-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,4,4,.55) 0%,rgba(4,4,4,0) 28%,rgba(4,4,4,0) 62%,rgba(4,4,4,.85) 100%)}
+.nf-card--photo .nf-card__top{position:relative;z-index:2;padding:20px 20px 0}
+.nf-badge{position:absolute;z-index:2;right:18px;top:62px;width:84px;height:84px;border-radius:50%;background:var(--nf-black);border:1px solid var(--nf-gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.nf-badge b{font-family:var(--nf-serif);font-weight:600;font-size:28px;line-height:1;color:var(--nf-gold);display:inline-block;font-variant-numeric:lining-nums}
+.nf-badge b.flip{animation:nf-flip .55s ease}
+.nf-badge small{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nf-cream-2);margin-top:3px}
+.nf-photo__cap{position:absolute;z-index:2;left:20px;right:20px;bottom:18px;text-align:left;font-size:13px;line-height:1.45;color:var(--nf-cream)}
+.nf-photo__cap i{font-family:var(--nf-serif);font-size:18px;color:var(--nf-gold)}
+
+/* ---------- Karta 4: dostawa ---------- */
+.nf-track{list-style:none;margin:6px 0 0;padding:0 0 0 30px;position:relative;text-align:left}
+.nf-trackbox{position:relative}
+.nf-track::before,.nf-track__fill{content:"";position:absolute;left:9px;top:10px;width:2px;border-radius:2px}
+.nf-track__fill{top:16px}
+.nf-track::before{bottom:34px;background:color-mix(in srgb, var(--nf-cream) 12%, transparent)}
+.nf-track__fill{height:0;background:var(--nf-gold);transition:height .8s cubic-bezier(.4,0,.2,1)}
+.nf-track li{position:relative;padding:0 0 18px;font-size:13.5px;line-height:1.3;color:var(--nf-cream-2);transition:color .5s}
+.nf-track li span{display:block;font-size:11.5px;margin-top:2px}
+.nf-track li::before{content:"";position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--nf-card);border:2px solid color-mix(in srgb, var(--nf-cream) 25%, transparent);transition:all .5s}
+.nf-track li.done{color:var(--nf-cream)}
+.nf-track li.done span{color:var(--nf-cream-2)}
+.nf-track li.done::before{background:var(--nf-gold);border-color:var(--nf-gold)}
+.nf-track li.now::before{box-shadow:0 0 0 0 color-mix(in srgb, var(--nf-gold) 60%, transparent);animation:nf-pulse 1.6s infinite}
+.nf-locker{margin-top:2px;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb, var(--nf-gold) 8%, transparent);border:1px solid var(--nf-line);font-size:12px;color:var(--nf-cream-2);text-align:left;opacity:.35;transition:opacity .6s}
+.nf-locker.on{opacity:1}
+.nf-locker svg{flex:none;color:var(--nf-gold)}
+.nf-locker b{display:block;font-weight:500;font-size:13px;color:var(--nf-cream)}
+
+/* ---------- CTA ---------- */
+.nf-how__cta{margin-top:96px;text-align:center}
+.nf-btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 38px;border-radius:2px;text-decoration:none;
+  font-family:var(--nf-serif);font-weight:600;font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-accent);
+  background:linear-gradient(180deg,var(--nf-gold-hi) 0%,var(--nf-gold) 50%,var(--nf-gold-lo) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35);outline:1px solid rgba(4,4,4,.28);outline-offset:-5px;transition:filter .3s, transform var(--n-spring-snappy-ms) var(--n-spring-snappy)}
+.nf-btn:hover{filter:brightness(1.07)}
+.nf-btn:active{transform:scale(.97)}
+.nf-btn:focus-visible{outline:2px solid var(--nf-cream);outline-offset:3px}
+.nf-how__note{margin:16px 0 0;font-size:14px;font-weight:300;color:var(--nf-cream-2)}
+
+/* ---------- Animacje ---------- */
+@keyframes nf-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(6deg)}}
+@keyframes nf-in{to{opacity:1;transform:none}}
+@keyframes nf-kenburns{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+@keyframes nf-flip{0%{transform:rotateX(0);opacity:1}45%{transform:rotateX(90deg);opacity:0}55%{transform:rotateX(-90deg);opacity:0}100%{transform:rotateX(0);opacity:1}}
+@keyframes nf-pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--nf-gold) 55%, transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.nf-how.is-paused *{animation-play-state:paused !important}
+
+/* ---------- Responsywność ---------- */
+@media (max-width:1180px){
+  .nf-steps{grid-template-columns:repeat(2,1fr);row-gap:64px;max-width:680px}
+  .nf-step:nth-child(1){--r:-3deg;--y:0px}.nf-step:nth-child(2){--r:3deg;--y:0px}
+  .nf-step:nth-child(3){--r:-3deg;--y:0px}.nf-step:nth-child(4){--r:3deg;--y:0px}
+}
+@media (max-width:640px){
+  .nf-how{padding:80px 0 72px}
+  .nf-how__head{padding:0 var(--gutter);margin-bottom:40px}
+  .nf-how__lead{font-size:16.5px}
+  .nf-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:24px var(--gutter) 16px;scroll-padding-inline:var(--gutter);max-width:none;scrollbar-width:none;overscroll-behavior-x:contain}
+  .nf-steps::-webkit-scrollbar{display:none}
+  .nf-step{flex:0 0 78%;scroll-snap-align:center}
+  .nf-step:nth-child(n){--r:0deg;--y:0px}
+  .nf-card{max-width:none;height:372px}
+  .nf-tile{height:98px}
+  .nf-step__text{margin-top:28px}
+  .nf-how__cta{margin-top:48px;padding:0 var(--gutter)}
+  .nf-btn{width:100%;padding:0 20px;font-size:16px;letter-spacing:.12em}
+}
+/* kropki pod przewijanym rzędem kroków na telefonie */
+.nf-steps-dots{display:none}
+@media (max-width:640px){
+  .nf-steps-dots{display:flex;justify-content:center;gap:8px;margin-top:8px}
+  .nf-steps-dots span{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb, var(--nf-cream) 25%, transparent);transition:background .3s, transform var(--n-spring-snappy-ms) var(--n-spring-snappy)}
+  .nf-steps-dots span[data-on]{background:var(--nf-gold);transform:scale(1.25)}
+}
+@media (prefers-reduced-motion: reduce){
+  .nf-how *,.nf-how *::before,.nf-how *::after{animation:none !important;transition:none !important}
+  .nf-item{opacity:1;transform:none}
+}
