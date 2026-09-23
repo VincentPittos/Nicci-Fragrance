@@ -1,0 +1,16 @@
+# Nagłówki dla Cloudflare Pages (https://developers.cloudflare.com/pages/configuration/headers/).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+
+# Fonty mają skrót zawartości w nazwie pliku, więc mogą leżeć w pamięci przeglądarki rok.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Zdjęcia nie mają skrótu w nazwie: tydzień, żeby podmieniony plik dotarł do klientów bez zmiany nazwy.
+/img/*
+  Cache-Control: public, max-age=604800

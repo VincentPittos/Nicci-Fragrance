@@ -78,6 +78,12 @@
 .order-submit { display: grid; gap: var(--n-space-3); }
 .order-submit .btn { min-height: 3.5rem; font-size: 1rem; }
 .order-form[data-sending] { opacity: 0.85; }
+.order-form [data-submit][aria-busy="true"] { cursor: progress; }
+.order-form [data-submit][aria-busy="true"]::after {
+  content: ""; flex: none; width: 1em; height: 1em; margin-inline-start: var(--n-space-2);
+  border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%;
+  animation: n-spin 0.8s linear infinite;
+}
 
 /* pułapka na boty: poza ekranem, nie display:none */
 .hp { position: absolute !important; left: -10000px !important; top: auto; width: 1px; height: 1px; overflow: hidden; }
@@ -157,6 +163,7 @@
 .confirm__hint { font-size: var(--n-size-small); color: var(--text-muted); }
 .confirm__box--ig .btn .ikona { flex: none; }
 .confirm__empty { display: grid; gap: var(--n-space-4); max-width: 36rem; padding-block: var(--n-space-6); }
+.confirm__actions { display: flex; flex-wrap: wrap; gap: var(--n-space-3); }
 
 /* ---------- strony prawne ---------- */
 .legal__wrap { max-width: 46rem; }

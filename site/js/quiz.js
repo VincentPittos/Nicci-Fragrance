@@ -212,7 +212,7 @@
         ['cytryna', 'drewno', 'wanilia', 'roza', 'bergamotka', 'skora'].map(function (s, k) {
           return '<img src="/img/nuty/' + s + '.webp" alt="" width="256" height="256" style="--k:' + k + '">';
         }).join('') + '</div>' +
-        '<p class="q-load__title">Sprawdzamy, co z ' + (total ? total + ' ' + A.plural(total, ['zapachu', 'zapachów', 'zapachów']) : 'naszych zapachów') + ' pasuje do Twoich odpowiedzi</p>' +
+        '<p class="q-load__title">Sprawdzamy, co z ' + (total ? total + ' ' + A.plural(total, ['zapachu', 'zapachów', 'zapachów']) : 'naszych zapachów') + ' pasuje do Twoich odpowiedzi…</p>' +
         '<span class="q-load__line" aria-hidden="true"><span></span></span>';
     };
     draw(0);

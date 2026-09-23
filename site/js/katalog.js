@@ -29,7 +29,7 @@
     var card = '<div class="card card--grafit theme-graphite skeleton" aria-hidden="true"><div class="card__media"></div>' +
       '<div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span>' +
       '<span class="sk" style="height:2.75rem"></span><span class="sk" style="height:3.25rem"></span></div></div>';
-    root.innerHTML = '<p class="visually-hidden" role="status">Wczytujemy katalog</p><div class="grid grid--4">' + new Array(7).join(card) + '</div>';
+    root.innerHTML = '<p class="visually-hidden" role="status">Wczytujemy katalog…</p><div class="grid grid--4">' + new Array(7).join(card) + '</div>';
   }
 
   // ---------- szkielet interfejsu ----------
@@ -212,7 +212,8 @@
     var html = groupsFor(list).map(function (g, k) {
       var gid = 'grp-' + k;
       var title = state.by === 'rodzina' ? U.cap(g.key) : g.key;
-      return '<section class="cat-group" aria-labelledby="' + gid + '">' +
+      var n = g.items.length; // liczba rzędów przy 2 i 3 kolumnach: szacunek wysokości grupy poza ekranem (katalog.css)
+      return '<section class="cat-group" aria-labelledby="' + gid + '" style="--r2:' + Math.ceil(n / 2) + ';--r3:' + Math.ceil(n / 3) + '">' +
         '<h3 class="cat-group__h" id="' + gid + '"><span>' + esc(title) + '</span><span class="cat-group__n">' + zapachy(g.items.length) + '</span></h3>' +
         '<div class="grid grid--cat">' + g.items.map(function (p) { return C.render(p, { hl: 4 }); }).join('') + '</div></section>';
     }).join('');

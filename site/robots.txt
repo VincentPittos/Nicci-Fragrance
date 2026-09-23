@@ -1,0 +1,5 @@
+# Nicci Fragrance. Wszystko może być indeksowane; strony zamówienia, wyniku i dokumenty w wersji roboczej
+# mają własne <meta name="robots" content="noindex">, więc nie blokujemy ich tutaj (robot musi je zobaczyć).
+# Linię Sitemap dopisuje dev/ustaw_domene.py po ustaleniu domeny.
+User-agent: *
+Allow: /

@@ -143,6 +143,12 @@
 .flt-foot .btn { flex: 1; }
 
 /* ---------- grupy i siatka ---------- */
+/* Grupy pod zgięciem nie są układane, dopóki nie zbliżą się do ekranu (~65 kart). Do tego czasu zajmują
+   szacowaną wysokość: rzędy kart (--r2, --r3 z katalog.js) razy zmierzona wysokość rzędu, plus nagłówek grupy.
+   Karta kompaktowa (telefon) ma rząd ~450 px, pełna ~1000 px. Po pierwszym ułożeniu przeglądarka pamięta prawdziwy rozmiar. */
+.cat-group { content-visibility: auto; contain-intrinsic-size: auto calc(var(--r2, 2) * 28rem + 4.5rem); }
+@media (min-width: 38rem) { .cat-group { contain-intrinsic-size: auto calc(var(--r2, 2) * 62.5rem + 4.5rem); } }
+@media (min-width: 74rem) { .cat-group { contain-intrinsic-size: auto calc(var(--r3, 1) * 62.5rem + 4.5rem); } }
 .cat-group + .cat-group { margin-top: var(--n-space-7); }
 .cat-group__h {
   position: sticky; top: 4.25rem; z-index: 3;
@@ -173,6 +179,7 @@
   font-family: var(--font-display); font-style: italic; font-size: 2rem; line-height: 1;
   color: var(--media-accent);
 }
+.card__ph-mark::before, .card__ph-brand::before { content: attr(data-t); }
 .card__ph-brand { font-size: var(--n-size-micro); letter-spacing: 0.18em; text-transform: uppercase; color: var(--media-muted); }
 @container card (max-width: 17rem) { .card__ph-mark { width: 3.25rem; height: 3.25rem; font-size: 1.5rem; } }
 

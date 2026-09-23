@@ -232,6 +232,17 @@ function isSellable_(p) {
   return p.id && p.aktywny && p.marka && p.nazwa;
 }
 
+/** Choć jedna pojemność z ceną. */
+function hasPrice_(p) {
+  return POJEMNOSCI.some(function (ml) { return p.ceny[ml] !== null; });
+}
+
+/** Na liście: produkt z ceną albo wyprzedany (ml_dostepne 0 lub puste). Produkt ze stanem, ale bez żadnej ceny,
+ *  nie trafia na listę: nie da się go kupić, a etykieta „Wyprzedane” byłaby nieprawdą. */
+function isListed_(p) {
+  return hasPrice_(p) || !(p.ml > 0);
+}
+
 /**
  * Katalog w kształcie, który czyta nicci-api.js. Pola produktu opisuje docs/kontrakt-api.md.
  * Ceny w groszach. Stan magazynu nie wychodzi na zewnątrz poza „zostalo” przy niskim stanie.
@@ -247,7 +258,7 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
   const free = {};
   all.forEach(function (p) { free[p.id] = freeMl_(p, reserved); });
 
-  const products = all.map(function (p) {
+  const products = all.filter(isListed_).map(function (p) {
     const f = free[p.id];
     const variants = POJEMNOSCI.filter(function (ml) { return p.ceny[ml] !== null; })
       .map(function (ml) { return { ml: ml, price: p.ceny[ml], available: f >= ml }; });
@@ -258,7 +269,7 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
       nuty: p.nuty, sezon: p.sezon, pora: p.pora, trwalosc: p.trwalosc, projekcja: p.projekcja,
       intensywnosc: p.intensywnosc, okazja: p.okazja, variants: variants,
       malo: malo, zostalo: malo ? Math.floor(f) : null,
-      podobne: p.podobne.filter(function (id) { return byId[id] && id !== p.id; }),
+      podobne: p.podobne.filter(function (id) { return byId[id] && isListed_(byId[id]) && id !== p.id; }),
       zdjecie: p.zdjecie, kolejnosc: p.kolejnosc
     };
   }).sort(function (a, b) { return a.kolejnosc - b.kolejnosc || a.marka.localeCompare(b.marka, 'pl'); });
@@ -1140,10 +1151,9 @@ function diagnoza_(productRows, setRows, cfg) {
     if (PORY.indexOf(p.pora) === -1) W(label + ': pora „' + p.pora + '” spoza listy');
     p.sezon.forEach(function (s) { if (SEZONY.indexOf(s) === -1) W(label + ': sezon „' + s + '” spoza listy'); });
     if (p.intensywnosc === null) W(label + ': intensywnosc nie jest uzupełniona (quiz przyjmie 2)');
-    const priced = POJEMNOSCI.some(function (ml) { return p.ceny[ml] !== null; });
     if (p.ml === null) E(label + ': ml_dostepne nie jest uzupełnione');
     else if (p.ml < 0) W(label + ': ml_dostepne poniżej zera (' + p.ml + ')');
-    if (!priced && p.ml !== null && p.ml > 0) E(label + ': nie ma żadnej ceny');
+    if (!hasPrice_(p) && p.ml !== null && p.ml > 0) E(label + ': ma stan, ale nie ma żadnej ceny, strona go nie pokaże');
     if (!p.opis) W(label + ': brak opisu');
     if (!p.zdjecie) W(label + ': brak zdjęcia');
   });

@@ -27,8 +27,9 @@
   function mediaHtml(p, opts) {
     var src = opts.img || p.zdjecie;
     if (!src) {
-      return '<span class="card__ph" aria-hidden="true"><span class="card__ph-mark">' + U.esc(initials(p.marka)) + '</span>' +
-        '<span class="card__ph-brand">' + U.esc(p.marka) + '</span></span>';
+      // napisy z CSS (attr), żeby widoczny tekst nie rozjeżdżał się z nazwą przycisku „Szczegóły: …”
+      return '<span class="card__ph" aria-hidden="true"><span class="card__ph-mark" data-t="' + U.esc(initials(p.marka)) + '"></span>' +
+        '<span class="card__ph-brand" data-t="' + U.esc(p.marka) + '"></span></span>';
     }
     var pair = /-800\.webp$/.test(src);
     var small = pair ? src.replace(/-800\.webp$/, '-400.webp') : src;

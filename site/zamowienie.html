@@ -79,7 +79,7 @@
           </div>
           <div class="field" data-field="email">
             <label for="f-email">E-mail</label>
-            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" required aria-describedby="h-email e-email">
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email e-email">
             <p class="field__hint" id="h-email">Tu wyślemy dane do płatności i numer przesyłki.</p>
             <p class="field__error" id="e-email"></p>
           </div>
@@ -115,7 +115,7 @@
           <div class="order-row" data-for-delivery="kurier" hidden>
             <div class="field" data-field="street">
               <label for="f-street">Ulica i numer</label>
-              <input id="f-street" name="street" type="text" autocomplete="street-address" maxlength="120" data-required aria-describedby="e-street">
+              <input id="f-street" name="street" type="text" autocomplete="address-line1" maxlength="120" data-required aria-describedby="e-street">
               <p class="field__error" id="e-street"></p>
             </div>
             <div class="order-row__pair">

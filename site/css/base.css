@@ -5,7 +5,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6.5rem; /* nagłówek ma do 84 px, fokus z klawiatury nie może pod nim zniknąć */
 }
 
 body {

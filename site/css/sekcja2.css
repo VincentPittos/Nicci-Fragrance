@@ -108,7 +108,7 @@
 .nf-track__fill{height:0;background:var(--nf-gold);transition:height .8s cubic-bezier(.4,0,.2,1)}
 .nf-track li{position:relative;padding:0 0 18px;font-size:13.5px;line-height:1.3;color:var(--nf-cream-2);transition:color .5s}
 .nf-track li span{display:block;font-size:11.5px;margin-top:2px}
-.nf-track li::before{content:"";position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--nf-card);border:2px solid color-mix(in srgb, var(--nf-cream) 25%, transparent);transition:all .5s}
+.nf-track li::before{content:"";position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--nf-card);border:2px solid color-mix(in srgb, var(--nf-cream) 25%, transparent);transition:background-color .5s,border-color .5s}
 .nf-track li.done{color:var(--nf-cream)}
 .nf-track li.done span{color:var(--nf-cream-2)}
 .nf-track li.done::before{background:var(--nf-gold);border-color:var(--nf-gold)}

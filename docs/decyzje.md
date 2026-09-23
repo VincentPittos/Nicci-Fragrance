@@ -67,10 +67,22 @@
 | 34 | Usunięte obietnice bez pokrycia | „Odpisujemy w godzinach pracy”, „odlewamy z jednego flakonu”, „potwierdzenie może przyjść po kilku godzinach” i „ml z tego flakonu” zastąpione zdaniami, które nie zakładają nieznanych faktów. | humanizer, zasada braku zmyśleń |
 | 35 | Komunikaty z `nicci-api.js` | Teksty błędów w module (np. „Coś poszło nie tak po naszej stronie…”) są zgodne z głosem marki. Moduł zostaje bez zmian, więc ich nie ruszamy. | kontrakt modułu |
 
+## 23.09.2026, etap 9
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 36 | Wydajność katalogu | `content-visibility: auto` na grupach katalogu, wysokość szacowana z liczby rzędów kart (±5%). Strona główna na telefonie: 91 → 97 w Lighthouse, LCP 2,7 → 2,5 s. Bez łączenia plików, bo to wymaga kroku budowania. | pomiar, prompt sekcja 16 |
+| 37 | Nagłówki hostingu | `site/_headers`: CSP tylko z własną domeną i Apps Script, fonty w cache na rok, zdjęcia na tydzień (nazwy bez skrótu zawartości). | security-and-hardening |
+| 38 | Strona 404 | `site/404.html` ze statusem 404. Bez niej Cloudflare Pages podaje stronę główną pod każdym błędnym adresem. | wniosek |
+| 39 | Świeżość katalogu | Zapis w przeglądarce odświeżany w tle po 2 minutach (było 10), `/zamowienie` zawsze dociąga świeże ceny i stany. Razem z 5 minutami cache backendu daje to test 1 z README. | README, test 1 |
+| 40 | Produkt bez cen | Produkt ze stanem, ale bez żadnej ceny, nie trafia na listę ani do „podobnych” (etykieta „Wyprzedane” byłaby nieprawdą). Wyprzedany (0 ml) bez cen zostaje jako wyprzedany. | zasada: niedobór tylko z realnych stanów |
+| 41 | Dane strukturalne | JSON-LD z przeglądarki: OnlineStore, WebSite, ItemList z Product i ofertą na każdą pojemność, FAQPage tylko z pytań bez `{TODO}`. Bez ocen. Canonical, `og:url`, mapa strony i Sitemap w robots po uruchomieniu `dev/ustaw_domene.py`. | schema, ai-seo |
+| 42 | Dokumenty w wersji roboczej | Regulamin i polityka prywatności zostają z `noindex`, dopóki nie zatwierdzi ich prawnik. | wniosek |
+
 ## Otwarte
 
-* Weryfikacja 114 pozycji z `dev/dane/do-weryfikacji.csv`, w tym profil wszystkich zapachów i rodziny z członem spoza listy.
-* `ml_dostepne` dla wszystkich aktywnych pozycji (bez tego backend uzna je za niedostępne).
+* Weryfikacja `dev/dane/do-weryfikacji.csv` (133 wiersze dla 65 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.
+* `ml_dostepne` dla wszystkich aktywnych pozycji: puste w 62 z 64, bez tego backend uzna je za niedostępne. Pełna lista braków: `docs/raport-koncowy.md`.
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
 * Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
 * Zdjęcia 15 produktów (LV 5, MFK 2, Dior 4, Versace 1, YSL 2, Hermès 1): własne albo materiały prasowe. Lista w `docs/03-plan-grafik.md`.

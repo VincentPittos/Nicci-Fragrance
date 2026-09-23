@@ -153,6 +153,9 @@
 }
 .theme-dark { background-color: var(--bg-dark); }
 .theme-graphite { background-color: var(--bg-graphite); }
+/* paski przewijania i kontrolki systemowe w kolorze motywu */
+.theme-dark, .theme-graphite { color-scheme: dark; }
+.theme-light { color-scheme: light; }
 /* Kontekst jasny wewnątrz ciemnego (np. panel w szufladzie): przywraca semantykę z :root */
 .theme-light {
   --text-strong: var(--n-black);

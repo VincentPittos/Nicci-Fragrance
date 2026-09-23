@@ -10,6 +10,7 @@ Różnice wobec zwykłego http.server:
     kieruje tu zapytania tylko wtedy, gdy API_URL w nicci-api.js ma wartość UZUPELNIJ, więc na produkcji
     ta ścieżka nie istnieje. Zamówienia z podglądu trafiają do dev/zamowienia-dev.json (poza gitem).
   * /__dev/catalog.mock.json: statyczny mock katalogu (zapas, gdy Node nie jest dostępny).
+  * nieistniejący adres: 404.html ze statusem 404, tak jak na Pages.
 """
 import http.server
 import json
@@ -54,6 +55,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         u = urllib.parse.urlsplit(self.path)
         if u.path == '/__dev/api':
             return self._json(atrapa({'method': 'GET', 'query': u.query}))
+        if not os.path.exists(self.translate_path(self.path)):
+            # jak Cloudflare Pages: nieistniejący adres dostaje 404.html ze statusem 404
+            data = open(os.path.join(SITE, '404.html'), 'rb').read()
+            self.send_response(404)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Content-Length', str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
         return super().do_GET()
 
     def do_POST(self):

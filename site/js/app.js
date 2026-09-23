@@ -2,7 +2,7 @@
  * NICCI: powłoka każdej podstrony.
  *   NicciApp.src()            źródło wejścia z tej sesji (?src=reel12)
  *   NicciApp.url(path)        adres wewnętrzny z doklejonym src
- *   NicciApp.catalog(force)   katalog: raz na sesję, potem z sessionStorage (Promise)
+ *   NicciApp.catalog(force)   katalog z sessionStorage, odświeżany w tle po 2 minutach (Promise)
  *   NicciApp.onCatalog(fn)    powiadomienie, gdy przyjdzie świeższy katalog w tle
  *   NicciApp.dropCatalog()    wymusza pobranie przy następnym wywołaniu (po zamówieniu, po braku stanu)
  * Nagłówek: przezroczysty nad hero, po przewinięciu ciemny z rozmyciem. Menu na telefonie w szufladzie.
@@ -12,7 +12,9 @@
   var N = window.Nicci;
   var SRC_KEY = 'nicci_src';
   var CAT_KEY = 'nicci_catalog_v1';
-  var FRESH_MS = 10 * 60 * 1000; // po tym czasie pokazujemy zapisany katalog i po cichu pobieramy nowy
+  // Zapisany katalog pokazujemy od razu; starszy niż 2 minuty dodatkowo odświeżamy w tle (onCatalog).
+  // Backend trzyma katalog w cache 5 minut (CONFIG.CACHE_SECONDS), więc zmiana ceny w arkuszu dociera na stronę w tym czasie.
+  var FRESH_MS = 2 * 60 * 1000;
 
   function ss(method, key, value) {
     try { return method === 'get' ? sessionStorage.getItem(key) : method === 'set' ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key); }

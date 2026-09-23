@@ -265,7 +265,11 @@
   N.cart.onChange(renderSummary);
   document.addEventListener('nicci:cart-sync', renderSummary);
   syncDelivery();
-  A.catalog().then(function (c) { catalog = c; renderSummary(); }, function () {
+  // podsumowanie od razu z zapisanego katalogu, potem świeże ceny i stany przed złożeniem zamówienia
+  A.catalog().then(function (c) {
+    catalog = c; renderSummary();
+    A.catalog(true).then(function (f) { catalog = f; renderSummary(); }, function () {});
+  }, function () {
     summaryBox.innerHTML = '<p class="os__empty">Podsumowanie chwilowo się nie wczytało. Odśwież stronę, koszyk jest zapisany.</p>';
   });
 })();

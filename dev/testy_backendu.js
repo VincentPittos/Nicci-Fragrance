@@ -43,6 +43,15 @@ test('katalog: tylko aktywne, ceny w groszach, warianty bez ceny ukryte', () => 
   assert.equal(c.freeShippingFrom, 20000);
 });
 
+test('katalog: produkt ze stanem, ale bez żadnej ceny znika z listy i z podobnych', () => {
+  const rows = productRows.map((r) => (r.id === 'p02' ? Object.assign({}, r, { cena_5: '', cena_10: '', cena_20: '' }) : r));
+  const c = be.buildCatalog_(rows, setRows, {}, cfg, NOW);
+  assert.ok(!c.products.some((p) => p.id === 'p02'), 'p02 ma stan, a nie ma cen');
+  assert.ok(!c.products.some((p) => p.podobne.indexOf('p02') !== -1), 'podobne nie wskazują na produkt bez cen');
+  const p34 = c.products.find((p) => p.id === 'p34');
+  assert.ok(p34 && p34.variants.length === 0, 'wyprzedany (0 ml) bez cen zostaje jako wyprzedany');
+});
+
 test('katalog: rezerwacja obniża dostępność, niski stan ustawia malo i zostalo', () => {
   const c = be.buildCatalog_(productRows, setRows, { p01: 78 }, cfg, NOW);
   const p01 = c.products.find((p) => p.id === 'p01');
@@ -59,7 +68,12 @@ test('katalog: rezerwacja obniża dostępność, niski stan ustawia malo i zosta
 });
 
 test('katalog: wyprzedane mają malo=false i brak dostępnych wariantów', () => {
-  const c = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
+  const c = be.buildCatalog_(productRows, setRows, { p01: 100 }, cfg, NOW);
+  const p01 = c.products.find((p) => p.id === 'p01');
+  assert.equal(p01.variants.length, 3, 'ceny zostają, znika tylko dostępność');
+  assert.ok(p01.variants.every((v) => !v.available));
+  assert.equal(p01.malo, false);
+  assert.equal(p01.zostalo, null);
   const p34 = c.products.find((p) => p.id === 'p34');
   assert.equal(p34.variants.length, 0);
   assert.equal(p34.malo, false);
