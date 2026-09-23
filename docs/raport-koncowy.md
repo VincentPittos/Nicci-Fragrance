@@ -163,7 +163,7 @@ Wszystkie pary spełniają AA dla zwykłego tekstu (4,5:1). axe-core liczy kontr
 
 **0 naruszeń w 19 stanach** (telefon 390 px i komputer 1440 px): strona główna, szuflada produktu, koszyk, filtry na telefonie, quiz, wynik, zamówienie z błędami walidacji, potwierdzenie, regulamin, polityka prywatności. Test klawiatury: Tab przez stronę główną, quiz i formularz. Fokus jest widoczny na każdym elemencie i nie chowa się pod przyklejonym nagłówkiem.
 
-Poprawione w tym etapie: nazwy zapachów na `/wynik` są nagłówkami drugiego poziomu (wcześniej brakowało poziomu między `h1` a `h3`); przewijany pasek zaufania na telefonie dostaje fokus z klawiatury; zapas pod nagłówkiem przy przewijaniu do fokusu (84 px nagłówka, było 80 px zapasu); kadr zastępczy karty nie rozjeżdża się z nazwą przycisku; spinner na przycisku „Zamawiam i rezerwuję” w trakcie wysyłki; `color-scheme` dla ciemnych motywów; wielokropek w stanach ładowania.
+Poprawione w tym etapie: nazwy zapachów na `/wynik` są nagłówkami drugiego poziomu (wcześniej brakowało poziomu między `h1` a `h3`); przewijany pasek zaufania na telefonie dostaje fokus z klawiatury; zapas pod nagłówkiem przy przewijaniu do fokusu (84 px nagłówka, było 80 px zapasu); kadr zastępczy karty nie rozjeżdża się z nazwą przycisku; spinner na przycisku „Zamawiam i rezerwuję” w trakcie wysyłki; `color-scheme` dla ciemnych motywów; wielokropek w stanach ładowania; wyprzedane karty zapachów i zestawów bez przezroczystości tekstu (wcześniej 3,5:1 do 4,2:1, teraz kolor drugorzędny powyżej 4,5:1). Złota kursywa w hero leży na zdjęciu, więc jej kontrast policzyliśmy z pikseli: najgorszy punkt 4,39:1, dla dużego tekstu próg AA to 3:1.
 
 ### Lighthouse 13.5 (pomiar lokalny)
 
@@ -171,16 +171,16 @@ Serwer pomiarowy odtwarza Cloudflare Pages: HTTP/2, kompresja Brotli, cache obra
 
 | Strona | Urządzenie | Wydajność | Dostępność | Dobre praktyki | SEO | LCP | TBT | CLS | Waga |
 |---|---|---|---|---|---|---|---|---|---|
-| `/` | telefon | 97 | 100 | 100 | 92 | 2,5 s | 40 ms | 0 | 307 KB |
+| `/` | telefon | 96 | 100 | 100 | 92 | 2,6 s | 40 ms | 0 | 307 KB |
 | `/quiz` | telefon | 100 | 100 | 100 | 92 | 1,4 s | 0 ms | 0 | 115 KB |
 | `/zamowienie` | telefon | 99 | 100 | 100 | 66 | 2,0 s | 0 ms | 0 | 200 KB |
 | `/regulamin` | telefon | 99 | 100 | 100 | 66 | 2,0 s | 20 ms | 0 | 166 KB |
-| `/` | komputer | 99 | 100 | 100 | 92 | 0,8 s | 0 ms | 0 | 333 KB |
+| `/` | komputer | 100 | 100 | 100 | 92 | 0,5 s | 0 ms | 0 | 333 KB |
 | `/quiz` | komputer | 100 | 100 | 100 | 92 | 0,4 s | 0 ms | 0 | 115 KB |
 
 SEO 92: canonical jest dziś względny, bo nie znamy domeny. `dev/ustaw_domene.py` wpisze adres bezwzględny. SEO 66 na zamówieniu i regulaminie to zamierzony `noindex`.
 
-Strona główna przed optymalizacją miała 91 punktów (LCP 2,7 s, TBT 160 ms). Zmiany: grupy katalogu poza ekranem nie są układane (`content-visibility: auto` z wysokością szacowaną z liczby kart, trafność ±5%), obraz hero bez `decoding="async"`, wariant 300 px kadru z sekcji 2. Pliki CSS i JS zostały osobne: ich łączenie wymagałoby kroku budowania, którego prompt nie chce, a po tych zmianach wynik 97 go nie uzasadnia. Łączenia nie mierzyliśmy.
+Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09). Strona główna przed optymalizacją miała 91 punktów (LCP 2,7 s, TBT 160 ms). Zmiany: grupy katalogu poza ekranem nie są układane (`content-visibility: auto` z wysokością szacowaną z liczby kart, trafność ±5%), obraz hero bez `decoding="async"`, wariant 300 px kadru z sekcji 2. Pliki CSS i JS zostały osobne: ich łączenie wymagałoby kroku budowania, którego prompt nie chce, a po tych zmianach wynik 97 go nie uzasadnia. Łączenia nie mierzyliśmy.
 
 ### Testy ścieżki zamówienia
 

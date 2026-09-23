@@ -79,6 +79,13 @@
 | 41 | Dane strukturalne | JSON-LD z przeglądarki: OnlineStore, WebSite, ItemList z Product i ofertą na każdą pojemność, FAQPage tylko z pytań bez `{TODO}`. Bez ocen. Canonical, `og:url`, mapa strony i Sitemap w robots po uruchomieniu `dev/ustaw_domene.py`. | schema, ai-seo |
 | 42 | Dokumenty w wersji roboczej | Regulamin i polityka prywatności zostają z `noindex`, dopóki nie zatwierdzi ich prawnik. | wniosek |
 
+## 24.09.2026, po raporcie końcowym
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 43 | Hero według makiety właściciela | Nagłówek w dwóch liniach: „Zapach z najwyższej półki” i pod nim większa (×1,28 na telefonie, ×1,36 na komputerze), złota kursywa „Za ułamek ceny”, podciągnięta pod pierwszą linię. Opis z makiety w całości, z drugą częścią o quizie. Bez nadtytułu i bez notki „5 pytań, około minuty”, bo opis mówi to samo. Od 80rem tekst przy lewej krawędzi, a jego wymiary i przyciski są w vw, więc kompozycja ze zdjęciem jest ta sama od 1280 do 2560 px (sprawdzone pomiarem kolizji z flakonami i magnolią). Pasek nagłówka na pełną szerokość, żeby logo stało w linii z tekstem hero. Fonty i przyciski zostają z systemu wizualnego. | makieta właściciela |
+| 44 | Wyprzedane karty | Zamiast przezroczystości tekst w kolorze drugorzędnym (kontrast AA), przyciemnione tylko zdjęcia i miniatury; niedostępny zestaw ma przerywaną ramkę. | audyt axe na 1920 px |
+
 ## Otwarte
 
 * Weryfikacja `dev/dane/do-weryfikacji.csv` (133 wiersze dla 65 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.

@@ -288,7 +288,8 @@
   transition: border-color var(--n-dur-base) var(--n-ease-out), transform var(--n-spring-lift-ms) var(--n-spring-lift);
 }
 @media (hover: hover) { .set-card:hover { border-color: var(--border-gold-soft); transform: translateY(-2px); } }
-.set-card[data-soldout] { opacity: 0.75; }
+/* niedostępny zestaw: przerywana ramka zamiast przezroczystości, żeby tekst zachował kontrast AA */
+.set-card[data-soldout] { border-style: dashed; }
 .set-card__name { font-family: var(--font-display); font-size: 1.625rem; line-height: 1.1; font-weight: 500; }
 .set-card__desc { font-size: 0.9375rem; color: var(--text); }
 .set-card__meta { font-size: var(--n-size-small); color: var(--text-muted); }

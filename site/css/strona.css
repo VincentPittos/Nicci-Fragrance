@@ -34,7 +34,6 @@ body { background: var(--bg-dark); }
 .site-header__bar {
   display: flex; align-items: center; justify-content: space-between; gap: var(--n-space-4);
   height: 100%;
-  max-width: 90rem; margin-inline: auto;
   padding-inline: var(--gutter);
 }
 .brand-mark {
@@ -91,11 +90,35 @@ body { background: var(--bg-dark); }
 }
 .hero__inner { position: relative; z-index: 1; padding-inline: var(--gutter); }
 .hero__copy { display: grid; gap: var(--n-space-4); max-width: 36rem; }
-.hero__title { color: var(--text-strong); }
-.hero__title .t-accent { display: block; }
+/* Nagłówek w dwóch liniach: „Zapach z najwyższej półki” i pod nim większa, złota kursywa „Za ułamek ceny”,
+   podciągnięta pod pierwszą linię. Rozmiar obu linii wynika z --t1. */
+.hero__title {
+  --t1: var(--n-size-display);
+  display: grid;
+  color: var(--text-strong);
+}
+.hero__title-1 { font-size: var(--t1); line-height: 1.02; letter-spacing: -0.022em; }
+.hero__title-2 {
+  font-size: calc(var(--t1) * 1.28);
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  /* zapas na zawijas „Z”, wydłużenia liter i ogonek „y”, żeby gradient ich nie ucinał; marginesy go znoszą */
+  padding: 0.08em 0.06em 0.16em 0.1em;
+  margin: -0.22em 0 -0.16em -0.1em;
+  text-wrap: nowrap;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero__title-2 {
+    background: linear-gradient(100deg, var(--accent-hi) 0%, var(--accent) 45%, var(--accent-lo) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+}
+@media (forced-colors: active) { .hero__title-2 { background: none; color: CanvasText; } }
 .hero__lead { color: var(--text); }
 .hero__cta { display: grid; gap: var(--n-space-3); margin-top: var(--n-space-2); }
-.hero__micro { font-size: var(--n-size-small); color: var(--text-muted); text-align: center; }
 /* telefon: cała kompozycja pod tekstem, bez przycinania; lewa, ciemna część zdjęcia zlewa się z tłem */
 .hero__media { position: relative; order: 2; margin-top: var(--n-space-5); }
 .hero__media img {
@@ -106,14 +129,14 @@ body { background: var(--bg-dark); }
 
 @media (min-width: 40rem) {
   .hero__cta { display: flex; flex-wrap: wrap; }
-  .hero__micro { text-align: left; }
 }
 
 /* tablet i mały laptop: tekst wyżej, pod nim zdjęcie w całości */
 @media (min-width: 48rem) {
   .hero { padding-top: calc(5.25rem + var(--n-space-7)); }
   .hero__inner { width: 100%; max-width: 90rem; margin-inline: auto; }
-  .hero__copy { max-width: 38rem; }
+  .hero__copy { max-width: 44rem; }
+  .hero__lead { max-width: 36rem; }
 }
 
 /* od 80rem: zdjęcie w całości jako tło w swoich proporcjach, tekst w pustej lewej części jak w referencji.
@@ -126,18 +149,21 @@ body { background: var(--bg-dark); }
   }
   .hero__media { position: absolute; inset: 0; margin: 0; z-index: -1; }
   .hero__media img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; -webkit-mask-image: none; mask-image: none; }
+  /* Układ jak w makiecie właściciela: tekst przy lewej krawędzi, na ciemnej ścianie nad magnolią i obok flakonów.
+     Wymiary tekstu w vw, bo zdjęcie skaluje się z szerokością: kompozycja jest taka sama na 1280 i na 2560 px. */
   .hero__inner {
+    max-width: none;
     height: 100%;
     display: flex; align-items: flex-start;
-    /* tekst w górnej części pustej ściany: niżej na zdjęciu leży magnolia */
-    padding-top: clamp(8rem, 10.5vw, 12rem);
+    padding-top: max(7rem, 9vw);
   }
-  .hero__copy { max-width: min(38%, 36rem); gap: var(--n-space-4); }
-  .hero__title { font-size: clamp(3rem, 4.2vw, 4.25rem); line-height: 1; }
-  .hero__lead { font-size: 1.125rem; }
-  .hero__cta { flex-wrap: nowrap; gap: var(--n-space-3); }
-  .hero__cta .btn { min-height: 3rem; padding: 0 var(--n-space-4); font-size: 0.78rem; letter-spacing: 0.08em; white-space: nowrap; }
-  .hero__micro { margin-top: calc(var(--n-space-2) * -1); padding-left: var(--n-space-5); }
+  .hero__copy { max-width: none; gap: 1.9vw; }
+  .hero__title { --t1: 5.3vw; }
+  .hero__title-2 { font-size: calc(var(--t1) * 1.36); margin-top: -0.3em; }
+  .hero__lead { font-size: max(1.0625rem, 1.3vw); max-width: 37vw; }
+  .hero__cta { flex-wrap: nowrap; gap: 1vw; margin-top: 0.4vw; }
+  /* przyciski też w vw: przy stałym rozmiarze na 1280 px wchodziłyby na flakony i magnolię */
+  .hero__cta .btn { min-height: max(2.75rem, 3.4vw); padding: 0 max(1rem, 1.5vw); font-size: max(0.75rem, 0.82vw); white-space: nowrap; }
 }
 
 /* ---------- pasek zaufania ---------- */

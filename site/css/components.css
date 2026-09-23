@@ -414,9 +414,12 @@
 
 /* wyprzedane: stonowane zdjęcie i treść, akcja „Zobacz podobne” */
 .card[data-soldout] .card__media img { filter: grayscale(1) contrast(0.92); opacity: 0.55; }
-.card[data-soldout] .card__head,
-.card[data-soldout] .notes,
-.card[data-soldout] .card__desc { opacity: 0.6; }
+/* tekst wyprzedanej karty w kolorze drugorzędnym zamiast przezroczystości: kontrast zostaje powyżej 4,5:1 */
+.card[data-soldout] .card__brand,
+.card[data-soldout] .card__name,
+.card[data-soldout] .card__desc,
+.card[data-soldout] .note__label { color: var(--text-muted); }
+.card[data-soldout] .note__img { opacity: 0.6; }
 
 /* ---------- wariant A: kremowy, redakcyjny ---------- */
 .card--krem .card__body { padding-top: var(--n-space-5); }
