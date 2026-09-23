@@ -10,14 +10,14 @@
   var OPISY = {
     cytrusowa: 'Skórka cytryny pęka w palcach i w powietrzu zostaje coś jasnego, lekko gorzkiego. Budzi szybciej niż kawa i nie męczy nawet w upale. Dla Ciebie, jeśli chcesz pachnieć świeżo od rana do ostatniego spotkania.',
     drzewna: 'Ciepłe drewno, szczypta pieprzu i coś żywicznego pod spodem. Ten zapach nie wchodzi pierwszy do pokoju, ale zostaje w nim najdłużej. Dla osób, które lubią, gdy ktoś pyta, czym pachną, dopiero po godzinie rozmowy.',
-    gourmand: 'Wanilia, tonka i kawa, ale bez cukierni w tle. Pachnie jak ciepły sweter i deser jedzony powoli, przy dobrej rozmowie. Dla Ciebie, jeśli lubisz, gdy ktoś przysuwa się trochę bliżej.',
-    orientalna: 'Szafran, róża i żywice, które z każdą godziną rozgrzewają się na skórze. Gęsto, złoto, wieczornie. Dla osób, które chcą zostawić po sobie wyraźny ślad.',
-    aromatyczna: 'Gałązka rozmarynu, roztarty liść geranium i jasne drewno. Zapach świeżo wyprasowanej koszuli, który pasuje do biura i do weekendu. Dla Ciebie, jeśli chcesz pachnieć dobrze, a nie głośno.',
-    ambrowa: 'Ciepła żywica, wanilia i drewno sandałowe, które mięknie z godziny na godzinę. Pachnie jak skóra po całym dniu w słońcu. Dla osób, które szukają otulenia bez ciężaru.',
-    'skórzana': 'Miękka skóra, szczypta szafranu i ciemne owoce. Zapach nowej kurtki i wieczoru, który zaczyna się bez planu. Dla Ciebie, jeśli chcesz pachnieć pewnie i trochę przekornie.',
-    'świeża': 'Bergamotka, zielona herbata i biały kwiat tuż po deszczu. Lekko i czysto, bez wysiłku. Dla osób, które lubią zapach, który się czuje, a nie słyszy.',
-    kwiatowa: 'Kwiat pomarańczy, jaśmin i irys, jasne i żywe, z pieprzną iskrą. Kwiaty bez pudru i bez bukietu z kwiaciarni. Dla Ciebie, jeśli lubisz kwiaty, ale nie chcesz pachnieć jak ogród.',
-    'słodka': 'Marakuja, szafran i wanilia, soczyście i trochę zuchwale. Słodycz z charakterem, nie z cukiernicy. Dla osób, które lubią, gdy zapach zauważa się już od progu.'
+    gourmand: 'Pachnie jak ciepły sweter i deser jedzony powoli, przy dobrej rozmowie. Wanilia i tonka, czasem kawa albo liść tytoniu, a wszystko miękkie jak krem. Dla Ciebie, jeśli lubisz, gdy ktoś przysuwa się trochę bliżej.',
+    orientalna: 'Szafran i róża na ciemnej żywicy, która z każdą godziną rozgrzewa się na skórze. To zapach na wieczór przy świecach, gęsty i złoty. Dla osób, które chcą zostawić po sobie wyraźny ślad.',
+    aromatyczna: 'Liść geranium roztarty w palcach, trochę mięty i jasne drewno cedru. Pachnie jak świeżo wyprasowana koszula i pasuje tak samo do biura, jak do weekendu. Dla Ciebie, jeśli lubisz pachnieć schludnie i bez przesady.',
+    ambrowa: 'Ciepła żywica i wanilia na drewnie sandałowym, które mięknie z godziny na godzinę. Pachnie jak skóra po całym dniu w słońcu. Dla osób, które lubią zapach, w który można się otulić.',
+    'skórzana': 'Pachnie jak nowa skórzana kurtka, z odrobiną szafranu i ciemnych owoców w tle. To zapach wieczoru, który zaczyna się bez planu. Dla Ciebie, jeśli chcesz pachnieć pewnie i trochę przekornie.',
+    'świeża': 'Pachnie jak poranek po deszczu, kiedy otwierasz okno. W tle zielona herbata i bergamotka, jasne i czyste. Dla osób, które chcą pachnieć świeżo w każdej sytuacji, od biura po siłownię.',
+    kwiatowa: 'Kwiat pomarańczy i jaśmin w porannym słońcu, z iskrą różowego pieprzu i gałązką rozmarynu. Kwiaty są tu jasne i żywe, pełne soku. Dla Ciebie, jeśli lubisz kwiaty z odrobiną pazura.',
+    'słodka': 'Dojrzała marakuja z nutą szafranu, soczysta i trochę zuchwała. Wanilia pod spodem z czasem ją zaokrągla. Dla osób, które lubią, gdy zapach zauważa się już od progu.'
   };
 
   function slug(name) {

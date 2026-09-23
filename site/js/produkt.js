@@ -115,11 +115,11 @@
       '<div class="pd__media">' + photo + '</div>' +
       '<div class="pd__head"><p class="pd__brand">' + esc(p.marka) + '</p><p class="pd__name">' + esc(p.nazwa) + '</p></div>' +
       (tags.length ? '<ul class="chips pd__chips" aria-label="Charakter zapachu">' + tags.map(function (t) { return '<li class="chip">' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
-      (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml z tego flakonu</p>' : '') +
-      (U.isSoldOut(p) ? '<p class="pd__soldout">Ten zapach właśnie się skończył. Niżej znajdziesz podobne, które mamy.</p>' : '') +
+      (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml tego zapachu</p>' : '') +
+      (U.isSoldOut(p) ? '<p class="pd__soldout">Ten zapach właśnie się skończył.' + (similarList(p).length ? ' Niżej są podobne z naszego katalogu.' : '') + '</p>' : '') +
       (p.opis ? '<p class="pd__desc">' + esc(p.opis) + '</p>' : '') +
       pyramid(p) + when(p) + strength(p) + similar(p) +
-      '<div class="pd__block">' + igLink() + '<p class="pd__note-small">Odpisujemy w godzinach pracy. Chętnie doradzimy, zanim zamówisz.</p></div>' +
+      '<div class="pd__block">' + igLink() + '<p class="pd__note-small">Wahasz się między kilkoma zapachami? Napisz, doradzimy przed zamówieniem.</p></div>' +
       '</div>';
   }
 

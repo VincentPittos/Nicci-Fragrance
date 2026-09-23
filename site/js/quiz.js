@@ -21,7 +21,7 @@
     },
     pora: { 'dzień': ['dzien', 'Praca, uczelnia, spacer'], 'wieczór': ['wieczor', 'Kolacja, randka, koncert'], uniwersalna: ['uniwersalna', 'Jeden zapach na każdą okazję'] },
     sezon: { cieplo: ['lato', 'Wiosna i lato'], chlodno: ['zima', 'Jesień i zima'], caly: ['caly-rok', 'Bez względu na pogodę'] },
-    intensywnosc: { 1: ['int-1', 'Poczuje go ktoś, kto stoi blisko'], 2: ['int-2', 'Czuć go w rozmowie, nie od progu'], 3: ['int-3', 'Zostaje w pamięci po wyjściu'] }
+    intensywnosc: { 1: ['int-1', 'Poczuje go ktoś, kto stoi blisko'], 2: ['int-2', 'Czuć go, gdy z kimś rozmawiasz'], 3: ['int-3', 'Zostaje w pamięci po wyjściu'] }
   };
 
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
@@ -31,6 +31,16 @@
   var state = load() || { answers: {}, step: 0 };
   if (state.done) { state.done = false; state.step = Q.length - 1; } // powrót z wyniku: ostatnie pytanie z zaznaczeniem
   var preset = null;
+
+  function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
+
+  /** Przymiotnik rodziny w dopełniaczu: cytrusowa → cytrusowej, słodka → słodkiej; nazwy nieodmienne zostają. */
+  function genitive(name) {
+    var n = String(name || '').toLowerCase();
+    if (/[kg]a$/.test(n)) return n.slice(0, -1) + 'iej';
+    if (/a$/.test(n)) return n.slice(0, -1) + 'ej';
+    return n;
+  }
 
   // ---------- ?rodzina= z karuzeli ----------
   (function () {
@@ -73,7 +83,7 @@
     var html = '<p class="q__step">Pytanie ' + (i + 1) + ' z ' + Q.length + '</p>' +
       '<h1 class="q__title" id="q-t-' + i + '" tabindex="-1">' + q.pytanie + '</h1>';
     if (i === 0 && preset) {
-      html += '<p class="q__preset">Zaczynasz od rodziny ' + preset.rodzina + '. Zaznaczyliśmy ją w pytaniu o klimat jako „' + preset.opcja + '”, możesz to zmienić.</p>';
+      html += '<p class="q__preset">Zaczynasz od rodziny ' + esc(genitive(preset.rodzina)) + ', więc w pytaniu o klimat zaznaczyliśmy już „' + esc(preset.opcja) + '”. Możesz to zmienić.</p>';
     }
     if (q.multi) html += '<p class="q__hint" id="q-h-' + i + '">Możesz wybrać ' + (q.multi === 2 ? 'dwa' : q.multi) + '. <span data-counter></span></p>';
     html += '<div class="q__tiles" role="group" aria-labelledby="q-t-' + i + '"' + (q.multi ? ' aria-describedby="q-h-' + i + '"' : '') + '>';

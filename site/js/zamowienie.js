@@ -220,7 +220,7 @@
 
   function shortagesHtml(list) {
     return '<h2 class="oa__title">Części zapachów mamy mniej, niż jest w koszyku</h2>' +
-      '<p>Stany zmieniają się na bieżąco, bo odlewamy z jednego flakonu. Zmień ilość albo wybierz podobny zapach i złóż zamówienie jeszcze raz.</p>' +
+      '<p>Stany zmieniają się na bieżąco. Zmień ilość albo wybierz podobny zapach i złóż zamówienie jeszcze raz.</p>' +
       '<ul class="oa__list" role="list">' + list.map(function (s) {
         return '<li><b>' + esc(s.nazwa) + '</b>: ' + (s.zostalo > 0 ? 'zostało ' + s.zostalo + '&nbsp;ml, a w koszyku potrzeba ' + s.potrzeba + '&nbsp;ml' : 'nie ma go już na stanie') +
           (s.podobne && s.podobne.length ? '<span class="oa__alt">Podobne: ' + s.podobne.map(function (p) {

@@ -55,7 +55,7 @@
       '<div class="set-card__buy">' +
         '<p class="price">' + U.price(s.price) + '</p>' +
         (save ? '<p class="set-card__save">Osobno ' + U.price(s.cenaOsobno) + ', oszczędzasz ' + U.price(save) + '</p>' : '') +
-        (missing.length ? '<p class="set-card__missing">Brakuje: ' + missing.map(function (x) { return esc(x.marka + ' ' + x.nazwa); }).join(', ') + '</p>' : '') +
+        (missing.length ? '<p class="set-card__missing">Chwilowo brakuje: ' + missing.map(function (x) { return esc(x.marka + ' ' + x.nazwa); }).join(', ') + '</p>' : '') +
         '<div class="card__action" data-set-action>' + action(s) + '</div>' +
       '</div></article>';
   }

@@ -105,10 +105,10 @@
       }).join('') + '</ul>');
     }
     if (p.malo && p.zostalo) {
-      h.push('<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml z tego flakonu</p>');
+      h.push('<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml tego zapachu</p>');
     }
     if (notes.length) {
-      h.push('<ul class="notes" aria-label="Kluczowe nuty">' + notes.map(function (n) {
+      h.push('<ul class="notes" aria-label="Główne nuty">' + notes.map(function (n) {
         var img = (opts.noteImg && opts.noteImg(n.label)) || n.img;
         return '<li class="note">' + (img
           ? '<img class="note__img" src="' + U.esc(img) + '" alt="" width="256" height="256" loading="lazy" decoding="async">'

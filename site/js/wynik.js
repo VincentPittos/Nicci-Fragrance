@@ -42,25 +42,32 @@
   }
 
   // ---------- jedno zdanie uzasadnienia z pól produktu ----------
+  // rodzina w mianowniku (gdy produkt nie ma nut) i w miejscowniku („Paczula i wetyweria w …”)
   var RODZINA = {
-    cytrusowa: 'Cytrusowy i rześki', drzewna: 'Drzewny i elegancki', gourmand: 'Deserowy i otulający',
-    orientalna: 'Ciepły, orientalny', aromatyczna: 'Aromatyczny, ziołowy', ambrowa: 'Ambrowy i ciepły',
-    skorzana: 'Skórzany, z charakterem', swieza: 'Czysty i lekki', kwiatowa: 'Kwiatowy', slodka: 'Słodki i soczysty'
+    cytrusowa: ['Rześki, cytrusowy zapach', 'w rześkim, cytrusowym zapachu'],
+    drzewna: ['Elegancki zapach drzewny', 'w eleganckim zapachu drzewnym'],
+    gourmand: ['Otulający zapach deserowy', 'w otulającym zapachu deserowym'],
+    orientalna: ['Ciepły zapach orientalny', 'w ciepłym zapachu orientalnym'],
+    aromatyczna: ['Ziołowy, aromatyczny zapach', 'w ziołowym, aromatycznym zapachu'],
+    ambrowa: ['Ciepły zapach ambrowy', 'w ciepłym zapachu ambrowym'],
+    skorzana: ['Skórzany zapach z charakterem', 'w skórzanym zapachu z charakterem'],
+    swieza: ['Czysty, lekki zapach', 'w czystym, lekkim zapachu'],
+    kwiatowa: ['Zapach kwiatowy', 'w zapachu kwiatowym'],
+    slodka: ['Soczysty, słodki zapach', 'w soczystym, słodkim zapachu']
   };
   var PORA_P = { dzien: 'na dzień', wieczor: 'na wieczór', uniwersalna: 'na dzień i na wieczór' };
-  var MOC_P = { 1: 'trzyma się blisko skóry', 2: 'wyczuwalny, ale nie przytłacza', 3: 'zostawia wyraźny ślad' };
+  var MOC_P = { 1: 'który trzyma się blisko skóry', 2: 'który czuć w rozmowie', 3: 'który zostawia wyraźny ślad' };
 
+  /** Jedno zdanie z realnych pól: „Paczula i wetyweria w eleganckim zapachu drzewnym na wieczór, który zostawia wyraźny ślad.” */
   function why(p) {
-    var bits = [];
-    var fam = RODZINA[norm(p.rodzina)];
-    bits.push(fam || U.cap(p.rodzina));
+    var fam = RODZINA[norm(p.rodzina)] || ['Zapach z rodziny ' + p.rodzina, 'w zapachu z rodziny ' + p.rodzina];
+    var notes = C.notes(p, 2).map(function (n) { return n.label.charAt(0).toLocaleLowerCase('pl') + n.label.slice(1); });
+    var head = notes.length ? U.cap(notes.join(' i ')) + ' ' + fam[1] : fam[0];
+    var bits = [head];
     if (PORA_P[norm(p.pora)]) bits.push(PORA_P[norm(p.pora)]);
-    // dwie nuty o różnych surowcach (bez „pomarańcza i gorzka pomarańcza”)
-    var notes = C.notes(p, 2).map(function (n) { return n.label.toLocaleLowerCase('pl'); });
-    if (notes.length === 2) bits.push('w nutach ' + notes[0] + ' i ' + notes[1]);
-    else if (notes.length === 1) bits.push('w nutach ' + notes[0]);
-    if (MOC_P[p.intensywnosc]) bits.push(MOC_P[p.intensywnosc]);
-    return bits.filter(Boolean).join(', ') + '.';
+    var s = bits.join(' ');
+    if (MOC_P[p.intensywnosc]) s += ', ' + MOC_P[p.intensywnosc];
+    return s + '.';
   }
 
   // ---------- widok ----------
@@ -80,7 +87,7 @@
         '<p class="rc__brand">' + esc(p.marka) + '</p>' +
         '<h3 class="rc__name" id="rc-' + esc(p.id) + '">' + esc(p.nazwa) + '</h3>' +
         '<p class="rc__why">' + esc(why(p)) + '</p>' +
-        (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml z tego flakonu</p>' : '') +
+        (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml tego zapachu</p>' : '') +
         C.buy(p, 'rc' + k) +
         '<button type="button" class="link rc__more" data-open aria-haspopup="dialog">Nuty i szczegóły</button>' +
       '</div></article>';

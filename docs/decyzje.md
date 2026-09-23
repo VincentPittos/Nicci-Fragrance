@@ -56,12 +56,22 @@
 | 28 | Trwałość i projekcja | Paski w skali 1 do 5 z podpisem „Orientacyjnie. Na każdej skórze zapach zachowuje się trochę inaczej.” Wartość spoza skali: sam tekst. | propozycja do akceptacji |
 | 29 | Gwarancje i FAQ | Tylko fakty z README (rezerwacja 24 h, przypomnienie po 12 h, ręczne potwierdzanie wpłat, mail z numerem przesyłki). Resztę oznaczono `{TODO}` do potwierdzenia z regulaminem. | wniosek |
 
+## 23.09.2026, etapy 6 do 8
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 30 | Ikony quizu i paski trwałości | Mapa ikon i paski 1 do 5 przyjęte bez uwag po STOP 6. | akceptacja właściciela |
+| 31 | Tekst sekcji 2 | Treść artifactu właściciela zostaje bez zmian. Poprawki etapu 8 dotyczą tylko tekstów pisanych przez nas. | prompt, sekcja 7 |
+| 32 | Opisy rodzin | Przepisane pod realne nuty każdej rodziny w katalogu: jeden obraz, najwyżej jedna krótka lista surowców, zakończenie „dla kogo”. Opis drzewny zostaje słowo w słowo z promptu. | prompt, sekcja 8 |
+| 33 | Uzasadnienie na /wynik | Jedno zdanie z pól produktu: dwie nuty, rodzina, pora i intensywność, np. „Szafran i róża w ciepłym zapachu orientalnym na wieczór, który zostawia wyraźny ślad.” Bez pola nie ma jego części zdania. | prompt, sekcja 12 |
+| 34 | Usunięte obietnice bez pokrycia | „Odpisujemy w godzinach pracy”, „odlewamy z jednego flakonu”, „potwierdzenie może przyjść po kilku godzinach” i „ml z tego flakonu” zastąpione zdaniami, które nie zakładają nieznanych faktów. | humanizer, zasada braku zmyśleń |
+| 35 | Komunikaty z `nicci-api.js` | Teksty błędów w module (np. „Coś poszło nie tak po naszej stronie…”) są zgodne z głosem marki. Moduł zostaje bez zmian, więc ich nie ruszamy. | kontrakt modułu |
+
 ## Otwarte
 
 * Weryfikacja 114 pozycji z `dev/dane/do-weryfikacji.csv`, w tym profil wszystkich zapachów i rodziny z członem spoza listy.
 * `ml_dostepne` dla wszystkich aktywnych pozycji (bez tego backend uzna je za niedostępne).
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
 * Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
-* Trwałość i projekcja: arkusz zastrzega, że to szacunki. Propozycja: paski z podpisem „orientacyjnie”.
 * Zdjęcia 15 produktów (LV 5, MFK 2, Dior 4, Versace 1, YSL 2, Hermès 1): własne albo materiały prasowe. Lista w `docs/03-plan-grafik.md`.
 * Prawa do packshotów producentów: to materiały marek. Na dłuższą metę bezpieczniejsze są własne zdjęcia flakonów i atomizerów Nicci (rekomendacja z promptu).

@@ -82,8 +82,8 @@
         '<section class="confirm__box" aria-labelledby="c-next"><h2 class="confirm__h" id="c-next">Co dalej</h2>' +
           '<p>Gdy zobaczymy wpłatę, potwierdzimy ją mailem i zaczniemy odlewać Twoje zapachy. Po nadaniu paczki dostaniesz numer przesyłki z linkiem do śledzenia.</p>' +
         '</section>' +
-        '<section class="confirm__box confirm__box--ig" aria-labelledby="c-ig"><h2 class="confirm__h" id="c-ig">Chcesz mieć kontakt na Instagramie?</h2>' +
-          '<p>Możesz wysłać nam zamówienie w wiadomości. To nieobowiązkowe i nie wstrzymuje płatności.</p>' +
+        '<section class="confirm__box confirm__box--ig" aria-labelledby="c-ig"><h2 class="confirm__h" id="c-ig">Wolisz pisać na Instagramie?</h2>' +
+          '<p>Możesz wysłać nam zamówienie w wiadomości. Nie musisz, płatność działa tak samo.</p>' +
           '<button type="button" class="btn btn--outline btn--block" data-ig-send>' + window.NicciIkony.svg('instagram', { size: 22 }) + 'Wyślij zamówienie do nas na Instagramie</button>' +
           '<p class="confirm__hint" data-ig-hint aria-live="polite">Skopiujemy treść zamówienia, wystarczy ją wkleić i wysłać.</p>' +
         '</section>' +

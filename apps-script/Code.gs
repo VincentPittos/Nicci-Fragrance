@@ -583,7 +583,7 @@ const TEMPLATES = {
       'Jeśli wygodniej Ci inaczej, możesz też zapłacić tak:',
       alt,
       itemsBlock_(o),
-      'Gdy zobaczymy wpłatę, napiszemy do Ciebie i zaczniemy odlewać. Wpłaty sprawdzamy ręcznie, więc potwierdzenie może przyjść po kilku godzinach. Jeśli pieniądze nie dotrą do końca rezerwacji, zapachy wrócą do katalogu.',
+      'Gdy zobaczymy wpłatę, napiszemy do Ciebie i zaczniemy odlewać. Wpłaty sprawdzamy ręcznie, więc na potwierdzenie trzeba chwilę poczekać. Jeśli pieniądze nie dotrą do końca rezerwacji, zapachy wrócą do katalogu.',
       'Masz pytanie? Odpisz na tego maila albo napisz do nas na Instagramie: https://ig.me/m/' + cfg.IG_HANDLE
     ];
     return mail_('Zamówienie ' + o.numer + ': dane do płatności', paragraphs, cfg);
@@ -605,7 +605,7 @@ const TEMPLATES = {
       'Cześć ' + firstName_(o.customer.name) + ',',
       'Twoje zapachy dalej czekają. Rezerwację trzymamy do ' + terminTxt_(o.until, cfg.TIMEZONE) + '.',
       'Kwota: ' + formatPln_(o.total) + ', tytuł przelewu: ' + o.numer + '. Dane do płatności są w poprzednim mailu od nas.',
-      'Jeśli już zapłacisz, nic więcej nie musisz robić. A jeśli się rozmyślisz, po prostu zignoruj tę wiadomość.'
+      'Jeśli wpłata jest już w drodze, nic więcej nie musisz robić. A jeśli zmienisz zdanie, zignoruj tę wiadomość, rezerwacja sama wygaśnie.'
     ], cfg);
   },
 
@@ -613,7 +613,7 @@ const TEMPLATES = {
     return mail_('Rezerwacja ' + o.numer + ' wygasła', [
       'Cześć ' + firstName_(o.customer.name) + ',',
       'nie zobaczyliśmy wpłaty za zamówienie ' + o.numer + ', więc rezerwacja wygasła, a zapachy wróciły do katalogu.',
-      'Jeśli pieniądze są już w drodze, napisz do nas, sprawdzimy, czy wszystko jest jeszcze na stanie.',
+      'Jeśli pieniądze są już w drodze, napisz do nas, a sprawdzimy, czy wszystko jest jeszcze na stanie.',
       'Możesz też złożyć zamówienie jeszcze raz: ' + cfg.SITE_URL
     ], cfg);
   },
