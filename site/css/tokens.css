@@ -27,6 +27,7 @@
   --n-cream-100: #F3EADF;   /* jasny krem: tło sekcji 3 i dalej */
   --n-cream-50: #FAF6F0;    /* karty, pola formularza */
   --n-white: #FFFFFF;
+  --n-canvas: #F1EFEC;      /* tło ujednoliconych zdjęć flakonów (dev/zdjecia/ujednolic_zdjecia.py) */
   --n-red-700: #9B2C1C;
   --n-red-300: #EFA08F;
   --n-green-700: #2F5D3A;
@@ -84,7 +85,10 @@
   --bg-light: var(--n-cream-100);
   --surface: var(--n-cream-50);
   --surface-panel: var(--n-cream);
-  --surface-media: var(--n-white);
+  --surface-media: var(--n-canvas); /* ten sam kolor co tło zdjęć: przy „contain” nie widać szwu */
+  /* tekst na tle zdjęcia produktu: kadr jest zawsze jasny, także w ciemnej karcie, więc te role nie zmieniają się z kontekstem */
+  --media-accent: var(--n-gold-700);
+  --media-muted: var(--n-taupe-700);
 
   --text-strong: var(--n-black);
   --text: var(--n-graphite);

@@ -217,6 +217,7 @@ body { background: var(--bg-dark); }
 
 /* ---------- część jasna ---------- */
 .light-page { background: var(--bg-light); }
+.container--wide { max-width: 90rem; }
 .section-head { display: grid; gap: var(--n-space-3); margin-bottom: var(--n-space-6); }
 .section-head .t-h2 { max-width: 20ch; }
 .families, .catalog, .sets, .guarantees, .faq { padding-block: var(--n-space-8); scroll-margin-top: 4rem; }

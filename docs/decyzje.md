@@ -47,6 +47,15 @@
 | 24 | Pasek zaufania | Zamiast „Ponad 70 zapachów” dokładna liczba z katalogu z odmianą („64 zapachy”), bo aktywnych jest 64. | wniosek |
 | 25 | Szuflady | Głębia strony pod szufladą liczona od środka widocznego ekranu (wcześniej od góry dokumentu, co przesuwało przewiniętą stronę). | wniosek |
 
+## 23.09.2026, etap 5
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 26 | Kolejność w grupie katalogu | Zapachy ze zdjęciem na początku grupy, potem `kolejnosc` z arkusza. Tymczasowe, dopóki 15 flakonów nie ma zdjęć; po ich dodaniu decyduje sama `kolejnosc`. | wniosek |
+| 27 | Filtry | Komputer: panel z boku, zmiany od razu. Telefon i tablet: szuflada z przyciskiem „Pokaż N zapachów”. Profil pokazuje tylko wartości obecne w danych (męski, unisex). | wniosek |
+| 28 | Trwałość i projekcja | Paski w skali 1 do 5 z podpisem „Orientacyjnie. Na każdej skórze zapach zachowuje się trochę inaczej.” Wartość spoza skali: sam tekst. | propozycja do akceptacji |
+| 29 | Gwarancje i FAQ | Tylko fakty z README (rezerwacja 24 h, przypomnienie po 12 h, ręczne potwierdzanie wpłat, mail z numerem przesyłki). Resztę oznaczono `{TODO}` do potwierdzenia z regulaminem. | wniosek |
+
 ## Otwarte
 
 * Weryfikacja 114 pozycji z `dev/dane/do-weryfikacji.csv`, w tym profil wszystkich zapachów i rodziny z członem spoza listy.

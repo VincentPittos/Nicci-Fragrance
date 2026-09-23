@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="/css/components.css">
 <link rel="stylesheet" href="/css/strona.css">
 <link rel="stylesheet" href="/css/sekcja2.css">
+<link rel="stylesheet" href="/css/katalog.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -253,11 +254,11 @@
 
 <!-- 4. KATALOG (etap 5) -->
 <section class="catalog" id="katalog" aria-labelledby="catalog-t">
-  <header class="section-head container">
+  <header class="section-head container container--wide">
     <p class="t-eyebrow t-eyebrow--rule">Katalog</p>
     <h2 class="t-h2" id="catalog-t">Wszystkie zapachy</h2>
   </header>
-  <div class="container" data-catalog></div>
+  <div class="container container--wide" data-catalog></div>
 </section>
 
 <!-- 5. ZESTAWY ODKRYWCÓW (etap 5) -->
@@ -274,7 +275,26 @@
   <header class="section-head container">
     <p class="t-eyebrow t-eyebrow--rule">Gwarancje</p>
     <h2 class="t-h2" id="guarantees-t">Na czym możesz polegać</h2>
+    <p class="t-small" data-todo="gwarancje">{TODO: potwierdzić z właścicielem i z regulaminem}</p>
   </header>
+  <!-- {TODO: potwierdzić z właścicielem i z regulaminem} Każdy blok opisuje mechanizm, nie obietnicę. -->
+  <div class="container"><ul class="guarantee-list" role="list">
+    <li class="guarantee">
+      <span class="guarantee__icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="11" width="8" height="17" rx="1.5"/><path d="M14 11V7.5h4V11M16 7.5V5M14 17h4"/></svg></span>
+      <h3 class="guarantee__title">Tylko z oryginalnych flakonów</h3>
+      <p>Każdą odlewkę przelewamy ręcznie z oryginalnego flakonu marki, którą widzisz w katalogu. Nie rozcieńczamy i nie mieszamy zapachów. <span data-todo="oryginalnosc">{TODO: skąd pochodzą flakony i czy na prośbę pokazujecie zdjęcie flakonu przed wysyłką}</span></p>
+    </li>
+    <li class="guarantee">
+      <span class="guarantee__icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 26.5s-9.5-5.6-9.5-12.6a5.2 5.2 0 0 1 9.5-2.9 5.2 5.2 0 0 1 9.5 2.9c0 7-9.5 12.6-9.5 12.6Z"/></svg></span>
+      <h3 class="guarantee__title">Dobór, zanim zapłacisz</h3>
+      <p>Quiz wybiera trzy zapachy z Twoich odpowiedzi, a na Instagramie doradzimy, jeśli wahasz się między kilkoma. Zaczynasz od 5&nbsp;ml, więc poznajesz zapach bez kupowania całego flakonu. <span data-todo="dopasowanie">{TODO: co się dzieje, gdy zapach nie pasuje, zgodnie z regulaminem}</span></p>
+    </li>
+    <li class="guarantee">
+      <span class="guarantee__icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10.5 16 5l11 5.5v11L16 27 5 21.5Z"/><path d="M5 10.5 16 16l11-5.5M16 16v11M10.5 7.8l11 5.5"/></svg></span>
+      <h3 class="guarantee__title">Wysyłka ze śledzeniem</h3>
+      <p>Paczkę nadajemy <span data-todo="czas-wysylki">{TODO: w ciągu ilu dni roboczych od zaksięgowania wpłaty}</span>. W chwili nadania dostajesz mail z numerem przesyłki i linkiem do śledzenia.</p>
+    </li>
+  </ul></div>
 </section>
 
 <section class="faq" id="faq" aria-labelledby="faq-t">
@@ -282,6 +302,17 @@
     <p class="t-eyebrow t-eyebrow--rule">FAQ</p>
     <h2 class="t-h2" id="faq-t">Pytania, które dostajemy najczęściej</h2>
   </header>
+  <div class="container"><div class="faq__list" data-faq>
+<details class="faq__item" name="faq" open><summary class="faq__q"><span>Czy perfumy są oryginalne?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Tak. Odlewamy wyłącznie z oryginalnych flakonów marek z naszego katalogu, bez rozcieńczania. <span data-todo="faq-oryginalnosc">{TODO: skąd pochodzą flakony}</span></p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Jak wygląda odlewka i atomizer?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Zapach przelewamy ręcznie do złotego atomizera z rozpylaczem, w pojemności 5, 10 albo 20&nbsp;ml. Zmieści się w kieszeni i w kosmetyczce. <span data-todo="faq-atomizer">{TODO: materiał atomizera i czy ma etykietę z nazwą zapachu}</span></p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Jak zapłacić BLIKiem na telefon?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Po złożeniu zamówienia pokażemy numer telefonu, kwotę i tytuł przelewu, czyli numer zamówienia, na przykład NF0101. W aplikacji banku wybierasz przelew na telefon BLIK i przepisujesz te dane. To samo wyślemy Ci mailem. Wolisz zwykły przelew? Numer konta też tam będzie.</p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Kiedy potwierdzicie moją wpłatę?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Wpłaty sprawdzamy ręcznie w banku <span data-todo="faq-wplaty">{TODO: jak często, na przykład rano i wieczorem}</span>. Gdy zobaczymy przelew z numerem zamówienia w tytule, potwierdzamy go i od razu wysyłamy Ci mail.</p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Ile trwa wysyłka?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Wysyłamy do paczkomatu InPost albo kurierem. Paczka wychodzi <span data-todo="faq-wysylka">{TODO: realna liczba dni}</span> od potwierdzenia wpłaty. Gdy ją nadamy, dostaniesz mail z numerem przesyłki i linkiem do śledzenia.</p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Co jeśli zapłacę po terminie rezerwacji?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>Rezerwację trzymamy 24 godziny od złożenia zamówienia. Po 12 godzinach bez wpłaty przypomnimy się mailem, a po 24 rezerwacja wygasa i zapachy wracają do katalogu. Jeśli wpłata przyjdzie później, sprawdzimy, czy zapach jest jeszcze na stanie, i odezwiemy się. <span data-todo="faq-po-terminie">{TODO: co wtedy: realizacja czy zwrot pieniędzy}</span></p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Czy mogę zwrócić odlewkę?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p><span data-todo="faq-zwrot">{TODO: odpowiedź zgodna z regulaminem}</span></p></div></details>
+<details class="faq__item" name="faq"><summary class="faq__q"><span>Jak długo zapach utrzymuje się w odlewce?</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>W atomizerze jest dokładnie ten sam zapach co we flakonie. Trzymaj go z dala od słońca i ciepła, wtedy nie zmienia się przez długi czas. <span data-todo="faq-trwalosc">{TODO: potwierdzić z właścicielem, jak długo}</span></p></div></details>
+  </div></div>
+  <p class="faq__more container">Nie ma tu Twojego pytania? <a class="link" href="https://instagram.com/" data-ig-dm target="_blank" rel="noopener">Napisz do nas na Instagramie</a></p>
 </section>
 
 </div>
@@ -330,12 +361,16 @@
 <script src="/js/motion.js" defer></script>
 <script src="/js/ui.js" defer></script>
 <script src="/js/nuty.js" defer></script>
+<script src="/js/ikony.js" defer></script>
 <script src="/js/rodziny.js" defer></script>
 <script src="/js/drawer.js" defer></script>
 <script src="/js/card.js" defer></script>
 <script src="/js/karuzela.js" defer></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/sekcja2.js" defer></script>
+<script src="/js/katalog.js" defer></script>
+<script src="/js/produkt.js" defer></script>
+<script src="/js/zestawy.js" defer></script>
 <script src="/js/strona-glowna.js" defer></script>
 </body>
 </html>
