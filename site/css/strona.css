@@ -3,25 +3,6 @@
 
 body { background: var(--bg-dark); }
 
-.skip-link {
-  position: absolute; left: var(--n-space-3); top: -4rem; z-index: 200;
-  padding: 0.75rem 1rem;
-  background: var(--inverse-bg); color: var(--inverse-fg);
-  text-decoration: none;
-}
-.skip-link:focus { top: var(--n-space-3); }
-
-.icon-btn {
-  display: inline-grid; place-items: center;
-  width: 2.75rem; height: 2.75rem;
-  border: 0; border-radius: var(--n-radius-pill);
-  background: none; color: var(--text-strong);
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color var(--n-dur-base) var(--n-ease-out), opacity var(--n-dur-base) var(--n-ease-out);
-}
-.icon-btn[disabled] { opacity: 0.3; cursor: default; }
-@media (hover: hover) { .icon-btn:not([disabled]):hover { background: color-mix(in srgb, var(--text-strong) 8%, transparent); } }
-
 /* ---------- nagłówek ---------- */
 .site-header {
   --header-h: 4.25rem;
@@ -44,6 +25,9 @@ body { background: var(--bg-dark); }
   backdrop-filter: saturate(1.2) blur(14px);
 }
 .site-header[data-scrolled]::after { opacity: 1; }
+/* podstrony bez ciemnego hero: nagłówek od razu pełny i nie nachodzi na treść */
+.site-header--solid { margin-bottom: 0; background-color: var(--bg-dark); }
+.site-header--solid::after { opacity: 1; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .site-header[data-scrolled] { background-color: var(--bg-dark); }
 }

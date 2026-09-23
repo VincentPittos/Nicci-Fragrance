@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><title>Nicci: arkusz ikon quizu</title>
+<link rel="stylesheet" href="../../site/css/fonts.css">
+<link rel="stylesheet" href="../../site/css/tokens.css">
+<style>
+body{margin:0;background:#040404;color:#E8D7C3;font-family:var(--n-font-sans);padding:40px}
+h1{font-family:var(--n-font-serif);font-weight:500;font-size:40px;margin:0 0 6px;color:#fff}
+p.lead{margin:0 0 28px;color:#A99789;font-size:15px}
+h2{font-family:var(--n-font-sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#D5A865;margin:28px 0 12px;font-weight:500}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.t{background:#1A1918;border:1px solid rgba(213,168,101,.28);border-radius:10px;padding:18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.big{color:#D5A865;display:grid;place-items:center;width:72px;height:72px;border:1px solid rgba(213,168,101,.18);border-radius:8px}
+.small{color:#D5A865}
+.t b{display:block;font-family:var(--n-font-serif);font-size:20px;font-weight:500;color:#fff}
+.t span{font-size:12.5px;color:#A99789}
+.t code{font-size:11px;color:#7C695B}
+.sizes{display:flex;gap:10px;align-items:center;margin-top:8px}
+</style></head><body>
+<h1>Ikony odpowiedzi quizu</h1>
+<p class="lead">Siatka 32×32, obrys 1,5 px, zaokrąglone końce, bez wypełnień, złoto na ciemnym kaflu. Rysowane pod markę, bez bibliotek. Obok każdej: rozmiar w kaflu (64 px) i najmniejszy (24 px).</p>
+<div id="out"></div>
+<script src="../../site/js/ikony.js"></script>
+<script>
+var Q=[
+ ['Dla kogo szukasz zapachu?',[['q-meski','Dla niego','flakon o prostych krawędziach'],['q-damski','Dla niej','flakon o miękkim kształcie'],['q-unisex','Bez znaczenia','dwa flakony obok siebie']]],
+ ['Który klimat jest Ci najbliższy? (do dwóch)',[['k-swiezy','Świeżo i czysto','przekrojony cytrus (decyzja właściciela)'],['k-drzewny','Drzewnie i elegancko','słoje drewna'],['k-slodki','Słodko i otulająco','kropla karmelu'],['k-kwiatowy','Kwiatowo','kwiat z profilu']]],
+ ['Kiedy chcesz go nosić?',[['dzien','Na co dzień','słońce w zenicie'],['wieczor','Wieczorem i na wyjścia','półksiężyc'],['uniwersalna','Do wszystkiego','słońce i księżyc']]],
+ ['W jakiej porze roku?',[['lato','Ciepłe miesiące','słońce nad wodą'],['zima','Chłodne miesiące','płatek śniegu'],['caly-rok','Cały rok','obieg roku']]],
+ ['Jak mocny ma być?',[['int-1','Blisko skóry','jeden łuk przy punkcie'],['int-2','Wyczuwalny','dwa łuki'],['int-3','Zostawia ślad','trzy łuki']]]
+];
+var h='';
+Q.forEach(function(q){h+='<h2>'+q[0]+'</h2><div class="row">';q[1].forEach(function(i){h+='<div class="t"><div class="big">'+NicciIkony.svg(i[0],{size:56})+'</div><div><b>'+i[1]+'</b><span>'+i[2]+'</span><div class="sizes"><span class="small">'+NicciIkony.svg(i[0],{size:32})+'</span><span class="small">'+NicciIkony.svg(i[0],{size:24})+'</span><code>'+i[0]+'</code></div></div></div>';});h+='</div>';});
+document.getElementById('out').innerHTML=h;
+</script></body></html>

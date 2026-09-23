@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quiz zapachowy: pięć pytań, trzy zapachy dla Ciebie | Nicci Fragrance</title>
+<meta name="description" content="Odpowiedz na pięć krótkich pytań, a dobierzemy trzy oryginalne perfumy w odlewkach 5, 10 i 20 ml.">
+<meta name="theme-color" content="#040404">
+<link rel="canonical" href="/quiz">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Nicci Fragrance">
+<meta property="og:title" content="Dobierz zapach w minutę">
+<meta property="og:description" content="Pięć pytań, trzy zapachy dobrane do Twoich odpowiedzi.">
+<meta property="og:image" content="/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/img/marka/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/img/marka/apple-touch-icon.png">
+<link rel="preload" href="/fonts/cormorant-garamond-normal-latin-2fed1d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jost-normal-latin-35841f.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/quiz.css">
+</head>
+<body class="quiz-page theme-dark">
+<a class="skip-link" href="#main">Przejdź do pytania</a>
+<header class="quiz-top">
+  <a class="quiz-top__logo" href="/" aria-label="Nicci Fragrance, strona główna">
+    <img src="/img/marka/logo-pelne-zloto.svg" alt="" width="1505" height="1640">
+  </a>
+  <div class="quiz-top__progress">
+    <span class="quiz-top__bar" aria-hidden="true"><span data-bar></span></span>
+    <span class="quiz-top__count" data-step-count aria-hidden="true"></span>
+  </div>
+  <a class="quiz-top__close" href="/" aria-label="Zamknij quiz i wróć na stronę główną">
+    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m9 9 14 14M23 9 9 23"/></svg>
+  </a>
+</header>
+
+<main class="quiz" id="main">
+  <div class="quiz__stage" data-stage aria-live="off"></div>
+  <noscript><p class="q__title">Quiz potrzebuje włączonego JavaScriptu. Możesz też przejrzeć <a href="/#katalog">cały katalog</a>.</p></noscript>
+</main>
+
+<nav class="quiz-nav" aria-label="Nawigacja quizu">
+  <button type="button" class="btn btn--outline quiz-nav__back" data-back hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Wstecz
+  </button>
+  <a class="btn btn--outline quiz-nav__back" href="/" data-home>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Wstecz
+  </a>
+  <button type="button" class="btn btn--primary quiz-nav__next" data-next hidden>Dalej</button>
+</nav>
+
+<script src="/nicci-api.js" defer></script>
+<script src="/js/motion.js" defer></script>
+<script src="/js/ikony.js" defer></script>
+<script src="/js/rodziny.js" defer></script>
+<script src="/js/app.js" defer></script>
+<script src="/js/quiz.js" defer></script>
+</body>
+</html>

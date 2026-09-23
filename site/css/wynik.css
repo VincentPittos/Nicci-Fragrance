@@ -1,0 +1,103 @@
+/* NICCI: ekran wyniku quizu. Krem, spokojna kompozycja, jeden mocny akcent: wyróżniona pierwsza karta. */
+
+.result-page { background: var(--bg-light); }
+.result { padding-block: var(--n-space-7) var(--n-space-9); min-height: 70vh; }
+.result__head { display: grid; gap: var(--n-space-3); margin-bottom: var(--n-space-6); max-width: 46rem; }
+.result__title { font-family: var(--font-display); font-weight: 500; font-size: var(--n-size-h2); line-height: 1.04; letter-spacing: -0.016em; }
+.result__line { font-family: var(--font-display); font-style: italic; font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem); line-height: 1.3; color: var(--text); }
+.result__partial { padding: var(--n-space-3) var(--n-space-4); border-left: 2px solid var(--accent); background: var(--surface); font-size: 0.9375rem; }
+
+/* ---------- karty ---------- */
+.result__cards { display: grid; gap: var(--n-space-4); }
+.rc {
+  container: card / inline-size;
+  position: relative;
+  display: grid; grid-template-columns: 38% 1fr;
+  background: var(--surface);
+  border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.rc__label {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  padding: 0.4rem 0.75rem;
+  background: var(--inverse-bg); color: var(--inverse-fg);
+  font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.rc__media { position: relative; display: block; padding: 0; border: 0; background: var(--surface-media); overflow: hidden; aspect-ratio: 4 / 5; align-self: start; }
+.rc__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--n-spring-ui-ms) var(--n-spring-ui); }
+@media (hover: hover) { .rc__media:hover img { transform: scale(1.02); } }
+.rc__body { display: grid; gap: var(--n-space-2); align-content: start; padding: var(--n-space-4); min-width: 0; }
+.rc__brand { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.05; color: var(--text-accent); }
+.rc__name { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.15; font-weight: 500; }
+.rc__why { font-size: 0.9375rem; line-height: 1.55; color: var(--text); }
+.rc .card__buy { gap: var(--n-space-2); margin-top: var(--n-space-2); }
+.rc .seg { gap: 0.3rem; }
+.rc .seg__opt span { min-height: 2.5rem; font-size: 0.875rem; }
+.rc .price { font-size: 1.375rem; }
+.rc__more { justify-self: start; }
+
+/* pierwsza karta: większa, złota ramka, etykieta */
+.rc--top { grid-template-columns: 1fr; border: 1px solid var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.rc--top .rc__media { aspect-ratio: 4 / 5; max-height: 26rem; width: 100%; }
+.rc--top .rc__media img { object-fit: contain; }
+.rc--top .rc__body { padding: var(--n-space-5); gap: var(--n-space-3); }
+.rc--top .rc__brand { font-size: 1.875rem; }
+.rc--top .rc__name { font-size: 1.625rem; }
+.rc--top .rc__why { font-size: 1.0625rem; }
+
+@media (min-width: 48rem) {
+  .result__cards { grid-template-columns: 1.35fr 1fr; grid-template-rows: auto auto; }
+  .rc--top { grid-row: span 2; grid-template-columns: 1fr; }
+  .rc--top .rc__media { max-height: none; }
+}
+@media (min-width: 64rem) {
+  .result { padding-top: var(--n-space-8); }
+  .rc--top { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .rc--top .rc__media { aspect-ratio: auto; height: 100%; min-height: 30rem; }
+  .rc--top .rc__body { align-content: center; padding: var(--n-space-6); }
+  .result__cards { grid-template-columns: 1.6fr 1fr; }
+}
+
+/* ---------- dwa wyjścia ---------- */
+.result__all { display: grid; gap: var(--n-space-3); margin-top: var(--n-space-6); }
+.result__sum { margin-left: var(--n-space-3); padding-left: var(--n-space-3); border-left: 1px solid color-mix(in srgb, var(--on-accent) 30%, transparent); font-variant-numeric: tabular-nums lining-nums; }
+@media (min-width: 48rem) { .result__all { grid-auto-flow: column; justify-content: start; } }
+
+/* ---------- zestaw ---------- */
+.rs {
+  display: grid; gap: var(--n-space-3);
+  margin-top: var(--n-space-8); padding: var(--n-space-6) var(--n-space-5);
+  background: var(--surface); border: var(--n-hairline) solid var(--border-gold);
+}
+.rs__title { font-family: var(--font-display); font-size: var(--n-size-h3); font-weight: 500; line-height: 1.1; }
+.rs__lead { max-width: 36em; color: var(--text); }
+.rs__list { display: grid; border-top: var(--n-hairline) solid var(--border-hairline); max-width: 34rem; }
+.rs__list li { display: flex; justify-content: space-between; gap: var(--n-space-3); padding: 0.6rem 0; border-bottom: var(--n-hairline) solid var(--border-hairline); font-size: 0.9375rem; }
+.rs__list b { font-weight: 500; color: var(--text-strong); }
+.rs__buy { display: flex; flex-wrap: wrap; align-items: center; gap: var(--n-space-3) var(--n-space-5); margin-top: var(--n-space-2); }
+.rs__save { font-size: var(--n-size-small); font-weight: 500; color: var(--text-accent); }
+
+.result__links { display: flex; flex-wrap: wrap; gap: var(--n-space-2) var(--n-space-6); margin-top: var(--n-space-7); }
+.result__empty { display: grid; gap: var(--n-space-4); max-width: 36rem; padding-block: var(--n-space-8); }
+
+/* ---------- pasek do zamówienia ---------- */
+.order-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--n-z-toast);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--n-space-4);
+  padding: var(--n-space-3) var(--gutter) calc(var(--n-space-3) + env(safe-area-inset-bottom, 0px));
+  border-top: var(--n-hairline) solid var(--accent);
+}
+.order-bar p { font-size: var(--n-size-small); color: var(--text); }
+.order-bar b { display: block; font-size: 1.125rem; font-weight: 500; color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.order-bar .btn { min-height: 3rem; padding-inline: var(--n-space-4); font-size: 0.8125rem; }
+.order-bar[hidden] { display: none; }
+@media (min-width: 48rem) { .order-bar { justify-content: center; gap: var(--n-space-7); } .order-bar b { display: inline; margin-left: var(--n-space-2); } }
+
+/* telefon: długie etykiety z promptu mieszczą się w jednej linii dzięki ciaśniejszemu krojowi przycisku */
+@media (max-width: 47.99rem) {
+  .result__all .btn { font-size: 0.78rem; letter-spacing: 0.02em; padding-inline: var(--n-space-3); white-space: nowrap; }
+  .rc:not(.rc--top) .btn { font-size: 0.8125rem; letter-spacing: 0.03em; padding-inline: var(--n-space-2); white-space: nowrap; }
+  .rc:not(.rc--top) .card__incart { grid-template-columns: minmax(0, 1fr); }
+  .rc:not(.rc--top) .card__incart p { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); }
+  .rc:not(.rc--top) .stepper { grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem; }
+  .rc:not(.rc--top) .card__cta-rest { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+}

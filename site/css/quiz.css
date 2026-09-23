@@ -1,0 +1,137 @@
+/* NICCI: quiz. Pełny ekran, ciemne tło, jedno pytanie na ekran, kafle z ikoną w złocie. */
+
+.quiz-page {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column;
+  background:
+    radial-gradient(90% 60% at 85% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    var(--bg-dark);
+}
+
+/* ---------- górny pasek: logo, postęp, zamknięcie ---------- */
+.quiz-top {
+  position: sticky; top: 0; z-index: var(--n-z-header);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--n-space-4);
+  padding: var(--n-space-3) var(--gutter);
+  background: color-mix(in srgb, var(--bg-dark) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.quiz-top__logo { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 70%, transparent); }
+.quiz-top__logo img { width: 1.9rem; height: auto; }
+.quiz-top__progress { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--n-space-3); }
+.quiz-top__bar { position: relative; height: 2px; background: var(--border-hairline); overflow: hidden; border-radius: 2px; }
+.quiz-top__bar span { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.quiz-top__count { font-size: var(--n-size-small); font-variant-numeric: tabular-nums lining-nums; color: var(--text-muted); min-width: 3.2em; text-align: right; }
+.quiz-top__close { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; color: var(--text-strong); border-radius: 50%; }
+@media (hover: hover) { .quiz-top__close:hover { background: color-mix(in srgb, var(--text-strong) 8%, transparent); } }
+
+/* ---------- scena: ekrany nakładają się w jednej komórce, wysokość bez skoków ---------- */
+.quiz { flex: 1; display: flex; width: 100%; max-width: 64rem; margin-inline: auto; padding: var(--n-space-5) var(--gutter) var(--n-space-4); }
+.quiz__stage { display: grid; width: 100%; align-items: start; }
+.q { grid-area: 1 / 1; display: grid; gap: var(--n-space-3); align-content: start; }
+.q__step { font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-accent); }
+.q__title {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.5rem); line-height: 1.06; letter-spacing: -0.016em;
+  color: var(--text-strong); max-width: 18ch;
+}
+.q__title:focus { outline: none; } /* kotwica dla czytnika po zmianie pytania, nie element do obsługi */
+.q__preset {
+  padding: var(--n-space-3) var(--n-space-4);
+  border-left: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-size: var(--n-size-small); color: var(--text);
+}
+.q__hint { font-size: var(--n-size-small); color: var(--text-muted); }
+.q__msg { min-height: 1.5em; font-size: var(--n-size-small); color: var(--accent-soft); }
+
+/* ---------- kafle ---------- */
+.q__tiles { display: grid; gap: var(--n-space-3); margin-top: var(--n-space-3); }
+.tile {
+  position: relative;
+  display: grid; grid-template-columns: 2.75rem 1fr; align-items: center; gap: var(--n-space-4);
+  min-height: 4.5rem; width: 100%;
+  padding: var(--n-space-3) 3rem var(--n-space-3) var(--n-space-4);
+  border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border-radius: var(--n-radius-2);
+  background: var(--surface);
+  color: var(--text); text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--n-dur-base) var(--n-ease-out), background-color var(--n-dur-base) var(--n-ease-out),
+    transform var(--n-spring-lift-ms) var(--n-spring-lift), opacity var(--n-dur-base) var(--n-ease-out);
+}
+.tile:active:not([aria-disabled="true"]) { transform: scale(0.985); transition-duration: 90ms; }
+@media (hover: hover) {
+  .tile:not([aria-disabled="true"]):hover { border-color: var(--accent); transform: translateY(-2px); }
+}
+.tile__icon { display: grid; place-items: center; color: var(--accent); }
+.tile__icon svg { width: 2.25rem; height: 2.25rem; }
+.tile__text { display: grid; gap: 0.15rem; }
+.tile__name { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.15; color: var(--text-strong); }
+.tile__sub { font-size: var(--n-size-small); line-height: 1.35; color: var(--text-muted); }
+.tile__check {
+  position: absolute; right: var(--n-space-4); top: 50%;
+  display: grid; place-items: center;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--on-accent);
+  transform: translateY(-50%);
+  transition: background-color var(--n-dur-base) var(--n-ease-out), border-color var(--n-dur-base) var(--n-ease-out);
+}
+.tile__check svg { transform: scale(0); transition: transform var(--n-spring-lift-ms) var(--n-spring-lift); }
+.tile[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.tile[aria-pressed="true"] .tile__check { background: var(--accent); border-color: var(--accent); }
+.tile[aria-pressed="true"] .tile__check svg { transform: scale(1); }
+.tile[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+
+/* ---------- dolna nawigacja ---------- */
+.quiz-nav {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; justify-content: space-between; gap: var(--n-space-3);
+  width: 100%; max-width: 64rem; margin-inline: auto;
+  padding: var(--n-space-3) var(--gutter) calc(var(--n-space-3) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, transparent, var(--bg-dark) 35%);
+}
+.quiz-nav .btn { min-height: 3rem; }
+.quiz-nav__back { gap: 0.35rem; padding-left: 0.9rem; }
+.quiz-nav__next { margin-left: auto; min-width: 9rem; }
+.quiz-nav [hidden] { display: none; }
+
+/* ---------- ekran przejściowy ---------- */
+.q--loading { justify-items: center; text-align: center; gap: var(--n-space-5); padding-top: var(--n-space-8); }
+.q-load__ring { position: relative; width: 9rem; height: 9rem; }
+.q-load__ring img {
+  position: absolute; left: 50%; top: 50%;
+  width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+  transform: translate(-50%, -50%) rotate(calc(var(--k) * 60deg)) translateY(-3.5rem) rotate(calc(var(--k) * -60deg));
+  opacity: 0;
+  animation: q-note 1.2s var(--n-ease-out) forwards;
+  animation-delay: calc(var(--k) * 110ms);
+}
+@keyframes q-note { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
+.q-load__title { max-width: 22ch; font-family: var(--font-display); font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem); line-height: 1.15; color: var(--text-strong); }
+.q-load__line { position: relative; width: min(18rem, 70vw); height: 1px; background: var(--border-hairline); overflow: hidden; }
+.q-load__line span { position: absolute; inset: 0; background: var(--accent); transform-origin: left; animation: q-line 1.2s var(--n-ease-out) forwards; }
+@keyframes q-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- tablet i komputer: kafle w siatce, ikona nad tekstem ---------- */
+@media (min-width: 48rem) {
+  .quiz { padding-top: var(--n-space-8); }
+  .q__tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--n-space-4); }
+  .q__tiles:has(> :nth-child(4)) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tile {
+    grid-template-columns: 1fr; align-content: start; justify-items: start; gap: var(--n-space-5);
+    min-height: 13rem; padding: var(--n-space-5);
+  }
+  .tile__icon svg { width: 3rem; height: 3rem; }
+  .tile__name { font-size: 1.625rem; }
+  .tile__check { top: var(--n-space-5); transform: none; }
+  .quiz-nav { background: none; position: static; padding-bottom: var(--n-space-7); }
+}
+@media (min-width: 64rem) { .quiz { padding-top: var(--n-space-9); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .q-load__ring img { animation: none; opacity: 1; }
+  .q-load__line span { animation: none; transform: none; }
+}
