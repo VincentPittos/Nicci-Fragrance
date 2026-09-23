@@ -17,6 +17,15 @@
 | 9 | Typografia | Cormorant Garamond w nagłówkach, Jost w treści, tak jak w artifakcie sekcji 2. | wniosek z artifactu |
 | 10 | Link `#quiz` | Strona główna przekierowuje `/#quiz` na `/quiz` z zachowaniem `src`. Artifact sekcji 2 i stare linki z InstantDM działają bez zmian. | wniosek |
 
+## 23.09.2026, po etapie 2
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 11 | Karta produktu | Wariant B: grafitowy pasek, złota marka, biała nazwa, wyśrodkowanie. Szczegóły produktu też w graficie (referencja LV nr 2). | właściciel |
+| 12 | Tło sekcji 3 do 5 | Jasny krem #F3EADF. Krem marki #E8D7C3 na panelach. | właściciel |
+| 13 | Telefon | Dwie kolumny kompaktowe (zdjęcie, marka, nazwa, niedobór, pojemność, cena, przycisk). Pełna karta od ~17rem szerokości karty, przez container queries. Zdjęcie otwiera szczegóły. | właściciel |
+| 14 | Logo | Plik właściciela zwektoryzowany do SVG (`site/img/marka/`), kolor przez CSS, favicon i ikona iOS z tego samego znaku. | właściciel, wniosek |
+
 ## Otwarte
 
 * Weryfikacja 114 pozycji z `dev/dane/do-weryfikacji.csv`, w tym profil wszystkich zapachów i rodziny z członem spoza listy.
@@ -24,4 +33,5 @@
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
 * Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
 * Trwałość i projekcja: arkusz zastrzega, że to szacunki. Propozycja: paski z podpisem „orientacyjnie”.
-* Zdjęcia produktów i kadry rodzin (etap 3).
+* Zdjęcia produktów: sieć środowiska blokuje sklepy i producentów, potrzebne własne zdjęcia, pliki od właściciela albo poszerzenie dostępu (etap 3).
+* Nazwa marki w tekstach: logo mówi „Nicci Fragrance”, prompt i README „Nicci Fragrances”.

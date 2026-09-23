@@ -1,6 +1,8 @@
 /**
  * NICCI: karta produktu w siatce.
- *   NicciCard.render(product, {variant:'krem'|'grafit', img, imgW, imgH, noteImg}) → HTML
+ *   NicciCard.render(product, {variant:'grafit'|'krem', img, imgW, imgH, noteImg}) → HTML
+ *   Domyślnie wariant B (grafitowy pasek), wybrany przez właściciela. Poniżej ~17rem szerokości karta
+ *   przechodzi w tryb kompaktowy (dwie kolumny na telefonie): nuty i opis są wtedy w szczegółach.
  *   NicciCard.mount(root)  obsługa zdarzeń dla wszystkich kart wewnątrz root (delegacja)
  * Zdarzenia na dokumencie: nicci:open-product {id}, nicci:similar {id}.
  */
@@ -22,7 +24,7 @@
     }
     var qty = U.cartQty(p.id, ml);
     if (!qty) {
-      return '<button type="button" class="btn btn--primary btn--block" data-add>Dodaj do koszyka</button>';
+      return '<button type="button" class="btn btn--primary btn--block" data-add><span>Dodaj<span class="card__cta-rest"> do koszyka</span></span></button>';
     }
     return '<div class="card__incart">' +
       '<p>W koszyku<span>' + ml + ' ml, zmień ilość tutaj</span></p>' +
@@ -35,7 +37,7 @@
 
   function render(p, opts) {
     opts = opts || {};
-    var variant = opts.variant === 'grafit' ? 'grafit' : 'krem';
+    var variant = opts.variant === 'krem' ? 'krem' : 'grafit';
     var soldOut = U.isSoldOut(p);
     var ml = defaultVariant(p);
     var v = ml ? p.variants.filter(function (x) { return x.ml === ml; })[0] : null;
@@ -47,10 +49,14 @@
     h.push('<article class="card card--' + variant + (variant === 'grafit' ? ' theme-graphite' : '') + '"' +
       ' data-card data-id="' + U.esc(p.id) + '"' + (soldOut ? ' data-soldout' : '') + ' aria-labelledby="' + id + '-t">');
     h.push('<div class="card__media">');
+    // zdjęcie otwiera szczegóły: na telefonie w trybie kompaktowym to jedyna droga do nut i opisu
+    h.push('<button type="button" class="card__media-btn" data-open aria-haspopup="dialog" aria-label="' +
+      U.esc('Szczegóły: ' + p.marka + ' ' + p.nazwa) + '">');
     if (opts.img) {
-      h.push('<img src="' + U.esc(opts.img) + '" alt="' + U.esc(p.marka + ' ' + p.nazwa + ', flakon') + '"' +
+      h.push('<img src="' + U.esc(opts.img) + '" alt=""' +
         ' width="' + (opts.imgW || 800) + '" height="' + (opts.imgH || 1000) + '" loading="lazy" decoding="async">');
     }
+    h.push('</button>');
     if (soldOut) h.push('<span class="card__flag">Wyprzedane</span>');
     h.push('</div><div class="card__body">');
 

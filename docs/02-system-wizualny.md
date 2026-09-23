@@ -51,7 +51,7 @@ Proste przejścia w CSS korzystają z tych samych sprężyn zapisanych jako `lin
 
 Po ocenie na siatce: w B zaznaczona pojemność była złota i konkurowała z przyciskiem, więc na ciemnym tle zaznaczenie jest teraz kremowe.
 
-**Rekomendacja:** A w siatce, grafit w szuflady szczegółów produktu. Uzasadnienie w podglądzie.
+**Rekomendacja była:** A w siatce, grafit w szczegółach. **Decyzja właściciela: wariant B.** Na telefonie dwie kolumny kompaktowe (container query `card`, próg 17rem).
 
 ## Do decyzji właściciela
 

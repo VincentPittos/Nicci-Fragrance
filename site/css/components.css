@@ -295,6 +295,7 @@
 
 /* ---------- karta produktu: część wspólna ---------- */
 .card {
+  container: card / inline-size;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -317,6 +318,14 @@
   overflow: hidden; /* maska przy powiększeniu zdjęcia */
   background: var(--card-media-bg);
 }
+.card__media-btn {
+  display: block;
+  width: 100%; height: 100%;
+  padding: 0; border: 0;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.card__media-btn:focus-visible { outline-offset: -4px; }
 .card__media img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -411,13 +420,37 @@
 .skeleton .sk { display: block; height: 0.9rem; border-radius: var(--n-radius-1); }
 @keyframes n-pulse { 50% { opacity: 0.55; } }
 
-/* ---------- siatka katalogu: 1 / 2 / 3 / 4 kolumny ---------- */
+/* ---------- tryb kompaktowy: karta węższa niż ~17rem (dwie kolumny na telefonie) ---------- */
+@container card (max-width: 17rem) {
+  .card .card__body { gap: var(--n-space-3); padding: var(--n-space-4) var(--n-space-3); }
+  .card .card__brand { font-size: 1.1875rem; }
+  .card .card__name { font-size: 1rem; }
+  .card .chips, .card .notes, .card .card__desc, .card .card__more { display: none; }
+  .card .scarcity { font-size: var(--n-size-micro); gap: 0.4rem; text-align: left; }
+  .card .seg { gap: 0.25rem; }
+  .card .seg__opt span { padding: 0 0.15rem; font-size: 0.8125rem; }
+  .card .price { font-size: 1.25rem; }
+  .card .btn { padding: 0 var(--n-space-2); font-size: 0.875rem; letter-spacing: 0.06em; }
+  .card .card__incart { grid-template-columns: minmax(0, 1fr); }
+  .card .card__incart p { display: none; }
+  .card .stepper { grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem; }
+  /* „do koszyka” zostaje dla czytnika ekranu, znika tylko wizualnie */
+  .card .card__cta-rest {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+}
+@container card (max-width: 10.5rem) {
+  .card .seg__opt span { font-size: 0.75rem; letter-spacing: -0.01em; }
+}
+
+/* ---------- siatka katalogu: 2 kolumny kompaktowe na telefonie, potem 2 / 3 / 4 pełne ---------- */
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--n-space-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--n-space-3);
 }
-@media (min-width: 40rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 40rem) { .grid { gap: var(--n-space-5); } }
 @media (min-width: 64rem) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--n-space-6) var(--n-space-5); } }
 @media (min-width: 90rem) { .grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
