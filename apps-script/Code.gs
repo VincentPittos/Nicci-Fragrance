@@ -1,5 +1,5 @@
 /**
- * NICCI FRAGRANCES: backend w Google Apps Script. Arkusz Google jest bazą danych
+ * NICCI FRAGRANCE: backend w Google Apps Script. Arkusz Google jest bazą danych
  * i panelem właściciela.
  *
  * Kontrakt z modułem strony (site/nicci-api.js), szczegóły w docs/kontrakt-api.md:
@@ -23,7 +23,7 @@
 
 // ============ 1. CONFIG ============
 const CONFIG = {
-  SHOP_NAME: 'Nicci Fragrances',
+  SHOP_NAME: 'Nicci Fragrance',
   OWNER_EMAIL: 'UZUPELNIJ',          // tu przychodzą powiadomienia o zamówieniach
   IG_HANDLE: 'UZUPELNIJ',            // bez @
   SITE_URL: 'UZUPELNIJ',             // np. https://niccifragrances.pl, bez ukośnika na końcu

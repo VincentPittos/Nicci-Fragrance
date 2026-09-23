@@ -81,3 +81,16 @@ Polityka sieci tego środowiska blokuje strony sklepów i producentów. Brama od
 3. **Poszerzenie dostępu sieci środowiska** o wskazane domeny. Wtedy pobiorę packshoty sam i zapiszę źródło każdego.
 
 W każdym wariancie skrypt ujednolici zdjęcia: kadr 4:5, jednakowe tło i wielkość flakonu, WebP 400 i 800 px, zapis do `site/img/produkty/{id}-400.webp` i `{id}-800.webp`, uzupełnienie `zdjecie_url`. Karty bez zdjęcia pokazują do tego czasu elegancki kadr zastępczy z inicjałem marki, więc strona może iść dalej.
+
+## Dziennik zużycia OpenArt
+
+| Data | Kadr | Model, konfiguracja | historyId | Wynik | Kredyty | Saldo |
+|---|---|---|---|---|---|---|
+| 23.09.2026 | Test: cytrusowa | GPT Image 2.5 Sunburst, 1:1, 2k, medium | `0jWMCvw0TWYGzB0Crl15` | 1360×1360 px (mimo „2k”) | 35 | |
+| 23.09.2026 | Test: cytrusowa | Nano Banana 2, 1:1, 2K | `Ey7rlYySB2yMCb4NeL0R` | 2048×2048 px | 30 | 835 |
+
+Zużyte: 65 z limitu 660 (próg zatrzymania 700).
+
+## Blokada sieci
+
+Ze środowiska nie da się pobrać ani wygenerowanych kadrów (`cdn.openart.ai`), ani zdjęć produktów (sklepy i strony producentów). Wyszukiwarka działa, pobieranie stron i plików nie. Po dodaniu domen do dozwolonych w ustawieniach środowiska skrypt `dev/zdjecia/ujednolic_zdjecia.py` ujednolici zdjęcia z dowolnego źródła (kadr 4:5, wspólne tło, flakon tej samej wysokości, WebP 400 i 800 px).

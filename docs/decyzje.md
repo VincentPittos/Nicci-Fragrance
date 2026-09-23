@@ -24,7 +24,16 @@
 | 11 | Karta produktu | Wariant B: grafitowy pasek, złota marka, biała nazwa, wyśrodkowanie. Szczegóły produktu też w graficie (referencja LV nr 2). | właściciel |
 | 12 | Tło sekcji 3 do 5 | Jasny krem #F3EADF. Krem marki #E8D7C3 na panelach. | właściciel |
 | 13 | Telefon | Dwie kolumny kompaktowe (zdjęcie, marka, nazwa, niedobór, pojemność, cena, przycisk). Pełna karta od ~17rem szerokości karty, przez container queries. Zdjęcie otwiera szczegóły. | właściciel |
+| 15 | Nazwa marki | „Nicci Fragrance”, jak w logo. Wyjątek: komentarz w nicci-api.js zostaje, bo modułu nie zmieniamy. | właściciel |
 | 14 | Logo | Plik właściciela zwektoryzowany do SVG (`site/img/marka/`), kolor przez CSS, favicon i ikona iOS z tego samego znaku. | właściciel, wniosek |
+
+## 23.09.2026, etap 3
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 16 | Budżet OpenArt | Rdzeń 380 i rezerwa do 140 zaakceptowane. | właściciel |
+| 17 | Opcje | A (kadr odlewania w sekcji 2, 35) i B (miniatury nut jako zdjęcia, 105) zaakceptowane. Limit łącznie 660, próg zatrzymania 700. | właściciel |
+| 18 | Zdjęcia produktów | Szukamy w internecie. Pobieranie wymaga odblokowania sieci środowiska. | właściciel |
 
 ## Otwarte
 
@@ -34,4 +43,3 @@
 * Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
 * Trwałość i projekcja: arkusz zastrzega, że to szacunki. Propozycja: paski z podpisem „orientacyjnie”.
 * Zdjęcia produktów: sieć środowiska blokuje sklepy i producentów, potrzebne własne zdjęcia, pliki od właściciela albo poszerzenie dostępu (etap 3).
-* Nazwa marki w tekstach: logo mówi „Nicci Fragrance”, prompt i README „Nicci Fragrances”.

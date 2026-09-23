@@ -1,4 +1,4 @@
-# Nicci Fragrances
+# Nicci Fragrance
 
 Strona sprzedażowa odlewek oryginalnych perfum (5, 10, 20 ml) i zestawów odkrywców. Statyczny front na Cloudflare Pages, backend w Google Apps Script, arkusz Google jako baza danych.
 
