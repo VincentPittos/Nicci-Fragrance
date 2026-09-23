@@ -171,7 +171,7 @@
    200,
    "",
    "p07, p51, p21, p01",
-   "",
+   "/img/produkty/p06-800.webp",
    6,
    "Biuro, sport, codzienność, spotkania w dzień, wakacje"
   ],
@@ -196,7 +196,7 @@
    200,
    "",
    "p06, p01, p02, p14",
-   "",
+   "/img/produkty/p07-800.webp",
    7,
    "Biuro, spotkania, codzienność, uczelnia"
   ],
@@ -221,7 +221,7 @@
    190,
    "",
    "p40, p43, p22, p46, p45",
-   "",
+   "/img/produkty/p08-800.webp",
    8,
    "codzienność, randka, klub, wyjście, prezent"
   ],
@@ -246,7 +246,7 @@
    360,
    "",
    "p01, p10, p27, p33",
-   "",
+   "/img/produkty/p09-800.webp",
    9,
    "Kolacja, wyjście, biznes, spotkania"
   ],
@@ -271,7 +271,7 @@
    190,
    "",
    "p35, p28, p09",
-   "",
+   "/img/produkty/p10-800.webp",
    10,
    "Kolacja, randka, wyjście, chłodne dni, prezent"
   ],
@@ -296,7 +296,7 @@
    270,
    "",
    "p12, p22, p52",
-   "",
+   "/img/produkty/p11-800.webp",
    11,
    "Biznes, spotkania, wyjście, garnitur, prezent"
   ],
@@ -321,7 +321,7 @@
    360,
    "",
    "p11, p52, p53, p22",
-   "",
+   "/img/produkty/p12-800.webp",
    12,
    "Codzienność, biuro, spotkania w dzień, garniur"
   ],
@@ -371,7 +371,7 @@
    270,
    "",
    "p07, p51, p21",
-   "",
+   "/img/produkty/p14-800.webp",
    14,
    "Biuro, codzienność, sport, spotkania w dzień"
   ],
@@ -396,7 +396,7 @@
    400,
    "",
    "p20, p59, p36",
-   "",
+   "/img/produkty/p15-800.webp",
    15,
    "Biznes, spotkania, wyjście, codzienność premium"
   ],
@@ -421,7 +421,7 @@
    380,
    "",
    "p09, p15",
-   "",
+   "/img/produkty/p16-800.webp",
    16,
    "Garnitur, biznes, ślub, elegancka kolacja"
   ],
@@ -446,7 +446,7 @@
    520,
    "",
    "p19, p05, p49, p38",
-   "",
+   "/img/produkty/p17-800.webp",
    17,
    "Wyjście, event, kolacja, okazje specjalne"
   ],
@@ -496,7 +496,7 @@
    520,
    "",
    "p17, p05, p38",
-   "",
+   "/img/produkty/p19-800.webp",
    19,
    "Wyjście, event, chłodne wieczory"
   ],
@@ -521,7 +521,7 @@
    520,
    "",
    "p15, p36, p49",
-   "",
+   "/img/produkty/p20-800.webp",
    20,
    "Codzienność premium, spotkania, kolacja"
   ],
@@ -546,7 +546,7 @@
    145,
    "",
    "p02, p51, p07, p62",
-   "",
+   "/img/produkty/p21-800.webp",
    21,
    "Codzienność, biuro latem, weekend, prezent"
   ],
@@ -571,7 +571,7 @@
    145,
    "",
    "p11, p52, p44",
-   "",
+   "/img/produkty/p22-800.webp",
    22,
    "Uniwersalny: biuro, wyjście, codzienność premium"
   ],
@@ -596,7 +596,7 @@
    145,
    "",
    "p14, p02, p47",
-   "",
+   "/img/produkty/p23-800.webp",
    23,
    "Wakacje, plaża, weekend, casual"
   ],
@@ -621,7 +621,7 @@
    145,
    "",
    "p28, p10, p70",
-   "",
+   "/img/produkty/p24-800.webp",
    24,
    "Randka, wyjście, klub, chłodne dni"
   ],
@@ -646,7 +646,7 @@
    145,
    "",
    "p10, p35, p04, p28",
-   "",
+   "/img/produkty/p25-800.webp",
    25,
    "Klub, wyjście, event"
   ],
@@ -696,7 +696,7 @@
    145,
    "",
    "p29, p10, p24",
-   "",
+   "/img/produkty/p27-800.webp",
    27,
    "Randka, kolacja, wyjście"
   ],
@@ -721,7 +721,7 @@
    145,
    "",
    "p29, p25, p10, p04",
-   "",
+   "/img/produkty/p28-800.webp",
    28,
    "Randka, wyjście, chłodne dni"
   ],
@@ -746,7 +746,7 @@
    145,
    "",
    "p28, p08, p27, p24, p10",
-   "",
+   "/img/produkty/p29-800.webp",
    29,
    "Randka, kawiarnia, casual zimą (nie do biura), prezent"
   ],
@@ -771,7 +771,7 @@
    145,
    "",
    "p28, p41, p60, p05, p25",
-   "",
+   "/img/produkty/p30-800.webp",
    30,
    "Wyjście, event, okazje specjalne, święta"
   ],
@@ -796,7 +796,7 @@
    145,
    "",
    "p16, p43, p11, p20, p36",
-   "",
+   "/img/produkty/p31-800.webp",
    31,
    "Wyjście, kolacja, biznes"
   ],
@@ -821,7 +821,7 @@
    190,
    "",
    "p04, p38, p61, p25",
-   "",
+   "/img/produkty/p32-800.webp",
    32,
    "Wyjście, randka, klub, chłodne dni"
   ],
@@ -846,7 +846,7 @@
    190,
    "",
    "p38, p09, p10, p64",
-   "",
+   "/img/produkty/p33-800.webp",
    33,
    "Randka, kolacja, wyjście, prezent"
   ],
@@ -871,7 +871,7 @@
    "",
    0,
    "p24, p27, p10",
-   "",
+   "/img/produkty/p34-800.webp",
    34,
    "Randka, wyjście, prezent"
   ],
@@ -896,7 +896,7 @@
    360,
    "",
    "p10, p25, p04",
-   "",
+   "/img/produkty/p35-800.webp",
    35,
    "Kolacja, święta, chłodne wieczory"
   ],
@@ -921,7 +921,7 @@
    190,
    "",
    "p20, p15, p44",
-   "",
+   "/img/produkty/p36-800.webp",
    36,
    "Biznes, spotkania, kolacja"
   ],
@@ -946,7 +946,7 @@
    "",
    0,
    "p36, p20, p44",
-   "",
+   "/img/produkty/p37-800.webp",
    37,
    "Biznes, kolacja, elegancki wieczór"
   ],
@@ -971,7 +971,7 @@
    360,
    "",
    "p19, p05, p32, p17",
-   "",
+   "/img/produkty/p38-800.webp",
    38,
    "Wyjście, kolacja, event"
   ],
@@ -996,7 +996,7 @@
    250,
    "",
    "p44, p15, p36, p41",
-   "",
+   "/img/produkty/p39-800.webp",
    39,
    "prezent, codzienność premium, spotkania, wyjście"
   ],
@@ -1021,7 +1021,7 @@
    140,
    "",
    "p08, p48, p28",
-   "",
+   "/img/produkty/p40-800.webp",
    40,
    "Wyjście, randka, klub, codzienność"
   ],
@@ -1046,7 +1046,7 @@
    520,
    "",
    "p05, p49, p04",
-   "",
+   "/img/produkty/p41-800.webp",
    41,
    "Wyjście, event, okazje specjalne"
   ],
@@ -1121,7 +1121,7 @@
    140,
    "",
    "p39, p65, p49",
-   "",
+   "/img/produkty/p44-800.webp",
    44,
    "Biuro, biznes, codzienność, uczelnia, prezent"
   ],
@@ -1146,7 +1146,7 @@
    "",
    "",
    "p01, p09, p46",
-   "",
+   "/img/produkty/p45-800.webp",
    45,
    "Biuro, spotkania, codzienność premium, prezent"
   ],
@@ -1171,7 +1171,7 @@
    220,
    "",
    "p01, p45, p09",
-   "",
+   "/img/produkty/p46-800.webp",
    46,
    "Codzienność, spotkania, wakacje, biuro"
   ],
@@ -1196,7 +1196,7 @@
    220,
    "",
    "p07, p23, p02",
-   "",
+   "/img/produkty/p47-800.webp",
    47,
    "Biuro, spotkania, wakacje"
   ],
@@ -1221,7 +1221,7 @@
    220,
    "",
    "p40, p08",
-   "",
+   "/img/produkty/p48-800.webp",
    48,
    "Wakacje, codzienność, wyjście latem"
   ],
@@ -1246,7 +1246,7 @@
    220,
    "",
    "p39, p41, p20",
-   "",
+   "/img/produkty/p49-800.webp",
    49,
    "Kolacja, event, formalne wyjścia"
   ],
@@ -1271,7 +1271,7 @@
    220,
    "",
    "p49, p33",
-   "",
+   "/img/produkty/p50-800.webp",
    50,
    "Wyjście, klub, randka"
   ],
@@ -1496,7 +1496,7 @@
    150,
    "",
    "p60, p54, p38",
-   "",
+   "/img/produkty/p59-800.webp",
    59,
    "Biuro, biznes, spotkania"
   ],
@@ -1546,7 +1546,7 @@
    150,
    "",
    "p32, p59, p70",
-   "",
+   "/img/produkty/p61-800.webp",
    61,
    "Biuro, spotkania, wyjście"
   ],
@@ -1571,7 +1571,7 @@
    150,
    "",
    "p51, p21, p22",
-   "",
+   "/img/produkty/p62-800.webp",
    62,
    "Biuro, codzienność, upały"
   ],
@@ -1671,7 +1671,7 @@
    100,
    "",
    "p55, p63",
-   "",
+   "/img/produkty/p66-800.webp",
    66,
    "Codzienność, klub"
   ],
@@ -1696,7 +1696,7 @@
    120,
    "",
    "p14, p46",
-   "",
+   "/img/produkty/p67-800.webp",
    67,
    "Sport, siłownia, codzienność, upały"
   ],
@@ -1721,7 +1721,7 @@
    120,
    "",
    "p55, p59",
-   "",
+   "/img/produkty/p68-800.webp",
    68,
    "Randka, wyjście, codzienność zimną porą"
   ],
@@ -1746,7 +1746,7 @@
    90,
    "",
    "p51, p14, p06",
-   "",
+   "/img/produkty/p69-800.webp",
    69,
    "Biuro, codzienność, sport, upały"
   ],
@@ -1771,7 +1771,7 @@
    170,
    "",
    "p71, p10, p61",
-   "",
+   "/img/produkty/p70-800.webp",
    70,
    "Randka, wyjście, codzienność zimną porą"
   ],
@@ -1796,7 +1796,7 @@
    170,
    "",
    "p52, p70, p59",
-   "",
+   "/img/produkty/p71-800.webp",
    71,
    "Randka, wyjście, codzienność zimną porą"
   ]

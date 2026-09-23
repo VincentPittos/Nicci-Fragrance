@@ -34,6 +34,9 @@
 | 16 | Budżet OpenArt | Rdzeń 380 i rezerwa do 140 zaakceptowane. | właściciel |
 | 17 | Opcje | A (kadr odlewania w sekcji 2, 35) i B (miniatury nut jako zdjęcia, 105) zaakceptowane. Limit łącznie 660, próg zatrzymania 700. | właściciel |
 | 18 | Zdjęcia produktów | Szukamy w internecie. Pobieranie wymaga odblokowania sieci środowiska. | właściciel |
+| 19 | Model | Nano Banana 2 (30 kredytów za kadr 2K). Sieć odblokowana. | właściciel |
+| 20 | Źródło packshotów | Tylko oficjalne strony i sklepy producentów, z zapisem źródła każdego pliku. Nie obchodzimy zabezpieczeń przed botami: marki, które je stosują (LV, MFK, Dior, Versace, YSL, Hermès), zostają z kadrem zastępczym do czasu własnych zdjęć. | wniosek |
+| 21 | Nuty bez miniatury | Nuty rzadsze niż 3 wystąpienia bez własnego kafelka (gruszka, fiołek, herbata i 10 pojedynczych) wyświetlamy jako tekst. | wniosek |
 
 ## Otwarte
 
@@ -42,4 +45,5 @@
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
 * Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
 * Trwałość i projekcja: arkusz zastrzega, że to szacunki. Propozycja: paski z podpisem „orientacyjnie”.
-* Zdjęcia produktów: sieć środowiska blokuje sklepy i producentów, potrzebne własne zdjęcia, pliki od właściciela albo poszerzenie dostępu (etap 3).
+* Zdjęcia 15 produktów (LV 5, MFK 2, Dior 4, Versace 1, YSL 2, Hermès 1): własne albo materiały prasowe. Lista w `docs/03-plan-grafik.md`.
+* Prawa do packshotów producentów: to materiały marek. Na dłuższą metę bezpieczniejsze są własne zdjęcia flakonów i atomizerów Nicci (rekomendacja z promptu).

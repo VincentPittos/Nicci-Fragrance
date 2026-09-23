@@ -2,7 +2,7 @@
 
 Wygenerowany przez `dev/konwersja_arkusza.py`. Wszystkie wartości oznaczone w zakładce „Do weryfikacji” są propozycją do akceptacji właściciela.
 
-Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 114.
+Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 133.
 
 ## Rodziny aktywnych produktów
 
@@ -94,6 +94,7 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 | Pole | Pozycji |
 |---|---|
 | rodzina | 28 |
+| zdjecie_url | 19 |
 | sezon | 19 |
 | nuty / osiągi | 17 |
 | podobne | 10 |

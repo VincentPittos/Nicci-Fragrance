@@ -319,6 +319,12 @@ def main():
         for a in aliasy:
             flag(s, 'podobne', a, '', 'dopasowano po poprawce literówki albo skrótu nazwy')
 
+        # zdjęcie: ujednolicony plik z dev/zdjecia (wersja 800 px; strona dobiera 400 px z tej samej nazwy)
+        if os.path.exists(os.path.join(ROOT, 'site', 'img', 'produkty', f"{p['id']}-800.webp")):
+            p['zdjecie_url'] = f"/img/produkty/{p['id']}-800.webp"
+        elif not niedostepny:
+            flag(s, 'zdjecie_url', '', '', 'brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe')
+
         produkty.append(p)
 
     # ---------- zestawy ----------

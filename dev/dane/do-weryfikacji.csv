@@ -1,10 +1,15 @@
 id,pozycja,pole,w_zrodle,w_imporcie,powod
 p01,Louis Vuitton Imagination,okazja,11.0,,wartość nie jest listą okazji (błąd w źródle)
+p01,Louis Vuitton Imagination,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p02,Louis Vuitton Pacific Chill,sezon,"Lato (upały), późna wiosna","wiosna, lato",uproszczono do listy pór roku
 p02,Louis Vuitton Pacific Chill,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p02,Louis Vuitton Pacific Chill,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p03,Louis Vuitton Afternoon Swim,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p03,Louis Vuitton Afternoon Swim,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p04,Louis Vuitton Nouveau Monde,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p05,Louis Vuitton Ombre Nomade,rodzina,Agarowo-różana,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p05,Louis Vuitton Ombre Nomade,podobne,Amouage Otlands -> otlands,,dopasowano po poprawce literówki albo skrótu nazwy
+p05,Louis Vuitton Ombre Nomade,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p06,Xerjoff Torino21,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
 p07,Xerjoff Renaissance (XJ 1861),sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
 p08,Xerjoff Erba Pura,rodzina,Owocowo-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
@@ -50,42 +55,56 @@ p40,Tiziana Terenzi Kirke,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna,
 p41,Maison Crivelli Oud Maracujá,rodzina,Owocowo-agarowa,słodka,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p41,Maison Crivelli Oud Maracujá,sezon,"Jesień, zima, chłodna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
 p41,Maison Crivelli Oud Maracujá,podobne,LV Nouvau Monde -> nouvau monde,,dopasowano po poprawce literówki albo skrótu nazwy
+p42,Maison Francis Kurkdjian Grand Soir,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p43,Maison Francis Kurkdjian Baccarat Rouge 540,sezon,"Cały rok, najlepiej jesień i zima","wiosna, lato, jesień, zima",uproszczono do listy pór roku
 p43,Maison Francis Kurkdjian Baccarat Rouge 540,pora,Wieczór (działa też w dzień),uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
+p43,Maison Francis Kurkdjian Baccarat Rouge 540,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p44,Essential Parfums Bois Impérial,podobne,Nous Tous Saffrano Absolu -> saffrano absolu,,dopasowano po poprawce literówki albo skrótu nazwy
 p47,Nous Tous Secco di Como,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
 p48,Nous Tous Aurora Siciliana,rodzina,Owocowo-kwiatowa,kwiatowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p50,Nous Tous Milano 3AM,rodzina,korzenna,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p50,Nous Tous Milano 3AM,sezon,"Cały rok, najlepiej chłodne wieczory","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p51,Dior Homme Cologne,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p52,Dior Sauvage Parfum,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p53,Dior Sauvage Elixir,rodzina,Korzenno-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p53,Dior Sauvage Elixir,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p54,Dior Sauvage Extrait,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p55,Versace Eros Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p55,Versace Eros Parfum,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p56,wiersz Lp. 56 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
 p56,wiersz Lp. 56 (bez nazwy),sezon,,,brak w źródle
 p56,wiersz Lp. 56 (bez nazwy),pora,,,brak w źródle
 p56,wiersz Lp. 56 (bez nazwy),trwalosc,,,brak w źródle
 p56,wiersz Lp. 56 (bez nazwy),projekcja,,,brak w źródle
+p56,wiersz Lp. 56 (bez nazwy),zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p57,wiersz Lp. 57 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
 p57,wiersz Lp. 57 (bez nazwy),rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p57,wiersz Lp. 57 (bez nazwy),sezon,,,brak w źródle
 p57,wiersz Lp. 57 (bez nazwy),pora,,,brak w źródle
 p57,wiersz Lp. 57 (bez nazwy),trwalosc,,,brak w źródle
 p57,wiersz Lp. 57 (bez nazwy),projekcja,,,brak w źródle
+p57,wiersz Lp. 57 (bez nazwy),zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p58,wiersz Lp. 58 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
 p58,wiersz Lp. 58 (bez nazwy),sezon,,,brak w źródle
 p58,wiersz Lp. 58 (bez nazwy),pora,,,brak w źródle
 p58,wiersz Lp. 58 (bez nazwy),trwalosc,,,brak w źródle
 p58,wiersz Lp. 58 (bez nazwy),projekcja,,,brak w źródle
 p58,wiersz Lp. 58 (bez nazwy),ceny,,,brak cen
+p58,wiersz Lp. 58 (bez nazwy),zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p59,Hugo Boss Bottled Elixir,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p59,Hugo Boss Bottled Elixir,rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p60,Hugo Boss Bottled Absolu,aktywny,pewność danych: niska,NIE,instrukcja arkusza: nie publikować bez weryfikacji piramidy nut
 p60,Hugo Boss Bottled Absolu,rodzina,Korzenno-gourmand,gourmand,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p60,Hugo Boss Bottled Absolu,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p61,Hugo Boss Bottled Beyond,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p63,YSL Y Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p63,YSL Y Parfum,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p63,YSL Y Parfum,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p64,YSL MYSLF Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p64,YSL MYSLF Parfum,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p65,Hermès Terre d'Hermès Eau Intense Vétiver,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p65,Hermès Terre d'Hermès Eau Intense Vétiver,sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
+p65,Hermès Terre d'Hermès Eau Intense Vétiver,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p66,Rabanne Black XS,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p66,Rabanne Black XS,rodzina,Korzenno-cytrusowa,cytrusowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p68,Rabanne One Million,rodzina,Korzenno-słodka,słodka,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"

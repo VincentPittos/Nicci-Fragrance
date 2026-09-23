@@ -19,8 +19,6 @@ Kadr kwadratowy 2K, bo ten sam plik przytniemy do 4:5 w lewej kolumnie karuzeli 
 | Kompozycja hero | Twój plik `refs/hero-czysty.webp`, używany w całości | 0 |
 | Grafika Open Graph (1200×630) | składana lokalnie z kadru hero i wektorowego logo | 0 |
 | Ikony quizu (16) i ikony UI | rysowane jako SVG | 0 |
-| Miniatury nut | biblioteka 31 ikon SVG w złotej linii, pokrywa 92% wystąpień nut (567 z 619), reszta jako tekst | 0 |
-| Zdjęcie w karcie 3 sekcji 2 | kadr z Twojego zdjęcia hero: złote atomizery Nicci | 0 |
 
 ## Plan generowania
 
@@ -40,7 +38,7 @@ Kadr kwadratowy 2K, bo ten sam plik przytniemy do 4:5 w lewej kolumnie karuzeli 
 | R | Rezerwa na powtórki kadrów, które nie wyjdą (do 4 sztuk) | wybrany | do 4 | do 140 |
 | | **Maksimum z rezerwą** | | | **520** |
 
-Kwoty przy modelu Sunburst. Jeśli po teście wygra Nano Banana 2, rdzeń spada do 335, a maksimum do 455. Cztery najliczniejsze rodziny (cytrusowa, drzewna, gourmand, orientalna) idą pierwsze, zgodnie z promptem. Wodnej i szyprowej nie ma w katalogu, więc nie mają kadru.
+Kwoty przy modelu Sunburst. Po teście wygrał Nano Banana 2 (30 kredytów za kadr), a opcje A i B zostały przyjęte, więc limit to 660, próg zatrzymania 700. Jeśli po teście wygra Nano Banana 2, rdzeń spada do 335, a maksimum do 455. Cztery najliczniejsze rodziny (cytrusowa, drzewna, gourmand, orientalna) idą pierwsze, zgodnie z promptem. Wodnej i szyprowej nie ma w katalogu, więc nie mają kadru.
 
 ### Opcje poza listą priorytetów promptu (tylko na Twoją wyraźną zgodę)
 
@@ -72,25 +70,65 @@ Dla spójności serii każdy kadr dostaje ten sam dopisek: `Square composition, 
 | kwiatowa | kwiat pomarańczy, neroli, jaśmin, irys, rozmaryn | orange blossom sprigs, jasmine flowers, a single iris flower, a rosemary sprig, pink peppercorns |
 | słodka | marakuja, szafran, róża, wanilia, benzoina | halved passion fruit, saffron threads, rose petals, vanilla pods, benzoin resin |
 
+## Wykonanie
+
+### Kadry rodzin (10) i opcja A
+
+Wszystkie w Nano Banana 2, 1:1, 2K, z tym samym dopiskiem serii. Po pierwszej próbie orientalnej zmieniliśmy opis światła na „Soft natural beam of warm window light grazing the slab from the top right, no light lines, no glowing streaks”, bo „thin sliver of gold light” rysował neonową kreskę. Od kadru aromatycznego dochodzi „resting on dark slate, plain dark warm backdrop, no visible window”, żeby tło było wspólne dla serii.
+
+Pliki: `site/img/rodziny/{rodzina}-45-640|1280.webp` (4:5, lewa kolumna karuzeli na komputerze) i `{rodzina}-43-800|1200.webp` (4:3, nad panelem na telefonie). Przycięcie: `dev/grafiki/przetworz_kadr.py`.
+
+Opcja A, karta 3 sekcji 2: flakon bez etykiety, dwa złote atomizery, pipeta i lejek na trawertynie, tło grafitowe. 3:4 jak karta (280×372). Pliki: `site/img/sekcja2/odlewanie-600|1200.webp`.
+
+### Opcja B: miniatury nut
+
+Trzy arkusze 4×4 (owoce i świeże, kwiaty i przyprawy, drewna, żywice i gourmand). Cięcie `dev/grafiki/tnij_nuty.py` wykrywa szczeliny siatki z profilu jasności, więc lekko nierówna siatka z generatora nie przesuwa kadrów. 48 plików `site/img/nuty/{slug}.webp`, 256×256, razem 380 KB, ładowane dopiero w szufladzie produktu.
+
+Słownik `site/js/nuty.js` przypisuje nutę do miniatury po rdzeniu słowa (np. „drewno gwajakowe” → drewno, „kwiat tytoniu” → tytoń, „różowy pieprz” przed „różą”). Pokrycie: **603 z 619 wystąpień nut (97,4%)**. Bez miniatury, jako sam tekst: gruszka, fiołek, herbata (za rzadkie na własny kafelek) oraz pojedyncze: nasiona marchwi, rum, davana, akord coli, orzechy, gorzki migdał, immortelle, akord wina, lukrecja, tamaryndowiec.
+
 ## Zdjęcia produktów (packshoty)
 
-Polityka sieci tego środowiska blokuje strony sklepów i producentów. Brama odrzuciła m.in. `www.notino.pl`, `fimgs.net`, `www.sephora.pl`, `www.douglas.pl` oraz strony Xerjoff, Amouage, Louis Vuitton, Creed, Tom Ford, Dior, Mancera i Montale. Do wyboru:
+Źródło: oficjalne strony i sklepy producentów. Każdy plik ma zapisaną stronę i adres obrazu w `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Zasady: `robots.txt` każdej domeny sprawdzony i przestrzegany, Fragrantica i sklepy z zakazem dla botów pominięte, **zabezpieczeń przed botami nie obchodzimy**.
 
-1. **Własne zdjęcia flakonów i atomizerów Nicci** (najbezpieczniejsze prawnie, rekomendacja z promptu). Wystarczy telefon, jasne jednolite tło i światło z góry. Resztę robi skrypt.
-2. **Materiały prasowe od Ciebie** (pliki od dystrybutorów albo pobrane przez Ciebie). W raporcie końcowym wpiszemy źródło każdego pliku.
-3. **Poszerzenie dostępu sieci środowiska** o wskazane domeny. Wtedy pobiorę packshoty sam i zapiszę źródło każdego.
+| Metoda | Marki | Produktów |
+|---|---|---|
+| Sklep Shopify: wyszukiwarka i dane produktu | Xerjoff, Amouage, Creed, Tom Ford, Marc-Antoine Barrois, Maison Crivelli, Essential Parfums, Nutu, Tiziana Terenzi, Sospiro | 31 |
+| Strona produktu, `og:image` | Mancera, Montale, BOSS | 13 |
+| Strona budowana skryptem, render w Chromium | Rabanne, Azzaro | 6 |
+| **Razem ze zdjęciem** | | **49 z 64 aktywnych** |
 
-W każdym wariancie skrypt ujednolici zdjęcia: kadr 4:5, jednakowe tło i wielkość flakonu, WebP 400 i 800 px, zapis do `site/img/produkty/{id}-400.webp` i `{id}-800.webp`, uzupełnienie `zdjecie_url`. Karty bez zdjęcia pokazują do tego czasu elegancki kadr zastępczy z inicjałem marki, więc strona może iść dalej.
+**Bez zdjęcia (15), strony odpowiadają 403 albo ekranem Cloudflare także przeglądarce:** Louis Vuitton (Imagination, Pacific Chill, Afternoon Swim, Nouveau Monde, Ombre Nomade), Maison Francis Kurkdjian (Grand Soir, Baccarat Rouge 540), Dior (Homme Cologne, Sauvage Parfum, Sauvage Elixir, Sauvage Extrait), Versace (Eros Parfum), YSL (Y Parfum, MYSLF Parfum), Hermès (Terre d'Hermès Eau Intense Vétiver). Te karty pokazują kadr zastępczy z inicjałem marki. Potrzebne własne zdjęcia albo materiały prasowe od dystrybutora; skrypt przyjmie je bez zmian.
+
+Ujednolicenie (`dev/zdjecia/przygotuj_wejscie.py`, potem `ujednolic_zdjecia.py`): kadr 4:5, tło #F1EFEC, flakon na 74% wysokości, podstawa na 88%. Flakon kopiowany bez zmian; tło i cień przenoszone jako mapa cieniowania (źródło podzielone przez model tła), więc cień zostaje miękki, a tło wychodzi równe. PNG z przezroczystością (Xerjoff, Tom Ford, Montale, Crivelli, Azzaro) wklejane po kanale alfa. Z dwóch zdjęć (Bois Pacifique, 1 Million) usunięta plakietka nagrody Fragrance Foundation. Pliki: `site/img/produkty/{id}-400|800.webp`, adres w arkuszu: `/img/produkty/{id}-800.webp`.
+
+## Grafika Open Graph
+
+`site/img/og.jpg`, 1200×630, 100 KB: kadr z `refs/hero-czysty.webp`, złote logo wektorowe i linia „Oryginalne perfumy w odlewkach 5, 10 i 20 ml” (do przejścia przez humanizer w etapie 8). Budowa: `node dev/grafiki/zbuduj_og.js`.
 
 ## Dziennik zużycia OpenArt
 
 | Data | Kadr | Model, konfiguracja | historyId | Wynik | Kredyty | Saldo |
 |---|---|---|---|---|---|---|
-| 23.09.2026 | Test: cytrusowa | GPT Image 2.5 Sunburst, 1:1, 2k, medium | `0jWMCvw0TWYGzB0Crl15` | 1360×1360 px (mimo „2k”) | 35 | |
-| 23.09.2026 | Test: cytrusowa | Nano Banana 2, 1:1, 2K | `Ey7rlYySB2yMCb4NeL0R` | 2048×2048 px | 30 | 835 |
+| 23.09.2026 | Test: cytrusowa | GPT Image 2.5 Sunburst, 1:1, 2k, medium | `0jWMCvw0TWYGzB0Crl15` | 1360×1360 px (mimo „2k”), odrzucony na rzecz NB2 | 35 | 865 |
+| 23.09.2026 | Test: cytrusowa | Nano Banana 2, 1:1, 2K | `Ey7rlYySB2yMCb4NeL0R` | przyjęty | 30 | 835 |
+| 23.09.2026 | Drzewna | Nano Banana 2, 1:1, 2K | `Dbs17Hc5fQ30UvBiSQ1D` | przyjęty | 30 | 805 |
+| 23.09.2026 | Gourmand | Nano Banana 2, 1:1, 2K | `mEvHWI4E4OjIVwgyOUE7` | przyjęty | 30 | 775 |
+| 23.09.2026 | Orientalna v1 | Nano Banana 2, 1:1, 2K | `9Js9W6yIaetyqpJYfzvr` | odrzucony: neonowa smuga światła (powtórka 1 z 4) | 30 | 745 |
+| 23.09.2026 | Orientalna v2 | Nano Banana 2, 1:1, 2K | `fiD2A27NauRgBUAR4rmG` | przyjęty | 30 | 715 |
+| 23.09.2026 | Aromatyczna | Nano Banana 2, 1:1, 2K | `wzAnWmIjE8HDmApWOmFu` | przyjęty | 30 | 685 |
+| 23.09.2026 | Ambrowa | Nano Banana 2, 1:1, 2K | `9pSECOoRVcxcNy0te5A0` | przyjęty | 30 | 655 |
+| 23.09.2026 | Skórzana | Nano Banana 2, 1:1, 2K | `06xSHp8PT7WIHHV5m4WJ` | przyjęty | 30 | 625 |
+| 23.09.2026 | Świeża | Nano Banana 2, 1:1, 2K | `hBQTTvnMbXFvhNzIyioX` | przyjęty | 30 | 595 |
+| 23.09.2026 | Kwiatowa | Nano Banana 2, 1:1, 2K | `xoTYeCIvjac6sLzzGLCC` | przyjęty | 30 | 565 |
+| 23.09.2026 | Słodka v1 | Nano Banana 2, 1:1, 2K | `AR820WTRlU8zxF3g8ySs` | odrzucony: nienaturalny miąższ marakui, złota pęseta w kadrze (powtórka 2 z 4) | 30 | 535 |
+| 23.09.2026 | Słodka v2 | Nano Banana 2, 1:1, 2K | `cjYu5q80xJY66WsYEB5I` | przyjęty | 30 | 505 |
+| 23.09.2026 | Opcja A: odlewanie | Nano Banana 2, 3:4, 2K | `YMo2cwBagaVqxgfKH78r` | przyjęty, przycięta czarna ramka | 30 | 475 |
+| 23.09.2026 | Opcja B: nuty, arkusz 1 | Nano Banana 2, 1:1, 2K | `IbqdHdg4FKKZPyVntU0x` | przyjęty, 16 z 16 zgodnych z opisem | 30 | 445 |
+| 23.09.2026 | Opcja B: nuty, arkusz 2 | Nano Banana 2, 1:1, 2K | `dMJRlj3Gq0pRIy87XYAB` | przyjęty, 16 z 16 | 30 | 415 |
+| 23.09.2026 | Opcja B: nuty, arkusz 3 | Nano Banana 2, 1:1, 2K | `nzMj8zSc0oSL3Sl6IH7N` | przyjęty, 16 z 16 | 30 | 385 |
 
-Zużyte: 65 z limitu 660 (próg zatrzymania 700).
+**Zużyte: 515 z limitu 660** (próg zatrzymania 700). Saldo potwierdzone `openart_account_get` po słodkiej v2 (505) i po ostatnim arkuszu (385). Powtórki: 2 z 4. Zapas: 145 kredytów do limitu.
 
-## Blokada sieci
+## Sieć
 
-Ze środowiska nie da się pobrać ani wygenerowanych kadrów (`cdn.openart.ai`), ani zdjęć produktów (sklepy i strony producentów). Wyszukiwarka działa, pobieranie stron i plików nie. Po dodaniu domen do dozwolonych w ustawieniach środowiska skrypt `dev/zdjecia/ujednolic_zdjecia.py` ujednolici zdjęcia z dowolnego źródła (kadr 4:5, wspólne tło, flakon tej samej wysokości, WebP 400 i 800 px).
+Po odblokowaniu sieci działa pobieranie z `cdn.openart.ai` i ze stron producentów. Część marek blokuje ruch automatyczny po swojej stronie (403, Cloudflare), co opisuje sekcja o zdjęciach. Przeglądarka Chromium w środowisku nie ufała certyfikatowi pośrednika, bo magazyn NSS był pusty; dodany certyfikat `/root/.ccr/agent-proxy-ca.crt` (tylko w tym kontenerze, weryfikacja TLS pozostaje włączona).
