@@ -1,0 +1,189 @@
+/*
+ * NICCI: tokeny w trzech warstwach.
+ *   1. Prymitywy   --n-*       surowe wartości marki. Nie używać w komponentach.
+ *   2. Semantyka   bez prefiksu role (tło, tekst, akcent), zależne od kontekstu jasnego albo ciemnego.
+ *   3. Komponenty  --btn-*, --card-*, --chip-*, ...  wyłącznie z semantyki.
+ *
+ * Kontrast (WCAG 2.2, liczone skryptem w docs/02-system-wizualny.md):
+ *   złoto #D5A865 na kremie ma 1,55 do 2,03, więc na jasnym tle złoto jest tylko dekoracją
+ *   (ramki, linie, tło przycisku z czarnym tekstem 9,39). Złoty tekst na jasnym: --n-gold-700.
+ *   Taupe marki #7C695B na czerni ma 3,93, więc tekst drugorzędny na ciemnym to --n-taupe-300.
+ */
+
+:root {
+  /* ---------- 1. PRYMITYWY ---------- */
+  --n-black: #040404;
+  --n-graphite: #272727;
+  --n-graphite-900: #1A1918;
+  --n-taupe: #7C695B;
+  --n-taupe-700: #645549;   /* tekst drugorzędny na jasnym, 5,09 na kremie */
+  --n-taupe-300: #A99789;   /* tekst drugorzędny na ciemnym, 5,32 na graficie */
+  --n-gold: #D5A865;
+  --n-gold-soft: #E9D2AF;   /* hover, poświata, fokus na ciemnym */
+  --n-gold-700: #75582F;    /* złoty tekst na jasnym, 4,68 na kremie */
+  --n-cream: #E8D7C3;
+  --n-cream-100: #F3EADF;   /* jasny krem: tło sekcji 3 i dalej */
+  --n-cream-50: #FAF6F0;    /* karty, pola formularza */
+  --n-white: #FFFFFF;
+  --n-red-700: #9B2C1C;
+  --n-red-300: #EFA08F;
+  --n-green-700: #2F5D3A;
+
+  --n-font-serif: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --n-font-sans: "Jost", "Futura", "Century Gothic", "Helvetica Neue", Arial, sans-serif;
+
+  /* skala typograficzna, mobile first; clamp rośnie do desktopu */
+  --n-size-display: clamp(2.75rem, 1.55rem + 5.4vw, 5.5rem);
+  --n-size-h2: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
+  --n-size-h3: clamp(1.625rem, 1.35rem + 1.1vw, 2.125rem);
+  --n-size-h4: 1.375rem;
+  --n-size-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --n-size-body: 1rem;
+  --n-size-small: 0.875rem;
+  --n-size-micro: 0.75rem;
+
+  --n-space-1: 0.25rem;
+  --n-space-2: 0.5rem;
+  --n-space-3: 0.75rem;
+  --n-space-4: 1rem;
+  --n-space-5: 1.5rem;
+  --n-space-6: 2rem;
+  --n-space-7: 3rem;
+  --n-space-8: 4rem;
+  --n-space-9: 6rem;
+  --n-space-10: 8rem;
+
+  --n-radius-0: 0;
+  --n-radius-1: 2px;
+  --n-radius-2: 6px;
+  --n-radius-pill: 999px;
+
+  --n-hairline: 1px;
+
+  /* ruch: sprężyny z site/js/motion.js zapisane jako CSS linear() (damping, response) */
+  --n-spring-ui: linear(0, 0.115, 0.277, 0.438, 0.576, 0.686, 0.771, 0.834, 0.881, 0.915, 0.94, 0.957, 0.97, 0.977, 0.984, 0.989, 0.992, 0.994, 0.996, 0.997, 0.998, 0.999, 0.999, 0.999, 1);
+  --n-spring-ui-ms: 600ms;     /* damping 1, response 0,35 */
+  --n-spring-snappy: linear(0, 0.131, 0.292, 0.483, 0.609, 0.708, 0.785, 0.842, 0.894, 0.923, 0.944, 0.959, 0.973, 0.98, 0.986, 0.99, 0.993, 0.995, 0.996, 0.997, 0.998, 0.999, 0.999, 0.999, 1);
+  --n-spring-snappy-ms: 425ms; /* damping 1, response 0,24 */
+  --n-spring-lift: linear(0, 0.13, 0.295, 0.503, 0.685, 0.805, 0.909, 0.966, 1.007, 1.026, 1.031, 1.03, 1.024, 1.019, 1.013, 1.008, 1.004, 1.002, 1, 0.999, 0.999, 0.999, 0.999, 0.999, 1);
+  --n-spring-lift-ms: 567ms;   /* damping 0,72, response 0,34 */
+  --n-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --n-dur-fast: 120ms;
+  --n-dur-base: 200ms;
+
+  --n-z-header: 50;
+  --n-z-scrim: 90;
+  --n-z-drawer: 100;
+  --n-z-toast: 120;
+
+  /* ---------- 2. SEMANTYKA (kontekst jasny domyślnie) ---------- */
+  --bg-dark: var(--n-black);
+  --bg-graphite: var(--n-graphite);
+  --bg-light: var(--n-cream-100);
+  --surface: var(--n-cream-50);
+  --surface-panel: var(--n-cream);
+  --surface-media: var(--n-white);
+
+  --text-strong: var(--n-black);
+  --text: var(--n-graphite);
+  --text-muted: var(--n-taupe-700);
+  --text-accent: var(--n-gold-700);
+  --text-inverse: var(--n-cream-50);
+
+  --accent: var(--n-gold);
+  --accent-soft: var(--n-gold-soft);
+  --on-accent: var(--n-black);
+
+  --border-gold: var(--n-gold);
+  --border-gold-soft: var(--n-gold-soft);
+  --border-hairline: rgba(4, 4, 4, 0.14);
+  --border-strong: var(--n-black);
+
+  --focus-ring: var(--n-black);
+  --danger: var(--n-red-700);
+  --success: var(--n-green-700);
+  --scrim: rgba(4, 4, 4, 0.56);
+
+  --font-display: var(--n-font-serif);
+  --font-text: var(--n-font-sans);
+
+  --gutter: max(1rem, 4.5vw);
+  --container: 80rem;
+
+  --selected-bg: var(--n-black);      /* zaznaczona opcja na jasnym */
+  --selected-fg: var(--n-cream-50);
+  --inverse-bg: var(--n-black);       /* etykiety i podpowiedzi, zawsze ciemne */
+  --inverse-fg: var(--n-cream-50);
+  --border-input: rgba(4, 4, 4, 0.28);
+  --border-input-focus: var(--n-black);
+
+  /* rozmiary kontrolek, niezależne od kontekstu */
+  --btn-height: 3.25rem;
+  --btn-radius: var(--n-radius-2);
+}
+
+/* Kontekst ciemny: hero, stopka, pasek zaufania */
+.theme-dark,
+.theme-graphite {
+  --text-strong: var(--n-white);
+  --text: var(--n-cream);
+  --text-muted: var(--n-taupe-300);
+  --text-accent: var(--n-gold);
+  --text-inverse: var(--n-black);
+  --border-hairline: rgba(232, 215, 195, 0.16);
+  --border-strong: var(--n-cream);
+  --focus-ring: var(--n-gold-soft);
+  --danger: var(--n-red-300);
+  --surface: var(--n-graphite-900);
+
+  --selected-bg: var(--n-cream);       /* złoto zostaje tylko dla głównego przycisku */
+  --selected-fg: var(--n-black);
+  --border-input: rgba(232, 215, 195, 0.32);
+  --border-input-focus: var(--n-gold);
+
+  color: var(--text);
+}
+.theme-dark { background-color: var(--bg-dark); }
+.theme-graphite { background-color: var(--bg-graphite); }
+.theme-light { background-color: var(--bg-light); color: var(--text); }
+
+/* ---------- 3. KOMPONENTY ----------
+ * Deklarowane na samym komponencie, a nie na :root. Wartość var() w zmiennej rozwiązuje się tam,
+ * gdzie zmienna jest zadeklarowana, więc dopiero tu komponent czyta semantykę swojego kontekstu. */
+.btn {
+  --btn-primary-bg: var(--accent);
+  --btn-primary-bg-hover: var(--accent-soft);
+  --btn-primary-fg: var(--on-accent);
+  --btn-outline-border: var(--border-strong);
+  --btn-outline-fg: var(--text-strong);
+}
+.chip {
+  --chip-border: var(--border-hairline);
+  --chip-fg: var(--text-muted);
+  --chip-bg: transparent;
+}
+.seg {
+  --seg-border: var(--border-input);
+  --seg-fg: var(--text);
+  --seg-on-bg: var(--selected-bg);
+  --seg-on-fg: var(--selected-fg);
+  --seg-off-fg: var(--text-muted);
+}
+.field {
+  --field-bg: var(--surface);
+  --field-border: var(--border-input);
+  --field-border-focus: var(--border-input-focus);
+  --field-fg: var(--text-strong);
+}
+.card {
+  --card-bg: var(--surface);
+  --card-border: var(--border-gold);
+  --card-border-hover: var(--border-gold-soft);
+  --card-media-bg: var(--surface-media);
+  --card-brand: var(--text-accent);
+  --card-name: var(--text-strong);
+  --card-text: var(--text);
+  --card-muted: var(--text-muted);
+  --card-lift: -2px;
+}
+.card--grafit { --card-bg: var(--bg-graphite); }

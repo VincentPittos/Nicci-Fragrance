@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicci system wizualny</title>
+<link rel="stylesheet" href="../../site/css/fonts.css">
+<link rel="stylesheet" href="../../site/css/tokens.css">
+<link rel="stylesheet" href="../../site/css/base.css">
+<link rel="stylesheet" href="../../site/css/components.css">
+<style>
+/* Style tylko tego podglądu (prefiks pv-). Komponenty strony są w site/css. */
+body { background: var(--bg-light); }
+.pv-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--n-z-header);
+  border-bottom: var(--n-hairline) solid color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--bg-dark) 100%, transparent);
+  transition: background-color var(--n-dur-base) var(--n-ease-out);
+}
+.pv-header.is-scrolled {
+  background: color-mix(in srgb, var(--bg-dark) 74%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+@media (prefers-reduced-transparency: reduce) { .pv-header.is-scrolled { background: var(--bg-dark); backdrop-filter: none; } }
+.pv-header__in { display: flex; align-items: center; justify-content: space-between; gap: var(--n-space-4); min-height: 4.25rem; }
+.pv-logo {
+  display: inline-grid; place-items: center; padding: 0.35rem 0.7rem 0.3rem;
+  border: var(--n-hairline) solid var(--accent);
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: 0.14em; color: var(--text-accent);
+  text-decoration: none; line-height: 1;
+}
+.pv-logo small { display: block; margin-top: 0.2rem; font-family: var(--font-text); font-size: 0.5rem; letter-spacing: 0.3em; font-weight: 500; }
+.pv-nav { display: none; gap: var(--n-space-5); }
+.pv-nav a { text-decoration: none; color: var(--text-strong); padding-block: var(--n-space-3); }
+.pv-nav a:hover { color: var(--text-accent); }
+@media (min-width: 60rem) { .pv-nav { display: flex; } }
+
+.pv-intro { padding-block: var(--n-space-8) var(--n-space-7); }
+.pv-intro .t-display { margin-top: var(--n-space-4); }
+.pv-intro .t-lead { margin-top: var(--n-space-5); color: var(--text); }
+.pv-controls { display: grid; gap: var(--n-space-5); margin-top: var(--n-space-6); max-width: 40rem; }
+.pv-controls .seg { max-width: 28rem; }
+.pv-sec { padding-block: var(--n-space-8); }
+.pv-sec + .pv-sec { border-top: var(--n-hairline) solid var(--border-hairline); }
+.pv-sec > .container > .t-h2 { margin-top: var(--n-space-3); }
+.pv-lead { margin-top: var(--n-space-4); max-width: 44rem; color: var(--text); }
+.pv-note {
+  margin-top: var(--n-space-5); max-width: 44rem; padding: var(--n-space-4) var(--n-space-5);
+  border-left: 2px solid var(--accent); background: var(--surface); font-size: var(--n-size-small); color: var(--text);
+}
+.pv-variant { margin-top: var(--n-space-8); }
+.pv-variant__head { display: grid; gap: var(--n-space-2); margin-bottom: var(--n-space-5); max-width: 44rem; }
+.pv-variant__head p { color: var(--text-muted); }
+.pv-pick {
+  margin-top: var(--n-space-8); padding: var(--n-space-6); border: var(--n-hairline) solid var(--border-gold); background: var(--surface);
+  display: grid; gap: var(--n-space-3); max-width: 52rem;
+}
+
+.pv-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: var(--n-space-4); margin-top: var(--n-space-6); }
+.pv-sw { display: grid; gap: var(--n-space-2); font-size: var(--n-size-small); }
+.pv-sw i { display: block; aspect-ratio: 16 / 10; border: var(--n-hairline) solid var(--border-hairline); }
+.pv-sw b { font-weight: 500; color: var(--text-strong); }
+.pv-sw span { color: var(--text-muted); }
+.pv-table-wrap { margin-top: var(--n-space-6); overflow-x: auto; }
+.pv-table { width: 100%; min-width: 36rem; border-collapse: collapse; font-size: var(--n-size-small); }
+.pv-table th, .pv-table td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: var(--n-hairline) solid var(--border-hairline); vertical-align: middle; }
+.pv-table th { font-weight: 500; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--n-size-micro); }
+.pv-table .num { text-align: right; }
+.pv-pair { display: inline-grid; place-items: center; min-width: 5.5rem; padding: 0.35rem 0.6rem; font-weight: 500; border: var(--n-hairline) solid var(--border-hairline); }
+.pv-ok { color: var(--success); font-weight: 500; }
+.pv-no { color: var(--danger); font-weight: 500; }
+
+.pv-type { display: grid; gap: var(--n-space-7); margin-top: var(--n-space-6); }
+.pv-type__row { display: grid; gap: var(--n-space-2); }
+.pv-type__meta { font-size: var(--n-size-micro); letter-spacing: 0.08em; color: var(--text-muted); }
+.pv-dark { padding: var(--n-space-6) var(--n-space-5); }
+
+.pv-comp { display: grid; gap: var(--n-space-6); margin-top: var(--n-space-6); }
+.pv-comp__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--n-space-4); }
+.pv-comp__label { width: 100%; font-size: var(--n-size-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+.pv-fields { display: grid; gap: var(--n-space-5); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); width: 100%; }
+.pv-skel { width: min(100%, 22rem); }
+
+.pv-motion { display: grid; gap: var(--n-space-7); margin-top: var(--n-space-6); }
+.pv-demo { display: grid; gap: var(--n-space-4); }
+.pv-demo h3 { font-size: var(--n-size-h4); }
+.pv-track {
+  position: relative; height: 4.5rem; border: var(--n-hairline) solid var(--border-hairline); background: var(--surface);
+  cursor: pointer; touch-action: manipulation; overflow: hidden;
+}
+.pv-dot { position: absolute; top: 50%; left: 0; width: 2.5rem; height: 2.5rem; margin-top: -1.25rem; border-radius: 50%; background: var(--accent); pointer-events: none; }
+.pv-rail { position: relative; overflow: hidden; border: var(--n-hairline) solid var(--border-hairline); background: var(--surface); touch-action: pan-y; user-select: none; }
+.pv-strip { display: flex; gap: var(--n-space-4); padding: var(--n-space-4); width: max-content; cursor: grab; }
+.pv-strip.is-drag { cursor: grabbing; }
+.pv-slide {
+  display: grid; align-content: end; width: min(70vw, 17rem); aspect-ratio: 4 / 3; padding: var(--n-space-4);
+  border: var(--n-hairline) solid var(--border-gold); background: var(--surface-panel);
+  font-family: var(--font-display); font-size: 1.5rem; color: var(--text-strong);
+}
+.pv-progress { height: 2px; background: var(--border-hairline); }
+.pv-progress i { display: block; height: 100%; width: 25%; background: var(--accent); transform-origin: 0 50%; }
+.pv-presets td:first-child { font-weight: 500; color: var(--text-strong); }
+.pv-foot { padding-block: var(--n-space-7); font-size: var(--n-size-small); }
+</style>
+</head>
+<body>
+<div data-page-root>
+<header class="pv-header theme-dark" id="top">
+  <div class="container pv-header__in">
+    <a class="pv-logo" href="#top" aria-label="Nicci Fragrances, logo zastępcze">NICCI<small>FRAGRANCES</small></a>
+    <nav class="pv-nav t-nav" aria-label="Podgląd">
+      <a href="#karty">Karty</a><a href="#kolory">Kolory</a><a href="#typografia">Typografia</a><a href="#komponenty">Komponenty</a><a href="#ruch">Ruch</a>
+    </nav>
+    <button type="button" class="cart-btn" data-cart-button aria-label="Koszyk, pusty">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7.5 11.5h17l-1.4 15.1a1.5 1.5 0 0 1-1.5 1.4H10.4a1.5 1.5 0 0 1-1.5-1.4z"/>
+        <path d="M11.5 11.5V9.5a4.5 4.5 0 0 1 9 0v2"/>
+        <path d="M13 16.5c.6 1.6 1.7 2.4 3 2.4s2.4-.8 3-2.4"/>
+      </svg>
+      <span class="cart-btn__count" data-cart-count></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="pv-intro theme-dark">
+  <div class="container">
+    <p class="t-eyebrow t-eyebrow--rule">Etap 2 z 9</p>
+    <h1 class="t-display">System wizualny <span class="t-accent">i dwie karty do wyboru</span></h1>
+    <p class="t-lead">Wszystko na tej stronie jest zbudowane z plików strony sklepu: tych samych tokenów, komponentów i silnika ruchu. Karty zachowają się w katalogu dokładnie tak, jak tutaj.</p>
+    <div class="pv-controls">
+      <fieldset class="seg" id="bg-toggle">
+        <legend class="t-small" style="margin-bottom: var(--n-space-2); color: var(--text-strong)">Tło sekcji 3, 4 i 5</legend>
+        <label class="seg__opt"><input type="radio" name="bg" value="light" checked><span>Jasny krem</span></label>
+        <label class="seg__opt"><input type="radio" name="bg" value="brand"><span>Krem marki</span></label>
+      </fieldset>
+      <p class="t-small t-muted">Jasny krem #F3EADF to moja propozycja do „jasnego kremowego” z Twojej odpowiedzi. Krem marki #E8D7C3 zostaje na panelach, np. w karuzeli rodzin.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pv-sec theme-light" id="karty">
+  <div class="container">
+    <p class="t-eyebrow">Decyzja</p>
+    <h2 class="t-h2">Karta produktu na siatce</h2>
+    <p class="pv-lead">Sześć prawdziwych pozycji z katalogu. Przełącz pojemność, dodaj do koszyka, zmień ilość, otwórz opis. Gwiazdek nie ma, w ich miejscu są etykiety z arkusza: rodzina, pora dnia i profil.</p>
+    <p class="pv-note">Stany pokazowe: Louis Vuitton Imagination ma ustawiony niski stan 22 ml, a MFK Baccarat Rouge 540 niedostępną pojemność 20 ml. Tom Ford Lost Cherry jest wyprzedany naprawdę, tak jak w arkuszu. Wszystkie karty mają to samo zdjęcie zastępcze wycięte z Twojej referencji, bo zdjęcia produktów są w etapie 3. Miniatury nut to na razie inicjały w złotym kółku.</p>
+
+    <div class="pv-variant">
+      <div class="pv-variant__head">
+        <h3 class="t-h3">Wariant A: kremowy</h3>
+        <p>Cała karta na kremie, marka w ciemnym złocie, treść do lewej. Katalog zostaje jasny, tak jak w kompozycji światła strony.</p>
+      </div>
+      <div class="grid" id="grid-a"></div>
+    </div>
+
+    <div class="pv-variant">
+      <div class="pv-variant__head">
+        <h3 class="t-h3">Wariant B: grafitowy pasek</h3>
+        <p>Jak w referencji Louis Vuitton: zdjęcie na jasnym, pod nim grafit, złota marka i biała nazwa, wszystko wyśrodkowane.</p>
+      </div>
+      <div class="grid" id="grid-b"></div>
+    </div>
+
+    <div class="pv-pick" id="rekomendacja">
+      <p class="t-eyebrow">Moja rekomendacja</p>
+      <h3 class="t-h3">Wariant A w siatce, grafit w szczegółach produktu</h3>
+      <p>Na siatce po trzy karty w rzędzie ciemne paski wariantu B robią z sekcji katalogu ciemny blok. Gaszą przez to główny pomysł strony, która od sekcji 3 ma się rozjaśniać. Wyśrodkowany tekst gorzej się też przegląda, gdy obok siebie stoją trzy karty.</p>
+      <p>Wariant A trzyma światło, a marka w głębokim złocie ma kontrast 5,53 na jasnym kremie. Grafitowy wygląd z referencji Louis Vuitton proponuję przenieść do szuflady szczegółów produktu. Tam oglądasz jeden zapach naraz, dokładnie jak w Twojej referencji, i ciemne tło daje mu scenę.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pv-sec theme-light" id="kolory">
+  <div class="container">
+    <p class="t-eyebrow">Tokeny</p>
+    <h2 class="t-h2">Kolory i kontrast</h2>
+    <p class="pv-lead">Paleta marki plus trzy odcienie pomocnicze, bez których tekst nie przechodzi progu 4,5:1. Komponenty sięgają wyłącznie po role (tło, tekst, akcent), więc ten sam przycisk działa na czerni i na kremie.</p>
+    <div class="pv-swatches" id="swatches"></div>
+    <div class="pv-table-wrap">
+      <table class="pv-table">
+        <caption class="visually-hidden">Kontrast par kolorów według WCAG 2.2</caption>
+        <thead><tr><th scope="col">Para</th><th scope="col">Zastosowanie</th><th scope="col" class="num">Kontrast</th><th scope="col">Wynik</th></tr></thead>
+        <tbody id="contrast"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="pv-sec theme-light" id="typografia">
+  <div class="container">
+    <p class="t-eyebrow">Tokeny</p>
+    <h2 class="t-h2">Typografia</h2>
+    <p class="pv-lead">Cormorant Garamond w nagłówkach i Jost w treści, tak jak w artifakcie sekcji 2. Duże nagłówki mają ujemny tracking, małe wersaliki dodatni.</p>
+    <div class="pv-type">
+      <div class="pv-type__row theme-dark pv-dark">
+        <p class="pv-type__meta">DISPLAY · 44 DO 88 PX · TRACKING −0,022 EM · NA CIEMNYM</p>
+        <p class="t-display" style="font-family: var(--font-display); color: var(--text-strong)">Zapach z najwyższej półki <span class="t-accent">za ułamek ceny</span></p>
+      </div>
+      <div class="pv-type__row">
+        <p class="pv-type__meta">H2 · 36 DO 60 PX · −0,016 EM</p>
+        <p class="t-h2" style="font-family: var(--font-display); color: var(--text-strong)">Zestawy odkrywców <span class="t-accent">na pierwszy raz</span></p>
+      </div>
+      <div class="pv-type__row">
+        <p class="pv-type__meta">WERSALIKI I KURSYWA · POLSKIE ZNAKI</p>
+        <p class="t-h3" style="font-family: var(--font-display); color: var(--text-strong)">ZAŻÓŁĆ GĘŚLĄ JAŹŃ <span class="t-accent">zażółć gęślą jaźń</span></p>
+        <p class="t-eyebrow">Łączymy ą, ę, ł, ż i ó w wersalikach</p>
+      </div>
+      <div class="pv-type__row">
+        <p class="pv-type__meta">LEAD · 17 DO 20 PX · JOST 300</p>
+        <p class="t-lead">Oryginalne perfumy niszowe i designerskie w odlewkach 5, 10 i 20 ml. Płacisz tylko za tyle, ile chcesz nosić.</p>
+      </div>
+      <div class="pv-type__row">
+        <p class="pv-type__meta">TEKST · 16 PX · INTERLINIA 1,6</p>
+        <p style="max-width: 36em">Każdą odlewkę przygotowujemy ręcznie, prosto z oryginalnego flakonu, do atomizera, który zabierzesz wszędzie. Rezerwację trzymamy dla Ciebie przez 24 godziny.</p>
+        <p class="t-small t-muted">Mały tekst 14 px w kolorze drugorzędnym #645549, kontrast 6,01 na jasnym kremie.</p>
+      </div>
+      <div class="pv-type__row theme-dark pv-dark">
+        <p class="pv-type__meta">NAWIGACJA · 13 PX · TRACKING 0,22 EM</p>
+        <p class="t-nav" style="color: var(--text-strong)">Jak to działa &nbsp; Quiz &nbsp; Katalog &nbsp; Zestawy odkrywców</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pv-sec theme-light" id="komponenty">
+  <div class="container">
+    <p class="t-eyebrow">Komponenty bazowe</p>
+    <h2 class="t-h2">Kontrolki i stany</h2>
+    <div class="pv-comp">
+      <div class="pv-comp__row">
+        <p class="pv-comp__label">Przyciski na jasnym</p>
+        <button type="button" class="btn btn--primary">Znajdź zapach dla siebie</button>
+        <button type="button" class="btn btn--outline">Zobacz wszystkie zapachy</button>
+        <button type="button" class="link">Zobacz zapachy z tej rodziny</button>
+        <button type="button" class="btn btn--primary" aria-busy="true" aria-label="Wysyłamy zamówienie">Zamawiam i rezerwuję</button>
+        <button type="button" class="btn btn--outline" disabled>Niedostępne</button>
+      </div>
+      <div class="pv-comp__row theme-dark pv-dark">
+        <p class="pv-comp__label">Przyciski na czerni: ten sam kod, inny kontekst</p>
+        <button type="button" class="btn btn--primary">Znajdź zapach dla siebie</button>
+        <button type="button" class="btn btn--outline">Zobacz wszystkie zapachy</button>
+        <button type="button" class="link">Zapytaj nas na Instagramie</button>
+      </div>
+      <div class="pv-comp__row">
+        <p class="pv-comp__label">Etykiety, niedobór, cena, ilość</p>
+        <ul class="chips"><li class="chip">Drzewna</li><li class="chip">Na wieczór</li><li class="chip">Unisex</li></ul>
+        <p class="scarcity">Zostało 14&nbsp;ml z tego flakonu</p>
+        <p class="price">190&nbsp;zł</p>
+        <div class="stepper" role="group" aria-label="Ilość, przykład"><button type="button" aria-label="Odejmij">&minus;</button><output>2</output><button type="button" aria-label="Dodaj">+</button></div>
+      </div>
+      <div class="pv-comp__row">
+        <p class="pv-comp__label">Przełącznik pojemności z wariantem niedostępnym (najedź albo przejdź klawiszem Tab)</p>
+        <fieldset class="seg" style="width: min(100%, 22rem)">
+          <legend class="visually-hidden">Pojemność, przykład</legend>
+          <label class="seg__opt"><input type="radio" name="demo-ml" value="5" checked><span>5&nbsp;ml</span></label>
+          <label class="seg__opt"><input type="radio" name="demo-ml" value="10"><span>10&nbsp;ml</span></label>
+          <label class="seg__opt"><input type="radio" name="demo-ml" value="20" aria-disabled="true" aria-describedby="demo-tip"><span>20&nbsp;ml</span><span class="seg__tip" role="tooltip" id="demo-tip">Tej pojemności chwilowo brakuje</span></label>
+        </fieldset>
+      </div>
+      <div class="pv-comp__row">
+        <p class="pv-comp__label">Pola formularza: etykieta zawsze widoczna, błąd przy polu</p>
+        <div class="pv-fields">
+          <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" autocomplete="name" value="Anna Nowak"></div>
+          <div class="field" data-invalid><label for="f-code">Kod pocztowy</label><input id="f-code" inputmode="numeric" value="00000" aria-invalid="true" aria-describedby="f-code-err"><p class="field__error" id="f-code-err">Wpisz kod w formacie 00-000.</p></div>
+          <div class="field"><label for="f-locker">Kod paczkomatu</label><input id="f-locker" value="" placeholder="np. WAW12M" aria-describedby="f-locker-hint"><p class="field__hint" id="f-locker-hint">Znajdziesz go na mapie InPost.</p></div>
+        </div>
+      </div>
+      <div class="pv-comp__row">
+        <p class="pv-comp__label">Szkielet karty: te same proporcje co karta, zero skoku układu</p>
+        <div class="card skeleton pv-skel" aria-hidden="true">
+          <div class="card__media"></div>
+          <div class="card__body"><span class="sk" style="width: 55%; height: 1.4rem"></span><span class="sk" style="width: 40%"></span><span class="sk" style="width: 80%"></span><span class="sk" style="width: 100%; height: 3.25rem"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pv-sec theme-light" id="ruch">
+  <div class="container">
+    <p class="t-eyebrow">Presety ruchu</p>
+    <h2 class="t-h2">Sprężyny, które da się przerwać</h2>
+    <p class="pv-lead">Każdy ruch startuje od tego, co widać na ekranie, i przejmuje prędkość palca. Przy włączonym ograniczeniu ruchu w systemie zostają same zmiany przezroczystości.</p>
+    <div class="pv-table-wrap">
+      <table class="pv-table pv-presets">
+        <caption class="visually-hidden">Presety sprężyn</caption>
+        <thead><tr><th scope="col">Preset</th><th scope="col" class="num">Tłumienie</th><th scope="col" class="num">Odpowiedź</th><th scope="col">Gdzie</th></tr></thead>
+        <tbody>
+          <tr><td>ui</td><td class="num">1,0</td><td class="num">0,35 s</td><td>wejścia sekcji, cena przy zmianie pojemności</td></tr>
+          <tr><td>snappy</td><td class="num">1,0</td><td class="num">0,24 s</td><td>przyciski, licznik i ikona koszyka</td></tr>
+          <tr><td>lift</td><td class="num">0,72</td><td class="num">0,34 s</td><td>uniesienie karty o 2 px ze sprężystym powrotem</td></tr>
+          <tr><td>sheet</td><td class="num">0,86</td><td class="num">0,32 s</td><td>szuflady i sheety</td></tr>
+          <tr><td>momentum</td><td class="num">0,8</td><td class="num">0,40 s</td><td>po rzucie: karuzela, puszczona szuflada</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pv-motion">
+      <div class="pv-demo">
+        <h3>Przerwij w dowolnej chwili</h3>
+        <p class="t-small t-muted">Klikaj w różne miejsca paska, także w trakcie ruchu. Kropka zmienia cel bez zatrzymania i bez skoku.</p>
+        <div class="pv-track" id="track" role="button" tabindex="0" aria-label="Pasek demonstracyjny, kliknij, żeby przesunąć kropkę"><span class="pv-dot" id="dot"></span></div>
+      </div>
+      <div class="pv-demo">
+        <h3>Rzut z pędem i przyciąganiem do slajdu</h3>
+        <p class="t-small t-muted">Przeciągnij pasek i puść z rozpędem. Cel wybiera rzut, nie miejsce puszczenia. Na krańcach czujesz opór. Tak zadziała karuzela rodzin.</p>
+        <div class="pv-rail" id="rail">
+          <div class="pv-strip" id="strip">
+            <div class="pv-slide">Cytrusowa</div><div class="pv-slide">Drzewna</div><div class="pv-slide">Gourmand</div><div class="pv-slide">Orientalna</div>
+          </div>
+          <div class="pv-progress" aria-hidden="true"><i id="progress"></i></div>
+        </div>
+      </div>
+      <div class="pv-demo">
+        <h3>Szuflada</h3>
+        <p class="t-small t-muted">Na telefonie wysuwa się od dołu, na komputerze z prawej. Przeciągnij za uchwyt albo nagłówek, żeby zamknąć. Tło cofa się w głąb. Esc też zamyka.</p>
+        <p><button type="button" class="btn btn--outline" id="open-drawer">Otwórz szufladę</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pv-foot theme-dark">
+  <div class="container"><p class="t-muted">Podgląd etapu 2. Pliki: site/css/tokens.css, base.css, components.css, site/js/motion.js, ui.js, card.js, drawer.js.</p></div>
+</footer>
+</div>
+
+<script src="../../site/nicci-api.js"></script>
+<script src="../../site/js/motion.js"></script>
+<script src="../../site/js/ui.js"></script>
+<script src="../../site/js/card.js"></script>
+<script src="../../site/js/drawer.js"></script>
+<script src="dane.js"></script>
+<script>
+(function () {
+  'use strict';
+  var U = window.NicciUI, M = window.NicciMotion, D = window.PODGLAD;
+  var IMG = 'img/packshot-zastepczy.webp';
+
+  // ---------- karty ----------
+  function draw() {
+    document.getElementById('grid-a').innerHTML = D.products.map(function (p) {
+      return NicciCard.render(p, { variant: 'krem', img: IMG, imgW: 640, imgH: 800 });
+    }).join('');
+    document.getElementById('grid-b').innerHTML = D.products.map(function (p) {
+      return NicciCard.render(p, { variant: 'grafit', img: IMG, imgW: 640, imgH: 800 });
+    }).join('');
+    NicciCard.mount(document.getElementById('karty'), D.products);
+  }
+  draw();
+  U.initCart();
+  // karta w drugim wariancie pokazuje ten sam stan koszyka
+  window.Nicci.cart.onChange(function () { document.dispatchEvent(new CustomEvent('nicci:cart-sync')); });
+
+  function pyramid(p) {
+    var rows = [['Nuty głowy', p.nuty.glowy], ['Nuty serca', p.nuty.serca], ['Nuty bazy', p.nuty.bazy]];
+    return rows.filter(function (r) { return r[1].length; }).map(function (r) {
+      return '<div style="display:grid;gap:.5rem;margin-top:1.25rem"><p class="t-eyebrow">' + r[0] + '</p><ul class="chips">' +
+        r[1].map(function (n) { return '<li class="chip" style="text-transform:none;letter-spacing:.02em">' + U.esc(U.cap(n)) + '</li>'; }).join('') + '</ul></div>';
+    }).join('');
+  }
+  document.addEventListener('nicci:open-product', function (e) {
+    var p = D.products.filter(function (x) { return x.id === e.detail.id; })[0];
+    NicciDrawer.open({
+      title: p.marka + ' ' + p.nazwa, trigger: e.detail.trigger,
+      body: '<p>' + U.esc(p.opis) + '</p>' + pyramid(p) +
+        '<p class="t-small t-muted" style="margin-top:1.5rem">Pełna szuflada szczegółów z porą roku, trwałością i podobnymi powstanie w etapie 5.</p>'
+    });
+  });
+  document.addEventListener('nicci:similar', function (e) {
+    var p = D.products.filter(function (x) { return x.id === e.detail.id; })[0];
+    NicciDrawer.open({
+      title: 'Podobne do ' + p.nazwa, trigger: e.detail.trigger,
+      body: '<p class="t-muted">Tego zapachu już nie mamy. Te są najbliżej niego w naszym katalogu:</p><ul style="margin-top:1rem;display:grid;gap:.5rem">' +
+        p.podobne.map(function (id) { return '<li>' + U.esc(D.nazwy[id] || id) + '</li>'; }).join('') + '</ul>'
+    });
+  });
+
+  // ---------- nagłówek: przezroczysty materiał po przewinięciu ----------
+  var header = document.querySelector('.pv-header');
+  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---------- tło sekcji ----------
+  document.getElementById('bg-toggle').addEventListener('change', function (e) {
+    document.documentElement.style.setProperty('--bg-light', e.target.value === 'brand' ? 'var(--n-cream)' : 'var(--n-cream-100)');
+  });
+
+  // ---------- kolory i kontrast ----------
+  var SW = [
+    ['#040404', 'Czerń', 'tło hero i stopki'], ['#272727', 'Grafit', 'sekcja 2, pasek karty B'], ['#7C695B', 'Taupe', 'tylko duże elementy'],
+    ['#D5A865', 'Złoto', 'ramki, CTA, linie'], ['#E9D2AF', 'Złoto jasne', 'hover, fokus na ciemnym'], ['#E8D7C3', 'Krem marki', 'panele'],
+    ['#F3EADF', 'Jasny krem', 'tło sekcji 3 i dalej'], ['#FAF6F0', 'Krem karty', 'karty, pola'],
+    ['#75582F', 'Złoto głębokie', 'złoty tekst na jasnym'], ['#645549', 'Taupe ciemne', 'tekst drugorzędny na jasnym'], ['#A99789', 'Taupe jasne', 'tekst drugorzędny na ciemnym']
+  ];
+  document.getElementById('swatches').innerHTML = SW.map(function (s) {
+    return '<div class="pv-sw"><i style="background:' + s[0] + '"></i><b>' + s[1] + '</b><span>' + s[0] + ', ' + s[2] + '</span></div>';
+  }).join('');
+  function lum(h) { var c = [1, 3, 5].map(function (i) { var v = parseInt(h.substr(i, 2), 16) / 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+  function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  var PAIRS = [
+    ['#040404', '#F3EADF', 'tekst na jasnym kremie', 4.5], ['#645549', '#F3EADF', 'tekst drugorzędny na jasnym', 4.5],
+    ['#75582F', '#F3EADF', 'złoty tekst na jasnym', 4.5], ['#D5A865', '#F3EADF', 'złoto jako tekst na jasnym', 4.5],
+    ['#040404', '#D5A865', 'napis na złotym przycisku', 4.5], ['#D5A865', '#040404', 'złoto na czerni', 4.5],
+    ['#D5A865', '#272727', 'złota marka na grafitowym pasku', 4.5], ['#A99789', '#272727', 'tekst drugorzędny na graficie', 4.5],
+    ['#7C695B', '#040404', 'taupe marki jako tekst na czerni', 4.5], ['#FFFFFF', '#272727', 'biała nazwa na graficie', 4.5]
+  ];
+  document.getElementById('contrast').innerHTML = PAIRS.map(function (p) {
+    var r = ratio(p[0], p[1]), ok = r >= p[3], big = r >= 3;
+    return '<tr><td><span class="pv-pair" style="color:' + p[0] + ';background:' + p[1] + '">Aa 12</span></td><td>' + p[2] +
+      '</td><td class="num">' + r.toFixed(2).replace('.', ',') + '</td><td class="' + (ok ? 'pv-ok' : 'pv-no') + '">' +
+      (ok ? 'przechodzi' : big ? 'tylko duży tekst' : 'tylko dekoracja') + '</td></tr>';
+  }).join('');
+
+  // ---------- demo: przerywalna sprężyna ----------
+  var track = document.getElementById('track'), dot = document.getElementById('dot');
+  function moveDot(clientX) {
+    var r = track.getBoundingClientRect();
+    var x = Math.max(0, Math.min(r.width - dot.offsetWidth, clientX - r.left - dot.offsetWidth / 2));
+    M.animate(dot, { x: x }, { preset: 'ui' });
+  }
+  track.addEventListener('pointerdown', function (e) { moveDot(e.clientX); });
+  track.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    var r = track.getBoundingClientRect();
+    moveDot(M.get(dot, 'x') < r.width / 2 ? r.right : r.left);
+  });
+
+  // ---------- demo: rzut z pędem ----------
+  var rail = document.getElementById('rail'), strip = document.getElementById('strip'), bar = document.getElementById('progress');
+  var slides = strip.children, tr = M.tracker(), drag = null;
+  function snaps() { return Array.prototype.map.call(slides, function (s) { return -(s.offsetLeft - slides[0].offsetLeft); }); }
+  function minX() { return Math.min(0, rail.clientWidth - strip.scrollWidth); }
+  function progressTo(x) { var s = snaps(); var last = Math.max(minX(), s[s.length - 1]); var t = last ? x / last : 0; M.set(bar, { x: Math.max(0, Math.min(1, t)) * bar.parentNode.clientWidth * 0.75 }); }
+  strip.addEventListener('pointerdown', function (e) {
+    drag = { id: e.pointerId, start: e.clientX, from: M.get(strip, 'x'), moved: false };
+    tr.reset(); tr.push(e.clientX);
+  });
+  strip.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var d = e.clientX - drag.start;
+    if (!drag.moved) { if (Math.abs(d) < 8) return; drag.moved = true; strip.setPointerCapture(e.pointerId); strip.classList.add('is-drag'); }
+    var x = drag.from + d, lo = minX();
+    if (x > 0) x = M.rubberband(x, rail.clientWidth);
+    else if (x < lo) x = lo + M.rubberband(x - lo, rail.clientWidth);
+    M.set(strip, { x: x }); progressTo(x); tr.push(e.clientX);
+  });
+  function release(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var moved = drag.moved; drag = null; strip.classList.remove('is-drag');
+    if (!moved) return;
+    var v = tr.velocity(), x = M.get(strip, 'x'), projected = x + M.project(v, 0.994), lo = minX();
+    var target = snaps().map(function (s) { return Math.max(lo, s); }).reduce(function (best, s) { return Math.abs(s - projected) < Math.abs(best - projected) ? s : best; }, 0);
+    var watcher = M.value(x, function (val) { progressTo(val); }, { preset: 'momentum' });
+    M.animate(strip, { x: target }, { preset: 'momentum', velocity: { x: v } });
+    watcher.to(target, v);
+  }
+  strip.addEventListener('pointerup', release);
+  strip.addEventListener('pointercancel', release);
+
+  // ---------- demo: szuflada ----------
+  document.getElementById('open-drawer').addEventListener('click', function (e) {
+    NicciDrawer.open({
+      title: 'Twój koszyk', trigger: e.currentTarget,
+      body: '<p>Tak wysunie się koszyk, szczegóły produktu i filtry. Przeciągnij w dół (na komputerze w prawo) i puść szybko albo powoli: szybki rzut zamyka nawet z krótkiego ruchu, powolny wraca na miejsce.</p>' +
+        '<p class="t-small t-muted" style="margin-top:1rem">Fokus zostaje w szufladzie, a po zamknięciu wraca na przycisk, który ją otworzył.</p>',
+      foot: '<button type="button" class="btn btn--primary btn--block" data-drawer-close>Przejdź do zamówienia</button>'
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
