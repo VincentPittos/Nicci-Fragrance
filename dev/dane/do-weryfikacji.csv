@@ -1,0 +1,115 @@
+id,pozycja,pole,w_zrodle,w_imporcie,powod
+p01,Louis Vuitton Imagination,okazja,11.0,,wartość nie jest listą okazji (błąd w źródle)
+p02,Louis Vuitton Pacific Chill,sezon,"Lato (upały), późna wiosna","wiosna, lato",uproszczono do listy pór roku
+p02,Louis Vuitton Pacific Chill,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p03,Louis Vuitton Afternoon Swim,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p05,Louis Vuitton Ombre Nomade,rodzina,Agarowo-różana,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p05,Louis Vuitton Ombre Nomade,podobne,Amouage Otlands -> otlands,,dopasowano po poprawce literówki albo skrótu nazwy
+p06,Xerjoff Torino21,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p07,Xerjoff Renaissance (XJ 1861),sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
+p08,Xerjoff Erba Pura,rodzina,Owocowo-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p08,Xerjoff Erba Pura,sezon,"Cały rok, najlepiej wiosna i lato","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p09,Xerjoff Uden,sezon,"Jesień, zima, wczesna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
+p09,Xerjoff Uden,pora,"Wieczór, chłodny dzień",uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
+p11,Creed Aventus,rodzina,Owocowo-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p11,Creed Aventus,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p12,Creed Absolu Aventus,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p12,Creed Absolu Aventus,rodzina,owocowo-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p13,Creed Virgin Island Water,nazwa,Virgin Island Water,Virgin Island Water,nazwa do potwierdzenia (w ofercie „Virgin Mountain Water”)
+p13,Creed Virgin Island Water,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
+p14,Creed Silver Mountain Water,rodzina,zielono-herbaciana,świeża,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p14,Creed Silver Mountain Water,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p15,Amouage Search,sezon,"Wiosna, jesień (uniwersalny)","wiosna, jesień",uproszczono do listy pór roku
+p15,Amouage Search,ceny,5 ml – 120 zł | 10 ml – 220 zł | 20 ml – 400 zł (promocja),5 ml 120 zł | 10 ml 220 zł | 20 ml 400 zł,"cena oznaczona jako promocja; API nie ma pola na starą cenę, pokażemy ją jako zwykłą"
+p16,Amouage Reflection Man,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p18,Amouage Interlude Black Iris,aktywny,pewność danych: niska,NIE,instrukcja arkusza: nie publikować bez weryfikacji piramidy nut
+p18,Amouage Interlude Black Iris,rodzina,Irysowo-kadzidlana,kwiatowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p18,Amouage Interlude Black Iris,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
+p19,Amouage Interlude Man,rodzina,Dymno-żywiczna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p19,Amouage Interlude Man,sezon,"Zima, późna jesień","jesień, zima",uproszczono do listy pór roku
+p21,Mancera Lemon Line,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p21,Mancera Lemon Line,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p24,Mancera Tonka Cola,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p25,Mancera Red Tobacco,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p25,Mancera Red Tobacco,rodzina,Korzenna,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p26,Mancera Instant Crush,aktywny,pewność danych: niska,NIE,instrukcja arkusza: nie publikować bez weryfikacji piramidy nut
+p26,Mancera Instant Crush,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
+p30,Montale Honey Aoud,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p31,Montale Intense Pepper,podobne,Amouage Reflection -> reflection,,dopasowano po poprawce literówki albo skrótu nazwy
+p32,Tom Ford Ombré Leather,podobne,LV Nouvau Monde -> nouvau monde,,dopasowano po poprawce literówki albo skrótu nazwy
+p33,Tom Ford Noir Extreme,rodzina,Korzenno-gourmand,gourmand,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p34,Tom Ford Lost Cherry,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
+p35,Tom Ford Tobacco Vanille,rodzina,Korzenno-gourmand,gourmand,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p36,Tom Ford Bois Pacifique,sezon,"Jesień, zima, wczesna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
+p37,Tom Ford Oud Wood,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
+p38,Tom Ford Ébène Fumé,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p38,Tom Ford Ébène Fumé,rodzina,Dymno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p39,Marc-Antoine Barrois Ganymede,sezon,"Wiosna, jesień (uniwersalny)","wiosna, jesień",uproszczono do listy pór roku
+p39,Marc-Antoine Barrois Ganymede,ceny,5 ml – 70 zł | 10 ml – 140 zł (?) | 20 ml – 250 zł,5 ml 70 zł | 20 ml 250 zł,"cena 10 ml oznaczona w źródle jako niepewna ""(?)"", wariant pominięty do potwierdzenia"
+p40,Tiziana Terenzi Kirke,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p41,Maison Crivelli Oud Maracujá,rodzina,Owocowo-agarowa,słodka,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p41,Maison Crivelli Oud Maracujá,sezon,"Jesień, zima, chłodna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
+p41,Maison Crivelli Oud Maracujá,podobne,LV Nouvau Monde -> nouvau monde,,dopasowano po poprawce literówki albo skrótu nazwy
+p43,Maison Francis Kurkdjian Baccarat Rouge 540,sezon,"Cały rok, najlepiej jesień i zima","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p43,Maison Francis Kurkdjian Baccarat Rouge 540,pora,Wieczór (działa też w dzień),uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
+p44,Essential Parfums Bois Impérial,podobne,Nous Tous Saffrano Absolu -> saffrano absolu,,dopasowano po poprawce literówki albo skrótu nazwy
+p47,Nous Tous Secco di Como,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p48,Nous Tous Aurora Siciliana,rodzina,Owocowo-kwiatowa,kwiatowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p50,Nous Tous Milano 3AM,rodzina,korzenna,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p50,Nous Tous Milano 3AM,sezon,"Cały rok, najlepiej chłodne wieczory","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p53,Dior Sauvage Elixir,rodzina,Korzenno-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p55,Versace Eros Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p56,wiersz Lp. 56 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
+p56,wiersz Lp. 56 (bez nazwy),sezon,,,brak w źródle
+p56,wiersz Lp. 56 (bez nazwy),pora,,,brak w źródle
+p56,wiersz Lp. 56 (bez nazwy),trwalosc,,,brak w źródle
+p56,wiersz Lp. 56 (bez nazwy),projekcja,,,brak w źródle
+p57,wiersz Lp. 57 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
+p57,wiersz Lp. 57 (bez nazwy),rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p57,wiersz Lp. 57 (bez nazwy),sezon,,,brak w źródle
+p57,wiersz Lp. 57 (bez nazwy),pora,,,brak w źródle
+p57,wiersz Lp. 57 (bez nazwy),trwalosc,,,brak w źródle
+p57,wiersz Lp. 57 (bez nazwy),projekcja,,,brak w źródle
+p58,wiersz Lp. 58 (bez nazwy),"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
+p58,wiersz Lp. 58 (bez nazwy),sezon,,,brak w źródle
+p58,wiersz Lp. 58 (bez nazwy),pora,,,brak w źródle
+p58,wiersz Lp. 58 (bez nazwy),trwalosc,,,brak w źródle
+p58,wiersz Lp. 58 (bez nazwy),projekcja,,,brak w źródle
+p58,wiersz Lp. 58 (bez nazwy),ceny,,,brak cen
+p59,Hugo Boss Bottled Elixir,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p59,Hugo Boss Bottled Elixir,rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p60,Hugo Boss Bottled Absolu,aktywny,pewność danych: niska,NIE,instrukcja arkusza: nie publikować bez weryfikacji piramidy nut
+p60,Hugo Boss Bottled Absolu,rodzina,Korzenno-gourmand,gourmand,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p61,Hugo Boss Bottled Beyond,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p63,YSL Y Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p63,YSL Y Parfum,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p64,YSL MYSLF Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p65,Hermès Terre d'Hermès Eau Intense Vétiver,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p65,Hermès Terre d'Hermès Eau Intense Vétiver,sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
+p66,Rabanne Black XS,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p66,Rabanne Black XS,rodzina,Korzenno-cytrusowa,cytrusowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p68,Rabanne One Million,rodzina,Korzenno-słodka,słodka,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p69,Azzaro Chrome,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p70,Azzaro Forever Wanted Elixir,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p71,Azzaro The Most Wanted Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
+p71,Azzaro The Most Wanted Parfum,rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+z01,LV DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z01,LV DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z02,XERJOFF DISCOVERY SET,sklad,"5 × 5 ml (do ustalenia skład, sugerowane: Torino21, Renaissance, Erba Pura, Uden, Naxos)","p06:5, p07:5, p08:5, p09:5, p10:5","skład „do ustalenia”; wpisano propozycję ze źródła, zestaw wyłączony"
+z02,XERJOFF DISCOVERY SET,sklad,Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+z02,XERJOFF DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z02,XERJOFF DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z03,NOUS TOUS DISCOVERY SET,cena,350 zł,350,cena zapisana jako tekst
+z03,NOUS TOUS DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z03,NOUS TOUS DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z04,SWEET & SPICY SET,rodzina,,gourmand,propozycja z opisu zestawu w źródle (gourmand wprost w treści)
+z04,SWEET & SPICY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z05,ENTRY SET,sklad,Amouage Reflection -> reflection,,dopasowano po poprawce literówki albo skrótu nazwy
+z05,ENTRY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z05,ENTRY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z06,AUTUMN DISCOVERY SET,sklad,YSL Y le Parfum -> y le parfum,,dopasowano po poprawce literówki albo skrótu nazwy
+z06,AUTUMN DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z06,AUTUMN DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
+z07,WINTER DISCOVERY SET,sklad,"5x ml (BOSS Bottled Absolu, MFK Grand Soir, Maison Crivelli Oud Maracuja, Tom Ford Tobacco Vanille, Montale Arabians Tonka)","p60:5, p42:5, p41:5, p35:5, p28:5",w źródle „5x ml” bez pojemności; przyjęto 5 ml
+z07,WINTER DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
+z07,WINTER DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania

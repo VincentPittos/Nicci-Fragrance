@@ -1,0 +1,8 @@
+id,aktywny,nazwa,opis,rodzina,cena,sklad
+z01,TAK,LV DISCOVERY SET,,,550,"p01:5, p02:5, p03:5, p04:5, p05:5"
+z02,NIE,XERJOFF DISCOVERY SET,,,290,"p06:5, p07:5, p08:5, p09:5, p10:5"
+z03,TAK,NOUS TOUS DISCOVERY SET,,,350,"p46:5, p47:5, p48:5, p49:5, p50:5"
+z04,TAK,SWEET & SPICY SET,,gourmand,480,"p08:5, p24:5, p29:5, p34:5, p43:5"
+z05,TAK,ENTRY SET,,,320,"p44:5, p45:5, p32:5, p21:5, p16:5"
+z06,TAK,AUTUMN DISCOVERY SET,,,250,"p63:5, p52:5, p39:5, p33:5, p22:5"
+z07,TAK,WINTER DISCOVERY SET,,,540,"p60:5, p42:5, p41:5, p35:5, p28:5"

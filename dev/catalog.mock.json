@@ -1,0 +1,4261 @@
+{
+ "ok": true,
+ "_dev": "Mock z dev/zbuduj_mock.js. ml_dostepne zastępczo 100 ml, koszty dostawy przykładowe (14,99 / 19,99 zł, darmowa od 200 zł). Nie są to dane produkcyjne.",
+ "data": {
+  "products": [
+   {
+    "id": "p01",
+    "marka": "Louis Vuitton",
+    "nazwa": "Imagination",
+    "rodzina": "cytrusowa",
+    "profil": "męski",
+    "opis": "Wchodzisz do sali, w której wszyscy pachną tak samo, czyli czysto i zapominalnie. Ty pachniesz, jakbyś wracał z Włoch: skórka pomarańczy, świeżo starty imbir, a pod spodem ciepła herbata z kremowym piżmem, które zostaje w powietrzu po twoim wyjściu. Po tym zapachu ludzie pytają o nazwę. Dobry pierwszy wybór, jeśli wchodzisz w świat perfum na poważnie.",
+    "nuty": {
+     "glowy": [
+      "Cytron",
+      "bergamotka kalabryjska",
+      "pomarańcza sycylijska"
+     ],
+     "serca": [
+      "Imbir nigeryjski",
+      "neroli tunezyjskie",
+      "cynamon cejloński"
+     ],
+     "bazy": [
+      "Herbata chińska",
+      "ambroksan",
+      "olibanum (kadzidło)",
+      "drewno gwajakowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p46",
+     "p45",
+     "p06",
+     "p03"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 1
+   },
+   {
+    "id": "p02",
+    "marka": "Louis Vuitton",
+    "nazwa": "Pacific Chill",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Trzydzieści stopni, korek na mieście, wszyscy wokół pachną wysiłkiem. Ty pachniesz jak zimna lemoniada z miętą prosto z lodówki: cytryna, chłód i owoce, w których nie ma cukru. Im goręcej, tym lepiej zapach pracuje. Na wakacje, festiwale i upojne dni.",
+    "nuty": {
+     "glowy": [
+      "Pomarańcza",
+      "cytron",
+      "mięta",
+      "cytryna",
+      "czarna porzeczka",
+      "kolendra"
+     ],
+     "serca": [
+      "Morela",
+      "bazylia",
+      "nasiona marchwi",
+      "róża majowa"
+     ],
+     "bazy": [
+      "Daktyle",
+      "figa",
+      "ambrette (piżmian)"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 2,
+    "projekcja": 2,
+    "intensywnosc": 1,
+    "okazja": [
+     "Wakacje",
+     "plaża",
+     "miasto latem",
+     "sport",
+     "casual"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p03",
+     "p21",
+     "p07"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 2
+   },
+   {
+    "id": "p03",
+    "marka": "Louis Vuitton",
+    "nazwa": "Afternoon Swim",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Pomarańcza rozkrojona w słońcu tuż obok basenu. Tak dokładnie zaczyna się ten zapach: soczyście, jasno, bez cukru. Po godzinie zostaje na skórze ciepły ślad, jakbyś przed chwilą wyszedł z wody, i to zwykle ta część zbiera komplementy. Klasyk na urlop i na każdy dzień, w którym chcesz wyglądać na wypoczętego.",
+    "nuty": {
+     "glowy": [
+      "Pomarańcza sycylijska",
+      "mandarynka",
+      "bergamotka"
+     ],
+     "serca": [
+      "Gorzka pomarańcza",
+      "nuty ambrette"
+     ],
+     "bazy": [
+      "Ambroksan",
+      "białe piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 2,
+    "projekcja": 2,
+    "intensywnosc": 1,
+    "okazja": [
+     "Wakacje",
+     "weekend",
+     "casual",
+     "spotkania w dzień"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p02",
+     "p08",
+     "p21"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 3
+   },
+   {
+    "id": "p04",
+    "marka": "Louis Vuitton",
+    "nazwa": "Nouveau Monde",
+    "rodzina": "skórzana",
+    "profil": "męski",
+    "opis": "Ciemna restauracja, świece na stołach, ktoś przechodzi obok twojego krzesła i zwalnia. Ciepła skóra, gorzka czekolada i karmel, czyli coś, co pachnie jak drogi deser podany przez kogoś, kto wie, co robi. Zapach wypełnia przestrzeń wokół ciebie i zostaje w pamięci osoby, która siedziała obok. Na elegancką kolację i chłodne miesiące.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "czarna porzeczka",
+      "róża"
+     ],
+     "serca": [
+      "Kakao",
+      "karmel",
+      "kadzidło (olibanum)"
+     ],
+     "bazy": [
+      "Oud (agar)",
+      "skóra",
+      "wanilia",
+      "drewno ambrowe",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "wyjście",
+     "impreza",
+     "ważne spotkanie",
+     "garnitur"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 23000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p05",
+     "p32",
+     "p19",
+     "p17"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 4
+   },
+   {
+    "id": "p05",
+    "marka": "Louis Vuitton",
+    "nazwa": "Ombre Nomade",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "O ten zapach ludzie pytają najczęściej i najczęściej nie umieją go nazwać. Zaczyna się od maliny i róży, potem robi się ciemno: drewno, dym i coś, co pachnie jak bardzo drogi hotel na Bliskim Wschodzie. Ślad zostaje w pomieszczeniu długo po tym, jak z niego wyjdziesz. Jeśli chcesz, żeby ludzie się oglądali, to jest twoja odpowiedź. Najlepiej wieczorami i tylko w chłodzie.",
+    "nuty": {
+     "glowy": [
+      "Malina",
+      "róża",
+      "szafran"
+     ],
+     "serca": [
+      "Agar (oud)",
+      "kadzidło"
+     ],
+     "bazy": [
+      "Benzoina",
+      "drewno gwajakowe",
+      "ambra",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "klub",
+     "bardzo eleganckie spotkanie",
+     "randka wieczorem"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 23000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p04",
+     "p19",
+     "p17"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 5
+   },
+   {
+    "id": "p06",
+    "marka": "Xerjoff",
+    "nazwa": "Torino21",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Poniedziałek, biuro, świeżo wyprasowana koszula. Zapach brzmi dokładnie tak, jak wygląda ta scena: soczyste cytrusy orzeźwiają jak lemoniada z lodem w upalne dni, a mięta i zioła robią efekt świeżo skoszonej trawy na korcie tenisowym. Działa cicho. Ludzie zaczynają cię kojarzyć z ogarnięciem, choć rzadko pytają o nazwę. Wiosna, lato, praca.",
+    "nuty": {
+     "glowy": [
+      "Mięta",
+      "cytryna",
+      "bazylia",
+      "tymianek"
+     ],
+     "serca": [
+      "Jaśmin",
+      "rozmaryn",
+      "lawenda"
+     ],
+     "bazy": [
+      "Piżmo",
+      "werbena"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "sport",
+     "codzienność",
+     "spotkania w dzień",
+     "wakacje"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 6000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 20000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p07",
+     "p51",
+     "p21",
+     "p01"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 6
+   },
+   {
+    "id": "p07",
+    "marka": "Xerjoff",
+    "nazwa": "Renaissance (XJ 1861)",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Zapach zimnego prysznica i cytryny z Amalfi, czysty do tego stopnia, że ludzie zakładają, że masz w łazience półkę drogich kosmetyków. Większość cytrusów znika po godzinie. Ten trzyma cały dzień, nie tylko przez ilość i różnorodność cytrusów, ale również przez ciepłe drewno na spodzie. Do koszuli, do pracy i na spotkania, na których chcesz wypaść z klasą.",
+    "nuty": {
+     "glowy": [
+      "Cytryna z Amalfi",
+      "mandarynka",
+      "bergamotka",
+      "petitgrain"
+     ],
+     "serca": [
+      "Mięta",
+      "konwalia",
+      "róża"
+     ],
+     "bazy": [
+      "Piżmo",
+      "cedr wirginijski",
+      "paczula",
+      "bursztyn"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "spotkania",
+     "codzienność",
+     "uczelnia"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 6000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 20000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p06",
+     "p01",
+     "p02",
+     "p14"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 7
+   },
+   {
+    "id": "p08",
+    "marka": "Xerjoff",
+    "nazwa": "Erba Pura",
+    "rodzina": "ambrowa",
+    "profil": "unisex",
+    "opis": "Najłatwiejszy do polubienia zapach w całej ofercie i statystycznie najczęściej komplementowany. Zaczyna się jak soczyste owoce tropikalne wzbogacone cytrusami, kończy się zmysłowo, mydlanie i kremowo, jakby ktoś dorzucił odrobinę wanilii. Sprawdza się na kobietach i mężczyznach, latem i zimą, w pracy i na wyjściu. Jeśli kupujesz na prezent i nie znasz gustu tej osoby, bierz to.",
+    "nuty": {
+     "glowy": [
+      "Pomarańcza sycylijska",
+      "bergamotka kalabryjska",
+      "cytryna"
+     ],
+     "serca": [
+      "Owoce egzotyczne (nuty owocowe)"
+     ],
+     "bazy": [
+      "Białe piżmo",
+      "wanilia",
+      "ambra",
+      "cedr"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "codzienność",
+     "randka",
+     "klub",
+     "wyjście",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 5000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p40",
+     "p43",
+     "p22",
+     "p46",
+     "p45"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 8
+   },
+   {
+    "id": "p09",
+    "marka": "Xerjoff",
+    "nazwa": "Uden",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Zaczyna się cytrusowo, jak każdy porządny zapach na dzień. Po dwudziestu minutach zamienia się w coś zupełnie innego: ciepły rum, świeżo mielona kawa i wanilia. Ten moment zaskoczenia jest tu największą atrakcją, bo ludzie podchodzą bliżej, żeby jeszcze raz sprawdzić, co czują. W oryginalnym flakonie zatopiony jest fragment prawdziwego meteorytu, co jest samo w sobie niezłą historią do opowiedzenia. Na wakacyjne wieczory jak i na codzień - zapach pewnych siebie.",
+    "nuty": {
+     "glowy": [
+      "Cytryna",
+      "grejpfrut"
+     ],
+     "serca": [
+      "Drewno gwajakowe",
+      "róża",
+      "absolut z rumu",
+      "sandałowiec"
+     ],
+     "bazy": [
+      "Absolut kawy",
+      "absolut wanilii",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Kolacja",
+     "wyjście",
+     "biznes",
+     "spotkania"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p01",
+     "p10",
+     "p27",
+     "p33"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 9
+   },
+   {
+    "id": "p10",
+    "marka": "Xerjoff",
+    "nazwa": "Naxos",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Ciepły miód, nuta lawendy, szczypta cynamonu i coś, co pachnie jak drogie cygaro w skórzanym fotelu. Słodycz jest tu dorosła, więc zapach przyciąga ludzi bliżej, zamiast ich męczyć. Zostaje na swetrze i na kurtce, czyli czuć cię jeszcze długo po wyjściu z pomieszczenia. Jesień, zima, randki i wieczorne wyjścia.",
+    "nuty": {
+     "glowy": [
+      "Lawenda",
+      "bergamotka",
+      "cytryna"
+     ],
+     "serca": [
+      "Miód",
+      "cynamon",
+      "liść tytoniu"
+     ],
+     "bazy": [
+      "Tonka",
+      "wanilia",
+      "cashmeran"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "randka",
+     "wyjście",
+     "chłodne dni",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 5000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p35",
+     "p28",
+     "p09"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 10
+   },
+   {
+    "id": "p11",
+    "marka": "Creed",
+    "nazwa": "Aventus",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Przez piętnaście lat to był standard zapachu człowieka sukcesu i nikt do dziś nie zrobił tego lepiej. Ananas z czarną porzeczką brzmią świeżo i pewnie, a pod spodem czuć dym i skórę, jakby ktoś właśnie zamknął ważną rozmowę. Nie ma tu słodyczy ani prób przypodobania się. Pachnie jak facet, który nie musi nic udowadniać. Na spotkania, negocjacje i dni, w których chcesz wejść do pokoju z przewagą.",
+    "nuty": {
+     "glowy": [
+      "Ananas",
+      "bergamotka",
+      "czarna porzeczka",
+      "jabłko"
+     ],
+     "serca": [
+      "Brzoza",
+      "paczula",
+      "jaśmin",
+      "róża"
+     ],
+     "bazy": [
+      "Piżmo",
+      "dębowy mech",
+      "ambra",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biznes",
+     "spotkania",
+     "wyjście",
+     "garnitur",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 7500,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 27000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p12",
+     "p22",
+     "p52"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 11
+   },
+   {
+    "id": "p12",
+    "marka": "Creed",
+    "nazwa": "Absolu Aventus",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Aventus w wersji na lato: ten sam charakter, tylko wzbogacony o świeższe niuanse. Grejpfrut z imbirem wychodzą na pierwszy plan, przez co całość brzmi młodziej niż oryginał. Uniwersalny zapach na cały rok, który spodoba się każdemu. Dla kogoś, kto zna Aventusa i szuka jego letniej odsłony.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "bergamotka",
+      "cytryna",
+      "czarna porzeczka",
+      "imbir"
+     ],
+     "serca": [
+      "Ananas",
+      "paczula",
+      "różowy pieprz",
+      "kardamon",
+      "cynamon"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "drewno kaszmirowe",
+      "labdanum",
+      "ambroksan",
+      "piżmo",
+      "dębowy mech"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Codzienność",
+     "biuro",
+     "spotkania w dzień",
+     "garniur"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p11",
+     "p52",
+     "p53",
+     "p22"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 12
+   },
+   {
+    "id": "p14",
+    "marka": "Creed",
+    "nazwa": "Silver Mountain Water",
+    "rodzina": "świeża",
+    "profil": "męski",
+    "opis": "Pachnie jak zimne górskie powietrze i świeżo wyprana koszula. Czysto do granic możliwości, bez cienia słodyczy. Ludzie odbierają go jako zadbanie, a nie jako perfumy, więc częściej usłyszysz komplement o tym, jak wyglądasz, niż o tym, czym pachniesz. Świetnie działa tam, gdzie mocny zapach byłby błędem: w biurze, na uczelni oraz na pierwszej ważnej rozmowie.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "mandarynka"
+     ],
+     "serca": [
+      "Zielona herbata",
+      "czarna porzeczka"
+     ],
+     "bazy": [
+      "Piżmo",
+      "sandałowiec",
+      "petitgrain"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "sport",
+     "spotkania w dzień"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 7500,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 27000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p07",
+     "p51",
+     "p21"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 14
+   },
+   {
+    "id": "p15",
+    "marka": "Amouage",
+    "nazwa": "Search",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Zaczyna się jak przecięta cytryna, a kończy jak stary kościół: dym, żywica i coś bardzo spokojnego. Ten kontrast sprawia, że zapach brzmi drogo w sposób, którego nie da się podrobić tanim odpowiednikiem. Ludzie nie umieją go nazwać, ale wyczuwają, że masz na sobie coś spoza galerii handlowej. Dla kogoś, komu znudziły się zapachy polecane przez drogerie.",
+    "nuty": {
+     "glowy": [
+      "Cytryna",
+      "limonka",
+      "mandarynka"
+     ],
+     "serca": [
+      "Kadzidło hojari",
+      "czarny pieprz",
+      "elemi"
+     ],
+     "bazy": [
+      "Cade (jałowiec)",
+      "wetyweria",
+      "drewno gwajakowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biznes",
+     "spotkania",
+     "wyjście",
+     "codzienność premium"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 22000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p20",
+     "p59",
+     "p36"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 15
+   },
+   {
+    "id": "p16",
+    "marka": "Amouage",
+    "nazwa": "Reflection Man",
+    "rodzina": "kwiatowa",
+    "profil": "męski",
+    "opis": "Gdyby garnitur szyty na miarę miał zapach, pachniałby właśnie tak. Kremowe kwiaty na ciepłym drewnie brzmią jak mydło z najlepszych hoteli, elegancko i bez przesady. Działa z bliska: na uścisku dłoni, przy stole, w rozmowie twarzą w twarz. Na wesele, ważne spotkanie i każdą sytuację, w której chcesz wyglądać na kogoś, kto wie, co robi.",
+    "nuty": {
+     "glowy": [
+      "Rozmaryn",
+      "różowy pieprz",
+      "bergamotka"
+     ],
+     "serca": [
+      "Neroli",
+      "jaśmin",
+      "irys"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "cedr",
+      "sandałowiec",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Garnitur",
+     "biznes",
+     "ślub",
+     "elegancka kolacja"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 38000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p09",
+     "p15"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 16
+   },
+   {
+    "id": "p17",
+    "marka": "Amouage",
+    "nazwa": "Outlands",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Oryginał leżakuje pół roku w beczkach z drewna, zanim trafi do flakonu, i to naprawdę czuć. Zaczyna się ostro i upojnie, potem robi się gęsto: przyprawy, żywica, karmel i ciepło, które nie znika przez cały wieczór. Statystycznie nie spotkasz drugiej osoby, która to nosi. Jedno psiknięcie starcza na wieczór, więc nawet mała pojemność wystarczy na długo.",
+    "nuty": {
+     "glowy": [
+      "Kardamon",
+      "bergamotka",
+      "cytryna",
+      "pieprz syczuański",
+      "elemi",
+      "kadzidło"
+     ],
+     "serca": [
+      "Paczula",
+      "róża",
+      "kwiat pomarańczy",
+      "kmin",
+      "geranium",
+      "davana",
+      "szafran",
+      "anyż",
+      "kolendra"
+     ],
+     "bazy": [
+      "Benzoina",
+      "labdanum",
+      "ambra",
+      "ambergris",
+      "kadzidło",
+      "opoponax",
+      "wanilia",
+      "brzoza",
+      "piżmo",
+      "oud"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "event",
+     "kolacja",
+     "okazje specjalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p19",
+     "p05",
+     "p49",
+     "p38"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 17
+   },
+   {
+    "id": "p19",
+    "marka": "Amouage",
+    "nazwa": "Interlude Man",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Najbardziej charakterystyczny zapach na tej liście i ten, który najmocniej dzieli ludzi na dwa obozy. Pierwsze dwadzieścia minut jest surowe: dym, zioła i skóra, jakby ktoś rozpalił ognisko w środku pomieszczenia. Potem robi się z tego ciepła chmura, którą ludzie czują z drugiego końca pokoju i o którą pytają, bo nigdy czegoś takiego nie wąchali. Ostrzegamy uczciwie: to nie jest zapach na pierwszy zakup ani do biura. Dwa psiknięcia, zimowy wieczór, i będziesz najbardziej zapamiętaną osobą tego dnia.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "oregano",
+      "ziele angielskie"
+     ],
+     "serca": [
+      "Ambra",
+      "kadzidło",
+      "opoponax",
+      "cistus"
+     ],
+     "bazy": [
+      "Skóra",
+      "paczula",
+      "sandałowiec",
+      "piżmo",
+      "agar (oud)"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "event",
+     "chłodne wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p17",
+     "p05",
+     "p38"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 19
+   },
+   {
+    "id": "p20",
+    "marka": "Amouage",
+    "nazwa": "Enclave",
+    "rodzina": "aromatyczna",
+    "profil": "unisex",
+    "opis": "Chłodna mięta i ciepłe przyprawy. Brzmi jak wieczór nad wodą, kiedy powietrze jest już zimne, a kamień pod stopami wciąż trzyma ciepło. Zapach spokojny i przemyślany, przez co szczególnie dobrze działa na ludziach starszych od ciebie. Z bliska robi bardzo dobre wrażenie, zwłaszcza przy stole.",
+    "nuty": {
+     "glowy": [
+      "Mięta zielona",
+      "kardamon",
+      "kora cynamonowa",
+      "różowy pieprz"
+     ],
+     "serca": [
+      "Kadzidło",
+      "paczula",
+      "wetyweria",
+      "róża"
+     ],
+     "bazy": [
+      "Ambra",
+      "labdanum",
+      "Szafran"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4.5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Codzienność premium",
+     "spotkania",
+     "kolacja"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p15",
+     "p36",
+     "p49"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 20
+   },
+   {
+    "id": "p21",
+    "marka": "Mancera",
+    "nazwa": "Lemon Line",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Pierwsza sekunda to cytryna z imbirem uderzająca jak zimny prysznic, najbardziej orzeźwiający start w całej ofercie. Po chwili wchodzi ciepła wanilia i całość robi się kremowa, przez co ludzie podchodzą bliżej. Trzyma cały dzień, czyli znacznie dłużej niż typowe letnie perfumy w tej cenie. Dla kogoś, kto chce świeżości bez odnawiania jej co dwie godziny.\\",
+    "nuty": {
+     "glowy": [
+      "Cytryna",
+      "imbir",
+      "bergamotka"
+     ],
+     "serca": [
+      "Jaśmin",
+      "nuty mszyste"
+     ],
+     "bazy": [
+      "Wanilia",
+      "piżmo",
+      "sandałowiec",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Codzienność",
+     "biuro latem",
+     "weekend",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p02",
+     "p51",
+     "p07",
+     "p62"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 21
+   },
+   {
+    "id": "p22",
+    "marka": "Mancera",
+    "nazwa": "Cedrat Boise",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Jeden z najlepiej sprzedających się zapachów na świecie i prawdopodobnie najlepszy stosunek efektu do ceny na tej liście. Zaczyna się musującą cytryną, po godzinie zostaje ciepłe drewno z wanilią i dodającym elegancji jaśminem. Trzyma się na swetrze i kurtce do następnego dnia, więc jedna mała pojemność wystarcza na bardzo długo. Jeśli masz mieć tylko jeden zapach na cały rok, to jest bezpieczny wybór.",
+    "nuty": {
+     "glowy": [
+      "Cytryna sycylijska",
+      "bergamotka",
+      "czarna porzeczka",
+      "nuty korzenne"
+     ],
+     "serca": [
+      "Skóra",
+      "paczula",
+      "labdanum",
+      "jaśmin egipski"
+     ],
+     "bazy": [
+      "Białe piżmo",
+      "wanilia",
+      "sandałowiec",
+      "cedr wirginijski"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Uniwersalny: biuro",
+     "wyjście",
+     "codzienność premium"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p11",
+     "p52",
+     "p44"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 22
+   },
+   {
+    "id": "p23",
+    "marka": "Mancera",
+    "nazwa": "French Riviera",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Sól, słońce i skórka cytryny, bez taniego skojarzenia z kremem do opalania. Jest w tym coś przestronnego, jak powietrze tuż nad wodą, a pod spodem ciepły ślad, który zostaje na skórze po całym dniu na zewnątrz. Ludzie kojarzą ten zapach z wypoczynkiem, więc automatycznie odbierają cię jako kogoś rozluźnionego. Na lato, urlop i weekendy w słońcu.",
+    "nuty": {
+     "glowy": [
+      "Pomarańcza",
+      "cytryna",
+      "mandarynka",
+      "imbir",
+      "pieprz"
+     ],
+     "serca": [
+      "Nuty morskie",
+      "gardenia tahitańska",
+      "sosna",
+      "mimoza",
+      "wetyweria"
+     ],
+     "bazy": [
+      "Sól morska",
+      "białe piżmo",
+      "bursztyn"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Wakacje",
+     "plaża",
+     "weekend",
+     "casual"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p14",
+     "p02",
+     "p47"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 23
+   },
+   {
+    "id": "p24",
+    "marka": "Mancera",
+    "nazwa": "Tonka Cola",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Dokładnie to, co obiecuje nazwa: musująca cola i kremowe przyprawy w jednym flakonie. Brzmi zabawnie, działa poważnie. To jeden z tych zapachów, przy których ktoś dosłownie pyta, czym pachniesz, bo nie umie tego umieścić w żadnej znanej kategorii. Przyprawy trzymają słodycz w ryzach, więc całość nie robi się dziecinna. Jesień, zima, wieczór.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "mandarynka",
+      "cytrusy"
+     ],
+     "serca": [
+      "Akord coli",
+      "tonka",
+      "cynamon"
+     ],
+     "bazy": [
+      "Wanilia",
+      "benzoina",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "klub",
+     "chłodne dni"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p28",
+     "p10",
+     "p70"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 24
+   },
+   {
+    "id": "p25",
+    "marka": "Mancera",
+    "nazwa": "Red Tobacco",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Jeden z najmocniejszych zapachów, jakie mamy. Czuć cię w pomieszczeniu, zanim wejdziesz, i długo po tym, jak wyjdziesz. Pachnie jak subtelne cygaro, kremowy cynamon i ciepła skóra, czyli tak, jak wyobrażasz sobie zimowy wieczór w drogim miejscu. Nie będzie udawał, że nadaje się do biura, za bardzo zwraca na siebie uwagę. Za to jeśli chcesz, żeby ludzie się odwracali, dwa psiknięcia załatwiają sprawę.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "cynamon",
+      "nuty korzenne"
+     ],
+     "serca": [
+      "Tytoń",
+      "róża",
+      "oud"
+     ],
+     "bazy": [
+      "Skóra",
+      "wanilia",
+      "drewno",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Klub",
+     "wyjście",
+     "event"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p10",
+     "p35",
+     "p04",
+     "p28"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 25
+   },
+   {
+    "id": "p27",
+    "marka": "Montale",
+    "nazwa": "Intense Café",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Świeżo zaparzone espresso i róża. Połączenie brzmi dziwnie, dopóki nie poczujesz go na skórze. Ludzie reagują na kawę odruchowo, zanim zdążą pomyśleć, i dlatego ten zapach tak dobrze działa w kawiarniach i klubach. Gęsty, ciepły, trzyma do następnego dnia, więc wystarczą dwa psiknięcia. Jesień, zima, randka.",
+    "nuty": {
+     "glowy": [
+      "Kawa"
+     ],
+     "serca": [
+      "Róża",
+      "nuty kwiatowe"
+     ],
+     "bazy": [
+      "Wanilia",
+      "białe piżmo",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "kolacja",
+     "wyjście"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p29",
+     "p10",
+     "p24"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 27
+   },
+   {
+    "id": "p28",
+    "marka": "Montale",
+    "nazwa": "Arabians Tonka",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Najprostszy sposób, żeby wejść w orientalne zapachy bez ryzyka. Masz tu cały klimat drogiego arabskiego hotelu, czyli ciepłe drewno, przyprawy i wanilię, podany na tyle miękko, że nikogo nie odstrasza. Efekt jest prosty: pachniesz drożej, niż wydałeś, i to bardzo wyraźnie. Dobry start dla kogoś, kto chce spróbować czegoś mocniejszego. Przestrzegamy przed używaniem w cieplejsze dni - jedne z najsilniejszych dostępnych perfum.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "nuty korzenne"
+     ],
+     "serca": [
+      "Oud",
+      "róża"
+     ],
+     "bazy": [
+      "Tonka",
+      "wanilia",
+      "ambra",
+      "drewno"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "chłodne dni"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p29",
+     "p25",
+     "p10",
+     "p04"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 28
+   },
+   {
+    "id": "p29",
+    "marka": "Montale",
+    "nazwa": "Chocolate Greedy",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Gorzka czekolada, świeżo upieczone ciastka i pomarańcza. Pachniesz jak deser, po który ludzie sięgają odruchowo. To zapach wywołujący najbardziej bezpośrednie reakcje z całej listy, bo ktoś zwyczajnie mówi „czym ty pachniesz”, zamiast się nad tym zastanawiać. Jest bezczelnie słodki i wcale tego nie ukrywa. Na zimowy wieczór, do kawiarni, a na randce działa niemal bezbłędnie.",
+    "nuty": {
+     "glowy": [
+      "Skórka pomarańczowa",
+      "gorzka pomarańcza"
+     ],
+     "serca": [
+      "Kakao",
+      "kawa",
+      "orzechy",
+      "suszone owoce"
+     ],
+     "bazy": [
+      "Wanilia",
+      "tonka",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "kawiarnia",
+     "casual zimą (nie do biura)",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p28",
+     "p08",
+     "p27",
+     "p24",
+     "p10"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 29
+   },
+   {
+    "id": "p30",
+    "marka": "Montale",
+    "nazwa": "Honey Aoud",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Ciężki, ciemny miód z żywicznym drewnem, brzmiący jak wnętrze bardzo drogiego i bardzo cichego pomieszczenia. Mocniejszy i mniej grzeczny niż typowe słodkie perfumy, przez co odbiera się go jako dorosły. Zostaje w powietrzu i na ubraniu przez wiele godzin, więc jedno psiknięcie robi robotę. Dla kogoś, kto zna już słodkie zapachy, ale szuka czegoś innego.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "miód"
+     ],
+     "serca": [
+      "Róża",
+      "oud (agar)"
+     ],
+     "bazy": [
+      "Ambra",
+      "drewno",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "event",
+     "okazje specjalne",
+     "święta"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p28",
+     "p41",
+     "p05",
+     "p25"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 30
+   },
+   {
+    "id": "p31",
+    "marka": "Montale",
+    "nazwa": "Intense Pepper",
+    "rodzina": "aromatyczna",
+    "profil": "unisex",
+    "opis": "Ostry pieprz i cytryna na starcie, kremowe drewno pod spodem. Brzmi męsko i konkretnie, jak dobrze skrojony ciemny płaszcz w listopadzie. Nie ma tu nic deserowego ani przyjemnie znajomego i to jest jego przewaga, bo nikt wokół nie ma tego samego. Formalne spotkania i codzienne aktywności, podczas których ktoś zapyta o nazwę.",
+    "nuty": {
+     "glowy": [
+      "Czarny pieprz",
+      "cytryna sycylijska",
+      "różowy pieprz"
+     ],
+     "serca": [
+      "Nuty kwiatowe"
+     ],
+     "bazy": [
+      "Cedr",
+      "oud (agar)",
+      "białe piżmo",
+      "dębowy mech",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 3.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "kolacja",
+     "biznes"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14500,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p16",
+     "p43",
+     "p11",
+     "p20",
+     "p36"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 31
+   },
+   {
+    "id": "p32",
+    "marka": "Tom Ford",
+    "nazwa": "Ombré Leather",
+    "rodzina": "skórzana",
+    "profil": "unisex",
+    "opis": "Pachnie dokładnie jak wnętrze nowej, drogiej skórzanej tapicerki: sucho, ostro i bardzo pewnie. Ludzie odbierają ten zapach jako kosztowny, jeszcze zanim skojarzą markę. Skóra w perfumach zawsze oznacza luksus. Pod spodem czuć delikatny kwiat, który ratuje całość przed surowością. Jesień, zima, wyjścia, na których chcesz wyglądać na kogoś, kto podejmuje decyzje.",
+    "nuty": {
+     "glowy": [
+      "Kardamon"
+     ],
+     "serca": [
+      "Skóra",
+      "jaśmin"
+     ],
+     "bazy": [
+      "Paczula",
+      "bursztyn",
+      "drzewo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "randka",
+     "klub",
+     "chłodne dni"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p04",
+     "p38",
+     "p61",
+     "p25"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 32
+   },
+   {
+    "id": "p33",
+    "marka": "Tom Ford",
+    "nazwa": "Noir Extreme",
+    "rodzina": "gourmand",
+    "profil": "męski",
+    "opis": "Ciepła wanilia z przyprawami, podana tak kremowo, że pachnie jak skóra kogoś, kto właśnie wrócił z wakacji. Jeden z najskuteczniejszych zapachów randkowych, jakie istnieją, bo trafia dokładnie w to, co ludzie odbierają jako przyjemnie blisko. Z drugiego końca sali go nie usłyszysz. Na dystansie rozmowy działa bezbłędnie.",
+    "nuty": {
+     "glowy": [
+      "Mandarynka",
+      "neroli",
+      "kardamon",
+      "szafran"
+     ],
+     "serca": [
+      "Kwiat pomarańczy",
+      "kumin",
+      "róża"
+     ],
+     "bazy": [
+      "Wanilia",
+      "sandałowiec",
+      "ambra",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Randka",
+     "kolacja",
+     "wyjście",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p38",
+     "p09",
+     "p10",
+     "p64"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 33
+   },
+   {
+    "id": "p34",
+    "marka": "Tom Ford",
+    "nazwa": "Lost Cherry",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Upojna wiśnia w migdałowy, likierze. Zapach, który zbudował sobie sławę w internecie i wciąż wywołuje najwięcej pytań ze wszystkich. Start jest odważnie słodki, ale drewno pod spodem ratuje go przed byciem cukierkiem. Ludzie reagują natychmiast, bo brzmi inaczej niż wszystko, co znają z drogerii. Na wieczór i na zimę.",
+    "nuty": {
+     "glowy": [
+      "Wiśnia",
+      "gorzki migdał",
+      "likier wiśniowy"
+     ],
+     "serca": [
+      "Jaśmin sambac",
+      "ekstrakt z pestek wiśni",
+      "róża turecka"
+     ],
+     "bazy": [
+      "Tonka",
+      "sandałowiec",
+      "cedr",
+      "wetyweria",
+      "paczula",
+      "żywica benzoinowa"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 3.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "prezent"
+    ],
+    "variants": [],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p24",
+     "p27",
+     "p10"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 34
+   },
+   {
+    "id": "p35",
+    "marka": "Tom Ford",
+    "nazwa": "Tobacco Vanille",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Zapach ciepłego mieszkania w grudniu: przyprawy, wanilia, suszone owoce i coś, co pachnie jak drogi tytoń z fajki. Otula na tyle skutecznie, że ludzie odruchowo podchodzą bliżej. Trzyma się na swetrze przez wiele dni, więc jedno psiknięcie wystarcza. Jeśli szukasz czegoś ciepłego na zimę, nie ma lepszej odpowiedzi.",
+    "nuty": {
+     "glowy": [
+      "Liść tytoniu",
+      "nuty korzenne"
+     ],
+     "serca": [
+      "Wanilia",
+      "kakao",
+      "tonka",
+      "kwiat tytoniu"
+     ],
+     "bazy": [
+      "Suszone owoce",
+      "drewno",
+      "żywice"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "święta",
+     "chłodne wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p10",
+     "p25",
+     "p04"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 35
+   },
+   {
+    "id": "p36",
+    "marka": "Tom Ford",
+    "nazwa": "Bois Pacifique",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Suche drewno i ciepła przyprawa. Brzmi jak spokojny, kompetentny człowiek, a nie jak nastolatek w klubie. Zero słodyczy i zero efekciarstwa, za to jest głębia, którą ludzie odbierają jako dojrzałość. Świetnie działa w pracy i wszędzie tam, gdzie chcesz być potraktowany poważnie od pierwszej minuty.",
+    "nuty": {
+     "glowy": [
+      "Akigalawood",
+      "kardamon",
+      "kurkuma"
+     ],
+     "serca": [
+      "Kadzidło",
+      "żywice",
+      "irys"
+     ],
+     "bazy": [
+      "Biały sandałowiec",
+      "cedr",
+      "dąb"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biznes",
+     "spotkania",
+     "kolacja"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p20",
+     "p15",
+     "p44"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 36
+   },
+   {
+    "id": "p37",
+    "marka": "Tom Ford",
+    "nazwa": "Oud Wood",
+    "rodzina": "aromatyczna",
+    "profil": "unisex",
+    "opis": "Najbardziej elegancki sposób na noszenie drewna orientalnego. Gładki, żywiczny i całkowicie pozbawiony surowości, która odstrasza ludzi od tej kategorii. Pachnie jak wnętrze drogiego samochodu i bardzo dobrze wypada w formalnych sytuacjach.",
+    "nuty": {
+     "glowy": [
+      "Palisander",
+      "kardamon",
+      "chiński pieprz"
+     ],
+     "serca": [
+      "Oud (agar)",
+      "sandałowiec",
+      "drewno wetywerowe"
+     ],
+     "bazy": [
+      "Bób tonka",
+      "wanilia",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biznes",
+     "kolacja",
+     "elegancki wieczór"
+    ],
+    "variants": [],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p36",
+     "p20",
+     "p44"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 37
+   },
+   {
+    "id": "p38",
+    "marka": "Tom Ford",
+    "nazwa": "Ébène Fumé",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Dym, ciemne drewno i przyprawy, czyli ognisko widziane z okna ciepłego domu. Wyobraź sobie wnętrze rozgrzanej sauny z palo santo. Nastrojowy w sposób, którego nie osiągniesz niczym z popularnej półki, i dlatego działa na ludzi, którzy wąchali już wszystko, ale i na tych, dla których perfumy są nowością.",
+    "nuty": {
+     "glowy": [
+      "Różowy pieprz",
+      "kardamon",
+      "cynamon"
+     ],
+     "serca": [
+      "Kadzidło",
+      "heban",
+      "skóra",
+      "paczula"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "drewno gwajakowe",
+      "benzoina",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "kolacja",
+     "event"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 36000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p19",
+     "p05",
+     "p32",
+     "p17"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 38
+   },
+   {
+    "id": "p39",
+    "marka": "Marc-Antoine Barrois",
+    "nazwa": "Ganymede",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Nikt nie potrafi powiedzieć, czym to pachnie, i dokładnie dlatego pytają. Jest tu brzoskwinia, jest zamsz i jest coś chłodnego, prawie metalicznego, czego nie znajdziesz w żadnych innych perfumach. Zwykle potrzeba drugiego podejścia, żeby go zrozumieć. Kiedy już zaskoczy, staje się sygnaturą, po której cię rozpoznają. Dla kogoś, kto ma dość bezpiecznych wyborów.",
+    "nuty": {
+     "glowy": [
+      "Mandarynka",
+      "szafran",
+      "osmanthus"
+     ],
+     "serca": [
+      "Fiołek",
+      "zamsz",
+      "immortelle"
+     ],
+     "bazy": [
+      "Skóra",
+      "mineralne nuty ambrowe",
+      "wetyweria",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "prezent",
+     "codzienność premium",
+     "spotkania",
+     "wyjście"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 7000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 25000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p44",
+     "p15",
+     "p36",
+     "p41"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 39
+   },
+   {
+    "id": "p40",
+    "marka": "Tiziana Terenzi",
+    "nazwa": "Kirke",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Marakuja, brzoskwinia i czarna porzeczka podane tak gęsto, że pierwsze minuty pachną jak koktajl na wakacjach. Jeden z najgłośniejszych zapachów w całej ofercie: dwa psiknięcia starczają na cały dzień i całe pomieszczenie. Owoc działa na wszystkich, niezależnie od wieku i płci, więc reakcje są natychmiastowe. Łatwo go przedawkować, więc mniej znaczy tu zdecydowanie więcej.",
+    "nuty": {
+     "glowy": [
+      "Marakuja",
+      "brzoskwinia",
+      "czarna porzeczka",
+      "bergamotka"
+     ],
+     "serca": [
+      "Jaśmin",
+      "gruszka",
+      "kwiaty"
+     ],
+     "bazy": [
+      "Piżmo",
+      "drewno",
+      "wanilia",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4.5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "randka",
+     "klub",
+     "codzienność"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p08",
+     "p48",
+     "p28"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 40
+   },
+   {
+    "id": "p41",
+    "marka": "Maison Crivelli",
+    "nazwa": "Oud Maracujá",
+    "rodzina": "słodka",
+    "profil": "unisex",
+    "opis": "Egzotyczny owoc i ciemne drewno. Na papierze to nie ma prawa działać, a na skórze robi z ciebie osobę, o której się rozmawia. Zaczyna się soczyście i kwaśno, kończy ciepło i gęsto, czyli tak, jak nie pachnie nikt w twoim otoczeniu. Bardzo skoncentrowany, więc dwa psiknięcia trzymają przez cały wieczór. Dla kogoś, kto szuka zapachu wyłącznie dla siebie.",
+    "nuty": {
+     "glowy": [
+      "Marakuja",
+      "szafran",
+      "cytrusy"
+     ],
+     "serca": [
+      "Absolut z róży tureckiej",
+      "akord szafranowy"
+     ],
+     "bazy": [
+      "Absolut wanilii",
+      "absolut cistusowy",
+      "akord oud",
+      "benzoina",
+      "akord skórzany",
+      "olejek paczulowy",
+      "akigalawood"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "event",
+     "okazje specjalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p05",
+     "p49",
+     "p04"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 41
+   },
+   {
+    "id": "p42",
+    "marka": "Maison Francis Kurkdjian",
+    "nazwa": "Grand Soir",
+    "rodzina": "ambrowa",
+    "profil": "unisex",
+    "opis": "Ciepła wanilia i miękka żywica, brzmiące od pierwszej sekundy jak drogi paryski hotel po zmroku. Nie ma tu ostrego startu ani niczego, co mogłoby komukolwiek przeszkadzać. Jest miękko, słodko i luksusowo. Jeden z najbezpieczniejszych sposobów, żeby pachnieć drogo na wieczór, bez ryzyka, że kogoś przytłoczysz.",
+    "nuty": {
+     "glowy": [
+      "Bursztyn",
+      "labdanum"
+     ],
+     "serca": [
+      "Benzoina",
+      "tonka"
+     ],
+     "bazy": [
+      "Wanilia",
+      "drzewo cedrowe",
+      "żywice"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "randka",
+     "elegancki wieczór"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p10",
+     "p35",
+     "p70"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 42
+   },
+   {
+    "id": "p43",
+    "marka": "Maison Francis Kurkdjian",
+    "nazwa": "Baccarat Rouge 540",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Jeśli ktoś kiedykolwiek zapytał kogoś, czym pachnie, statystycznie chodziło o ten zapach. Palony cukier z drewnem, w sposób celowo nienaturalny, i dokładnie dlatego zapada w pamięć. Ślad zostaje na ubraniu przez wiele dni, a czuć go tak mocno, że jedno psiknięcie bywa za dużo. Jedyny minus jest taki, że część osób go rozpozna. Jeśli zależy ci na oryginalności, mamy lepsze opcje.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "jaśmin"
+     ],
+     "serca": [
+      "Ambrowe drewno",
+      "cedr"
+     ],
+     "bazy": [
+      "Żywica jodłowa",
+      "piżmo cedrowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4.5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "randka",
+     "event",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p42",
+     "p40",
+     "p08"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 43
+   },
+   {
+    "id": "p44",
+    "marka": "Essential Parfums",
+    "nazwa": "Bois Impérial",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Najlepszy zapach do wszystkiego na tej liście i jednocześnie jeden z najtańszych. Suche drewno z odrobiną grejpfruta, czysto i bardzo dorośle, bez grama słodyczy. Wielu ludzi zna go jako lepszą wersję popularnego niebieskiego zapachu z galerii handlowej, tylko trzy razy trwalszą. Jeśli potrzebujesz jednego zapachu do biznesu, na wieczorowe wyjścia i na codzień przez cały rok - bierz to.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "imbir"
+     ],
+     "serca": [
+      "Geranium",
+      "kadzidło"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "drewno ambrowe",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "biznes",
+     "codzienność",
+     "uczelnia",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 7500,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 14000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p39",
+     "p65",
+     "p49"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 44
+   },
+   {
+    "id": "p45",
+    "marka": "Sospiro",
+    "nazwa": "Vibrato",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Grejpfrut z imbirem, które iskrzą zamiast kłuć, mydłoz najlepszych hoteli i i miękkie drewno pod spodem. Spokojny zapach, który brzmi jak poranek w miejscu, na które cię stać, i takie właśnie wrażenie robi na ludziach wokół. Buduje obraz kogoś kulturalnego i zadbanego, bez wysiłku i bez ostentacji. Wiosna, lato, dzień.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "bergamotka",
+      "mandarynka",
+      "imbir",
+      "rozmaryn"
+     ],
+     "serca": [
+      "Magnolia",
+      "róża damasceńska",
+      "jasne drewno"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "paczula",
+      "sandałowiec indyjski",
+      "piżmo",
+      "ambra krystaliczna",
+      "tonka"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "spotkania",
+     "codzienność premium",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 19000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p01",
+     "p09",
+     "p46"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 45
+   },
+   {
+    "id": "p46",
+    "marka": "Nous Tous",
+    "nazwa": "Casa di Capri",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Włoskie wybrzeże w środku dnia: grejpfrut, kwiaty i ciepły kamień nagrzany słońcem. Brzmi elegancko, ale bez spinania się, czyli tak, jak wygląda ktoś, kto dobrze się ubiera i w ogóle się tym nie przejmuje. Polska marka niszowa, której nikt wokół ciebie jeszcze nie zna, w wersji trzymającej cały dzień. Na ciepłe miesiące, do pracy i na wyjście.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "różowy pieprz"
+     ],
+     "serca": [
+      "Konwalia",
+      "róża",
+      "irys morski"
+     ],
+     "bazy": [
+      "Piżmo",
+      "cedr",
+      "ambra",
+      "olibanum"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Codzienność",
+     "spotkania",
+     "wakacje",
+     "biuro"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p01",
+     "p45",
+     "p09"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 46
+   },
+   {
+    "id": "p47",
+    "marka": "Nous Tous",
+    "nazwa": "Secco di Como",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Pierwsza sekunda brzmi jak elegancko podany koktajl Hugo: musująco, cytrusowo z kwiatowymi niuansami. Potem robi się wytrawnie, więc zapach ani przez chwilę nie jest słodki i świetnie wypada w formalnych sytuacjach. Ludzie kojarzą go z odświeżeniem w upalny dzień, tarasem  i dobrymi wieczorami.",
+    "nuty": {
+     "glowy": [
+      "Akord musującego wina",
+      "cytryna",
+      "bergamotka",
+      "petitgrain",
+      "grejpfrut",
+      "agrest",
+      "gruszka"
+     ],
+     "serca": [
+      "Kwiat bzu",
+      "kwiat pomarańczy",
+      "róża",
+      "pomelo",
+      "czarny pieprz"
+     ],
+     "bazy": [
+      "Cedr",
+      "piżmo",
+      "wetyweria",
+      "ambergris",
+      "cashmeran"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "spotkania",
+     "wakacje"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p07",
+     "p23",
+     "p02"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 47
+   },
+   {
+    "id": "p48",
+    "marka": "Nous Tous",
+    "nazwa": "Aurora Siciliana",
+    "rodzina": "kwiatowa",
+    "profil": "unisex",
+    "opis": "Dojrzałe mango i brzoskwinia w słońcu, czyli wakacje w butelce, tylko w wersji dopracowanej. Kremowy i miękki, przez co ludzie odbierają go bez zastanowienia jako przyjemny. W tańszych owocowych perfumach owoc znika po godzinie. Tutaj zostaje do wieczora. Dla kogoś, kto lubi owoce i nie chce brzmieć banalnie.",
+    "nuty": {
+     "glowy": [
+      "Mango",
+      "mandarynka",
+      "imbir",
+      "bergamotka"
+     ],
+     "serca": [
+      "Konwalia",
+      "marakuja",
+      "brzoskwinia"
+     ],
+     "bazy": [
+      "Ambra",
+      "akordy drzewne",
+      "sucha ambra",
+      "malina"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Wakacje",
+     "codzienność",
+     "wyjście latem"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p40",
+     "p08"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 48
+   },
+   {
+    "id": "p49",
+    "marka": "Nous Tous",
+    "nazwa": "Safrano Absolu",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Zapach na wieczór, w którym coś się dzieje: przyprawy, śliwka, dym i miękka skóra pod spodem. Zaczyna się elegancko i chłodno, a po pół godziny robi się magnetycznie. To ten moment, w którym ktoś obok odwraca głowę. Ślad zostaje na koszuli i kurtce do samego rana. Jesień, zima, wyjścia, po których chcesz zostać zapamiętany.",
+    "nuty": {
+     "glowy": [
+      "Lawenda",
+      "pieprz",
+      "kardamon",
+      "szafran"
+     ],
+     "serca": [
+      "Róża",
+      "śliwka",
+      "kadzidło",
+      "ambergris"
+     ],
+     "bazy": [
+      "Skóra",
+      "sandałowiec",
+      "paczula",
+      "tonka"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "event",
+     "formalne wyjścia"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p39",
+     "p41",
+     "p20"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 49
+   },
+   {
+    "id": "p50",
+    "marka": "Nous Tous",
+    "nazwa": "Milano 3AM",
+    "rodzina": "orientalna",
+    "profil": "unisex",
+    "opis": "Nazwa mówi wszystko. Mandarynka i przyprawy na starcie, potem gęste ciemne drewno, jak miasto o trzeciej w nocy. Jest tu energia i słodycz, podane na tyle elegancko, że nie brzmi to jak typowy klubowy zapach. Trzyma bardzo długo i zostawia wyraźny ślad, więc ludzie kojarzą cię z nim po jednym spotkaniu.",
+    "nuty": {
+     "glowy": [
+      "Mandarynka",
+      "grejpfrut",
+      "kardamon",
+      "cynamon"
+     ],
+     "serca": [
+      "Lawenda",
+      "mango",
+      "piwonia",
+      "fiołek"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "paczula",
+      "ambra",
+      "mech"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "klub",
+     "randka"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p49",
+     "p33"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 50
+   },
+   {
+    "id": "p51",
+    "marka": "Dior",
+    "nazwa": "Homme Cologne",
+    "rodzina": "cytrusowa",
+    "profil": "męski",
+    "opis": "Najczystszy zapach na tej liście. Pachniesz jak świeżo wyprana koszula i prysznic wzięty pięć minut temu. Nie ma tu nic ciężkiego ani słodkiego, więc nie da się nim nikomu przeszkodzić nawet w małym pomieszczeniu. Uczciwie: trzyma około czterech godzin i taka jest cena tej lekkości, więc warto mieć go przy sobie do odświeżenia. Na upały, biuro i bezpieczny prezent dla kogoś, kto nie znosi mocnych perfum.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka kalabryjska",
+      "grejpfrut"
+     ],
+     "serca": [
+      "Białe piżmo"
+     ],
+     "bazy": [
+      "Piżmo",
+      "nuty cytrusowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 2,
+    "intensywnosc": 1,
+    "okazja": [
+     "Biuro",
+     "upały",
+     "codzienność",
+     "sport"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 7500,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 13000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p14",
+     "p06",
+     "p62"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 51
+   },
+   {
+    "id": "p52",
+    "marka": "Dior",
+    "nazwa": "Sauvage Parfum",
+    "rodzina": "ambrowa",
+    "profil": "męski",
+    "opis": "Najcieplejsza wersja najpopularniejszego męskiego zapachu świata, bez ostrego startu, który wielu ludzi w Sauvage odrzuca. Miękko, kremowo i przytulnie: wanilia z drewnem i charakterystyczne mydlane niuanse działające szczególnie dobrze na chłodne wieczory. Minus jest jeden. Jest rozpoznawalny, więc jeśli zależy ci na oryginalności, pokażemy ci coś innego.",
+    "nuty": {
+     "glowy": [
+      "Mandarynka",
+      "bergamotka"
+     ],
+     "serca": [
+      "Sandałowiec",
+      "geranium"
+     ],
+     "bazy": [
+      "Wanilia",
+      "tonka",
+      "drzewo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Klub",
+     "wyjście",
+     "codzienność zimą"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8500,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p53",
+     "p54",
+     "p11"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 52
+   },
+   {
+    "id": "p53",
+    "marka": "Dior",
+    "nazwa": "Sauvage Elixir",
+    "rodzina": "ambrowa",
+    "profil": "męski",
+    "opis": "Sauvage w wersji, przy której nikt nie ma wątpliwości, że wszedłeś do pomieszczenia. Cynamon i przyprawy na starcie są gęste i ciemne, a całość czuć tak mocno, że niewielka doza wypełnia pomieszczenie. Zima, wieczór, zdecydowanie nie spotkanie w małym biurze. Jeśli chcesz efektu „wszyscy się odwracają” bez wchodzenia w niszę, to jest twoja opcja.",
+    "nuty": {
+     "glowy": [
+      "Cynamon",
+      "gałka muszkatołowa",
+      "kardamon",
+      "grejpfrut"
+     ],
+     "serca": [
+      "Lawenda",
+      "korzenne nuty"
+     ],
+     "bazy": [
+      "Liquidambar",
+      "sandałowiec",
+      "paczula",
+      "licorice"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "klub",
+     "randka",
+     "event"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 16000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 30000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p54",
+     "p52",
+     "p11",
+     "p70"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 53
+   },
+   {
+    "id": "p54",
+    "marka": "Dior",
+    "nazwa": "Sauvage Extrait",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Najciemniejsza i najmocniejsza wersja Sauvage, jaka powstała, z prawdziwym zadymionym drewnem orientalnym i surowym pazurem. Skończyła się grzeczność. Pachnie jak ktoś, kto nikogo nie musi przekonywać. Oryginał dojrzewa czterdzieści dwa dni przed butelkowaniem i to tworzy prawdziwą gęstość. Dla kogoś, kto zna całą linię Sauvage i chce jeszcze intensywniejszych doznań.",
+    "nuty": {
+     "glowy": [
+      "Lawenda",
+      "bergamotka"
+     ],
+     "serca": [
+      "Oud"
+     ],
+     "bazy": [
+      "Paczula",
+      "rzadkie gatunki drewna",
+      "wetyweria z Madagaskaru",
+      "jałowiec wirginijski"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "event",
+     "okazje specjalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 22000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p53",
+     "p38",
+     "p05",
+     "p41"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 54
+   },
+   {
+    "id": "p55",
+    "marka": "Versace",
+    "nazwa": "Eros Parfum",
+    "rodzina": "aromatyczna",
+    "profil": "męski",
+    "opis": "Najciemniejsza wersja kultowego już zapachu. Pieprz, ciemne drewno, jeszcze więcej wanilii i chłód sprawiają, że brzmi wynioślej od protoplastów. Jesień, zima, wieczory, kiedy budżet ma znaczenie, a efekt nie może go zdradzać.",
+    "nuty": {
+     "glowy": [
+      "Mięta",
+      "cytryna",
+      "zielone jabłko"
+     ],
+     "serca": [
+      "Geranium",
+      "pieprz",
+      "ambrowe drewno"
+     ],
+     "bazy": [
+      "Cedr",
+      "wetyweria",
+      "paczula",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Wyjście",
+     "klub",
+     "randka"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 7000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 13000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p08",
+     "p09"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 55
+   },
+   {
+    "id": "p59",
+    "marka": "Hugo Boss",
+    "nazwa": "Bottled Elixir",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Ludzie odruchowo kojarzą ten zapach z garniturem i biurem, i to jest jego największa siła. Ciepłe przyprawy z jabłkiem na drzewnej bazie brzmią jak ktoś kompetentny, dojrzały i godny zaufania. Działa spokojnie i buduje wrażenie osoby, która ma wszystko pod kontrolą. Jesień, zima, praca, spotkania.",
+    "nuty": {
+     "glowy": [
+      "Jabłko",
+      "cynamon",
+      "śliwka"
+     ],
+     "serca": [
+      "Paczula",
+      "korzenne nuty"
+     ],
+     "bazy": [
+      "Drzewo sandałowe",
+      "wanilia",
+      "wetyweria"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "biznes",
+     "spotkania"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p54",
+     "p38"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 59
+   },
+   {
+    "id": "p61",
+    "marka": "Hugo Boss",
+    "nazwa": "Bottled Beyond",
+    "rodzina": "skórzana",
+    "profil": "męski",
+    "opis": "Ostry imbir na starcie, ciepła skóra pod spodem. Bardzo prosty pomysł, wykonany na tyle wyraziście, że działa. Skóra w perfumach zawsze czyta się jako drogo, a tutaj dostajesz ją w cenie, która tego nie zdradza. Trzyma się długo na ubraniu i dobrze łączy z innymi zapachami.",
+    "nuty": {
+     "glowy": [
+      "Imbir"
+     ],
+     "serca": [
+      "Nuty drzewne"
+     ],
+     "bazy": [
+      "Skóra"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "spotkania",
+     "wyjście"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p32",
+     "p59",
+     "p70"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 61
+   },
+   {
+    "id": "p62",
+    "marka": "Hugo Boss",
+    "nazwa": "Bottled Bold Citrus",
+    "rodzina": "cytrusowa",
+    "profil": "męski",
+    "opis": "Cytryna i bergamotka podane z pełną mocą, czyli najbardziej letnia wersja kultowej serii. Jasny, czysty i tak łatwy w noszeniu, że nie da się nim popełnić błędu. Pod spodem czuć drewno, które ratuje go przed byciem zwykłą wodą kolońską. Jedno zastrzeżenie: to edycja limitowana i kiedy się skończy, nie wróci.",
+    "nuty": {
+     "glowy": [
+      "Cytryna Primofiore",
+      "bergamotka"
+     ],
+     "serca": [
+      "Miodowy ekstrakt elemi",
+      "geranium bourbon"
+     ],
+     "bazy": [
+      "Paczula",
+      "wetyweria"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "upały"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p51",
+     "p21",
+     "p22"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 62
+   },
+   {
+    "id": "p63",
+    "marka": "YSL",
+    "nazwa": "Y Parfum",
+    "rodzina": "aromatyczna",
+    "profil": "męski",
+    "opis": "Brzmi jak dobrze skrojona biała koszula: czysto, nowocześnie, bez ozdobników. Świeży start szybko przechodzi w ciepłe drewno, więc całość działa w pracy i po godzinach. Ludzie odbierają ten zapach jako ogarnięcie, a nie jako perfumy, i o taki efekt tutaj chodzi. Cały rok, biuro, spotkania.",
+    "nuty": {
+     "glowy": [
+      "Jabłko",
+      "imbir",
+      "bergamotka"
+     ],
+     "serca": [
+      "Szałwia",
+      "geranium",
+      "lawenda"
+     ],
+     "bazy": [
+      "Cedr",
+      "wetyweria",
+      "tonka",
+      "drewno ambrowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "dzień",
+    "trwalosc": 5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "biznes",
+     "codzienność",
+     "wieczorne wyjścia"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 17000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p44",
+     "p52",
+     "p10"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 63
+   },
+   {
+    "id": "p64",
+    "marka": "YSL",
+    "nazwa": "MYSLF Parfum",
+    "rodzina": "kwiatowa",
+    "profil": "męski",
+    "opis": "Kwiat pomarańczy podany nowocześnie, czysto i zupełnie inaczej niż wszystko, co koledzy noszą z drogerii. To jeden z niewielu współczesnych zapachów, w których nuta kwiatowa jest głównym bohaterem, i dlatego wyróżnia się w tłumie. Działa świetnie z bliska: na rozmowie, przy stole, na powitaniu. Wiosna, jesień, randka, wesele.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "kwiat pomarańczy"
+     ],
+     "serca": [
+      "Kwiat pomarańczy",
+      "lawenda"
+     ],
+     "bazy": [
+      "Paczula",
+      "piżmo",
+      "drewno"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "randka",
+     "spotkania",
+     "ślub"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 17000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p63",
+     "p33",
+     "p52"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 64
+   },
+   {
+    "id": "p65",
+    "marka": "Hermès",
+    "nazwa": "Terre d'Hermès Eau Intense Vétiver",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Grejpfrut i suche drewno, czyli francuska elegancja bez cienia słodyczy. Zapach dorosłego mężczyzny w najbardziej klasycznym sensie, sprawdzający się w pracy, u klienta i wszędzie tam, gdzie mocne perfumy byłyby błędem. W klubie nie wywoła okrzyków. Za to zbuduje wrażenie osoby poważnej i uporządkowanej. Wiosna, lato, wczesna jesień, w ciągu dnia.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "bergamotka sycylijska"
+     ],
+     "serca": [
+      "Pieprz syczuański",
+      "wetyweria"
+     ],
+     "bazy": [
+      "Wetyweria",
+      "cedr",
+      "drzewo ambrowe",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "biznes",
+     "spotkania",
+     "codzienność"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 16000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p44",
+     "p11",
+     "p45"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 65
+   },
+   {
+    "id": "p66",
+    "marka": "Rabanne",
+    "nazwa": "Black XS",
+    "rodzina": "cytrusowa",
+    "profil": "męski",
+    "opis": "Ciemny, słodki zapach na codzień w cenie, która nie boli: cytrusy, pralina, przyprawy i drewno. Nie udaje niczego wyrafinowanego i robi dokładnie to, czego się od niego oczekuje, czyli przyciąga uwagę na małym dystansie. Dobry pierwszy zapach dla kogoś, kto dopiero zaczyna i nie chce od razu inwestować.",
+    "nuty": {
+     "glowy": [
+      "Cytryna",
+      "kalamansi",
+      "tamaryndowiec"
+     ],
+     "serca": [
+      "Pralina",
+      "cynamon",
+      "kadzidło"
+     ],
+     "bazy": [
+      "Tonka",
+      "paczula",
+      "drewno"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 3,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Codzienność",
+     "klub"
+    ],
+    "variants": [
+     {
+      "ml": 20,
+      "price": 10000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p55",
+     "p63"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 66
+   },
+   {
+    "id": "p67",
+    "marka": "Rabanne",
+    "nazwa": "Invictus",
+    "rodzina": "świeża",
+    "profil": "męski",
+    "opis": "Morska świeżość z grejpfrutem, kojarzona przez wszystkich z siłownią i latem, bo faktycznie działa tam najlepiej. Głośny, prosty i natychmiast rozpoznawalny, co bywa zaletą i wadą jednocześnie. Trzyma się długo jak na tę cenę i świetnie znosi upał i wysiłek. Uczciwie: jeśli zależy ci na tym, żeby nikt inny nie miał tego samego, pokażemy ci coś ciekawszego.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "mandarynka",
+      "liść laurowy"
+     ],
+     "serca": [
+      "Jaśmin",
+      "nuty morskie"
+     ],
+     "bazy": [
+      "Ambra szara",
+      "drewno gwajakowe",
+      "dębowy mech",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Sport",
+     "siłownia",
+     "codzienność",
+     "upały"
+    ],
+    "variants": [
+     {
+      "ml": 20,
+      "price": 12000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p14",
+     "p46"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 67
+   },
+   {
+    "id": "p68",
+    "marka": "Rabanne",
+    "nazwa": "One Million",
+    "rodzina": "słodka",
+    "profil": "męski",
+    "opis": "Cynamon, skóra i słodycz, podane bez umiaru i bez przeprosin. Jeden z najbardziej rozpoznawalnych zapachów ostatnich dwudziestu lat, o bardzo silnym charakterze: ludzie albo go uwielbiają, albo omijają, przy czym nikt nie przechodzi obok obojętnie.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "mięta",
+      "mandarynka"
+     ],
+     "serca": [
+      "Róża",
+      "cynamon",
+      "przyprawy"
+     ],
+     "bazy": [
+      "Skóra",
+      "drewno",
+      "ambra",
+      "paczula"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "codzienność zimną porą"
+    ],
+    "variants": [
+     {
+      "ml": 20,
+      "price": 12000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p55",
+     "p59"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 68
+   },
+   {
+    "id": "p69",
+    "marka": "Azzaro",
+    "nazwa": "Chrome",
+    "rodzina": "świeża",
+    "profil": "męski",
+    "opis": "Zapach świeżo wziętego prysznica: mydlany, czysty i przyjazny dla absolutnie każdego. Jedna z tych rzeczy, których nikt nie skrytykuje, więc sprawdza się w pracy, na uczelni, w upał i przy pierwszym poznaniu. Trzyma około pięciu godzin, więc na cały dzień warto mieć go przy sobie. Dla kogoś, kto chce po prostu ładnie pachnieć bez kombinowania.",
+    "nuty": {
+     "glowy": [
+      "Cytryna",
+      "bergamotka",
+      "ananas",
+      "neroli"
+     ],
+     "serca": [
+      "Kolendra",
+      "jaśmin",
+      "cyklamen"
+     ],
+     "bazy": [
+      "Piżmo",
+      "drzewo sandałowe",
+      "tonka",
+      "mech dębowy"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "sport",
+     "upały"
+    ],
+    "variants": [
+     {
+      "ml": 20,
+      "price": 9000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p51",
+     "p14",
+     "p06"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 69
+   },
+   {
+    "id": "p70",
+    "marka": "Azzaro",
+    "nazwa": "Forever Wanted Elixir",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Jeden z najmocniejszych zapachów w tej półce cenowej: ostry imbir na starcie, gęsta słodka wanilia z drewnem pod spodem. Potrafi trzymać nawet dziesięć godzin, a przez pierwsze cztery czuć cię w całym pomieszczeniu. Zapach klubowy i wieczorowy, nie sprawdzi się na formalne spotkania. Jeśli chcesz maksymalny efekt za rozsądne pieniądze, to jest najkrótsza droga.",
+    "nuty": {
+     "glowy": [
+      "Czerwony imbir",
+      "żywica elemi"
+     ],
+     "serca": [
+      "Rozżarzone nuty drzewne",
+      "szałwia muszkatołowa"
+     ],
+     "bazy": [
+      "Wanilia bourbon",
+      "drewno ambrowe",
+      "benzoina"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "codzienność zimną porą"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 17000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p71",
+     "p10",
+     "p61"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 70
+   },
+   {
+    "id": "p71",
+    "marka": "Azzaro",
+    "nazwa": "The Most Wanted Parfum",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Ciepła wanilia z przyprawami, idealny na randki. Przytulny i słodkawy, przy zachowanym męskim charakterze, więc nie brzmi dziecinnie. Trzyma długo i szeroko się podoba, co czyni go bezpiecznym wyborem na wieczór dla młodszego odbiorcy.",
+    "nuty": {
+     "glowy": [
+      "Kardamon",
+      "cytrusy"
+     ],
+     "serca": [
+      "Lawenda",
+      "drzewo ambrowe"
+     ],
+     "bazy": [
+      "Wanilia",
+      "tonka",
+      "drewno"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "codzienność zimną porą"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 17000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p52",
+     "p70",
+     "p59"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 71
+   }
+  ],
+  "sets": [
+   {
+    "id": "z01",
+    "nazwa": "LV DISCOVERY SET",
+    "opis": "",
+    "rodzina": "",
+    "price": 55000,
+    "available": true,
+    "sklad": [
+     {
+      "id": "p01",
+      "marka": "Louis Vuitton",
+      "nazwa": "Imagination",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p02",
+      "marka": "Louis Vuitton",
+      "nazwa": "Pacific Chill",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p03",
+      "marka": "Louis Vuitton",
+      "nazwa": "Afternoon Swim",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p04",
+      "marka": "Louis Vuitton",
+      "nazwa": "Nouveau Monde",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p05",
+      "marka": "Louis Vuitton",
+      "nazwa": "Ombre Nomade",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": 63000
+   },
+   {
+    "id": "z03",
+    "nazwa": "NOUS TOUS DISCOVERY SET",
+    "opis": "",
+    "rodzina": "",
+    "price": 35000,
+    "available": true,
+    "sklad": [
+     {
+      "id": "p46",
+      "marka": "Nous Tous",
+      "nazwa": "Casa di Capri",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p47",
+      "marka": "Nous Tous",
+      "nazwa": "Secco di Como",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p48",
+      "marka": "Nous Tous",
+      "nazwa": "Aurora Siciliana",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p49",
+      "marka": "Nous Tous",
+      "nazwa": "Safrano Absolu",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p50",
+      "marka": "Nous Tous",
+      "nazwa": "Milano 3AM",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   },
+   {
+    "id": "z04",
+    "nazwa": "SWEET & SPICY SET",
+    "opis": "",
+    "rodzina": "gourmand",
+    "price": 48000,
+    "available": false,
+    "sklad": [
+     {
+      "id": "p08",
+      "marka": "Xerjoff",
+      "nazwa": "Erba Pura",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p24",
+      "marka": "Mancera",
+      "nazwa": "Tonka Cola",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p29",
+      "marka": "Montale",
+      "nazwa": "Chocolate Greedy",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p34",
+      "marka": "Tom Ford",
+      "nazwa": "Lost Cherry",
+      "ml": 5,
+      "available": false
+     },
+     {
+      "id": "p43",
+      "marka": "Maison Francis Kurkdjian",
+      "nazwa": "Baccarat Rouge 540",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   },
+   {
+    "id": "z05",
+    "nazwa": "ENTRY SET",
+    "opis": "",
+    "rodzina": "",
+    "price": 32000,
+    "available": true,
+    "sklad": [
+     {
+      "id": "p44",
+      "marka": "Essential Parfums",
+      "nazwa": "Bois Impérial",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p45",
+      "marka": "Sospiro",
+      "nazwa": "Vibrato",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p32",
+      "marka": "Tom Ford",
+      "nazwa": "Ombré Leather",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p21",
+      "marka": "Mancera",
+      "nazwa": "Lemon Line",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p16",
+      "marka": "Amouage",
+      "nazwa": "Reflection Man",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   },
+   {
+    "id": "z06",
+    "nazwa": "AUTUMN DISCOVERY SET",
+    "opis": "",
+    "rodzina": "",
+    "price": 25000,
+    "available": true,
+    "sklad": [
+     {
+      "id": "p63",
+      "marka": "YSL",
+      "nazwa": "Y Parfum",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p52",
+      "marka": "Dior",
+      "nazwa": "Sauvage Parfum",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p39",
+      "marka": "Marc-Antoine Barrois",
+      "nazwa": "Ganymede",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p33",
+      "marka": "Tom Ford",
+      "nazwa": "Noir Extreme",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p22",
+      "marka": "Mancera",
+      "nazwa": "Cedrat Boise",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   },
+   {
+    "id": "z07",
+    "nazwa": "WINTER DISCOVERY SET",
+    "opis": "",
+    "rodzina": "",
+    "price": 54000,
+    "available": false,
+    "sklad": [
+     {
+      "id": "p60",
+      "marka": "Hugo Boss",
+      "nazwa": "Bottled Absolu",
+      "ml": 5,
+      "available": false
+     },
+     {
+      "id": "p42",
+      "marka": "Maison Francis Kurkdjian",
+      "nazwa": "Grand Soir",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p41",
+      "marka": "Maison Crivelli",
+      "nazwa": "Oud Maracujá",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p35",
+      "marka": "Tom Ford",
+      "nazwa": "Tobacco Vanille",
+      "ml": 5,
+      "available": true
+     },
+     {
+      "id": "p28",
+      "marka": "Montale",
+      "nazwa": "Arabians Tonka",
+      "ml": 5,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   }
+  ],
+  "freeShippingFrom": 20000,
+  "shipping": {
+   "paczkomat": 1499,
+   "kurier": 1999
+  },
+  "igHandle": "UZUPELNIJ",
+  "updated": "2026-09-23T12:00:00.000Z"
+ }
+}
