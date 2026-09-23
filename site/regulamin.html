@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Twój zestaw dopasowany | Nicci Fragrance</title>
-<meta name="description" content="Trzy zapachy dobrane do Twoich odpowiedzi w quizie, w odlewkach 5, 10 i 20 ml.">
+<title>Regulamin | Nicci Fragrance</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#040404">
 <link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
@@ -19,9 +18,9 @@
 <link rel="stylesheet" href="/css/strona.css">
 <link rel="stylesheet" href="/css/katalog.css">
 <link rel="stylesheet" href="/css/koszyk.css">
-<link rel="stylesheet" href="/css/wynik.css">
+<link rel="stylesheet" href="/css/zamowienie.css">
 </head>
-<body class="result-page">
+<body class="plain-page">
 <a class="skip-link" href="#main">Przejdź do treści</a>
 
 <div data-page-root>
@@ -52,11 +51,53 @@
   </div>
 </header>
 
-<main id="main" class="result theme-light">
-  <div class="container" data-result>
-    <div class="result__head skeleton" aria-hidden="true"><span class="sk" style="width:30%"></span><span class="sk" style="width:70%;height:3rem"></span><span class="sk" style="width:50%"></span></div>
-    <p class="visually-hidden" role="status">Dobieramy zapachy</p>
-  </div>
+<main id="main" class="order theme-light legal">
+  <article class="container legal__wrap">
+    <header class="order__head">
+      <p class="t-eyebrow t-eyebrow--rule">Dokumenty</p>
+      <h1 class="order__title">Regulamin sklepu</h1>
+      <p class="order__lead">Zasady zakupu odlewek w Nicci Fragrance.</p>
+      <p class="legal__draft" data-todo>{TODO: szkielet dokumentu do uzupełnienia i sprawdzenia przez prawnika przed startem sprzedaży. Nie publikować w tej postaci.}</p>
+    </header>
+    <section class="legal__sec" id="s1">
+      <h2>1. Sprzedawca</h2>
+      <p>Sklep internetowy Nicci Fragrance prowadzi <span data-todo>{TODO: imię i nazwisko albo firma, adres, NIP jeśli jest, e-mail kontaktowy}</span>.</p>
+    </section>
+    <section class="legal__sec" id="s2">
+      <h2>2. Czym są odlewki</h2>
+      <p>Sprzedajemy odlewki, czyli perfumy przelane ręcznie z oryginalnych flakonów do atomizerów o pojemności 5, 10 albo 20 ml, oraz zestawy odkrywców złożone z takich odlewek. Nie jesteśmy producentem ani autoryzowanym dystrybutorem marek z katalogu. <span data-todo>{TODO: potwierdzić sformułowanie i status sprzedaży odlewek z prawnikiem}</span></p>
+    </section>
+    <section class="legal__sec" id="s3">
+      <h2>3. Składanie zamówienia</h2>
+      <p>Zamówienie składasz w formularzu na stronie /zamowienie, bez zakładania konta. Po złożeniu zamówienia dostajesz jego numer oraz dane do płatności na stronie i mailem.</p>
+      <p>Umowa zostaje zawarta <span data-todo>{TODO: w którym momencie: złożenie zamówienia czy zaksięgowanie wpłaty}</span>.</p>
+    </section>
+    <section class="legal__sec" id="s4">
+      <h2>4. Rezerwacja i płatność</h2>
+      <p>Zamówione zapachy rezerwujemy na 24 godziny od złożenia zamówienia. Płacisz BLIKiem na telefon albo przelewem na konto, z numerem zamówienia w tytule. Wpłaty sprawdzamy ręcznie <span data-todo>{TODO: jak często}</span>.</p>
+      <p>Po 12 godzinach bez wpłaty wysyłamy przypomnienie. Po 24 godzinach bez wpłaty rezerwacja wygasa, a zamówienie zostaje anulowane. Wpłata po terminie: <span data-todo>{TODO: realizacja przy dostępności albo zwrot pieniędzy w ciągu … dni}</span>.</p>
+    </section>
+    <section class="legal__sec" id="s5">
+      <h2>5. Dostawa</h2>
+      <p>Wysyłamy do paczkomatu InPost albo kurierem na terenie <span data-todo>{TODO: kraje dostawy}</span>. Koszt dostawy widać w podsumowaniu przed złożeniem zamówienia. Paczkę nadajemy w ciągu <span data-todo>{TODO: liczba dni roboczych}</span> od zaksięgowania wpłaty, a numer przesyłki wysyłamy mailem.</p>
+    </section>
+    <section class="legal__sec" id="s6">
+      <h2>6. Prawo odstąpienia od umowy</h2>
+      <p><span data-todo>{TODO: zasady odstąpienia dla konsumenta, w tym czy i kiedy wyłączenie z art. 38 ustawy o prawach konsumenta dotyczy odlewek; formularz odstąpienia}</span></p>
+    </section>
+    <section class="legal__sec" id="s7">
+      <h2>7. Reklamacje</h2>
+      <p><span data-todo>{TODO: jak zgłosić reklamację (np. uszkodzony atomizer, błędny zapach), termin odpowiedzi, sposób zwrotu pieniędzy}</span></p>
+    </section>
+    <section class="legal__sec" id="s8">
+      <h2>8. Dane osobowe</h2>
+      <p>Zasady przetwarzania danych opisuje <a class="link" href="/prywatnosc">polityka prywatności</a>.</p>
+    </section>
+    <section class="legal__sec" id="s9">
+      <h2>9. Postanowienia końcowe</h2>
+      <p><span data-todo>{TODO: prawo właściwe, pozasądowe rozwiązywanie sporów, data wejścia w życie}</span></p>
+    </section>
+  </article>
 </main>
 
 <!-- 8. STOPKA -->
@@ -98,22 +139,14 @@
 </footer>
 </div>
 
-<div class="order-bar theme-dark" data-order-bar hidden>
-  <p data-bar-text></p>
-  <a class="btn btn--primary" href="/zamowienie">Przejdź do zamówienia</a>
-</div>
-
 <script src="/nicci-api.js" defer></script>
 <script src="/js/motion.js" defer></script>
 <script src="/js/ui.js" defer></script>
 <script src="/js/nuty.js" defer></script>
 <script src="/js/ikony.js" defer></script>
-<script src="/js/rodziny.js" defer></script>
 <script src="/js/drawer.js" defer></script>
 <script src="/js/card.js" defer></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/koszyk.js" defer></script>
-<script src="/js/produkt.js" defer></script>
-<script src="/js/wynik.js" defer></script>
 </body>
 </html>

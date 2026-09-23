@@ -11,3 +11,4 @@ node_modules/
 # Surowe pliki grafik (duże PNG); adresy do ponownego pobrania są w docs/03-plan-grafik.md
 dev/grafiki/zrodla/
 dev/zdjecia/zrodla/
+dev/zamowienia-dev.json

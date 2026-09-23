@@ -6,17 +6,27 @@ Lokalny podgląd strony tak, jak poda ją Cloudflare Pages.
 
 Różnice wobec zwykłego http.server:
   * ładne adresy jak na Pages: /quiz → quiz.html, /wynik?x=1 → wynik.html
-  * /__dev/catalog.mock.json podaje dev/catalog.mock.json. Strona sięga po niego tylko wtedy, gdy
-    API_URL w nicci-api.js nadal ma wartość UZUPELNIJ, więc na produkcji ta ścieżka nie istnieje.
+  * /__dev/api: atrapa backendu (dev/atrapa_backendu.js) na funkcjach z apps-script/Code.gs. Strona
+    kieruje tu zapytania tylko wtedy, gdy API_URL w nicci-api.js ma wartość UZUPELNIJ, więc na produkcji
+    ta ścieżka nie istnieje. Zamówienia z podglądu trafiają do dev/zamowienia-dev.json (poza gitem).
+  * /__dev/catalog.mock.json: statyczny mock katalogu (zapas, gdy Node nie jest dostępny).
 """
 import http.server
+import json
 import os
+import subprocess
 import sys
 import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
 MOCK = os.path.join(ROOT, 'dev', 'catalog.mock.json')
+ATRAPA = os.path.join(ROOT, 'dev', 'atrapa_backendu.js')
+
+
+def atrapa(req):
+    out = subprocess.run(['node', ATRAPA], input=json.dumps(req), capture_output=True, text=True, timeout=30)
+    return out.stdout or json.dumps({'ok': False, 'error': 'server_error', 'dev': out.stderr[-500:]})
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -31,6 +41,29 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if not os.path.splitext(clean)[1] and not os.path.isdir(local) and os.path.exists(local + '.html'):
             return local + '.html'
         return local
+
+    def _json(self, text):
+        data = text.encode('utf-8')
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def do_GET(self):
+        u = urllib.parse.urlsplit(self.path)
+        if u.path == '/__dev/api':
+            return self._json(atrapa({'method': 'GET', 'query': u.query}))
+        return super().do_GET()
+
+    def do_POST(self):
+        u = urllib.parse.urlsplit(self.path)
+        if u.path != '/__dev/api':
+            self.send_error(404)
+            return
+        n = int(self.headers.get('Content-Length') or 0)
+        body = self.rfile.read(n).decode('utf-8', 'replace') if n else ''
+        return self._json(atrapa({'method': 'POST', 'body': body}))
 
     def end_headers(self):
         self.send_header('Cache-Control', 'no-store')

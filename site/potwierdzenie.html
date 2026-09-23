@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Twój zestaw dopasowany | Nicci Fragrance</title>
-<meta name="description" content="Trzy zapachy dobrane do Twoich odpowiedzi w quizie, w odlewkach 5, 10 i 20 ml.">
+<title>Dane do płatności | Nicci Fragrance</title>
+<meta name="description" content="Numer zamówienia, kwota i dane do płatności BLIKiem na telefon albo przelewem.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#040404">
 <link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
@@ -19,9 +19,9 @@
 <link rel="stylesheet" href="/css/strona.css">
 <link rel="stylesheet" href="/css/katalog.css">
 <link rel="stylesheet" href="/css/koszyk.css">
-<link rel="stylesheet" href="/css/wynik.css">
+<link rel="stylesheet" href="/css/zamowienie.css">
 </head>
-<body class="result-page">
+<body class="plain-page">
 <a class="skip-link" href="#main">Przejdź do treści</a>
 
 <div data-page-root>
@@ -52,10 +52,9 @@
   </div>
 </header>
 
-<main id="main" class="result theme-light">
-  <div class="container" data-result>
-    <div class="result__head skeleton" aria-hidden="true"><span class="sk" style="width:30%"></span><span class="sk" style="width:70%;height:3rem"></span><span class="sk" style="width:50%"></span></div>
-    <p class="visually-hidden" role="status">Dobieramy zapachy</p>
+<main id="main" class="order theme-light">
+  <div class="container confirm" data-confirm>
+    <div class="skeleton"><span class="sk" style="width:40%"></span><span class="sk" style="width:80%;height:3rem"></span></div>
   </div>
 </main>
 
@@ -98,22 +97,15 @@
 </footer>
 </div>
 
-<div class="order-bar theme-dark" data-order-bar hidden>
-  <p data-bar-text></p>
-  <a class="btn btn--primary" href="/zamowienie">Przejdź do zamówienia</a>
-</div>
-
 <script src="/nicci-api.js" defer></script>
 <script src="/js/motion.js" defer></script>
 <script src="/js/ui.js" defer></script>
 <script src="/js/nuty.js" defer></script>
 <script src="/js/ikony.js" defer></script>
-<script src="/js/rodziny.js" defer></script>
 <script src="/js/drawer.js" defer></script>
 <script src="/js/card.js" defer></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/koszyk.js" defer></script>
-<script src="/js/produkt.js" defer></script>
-<script src="/js/wynik.js" defer></script>
+<script src="/js/potwierdzenie.js" defer></script>
 </body>
 </html>

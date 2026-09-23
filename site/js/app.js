@@ -48,6 +48,19 @@
     if (a) decorate(a);
   }, true);
 
+  // ---------- podgląd lokalny ----------
+  // Dopóki API_URL w nicci-api.js nie jest uzupełnione, zapytania do niego idą do atrapy backendu na
+  // lokalnym serwerze (dev/serwer.py → dev/atrapa_backendu.js, te same funkcje co Code.gs). Na produkcji,
+  // z prawdziwym API_URL, ten fragment nic nie robi.
+  if (/UZUPELNIJ/.test(N.CONFIG.API_URL) && window.fetch) {
+    var realFetch = window.fetch.bind(window);
+    window.fetch = function (input, init) {
+      var u = typeof input === 'string' ? input : input && input.url;
+      if (u && u.indexOf(N.CONFIG.API_URL) === 0) return realFetch('/__dev/api' + u.slice(N.CONFIG.API_URL.length), init);
+      return realFetch(input, init);
+    };
+  }
+
   // ---------- katalog ----------
   var memory = null;
   var listeners = [];
@@ -57,11 +70,7 @@
 
   function fetchFresh(force) {
     if (inflight && !force) return inflight;
-    var p = isDev()
-      // podgląd lokalny (dev/serwer.py): API_URL jeszcze nieuzupełnione, dane z mocka
-      ? fetch('/__dev/catalog.mock.json').then(function (r) { if (!r.ok) throw new Error('catalog_error'); return r.json(); })
-          .then(function (j) { if (!j.ok) throw new Error(j.error || 'catalog_error'); return j.data; })
-      : N.fetchCatalog(force);
+    var p = N.fetchCatalog(force);
     inflight = p.then(function (data) {
       memory = data;
       ss('set', CAT_KEY, JSON.stringify({ t: Date.now(), data: data }));

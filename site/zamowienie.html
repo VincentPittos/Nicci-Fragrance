@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zamówienie | Nicci Fragrance</title>
+<meta name="description" content="Dane do wysyłki i wybór płatności. Rezerwujemy Twoje zapachy na 24 godziny.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#040404">
+<link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/img/marka/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/img/marka/apple-touch-icon.png">
+<link rel="preload" href="/fonts/cormorant-garamond-normal-latin-2fed1d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jost-normal-latin-35841f.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/strona.css">
+<link rel="stylesheet" href="/css/katalog.css">
+<link rel="stylesheet" href="/css/koszyk.css">
+<link rel="stylesheet" href="/css/zamowienie.css">
+</head>
+<body class="plain-page">
+<a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div data-page-root>
+<header class="site-header site-header--solid theme-dark" data-header>
+  <div class="site-header__bar">
+    <a class="brand-mark" href="/" aria-label="Nicci Fragrance, strona główna">
+      <img src="/img/marka/logo-pelne-zloto.svg" alt="" width="1505" height="1640">
+    </a>
+    <nav class="site-nav" data-nav aria-label="Główna">
+      <ul role="list">
+        <li><a class="t-nav" href="/#jak-to-dziala">Jak to działa</a></li>
+        <li><a class="t-nav" href="/quiz">Quiz</a></li>
+        <li><a class="t-nav" href="/#katalog">Katalog</a></li>
+        <li><a class="t-nav" href="/#zestawy">Zestawy odkrywców</a></li>
+        <li><a class="t-nav" href="/#gwarancje">Gwarancje</a></li>
+        <li><a class="t-nav" href="/#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__end">
+      <button class="icon-btn menu-btn" type="button" data-menu aria-expanded="false" aria-label="Menu">
+        <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M5 9.5h18M5 18.5h12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="cart-btn" type="button" data-cart-button data-open-cart aria-label="Koszyk, pusty">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7.5 10.5h13l-1 12.5a1.5 1.5 0 0 1-1.5 1.4H10a1.5 1.5 0 0 1-1.5-1.4l-1-12.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.5 10.5V9a3.5 3.5 0 0 1 7 0v1.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="cart-btn__count" data-cart-count></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="order theme-light">
+  <div class="container order__wrap">
+    <header class="order__head">
+      <p class="t-eyebrow t-eyebrow--rule">Zamówienie</p>
+      <h1 class="order__title">Dane do wysyłki</h1>
+      <p class="order__lead">Jeden ekran i gotowe. Bez zakładania konta i bez płacenia na tej stronie.</p>
+    </header>
+
+    <details class="order-mini" data-order-mini>
+      <summary><span>Twoje zamówienie, <span data-sum-count>0 szt.</span></span><b data-sum-total>0 zł</b></summary>
+      <div class="order-mini__body" data-order-summary-mobile></div>
+    </details>
+
+    <div class="order__grid">
+      <form class="order-form" data-order-form novalidate>
+        <div class="err-sum" data-error-summary role="alert" hidden></div>
+        <div class="order-alert" data-order-alert role="alert" hidden></div>
+
+        <fieldset class="order-sec">
+          <legend class="order-sec__title">Kontakt</legend>
+          <div class="field" data-field="name">
+            <label for="f-name">Imię i nazwisko</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required aria-describedby="e-name">
+            <p class="field__error" id="e-name"></p>
+          </div>
+          <div class="field" data-field="email">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" required aria-describedby="h-email e-email">
+            <p class="field__hint" id="h-email">Tu wyślemy dane do płatności i numer przesyłki.</p>
+            <p class="field__error" id="e-email"></p>
+          </div>
+          <div class="field" data-field="phone">
+            <label for="f-phone">Telefon</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required aria-describedby="h-phone e-phone">
+            <p class="field__hint" id="h-phone">Na ten numer przyjdzie kod odbioru paczki.</p>
+            <p class="field__error" id="e-phone"></p>
+          </div>
+          <div class="field" data-field="instagram">
+            <label for="f-instagram">Instagram <span class="field__opt">(nieobowiązkowo)</span></label>
+            <input id="f-instagram" name="instagram" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="60" aria-describedby="h-instagram e-instagram">
+            <p class="field__hint" id="h-instagram">Sama nazwa, bez @. Łatwiej nam będzie się z Tobą skontaktować.</p>
+            <p class="field__error" id="e-instagram"></p>
+          </div>
+        </fieldset>
+
+        <fieldset class="order-sec" data-field="delivery">
+          <legend class="order-sec__title">Dostawa</legend>
+          <div class="choice-grid">
+            <label class="choice"><input type="radio" name="delivery" value="paczkomat" checked>
+              <span class="choice__box"><span class="choice__name">Paczkomat InPost</span><span class="choice__meta" data-ship-price="paczkomat"></span></span></label>
+            <label class="choice"><input type="radio" name="delivery" value="kurier">
+              <span class="choice__box"><span class="choice__name">Kurier</span><span class="choice__meta" data-ship-price="kurier"></span></span></label>
+          </div>
+          <p class="field__error"></p>
+          <div class="field" data-field="paczkomat" data-for-delivery="paczkomat">
+            <label for="f-paczkomat">Kod paczkomatu</label>
+            <input id="f-paczkomat" name="paczkomat" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-required aria-describedby="h-paczkomat e-paczkomat">
+            <p class="field__hint" id="h-paczkomat">Na przykład WAW12M. <a class="link" href="https://inpost.pl/znajdz-paczkomat" target="_blank" rel="noopener">Znajdź paczkomat na mapie</a></p>
+            <p class="field__error" id="e-paczkomat"></p>
+          </div>
+          <div class="order-row" data-for-delivery="kurier" hidden>
+            <div class="field" data-field="street">
+              <label for="f-street">Ulica i numer</label>
+              <input id="f-street" name="street" type="text" autocomplete="street-address" maxlength="120" data-required aria-describedby="e-street">
+              <p class="field__error" id="e-street"></p>
+            </div>
+            <div class="order-row__pair">
+              <div class="field" data-field="postcode">
+                <label for="f-postcode">Kod pocztowy</label>
+                <input id="f-postcode" name="postcode" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="00-000" data-required aria-describedby="e-postcode">
+                <p class="field__error" id="e-postcode"></p>
+              </div>
+              <div class="field" data-field="city">
+                <label for="f-city">Miejscowość</label>
+                <input id="f-city" name="city" type="text" autocomplete="address-level2" maxlength="60" data-required aria-describedby="e-city">
+                <p class="field__error" id="e-city"></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="order-sec" data-field="payment">
+          <legend class="order-sec__title">Płatność</legend>
+          <div class="choice-grid">
+            <label class="choice"><input type="radio" name="payment" value="blik" checked>
+              <span class="choice__box"><span class="choice__name">BLIK na telefon</span><span class="choice__meta">W aplikacji banku, jak przelew do znajomego</span></span></label>
+            <label class="choice"><input type="radio" name="payment" value="przelew">
+              <span class="choice__box"><span class="choice__name">Przelew na konto</span><span class="choice__meta">Numer konta pokażemy od razu</span></span></label>
+          </div>
+          <p class="field__error"></p>
+          <p class="order-calm">Płacisz dopiero po złożeniu zamówienia, u siebie w banku. Dane do wpłaty pokażemy na następnym ekranie i wyślemy mailem.</p>
+        </fieldset>
+
+        <fieldset class="order-sec">
+          <legend class="order-sec__title">Uwagi <span class="field__opt">(nieobowiązkowo)</span></legend>
+          <div class="field" data-field="note">
+            <label for="f-note" class="visually-hidden">Uwagi do zamówienia</label>
+            <textarea id="f-note" name="note" rows="3" maxlength="400" aria-describedby="c-note e-note"></textarea>
+            <p class="field__hint" id="c-note" data-note-count aria-live="polite">Zostało 300 znaków</p>
+            <p class="field__error" id="e-note"></p>
+          </div>
+        </fieldset>
+
+        <div class="order-sec order-consents">
+          <div class="field field--check" data-field="regulamin">
+            <label class="check"><input type="checkbox" name="regulamin" required aria-describedby="e-regulamin"><span class="check__box" aria-hidden="true"></span>
+              <span class="check__text">Akceptuję <a class="link" href="/regulamin" target="_blank">regulamin</a></span></label>
+            <p class="field__error" id="e-regulamin"></p>
+          </div>
+          <div class="field field--check" data-field="prywatnosc">
+            <label class="check"><input type="checkbox" name="prywatnosc" required aria-describedby="e-prywatnosc"><span class="check__box" aria-hidden="true"></span>
+              <span class="check__text">Potwierdzam zapoznanie się z <a class="link" href="/prywatnosc" target="_blank">polityką prywatności</a></span></label>
+            <p class="field__error" id="e-prywatnosc"></p>
+          </div>
+        </div>
+
+        <!-- pułapka na boty: niewidoczne dla ludzi i czytników, poza ekranem zamiast display:none -->
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">Zostaw to pole puste</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="order-submit">
+          <button type="submit" class="btn btn--primary btn--block" data-submit>Zamawiam i rezerwuję</button>
+          <p class="order-calm">Po kliknięciu pokażemy dane do płatności. Rezerwację trzymamy 24 godziny.</p>
+        </div>
+      </form>
+
+      <aside class="order-summary" aria-labelledby="os-t">
+        <h2 class="order-summary__title" id="os-t">Twoje zamówienie</h2>
+        <div data-order-summary><div class="skeleton"><span class="sk" style="width:80%"></span><span class="sk" style="width:60%"></span><span class="sk" style="width:70%"></span></div></div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- 8. STOPKA -->
+<footer class="site-footer theme-dark">
+  <div class="site-footer__inner container">
+    <div class="site-footer__brand">
+      <img src="/img/marka/logo-pelne-zloto.svg" alt="Nicci Fragrance" width="1505" height="1640" loading="lazy">
+      <p>Odlewki oryginalnych perfum niszowych i designerskich. Odlewamy ręcznie, wysyłamy do paczkomatu.</p>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Sklep</h2>
+      <ul role="list">
+        <li><a href="/quiz">Quiz zapachowy</a></li>
+        <li><a href="/#katalog">Katalog</a></li>
+        <li><a href="/#zestawy">Zestawy odkrywców</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Płatność i dostawa</h2>
+      <ul role="list">
+        <li>BLIK na telefon</li>
+        <li>Przelew na konto</li>
+        <li>Paczkomat InPost albo kurier</li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Kontakt</h2>
+      <ul role="list">
+        <li><a href="https://instagram.com/" data-ig rel="noopener" target="_blank">Instagram</a></li>
+        <li><span data-todo="sprzedawca">{TODO: imię i nazwisko sprzedawcy, adres kontaktowy, e-mail}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__legal container">
+    <p>© <span data-year>2026</span> Nicci Fragrance</p>
+    <p><a href="/regulamin">Regulamin</a> <a href="/prywatnosc">Polityka prywatności</a></p>
+  </div>
+</footer>
+</div>
+
+<script src="/nicci-api.js" defer></script>
+<script src="/js/motion.js" defer></script>
+<script src="/js/ui.js" defer></script>
+<script src="/js/nuty.js" defer></script>
+<script src="/js/ikony.js" defer></script>
+<script src="/js/drawer.js" defer></script>
+<script src="/js/card.js" defer></script>
+<script src="/js/app.js" defer></script>
+<script src="/js/koszyk.js" defer></script>
+<script src="/js/zamowienie.js" defer></script>
+</body>
+</html>

@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Twój zestaw dopasowany | Nicci Fragrance</title>
-<meta name="description" content="Trzy zapachy dobrane do Twoich odpowiedzi w quizie, w odlewkach 5, 10 i 20 ml.">
+<title>Polityka prywatności | Nicci Fragrance</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#040404">
 <link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
@@ -19,9 +18,9 @@
 <link rel="stylesheet" href="/css/strona.css">
 <link rel="stylesheet" href="/css/katalog.css">
 <link rel="stylesheet" href="/css/koszyk.css">
-<link rel="stylesheet" href="/css/wynik.css">
+<link rel="stylesheet" href="/css/zamowienie.css">
 </head>
-<body class="result-page">
+<body class="plain-page">
 <a class="skip-link" href="#main">Przejdź do treści</a>
 
 <div data-page-root>
@@ -52,11 +51,43 @@
   </div>
 </header>
 
-<main id="main" class="result theme-light">
-  <div class="container" data-result>
-    <div class="result__head skeleton" aria-hidden="true"><span class="sk" style="width:30%"></span><span class="sk" style="width:70%;height:3rem"></span><span class="sk" style="width:50%"></span></div>
-    <p class="visually-hidden" role="status">Dobieramy zapachy</p>
-  </div>
+<main id="main" class="order theme-light legal">
+  <article class="container legal__wrap">
+    <header class="order__head">
+      <p class="t-eyebrow t-eyebrow--rule">Dokumenty</p>
+      <h1 class="order__title">Polityka prywatności</h1>
+      <p class="order__lead">Jakie dane zbieramy, po co i jak długo je trzymamy.</p>
+      <p class="legal__draft" data-todo>{TODO: szkielet dokumentu do uzupełnienia i sprawdzenia przez prawnika przed startem sprzedaży. Nie publikować w tej postaci.}</p>
+    </header>
+    <section class="legal__sec" id="s1">
+      <h2>1. Administrator danych</h2>
+      <p>Administratorem Twoich danych jest <span data-todo>{TODO: imię i nazwisko albo firma, adres, e-mail do spraw danych osobowych}</span>.</p>
+    </section>
+    <section class="legal__sec" id="s2">
+      <h2>2. Jakie dane zbieramy</h2>
+      <p>Przy zamówieniu: imię i nazwisko, adres e-mail, numer telefonu, opcjonalnie nazwę konta na Instagramie, kod paczkomatu albo adres dostawy, uwagi do zamówienia. Zapisujemy też źródło wejścia na stronę (parametr src, na przykład z konkretnego filmu na Instagramie) i odpowiedzi z quizu, jeśli go wypełniasz.</p>
+    </section>
+    <section class="legal__sec" id="s3">
+      <h2>3. Po co i na jakiej podstawie</h2>
+      <p>Dane z zamówienia przetwarzamy, żeby je zrealizować: przyjąć płatność, wysłać paczkę i kontaktować się w sprawie zamówienia (art. 6 ust. 1 lit. b RODO). Rejestr wpłat prowadzimy <span data-todo>{TODO: podstawa: obowiązek prawny, np. rachunkowy}</span>. Źródło wejścia i odpowiedzi z quizu służą nam do oceny, które materiały działają <span data-todo>{TODO: podstawa: prawnie uzasadniony interes, potwierdzić}</span>.</p>
+    </section>
+    <section class="legal__sec" id="s4">
+      <h2>4. Komu przekazujemy dane</h2>
+      <p>Zamówienia zapisujemy w arkuszu Google, a maile wysyłamy z konta Google (Google Ireland Limited). Stronę hostuje Cloudflare. Dane do wysyłki trafiają do InPost albo firmy kurierskiej. Jeśli piszesz do nas na Instagramie, rozmowa odbywa się w serwisie Meta. <span data-todo>{TODO: umowy powierzenia, przekazywanie danych poza EOG}</span></p>
+    </section>
+    <section class="legal__sec" id="s5">
+      <h2>5. Jak długo przechowujemy dane</h2>
+      <p><span data-todo>{TODO: okresy przechowywania: zamówienia, rejestr wpłat, korespondencja}</span></p>
+    </section>
+    <section class="legal__sec" id="s6">
+      <h2>6. Twoje prawa</h2>
+      <p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przeniesienia, sprzeciwu oraz skargi do Prezesa Urzędu Ochrony Danych Osobowych. <span data-todo>{TODO: sposób kontaktu w tych sprawach}</span></p>
+    </section>
+    <section class="legal__sec" id="s7">
+      <h2>7. Pamięć przeglądarki</h2>
+      <p>Strona nie używa plików cookie ani narzędzi analitycznych. W pamięci Twojej przeglądarki (localStorage i sessionStorage) zapisujemy zawartość koszyka, ostatnie zamówienie (numer, kwotę, dane do płatności, Twój e-mail i sposób dostawy), źródło wejścia, odpowiedzi z quizu i kopię katalogu na czas wizyty. Te dane zostają na Twoim urządzeniu, możesz je usunąć, czyszcząc dane strony w przeglądarce. <span data-todo>{TODO: potwierdzić, jeśli dojdą analityka albo piksel reklamowy}</span></p>
+    </section>
+  </article>
 </main>
 
 <!-- 8. STOPKA -->
@@ -98,22 +129,14 @@
 </footer>
 </div>
 
-<div class="order-bar theme-dark" data-order-bar hidden>
-  <p data-bar-text></p>
-  <a class="btn btn--primary" href="/zamowienie">Przejdź do zamówienia</a>
-</div>
-
 <script src="/nicci-api.js" defer></script>
 <script src="/js/motion.js" defer></script>
 <script src="/js/ui.js" defer></script>
 <script src="/js/nuty.js" defer></script>
 <script src="/js/ikony.js" defer></script>
-<script src="/js/rodziny.js" defer></script>
 <script src="/js/drawer.js" defer></script>
 <script src="/js/card.js" defer></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/koszyk.js" defer></script>
-<script src="/js/produkt.js" defer></script>
-<script src="/js/wynik.js" defer></script>
 </body>
 </html>
