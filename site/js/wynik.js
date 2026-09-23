@@ -85,7 +85,7 @@
         C.media(p, { sizes: top ? '(min-width: 64rem) 30rem, 100vw' : '(min-width: 64rem) 16rem, 50vw' }) + '</button>' +
       '<div class="rc__body">' +
         '<p class="rc__brand">' + esc(p.marka) + '</p>' +
-        '<h3 class="rc__name" id="rc-' + esc(p.id) + '">' + esc(p.nazwa) + '</h3>' +
+        '<h2 class="rc__name" id="rc-' + esc(p.id) + '">' + esc(p.nazwa) + '</h2>' +
         '<p class="rc__why">' + esc(why(p)) + '</p>' +
         (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml tego zapachu</p>' : '') +
         C.buy(p, 'rc' + k) +

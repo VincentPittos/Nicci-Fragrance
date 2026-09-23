@@ -163,7 +163,7 @@ Wszystkie pary spełniają AA dla zwykłego tekstu (4,5:1). axe-core liczy kontr
 
 **0 naruszeń w 19 stanach** (telefon 390 px i komputer 1440 px): strona główna, szuflada produktu, koszyk, filtry na telefonie, quiz, wynik, zamówienie z błędami walidacji, potwierdzenie, regulamin, polityka prywatności. Test klawiatury: Tab przez stronę główną, quiz i formularz. Fokus jest widoczny na każdym elemencie i nie chowa się pod przyklejonym nagłówkiem.
 
-Poprawione w tym etapie: przewijany pasek zaufania na telefonie dostaje fokus z klawiatury; zapas pod nagłówkiem przy przewijaniu do fokusu (84 px nagłówka, było 80 px zapasu); kadr zastępczy karty nie rozjeżdża się z nazwą przycisku; spinner na przycisku „Zamawiam i rezerwuję” w trakcie wysyłki; `color-scheme` dla ciemnych motywów; wielokropek w stanach ładowania.
+Poprawione w tym etapie: nazwy zapachów na `/wynik` są nagłówkami drugiego poziomu (wcześniej brakowało poziomu między `h1` a `h3`); przewijany pasek zaufania na telefonie dostaje fokus z klawiatury; zapas pod nagłówkiem przy przewijaniu do fokusu (84 px nagłówka, było 80 px zapasu); kadr zastępczy karty nie rozjeżdża się z nazwą przycisku; spinner na przycisku „Zamawiam i rezerwuję” w trakcie wysyłki; `color-scheme` dla ciemnych motywów; wielokropek w stanach ładowania.
 
 ### Lighthouse 13.5 (pomiar lokalny)
 
