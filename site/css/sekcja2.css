@@ -22,7 +22,9 @@
 }
 
 /* ================= SEKCJA: JAK TO DZIAŁA ================= */
-.nf-how{padding-block:var(--n-space-8);overflow:hidden;background:var(--nf-char);color:var(--nf-cream);scroll-margin-top:4rem}
+.nf-how{padding-block:var(--n-space-8);overflow:hidden;background:var(--nf-char);color:var(--nf-cream);scroll-margin-top:4rem;
+  /* czerń paska zaufania łagodnie przechodzi w grafit sekcji, zamiast ostrej krawędzi */
+  background-image:linear-gradient(180deg,var(--bg-dark) 0,color-mix(in oklab,var(--bg-dark) 70%,var(--nf-char)) 2.5rem,color-mix(in oklab,var(--bg-dark) 38%,var(--nf-char)) 5.5rem,color-mix(in oklab,var(--bg-dark) 12%,var(--nf-char)) 9rem,var(--nf-char) 13rem)}
 .nf-how__head,.nf-steps,.nf-how__cta{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
 .nf-how__lead{color:var(--nf-cream-2)}
 /* kursywa w osobnej linii: „Cztery kroki” / „do Twojego zapachu”, bez sierot na końcu pierwszej linii */

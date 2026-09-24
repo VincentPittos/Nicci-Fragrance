@@ -287,37 +287,49 @@ body { background: var(--bg-dark); }
   .trust__item span { font-size: 0.9375rem; text-wrap: pretty; }
 }
 
-/* ---------- przejście z grafitu do kremu ---------- */
+/* ---------- przejście z grafitu do kremu ----------
+   Długa, łagodna strefa (--hz-l, 80% wysokości pasa, czyli do ok. 24rem): kolor przechodzi po krzywej smoothstep w przestrzeni oklab,
+   bez pasów i bez brązowego zabrudzenia, z lekkim złotym światłem w środku (do 9% złota). Na komputerze strefa
+   wędruje w górę z przewijaniem (--p ze strona-glowna.js), na ekranach dotykowych stoi w jednym miejscu (--p: 0.6).
+   Kolor ciemnej strony (--hz-dark) jest kolorem sekcji 2. */
 .horizon {
   --p: 0;
+  --hz-dark: var(--bg-graphite);
+  --hz-s: calc((1 - var(--p)) * 20%);
+  --hz-l: 80%;
   position: relative;
-  height: clamp(9rem, calc(var(--screen-h) * 0.26), 15rem);
+  height: clamp(15rem, calc(var(--screen-h) * 0.5), 30rem);
   background: var(--bg-light);
   overflow: hidden;
 }
-/* ciemność ustępuje od dołu: góra zawsze w kolorze sekcji 2, dół zawsze w kremie, strefa przejścia wędruje w górę */
 .horizon::before {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg,
-    var(--bg-graphite) 0%,
-    var(--bg-graphite) calc((1 - var(--p)) * 62%),
-    color-mix(in srgb, var(--bg-graphite) 55%, var(--accent-lo)) calc((1 - var(--p)) * 62% + 12%),
-    transparent calc((1 - var(--p)) * 62% + 38%));
+    var(--hz-dark) 0%,
+    var(--hz-dark) var(--hz-s),
+    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 4%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.12),
+    color-mix(in oklab, var(--accent) 5%, color-mix(in oklab, var(--bg-light) 14%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.24),
+    color-mix(in oklab, var(--accent) 8%, color-mix(in oklab, var(--bg-light) 29%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.36),
+    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 47%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.48),
+    color-mix(in oklab, var(--accent) 8%, color-mix(in oklab, var(--bg-light) 65%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.60),
+    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 80%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.72),
+    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 92%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.84),
+    var(--bg-light) calc(var(--hz-s) + var(--hz-l) * 1.00));
 }
 .horizon__glow {
-  position: absolute; left: 50%; top: calc((1 - var(--p)) * 62% + 12%);
-  width: min(70rem, 120vw); height: 9rem;
+  position: absolute; left: 50%; top: calc(var(--hz-s) + var(--hz-l) * 0.45);
+  width: min(80rem, 140vw); height: 16rem;
   transform: translate(-50%, -50%);
-  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent-soft) 45%, transparent), transparent 70%);
-  opacity: calc(0.25 + 0.5 * var(--p));
+  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent-soft) 32%, transparent), transparent 72%);
+  opacity: calc(0.35 + 0.4 * var(--p));
   pointer-events: none;
 }
 .horizon__line {
-  position: absolute; left: 50%; top: calc((1 - var(--p)) * 62% + 12%);
-  width: min(56rem, 84vw); height: var(--n-hairline);
-  background: linear-gradient(90deg, transparent, var(--accent) 22%, var(--accent) 78%, transparent);
-  transform: translateX(-50%) scaleX(calc(0.18 + 0.82 * var(--p)));
-  opacity: calc(0.4 + 0.6 * var(--p));
+  position: absolute; left: 50%; top: calc(var(--hz-s) + var(--hz-l) * 0.45);
+  width: min(60rem, 88vw); height: var(--n-hairline);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent) 30%, color-mix(in srgb, var(--accent) 55%, transparent) 70%, transparent);
+  transform: translateX(-50%) scaleX(calc(0.25 + 0.75 * var(--p)));
+  opacity: calc(0.3 + 0.45 * var(--p));
 }
 
 /* ---------- część jasna ---------- */
