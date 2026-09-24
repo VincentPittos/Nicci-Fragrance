@@ -214,16 +214,18 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- pasek zaufania ----------
-   Telefon: siatka 2 × 2, ikona nad tekstem. Od 48rem cztery równe kolumny, od 64rem ikona obok tekstu.
-   Kolumny rozdziela włosowa linia, a treść jest wyśrodkowana w swojej kolumnie, więc pasek jest symetryczny
-   niezależnie od długości podpisów. Wcięcia są na .trust, bo ul[role="list"] z base.css zeruje padding listy
-   (wcześniej przez to pasek nie miał marginesów i pierwsza ikona dotykała krawędzi ekranu). */
+   Telefon: siatka 2 × 2, ikona nad tekstem. Od 48rem jeden rząd: każdy punkt ma szerokość swojej treści,
+   między punktami jest ten sam odstęp (--trust-gap) z włosową linią dokładnie pośrodku, a cała grupa stoi
+   na środku ekranu. Równe kolumny dawały nierówne przerwy, bo podpisy mają różną długość. Od 90rem ikona
+   stoi obok tekstu, a wszystkie podpisy mieszczą się w jednej linii.
+   Selektor .trust .trust__list, bo ul[role="list"] z base.css zeruje margin i padding listy (wcześniej przez to
+   pasek nie miał wcięć, a na ekranach szerszych niż 90rem nie był wyśrodkowany). */
 .trust {
   position: relative; z-index: 1;
   padding: var(--n-space-2) var(--gutter);
   border-top: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
 }
-.trust__list {
+.trust .trust__list {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   max-width: 90rem; margin-inline: auto;
 }
@@ -239,17 +241,24 @@ body { background: var(--bg-dark); }
 .trust__item b { font-size: 0.8125rem; font-weight: 500; line-height: 1.3; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-strong); }
 .trust__item span { font-size: var(--n-size-small); line-height: 1.45; color: var(--text-muted); text-wrap: balance; }
 @media (min-width: 48rem) {
-  .trust { padding-block: var(--n-space-5); }
+  .trust { --trust-gap: clamp(1.5rem, 0.5rem + 4vw, 6rem); padding-block: var(--n-space-5); }
   .trust__icon { width: 2.5rem; height: 2.5rem; }
-  .trust__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .trust__item:nth-child(n) { padding-block: var(--n-space-2); border: 0; }
-  .trust__item + .trust__item { border-left: var(--n-hairline) solid var(--border-hairline); }
+  /* kolumny auto przy justify-content: center nie rozciągają się, więc mają dokładnie szerokość treści */
+  .trust .trust__list { grid-template-columns: repeat(4, auto); justify-content: center; column-gap: var(--trust-gap); }
+  .trust__item:nth-child(n) { position: relative; padding: var(--n-space-2) 0; border: 0; }
+  .trust__item + .trust__item::before {
+    content: ""; position: absolute; top: 0; bottom: 0;
+    left: calc(var(--trust-gap) / -2 - var(--n-hairline) / 2); width: var(--n-hairline);
+    background: var(--border-hairline);
+  }
 }
-@media (min-width: 64rem) {
-  .trust__item { flex-direction: row; justify-content: center; gap: var(--n-space-4); padding-inline: var(--n-space-5); text-align: left; }
+/* ikona obok tekstu dopiero od 90rem: wężej część podpisów łamie się na dwie linie i tytuły stoją na różnych wysokościach */
+@media (min-width: 90rem) {
+  .trust { --trust-gap: clamp(2.5rem, 0.5rem + 4vw, 6rem); }
+  .trust__item:nth-child(n) { flex-direction: row; justify-content: flex-start; gap: var(--n-space-4); text-align: left; }
   .trust__icon { width: 2.75rem; height: 2.75rem; }
   .trust__item b { font-size: 0.875rem; letter-spacing: 0.16em; }
-  .trust__item span { font-size: 0.9375rem; }
+  .trust__item span { font-size: 0.9375rem; text-wrap: pretty; }
 }
 
 /* ---------- przejście z grafitu do kremu ---------- */
