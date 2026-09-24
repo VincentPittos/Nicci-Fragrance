@@ -114,7 +114,7 @@ body { background: var(--bg-dark); }
   color: var(--accent);
   /* zapas na zawijas „Z”, wydłużenia liter i ogonek „y”, żeby gradient ich nie ucinał; marginesy go znoszą */
   padding: 0.08em 0.06em 0.16em 0.1em;
-  margin: -0.22em 0 -0.16em -0.1em;
+  margin: -0.18em 0 -0.16em -0.1em;
   text-wrap: nowrap;
 }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -202,11 +202,11 @@ body { background: var(--bg-dark); }
     max-width: none;
     height: 100%;
     display: flex; align-items: flex-start;
-    padding-top: max(7rem, 9vw);
+    padding-top: max(6.25rem, 8vw);
   }
-  .hero__copy { max-width: none; gap: 1.6vw; }
+  .hero__copy { max-width: none; gap: 1.45vw; }
   .hero__title { --t1: 5.3vw; }
-  .hero__title-2 { font-size: calc(var(--t1) * 1.47); margin-top: -0.34em; }
+  .hero__title-2 { font-size: calc(var(--t1) * 1.47); margin-top: -0.19em; }
   .hero__lead { font-size: max(1.0625rem, 1.3vw); max-width: 37vw; }
   .hero__cta { flex-wrap: nowrap; gap: 1vw; margin-top: 0.4vw; }
   /* przyciski też w vw: przy stałym rozmiarze na 1280 px wchodziłyby na flakony i magnolię */
