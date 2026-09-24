@@ -30,7 +30,7 @@ const CONFIG = {
   BLIK_PHONE: 'UZUPELNIJ',           // numer telefonu podpięty pod przelewy BLIK
   BANK_ACCOUNT: 'UZUPELNIJ',         // 26 cyfr, spacje dowolne
   RECIPIENT: 'UZUPELNIJ',            // odbiorca przelewu
-  SELLER_INFO: 'Nicci Fragrance, działalność nierejestrowana, kontakt@niccifragrance.pl', // stopka maili
+  SELLER_INFO: 'Nicci Fragrance, kontakt@niccifragrance.pl', // stopka maili
   SHIPPING: { paczkomat: null, kurier: null },   // w zł, np. 14.99
   FREE_SHIPPING_FROM: 0,             // w zł, 0 wyłącza darmową dostawę
   RESERVATION_HOURS: 24,
