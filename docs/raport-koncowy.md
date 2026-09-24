@@ -10,7 +10,7 @@ Aktualizacja 24.09.2026: odpowiedzi właściciela z `docs/lista-przed-publikacja
 |---|---|---|---|
 | 1 | `CONFIG` w `apps-script/Code.gs`: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane. | właściciel |
 | 2 | `API_URL` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | właściciel po wdrożeniu Apps Script |
-| 3 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Prawnik musi też ocenić zasadę „odlewek nie przyjmujemy z powrotem” wobec prawa odstąpienia. | właściciel i prawnik |
+| 3 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Zasady zwrotu są już zgodne z ustawą o prawach konsumenta (decyzja 67), prawnik sprawdza punkt 6 regulaminu i dopisuje formularz odstąpienia. | właściciel i prawnik |
 | 4 | Dane sprzedawcy | Stopka i maile mają „Nicci Fragrance” i `kontakt@niccifragrance.pl` (bez dopisku o działalności nierejestrowanej, decyzja 63). Imię, nazwisko i adres w dokumentach czekają na prawnika. Skrzynka ruszy po zakupie domeny i musi działać przed startem. | właściciel |
 
 ## 1. Lista `{TODO}` i `UZUPELNIJ`, od kogo potrzebne są dane

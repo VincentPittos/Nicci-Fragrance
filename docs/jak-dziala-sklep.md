@@ -34,6 +34,7 @@ Nicci robi w arkuszu tylko trzy rzeczy: zmienia status na OPŁACONE, wpisuje num
 
 - **Zapach się skończył:** wpisz 0 w kolumnie `ml_dostepne`. Na stronie pokaże się „Wyprzedane”. Puste pole oznacza, że zapach jest w sprzedaży bez limitu.
 - **Klient rezygnuje albo trzeba oddać pieniądze:** ustaw status ANULOWANE. W Ewidencji pojawi się korekta, a przelew zwrotny robisz ręcznie w banku.
+- **Klient zwraca odlewkę (14 dni):** klient ma 14 dni od odebrania paczki, żeby napisać, że rezygnuje, i kolejne 14 dni na odesłanie odlewki na swój koszt. Przyjmujesz tylko odlewki z nienaruszoną plombą, dlatego każda wysłana odlewka musi mieć plombę. Pieniądze oddajesz najpóźniej 14 dni od jego wiadomości, tą samą drogą, którą zapłacił; możesz poczekać, aż paczka wróci albo klient pokaże potwierdzenie nadania.
 - **Klient pisze na Instagramie:** na stronie potwierdzenia ma przycisk, który kopiuje treść zamówienia i otwiera wiadomość do @nicci_fragrance.
 - **Klient ma bon:** wpisuje kod w polu „Kod bonu” przy zamówieniu, a system sam odejmuje 50 zł i pilnuje, żeby bon zadziałał tylko raz.
 

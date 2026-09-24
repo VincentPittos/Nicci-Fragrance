@@ -317,7 +317,10 @@ button.set-card__item { cursor: pointer; }
 .guarantee__icon { color: var(--text-accent); }
 .guarantee__title { font-family: var(--font-display); font-size: var(--n-size-h3); line-height: 1.1; font-weight: 500; }
 .guarantee p { color: var(--text); max-width: 34em; }
-@media (min-width: 64rem) { .guarantee-list { grid-template-columns: repeat(3, 1fr); gap: var(--n-space-7); } }
+.guarantee p a { color: var(--text-strong); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 0.2em; overflow-wrap: anywhere; }
+/* cztery punkty: dwa na dwa, bo teksty są długie */
+@media (min-width: 48rem) { .guarantee-list { grid-template-columns: repeat(2, 1fr); gap: var(--n-space-5) var(--n-space-7); } }
+@media (min-width: 64rem) { .guarantee-list { gap: var(--n-space-6) var(--n-space-8); } }
 
 /* ---------- FAQ ---------- */
 .faq__list { max-width: 52rem; }
