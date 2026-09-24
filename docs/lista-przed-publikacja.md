@@ -41,7 +41,7 @@ Najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tł
 
 Kroki są w `refs/README.md`, punkt 1. W skrócie:
 
-0. Arkusza z perfumami nie tworzysz od zera. Plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i zapisz jako Arkusz Google. Stanów (`ml_dostepne`) nie musisz wpisywać (część 3).
+0. Arkusz z perfumami jest już na Dysku Google: folder „Nicci Fragrance”, plik „Nicci Fragrance: katalog i zamówienia”, z zakładkami Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy, sprawdzony komórka po komórce z plikiem `dev/dane/import-do-arkusza.xlsx`. Zakładki Do weryfikacji w nim nie ma, lista jest w `dev/dane/do-weryfikacji.csv`. Stanów (`ml_dostepne`) nie musisz wpisywać (część 3). ★ Maile do klientów wychodzą z konta Google, na którym uruchomisz skrypt. Arkusz leży dziś na koncie kontakt@skalentra.pl, więc przed wdrożeniem przenieś go (albo jego kopię) na konto, z którego mają iść maile sklepu.
 1. Wklej `apps-script/Code.gs` do projektu Apps Script przy tym arkuszu (Rozszerzenia, Apps Script).
 2. W `CONFIG` na górze pliku wpisz:
    * `OWNER_EMAIL`: e-mail, na który mają przychodzić zamówienia,

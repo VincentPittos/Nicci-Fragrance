@@ -41,7 +41,7 @@ Rezerwacje nie są zapisywane w stanach. Dostępność liczy się na bieżąco j
 
 ### 1. Arkusz i backend
 
-1. Nie przepisuj katalogu ręcznie: plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty i Zestawy z Twojej bazy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i wybierz Plik, Zapisz jako Arkusze Google. W tym arkuszu: Rozszerzenia, Apps Script.
+1. Nie przepisuj katalogu ręcznie: plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty i Zestawy z Twojej bazy (arkusz z tych danych jest już na Dysku, w folderze „Nicci Fragrance”). Skrypt uruchamiaj na koncie Google, z którego mają wychodzić maile sklepu. Wgraj go na Dysk Google, otwórz w Arkuszach Google i wybierz Plik, Zapisz jako Arkusze Google. W tym arkuszu: Rozszerzenia, Apps Script.
 2. Wklej zawartość `Code.gs`. W Ustawieniach projektu ustaw strefę czasową Europe/Warsaw.
 3. Uzupełnij `CONFIG` na górze pliku: e-mail właściciela, handle IG, adres strony, numer BLIK, numer konta, odbiorcę, ceny dostawy, próg darmowej dostawy.
 4. Wybierz funkcję `setup` i kliknij Uruchom. Zaakceptuj uprawnienia (przy ekranie "Google nie zweryfikował aplikacji" wybierz Zaawansowane i przejdź do projektu, to normalne przy własnych skryptach). Dojdą zakładki Zamowienia, Ewidencja, Bony, Log, lista statusów i dwa triggery. Dane w Produktach i Zestawach zostają bez zmian.
