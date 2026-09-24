@@ -13,9 +13,10 @@
     if (!media || M.reduced()) return;
     var hero = media.parentElement;
     var raf = 0, moved = false;
-    // na telefonie opis leży tuż nad atomizerami, a przyciski tuż pod nimi: przesunięcie zdjęcia by je zbliżyło.
-    // Tam zdjęcie stoi w miejscu i nie dostaje transformacji przy każdej klatce przewijania.
-    var phone = window.matchMedia('(max-width: 47.99rem)');
+    // Na telefonie i tablecie w pionie opis leży tuż nad atomizerami, a przyciski tuż pod nimi: przesunięcie zdjęcia
+    // by je zbliżyło. Na ekranach dotykowych (także tablet w poziomie) przesuwanie z przewijaniem szarpie, bo iOS
+    // przewija stronę szybciej, niż skrypt zdąży przesunąć zdjęcie. Tam zdjęcie stoi w miejscu.
+    var phone = window.matchMedia('(max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait), (hover: none), (pointer: coarse)');
     function update() {
       raf = 0;
       if (phone.matches) { if (moved) { M.set(media, { y: 0 }); moved = false; } return; }
@@ -31,7 +32,10 @@
   function initHorizon() {
     var el = document.querySelector('[data-horizon]');
     if (!el) return;
-    if (M.reduced()) { el.style.setProperty('--p', '0.6'); return; }
+    // Na ekranach dotykowych przejście stoi w jednym położeniu: gradient przeliczany przy każdej klatce przewijania
+    // na iPhonie i iPadzie nie nadąża za przewijaniem i drży. Na komputerze z myszą światło dalej wstaje z przewijaniem.
+    var touch = window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (M.reduced() || touch) { el.style.setProperty('--p', '0.6'); return; }
     var raf = 0, on = false;
     function update() {
       raf = 0;

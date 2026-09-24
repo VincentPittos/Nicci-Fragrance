@@ -32,7 +32,8 @@
         if (!entries[0].isIntersecting) return;
         io.disconnect();
         steps.forEach(function (s, k) {
-          setTimeout(function () { M.animate(s, { opacity: 1, y: 0 }, { preset: 'lift' }); }, k * 80);
+          // preset bez odbicia: sprężyna z odbiciem w trakcie przewijania wyglądała jak drganie kart
+          setTimeout(function () { M.animate(s, { opacity: 1, y: 0 }, { preset: 'ui' }); }, k * 80);
         });
       }, { threshold: 0.2 });
       io.observe(first);

@@ -145,8 +145,9 @@ body { background: var(--bg-dark); }
    atomizery Nicci w całości pod opisem, przyciski na kamieniu u dołu kadru. Kadr to prawe 70% zdjęcia
    (hero-m-*.webp, 1400 × 1116). Górne 31,7% kadru to ściana, dolne 23,8% kamień i piasek: z tych proporcji
    wynikają ujemne marginesy zdjęcia i przycisków. Środek stojącego złotego atomizera leży na 51,5% szerokości
-   kadru (piksele 664 do 779 z 1400). Wysokość z --screen-h, żeby kadr nie rósł, gdy chowa się pasek przeglądarki. */
-@media (max-width: 47.99rem) {
+   kadru (piksele 664 do 779 z 1400). Wysokość z --screen-h, żeby kadr nie rósł, gdy chowa się pasek przeglądarki.
+   Ten sam układ ma tablet w pionie (do 80rem): tekst na zdjęciu zamiast pustej ściany nad całym kadrem (niżej). */
+@media (max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait) {
   .hero {
     /* wysokość kadru: atomizery i przyciski na 1. ekranie. Szerokość kadru to 1,2545 × --hb; przy zmianie wzoru
        popraw też sizes kadru hero-m w index.html (obraz i preload), bo zależy od wysokości ekranu. */
@@ -179,8 +180,18 @@ body { background: var(--bg-dark); }
   .hero__cta .btn--outline { background: rgb(4 4 4 / 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 }
 
-/* tablet i mały laptop: tekst wyżej, pod nim zdjęcie w całości */
-@media (min-width: 48rem) {
+/* Tablet w pionie: kadr hero-m na całą szerokość ekranu, bez przycinania, więc proporcje ściany (31,7%) i kamienia
+   (23,8%) z wariantu C zgadzają się co do piksela. Opis leży na ścianie, przyciski w jednym rzędzie na kamieniu. */
+@media (min-width: 48rem) and (max-width: 79.99rem) and (orientation: portrait) {
+  .hero { --hb: calc(100vw / 1.2545); padding-top: calc(4.25rem + var(--n-space-6)); padding-bottom: var(--n-space-6); }
+  .hero__lead { margin-top: var(--n-space-5); }
+}
+@media (min-width: 64rem) and (max-width: 79.99rem) and (orientation: portrait) {
+  .hero { padding-top: calc(5.25rem + var(--n-space-6)); }
+}
+
+/* tablet w poziomie i mały laptop: tekst wyżej, pod nim zdjęcie w całości */
+@media (min-width: 48rem) and (orientation: landscape), (min-width: 80rem) {
   .hero { padding-top: calc(5.25rem + var(--n-space-7)); }
   .hero__inner { width: 100%; max-width: 90rem; margin-inline: auto; }
   .hero__copy { max-width: 44rem; }
@@ -188,8 +199,9 @@ body { background: var(--bg-dark); }
 }
 
 /* od 80rem: zdjęcie w całości jako tło w swoich proporcjach, tekst w pustej lewej części jak w referencji.
-   Węższe ekrany nie mają dość pustej ściany na tekst, więc zostają przy układzie piętrowym. */
-@media (min-width: 80rem) {
+   Tak samo tablet w poziomie od 64rem: w układzie piętrowym flakony wypadały poza pierwszy ekran.
+   Węższe ekrany w poziomie (telefon obrócony) nie mają dość pustej ściany na tekst i zostają przy układzie piętrowym. */
+@media (min-width: 80rem), (min-width: 64rem) and (orientation: landscape) {
   .hero {
     display: block;
     padding: 0;
@@ -212,6 +224,11 @@ body { background: var(--bg-dark); }
   .hero__cta { flex-wrap: nowrap; gap: 1vw; margin-top: 0.4vw; }
   /* przyciski też w vw: przy stałym rozmiarze na 1280 px wchodziłyby na flakony i magnolię */
   .hero__cta .btn { min-height: max(2.75rem, 3.4vw); padding: 0 max(1rem, 1.5vw); font-size: max(0.75rem, 0.82vw); white-space: nowrap; }
+}
+/* tablet w poziomie (64rem do 80rem): tekst jest tu względnie większy, więc drugi przycisk wchodzi na magnolię;
+   ciemne, półprzezroczyste tło jak na telefonie utrzymuje go czytelnym */
+@media (min-width: 64rem) and (max-width: 79.99rem) and (orientation: landscape) {
+  .hero__cta .btn--outline { background: rgb(4 4 4 / 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 }
 
 /* ---------- pasek zaufania ----------
