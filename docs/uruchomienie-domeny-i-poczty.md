@@ -1,6 +1,10 @@
 # Domena, poczta firmowa i podłączenie sklepu
 
-Instrukcja krok po kroku dla osoby, która zakłada konta. Stan na 24.09.2026:
+Instrukcja krok po kroku dla osoby, która zakłada konta.
+
+**Kroki 1 do 3 zrobione 24.09.2026 o 19:40:** serwery DNS domeny to `aida.ns.cloudflare.com` i `braden.ns.cloudflare.com`, rekordy w Cloudflare mają „DNS only”, `https://niccifragrance.pl` odpowiada stroną z Netlify z certyfikatem Let's Encrypt (Netlify odnawia go sam), a `www.niccifragrance.pl` przekierowuje na adres bez `www`. Pierwsza próba miała pomarańczową chmurkę: domena wskazywała wtedy na adresy Cloudflare, a HTTPS nie działał.
+
+Stan przed rozpoczęciem:
 
 * Domena `niccifragrance.pl` jest zarejestrowana w domeny.pl i widoczna w rejestrze .pl, ale serwery DNS domeny.pl nie mają jeszcze jej strefy, więc adres nigdzie nie prowadzi. DNSSEC jest wyłączony (brak rekordu DS), więc przeniesienie DNS do Cloudflare niczego nie zepsuje.
 * Strona działa pod `https://niccifragrance.netlify.app`.
