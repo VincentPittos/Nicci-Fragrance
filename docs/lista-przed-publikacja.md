@@ -19,7 +19,7 @@ Najlepiej gotowe teksty od prawnika. Szkielety są pod `/regulamin` i `/prywatno
 * **Dane sprzedawcy.** Na stronie jest „Nicci Fragrance, działalność nierejestrowana” i e-mail. Ustawa o prawach konsumenta wymaga podania klientowi danych, które identyfikują sprzedawcę, i adresu; prawnik powie, czy wystarczy imię, nazwisko i adres do doręczeń.
 * **Zwroty.** W FAQ jest Twoja zasada: odlewek nie przyjmujemy z powrotem, wymiana tylko po wspólnym doborze na Instagramie. Konsument kupujący przez internet ma co do zasady 14 dni na odstąpienie od umowy. Prawnik musi ocenić, czy odlewki mieszczą się w wyjątkach z art. 38 ustawy o prawach konsumenta. Do tego czasu przy odpowiedzi w FAQ stoi `{TODO}`.
 * **Regulamin:** status sprzedaży odlewek; moment zawarcia umowy (złożenie zamówienia czy wpłata); formularz odstąpienia; reklamacje (jak zgłosić, termin odpowiedzi, zwrot pieniędzy); prawo właściwe i pozasądowe rozwiązywanie sporów; data wejścia w życie.
-* **Polityka prywatności:** podstawy prawne (rejestr wpłat, źródło wejścia i quiz); umowy powierzenia (Google, Cloudflare, InPost, DPD, DHL, Meta) i przekazywanie danych poza EOG; okresy przechowywania.
+* **Polityka prywatności:** podstawy prawne (rejestr wpłat, źródło wejścia i quiz); umowy powierzenia (Google, Netlify, InPost, DPD, DHL, Meta) i przekazywanie danych poza EOG; okresy przechowywania.
 
 Obie strony mają dziś `noindex` i dopisek „nie publikować w tej postaci”. Po wstawieniu zatwierdzonych tekstów zdejmę jedno i drugie.
 
@@ -27,11 +27,7 @@ Obie strony mają dziś `noindex` i dopisek „nie publikować w tej postaci”.
 
 Wszystkie 15 flakonów ma na stronie Twoje zdjęcie, więc zdjęcie ma teraz każdy z 64 aktywnych zapachów. p51 Dior Homme Cologne i p52 Dior Sauvage Parfum są z plików przysłanych w rozmowie 24.09. Przezroczyste i białe tła dostały ten sam jasny, ciepły kolor co pozostałe karty (#F1EFEC), a nie czystą biel, żeby siatka katalogu była równa. Jeśli wolisz biel, mogę ją ustawić na wszystkich kartach.
 
----|---|---|
-| p52 | Dior Sauvage Parfum | Plik z Dysku to Sauvage Eau de Parfum, inne stężenie i inna etykieta. Karta pokazuje kadr z inicjałami. |
-| p51 | Dior Homme Cologne | Jest na stronie, ale źródło ma 640 × 335 px i flakon zajmuje mały fragment. Powiększyłem je, ale ostrość jest słabsza niż przy innych kartach. Lepsze zdjęcie się przyda. |
-
-Najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tło może być przezroczyste albo jasne, resztę ujednolicę.
+Przy kolejnych zdjęciach najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tło może być przezroczyste albo jasne, resztę ujednolicę.
 
 ---
 
@@ -62,9 +58,11 @@ Kroki są w `refs/README.md`, punkt 1. W skrócie:
 * ★ Po zakupie domeny uruchom skrzynkę `kontakt@niccifragrance.pl`. Adres jest w stopce, regulaminie, polityce prywatności i w mailach do klientów, więc musi działać przed startem.
 * Automatyzacje na Instagramie według `refs/README.md`, punkt 4. Szablony mają już właściwe linki (`https://niccifragrance.pl/quiz?src=reel12`) i nazwę marki.
 
-### I. ★ Cloudflare Pages i domena
+### I. ★ Netlify i domena
 
-Nie mam dostępu do Twojego konta Cloudflare. Połącz repozytorium według `docs/raport-koncowy.md`, punkt 6 (katalog `site`, bez polecenia budowania) i podłącz domenę `niccifragrance.pl`. Adresy kanoniczne, mapa strony i `robots.txt` wskazują już na tę domenę, więc do jej podłączenia wyszukiwarki nie powinny indeksować adresu `*.pages.dev`. Daj znać, z której gałęzi ma publikować. Na Twoje hasło połączę zmiany do gałęzi głównej.
+Strona jest na Netlify (`nfragrance.netlify.app`). Plik `netlify.toml` w repozytorium mówi Netlify, że strona leży w katalogu `site` i nie wymaga budowania; te ustawienia mają pierwszeństwo przed panelem Netlify. Pole Base directory w panelu (Site configuration, Build & deploy) ma zostać puste, inaczej Netlify nie znajdzie tego pliku. Repozytorium ma jedną gałąź, `claude/serene-cray-umqpzo`, i z niej Netlify publikuje; na Twoje hasło połączę ją z gałęzią główną i wtedy zmienisz gałąź produkcyjną w Site configuration, Build & deploy, Branches. Do startu zostaje podłączenie domeny `niccifragrance.pl` (Domain management, Add a domain). Adresy kanoniczne, mapa strony i `robots.txt` wskazują już na tę domenę, więc wyszukiwarki nie powinny indeksować adresu `*.netlify.app`.
+
+Dopóki nie wpiszę adresu `/exec` z punktu G, strona działa jako podgląd: katalog, quiz i koszyk działają na danych z pliku importu, a przy składaniu zamówienia klient widzi komunikat „To podgląd sklepu” i nic nie jest wysyłane.
 
 ---
 

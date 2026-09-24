@@ -23,3 +23,11 @@ const out = {
 fs.writeFileSync(path.join(ROOT, 'dev', 'catalog.mock.json'), JSON.stringify(out, null, 1));
 console.log('catalog.mock.json: produkty', catalog.products.length, 'zestawy', catalog.sets.length,
   'bajtów', JSON.stringify(out).length);
+
+// Podgląd na hostingu (Netlify, Pages), dopóki API_URL w nicci-api.js ma UZUPELNIJ: ten sam katalog, ale z CONFIG
+// z Code.gs bez przykładowych kosztów dostawy (strona pokaże „do ustalenia”). site/js/app.js czyta go tylko
+// poza localhostem i tylko bez podłączonego arkusza. Po wpisaniu API_URL plik jest nieużywany.
+const preview = be.buildCatalog_(products, sets, {}, be.CONFIG, new Date('2026-09-23T12:00:00Z'));
+fs.mkdirSync(path.join(ROOT, 'site', 'podglad'), { recursive: true });
+fs.writeFileSync(path.join(ROOT, 'site', 'podglad', 'katalog.json'), JSON.stringify({ ok: true, data: preview }));
+console.log('site/podglad/katalog.json: produkty', preview.products.length, 'dostawa', JSON.stringify(preview.shipping));

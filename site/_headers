@@ -1,4 +1,4 @@
-# Nagłówki dla Cloudflare Pages (https://developers.cloudflare.com/pages/configuration/headers/).
+# Nagłówki dla Netlify i Cloudflare Pages (ten sam format pliku _headers na obu hostingach).
 
 /*
   X-Content-Type-Options: nosniff

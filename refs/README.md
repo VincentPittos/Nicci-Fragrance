@@ -56,7 +56,7 @@ Każda zmiana kodu wymaga nowej wersji wdrożenia: Wdróż, Zarządzaj wdrożeni
 
 1. Zbuduj stronę w Claude Design z briefu w `architektura-strony.md`.
 2. Dołącz `nicci-api.js` i uzupełnij w nim `API_URL` (adres `/exec`) oraz `IG_HANDLE`.
-3. Opublikuj na Cloudflare Pages (plan darmowy): nowy projekt, wgranie folderu albo połączenie z GitHubem. Pliki `zamowienie.html`, `potwierdzenie.html`, `regulamin.html`, `prywatnosc.html` będą dostępne pod adresami bez końcówki `.html`.
+3. Opublikuj na Netlify (plan darmowy): połączenie z GitHubem, ustawienia bierze z `netlify.toml` (katalog `site`, bez budowania). Pliki `zamowienie.html`, `potwierdzenie.html`, `regulamin.html`, `prywatnosc.html` będą dostępne pod adresami bez końcówki `.html`.
 4. Adres strony wpisz w `CONFIG.SITE_URL` w Apps Script i wdróż nową wersję.
 
 ### 3. Bank

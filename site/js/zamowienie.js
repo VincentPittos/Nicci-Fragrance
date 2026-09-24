@@ -206,7 +206,7 @@
       }).join('') + '</ul>' +
       '<dl class="os__totals">' +
         '<div><dt>Zapachy</dt><dd>' + U.price(sum.subtotal) + '</dd></div>' +
-        '<div><dt>Dostawa' + (m ? (m === 'paczkomat' ? ', paczkomat' : ', kurier') : '') + '</dt><dd>' + (sum.shipping === null ? 'wybierz niżej' : sum.shipping === 0 ? 'gratis' : U.price(sum.shipping)) + '</dd></div>' +
+        '<div><dt>Dostawa' + (m ? (m === 'paczkomat' ? ', paczkomat' : ', kurier') : '') + '</dt><dd>' + (sum.shipping == null ? (m ? 'do ustalenia' : 'wybierz niżej') : sum.shipping === 0 ? 'gratis' : U.price(sum.shipping)) + '</dd></div>' +
         bonRow +
         '<div class="os__grand"><dt>Do zapłaty</dt><dd>' + U.price(total) + '</dd></div>' +
       '</dl>' +
@@ -219,7 +219,7 @@
       var el = form.querySelector('[data-ship-price="' + k + '"]');
       if (!el) return;
       var free = catalog.freeShippingFrom > 0 && sum.subtotal >= catalog.freeShippingFrom;
-      el.textContent = free ? 'gratis' : U.price(catalog.shipping[k]);
+      el.textContent = free ? 'gratis' : catalog.shipping[k] == null ? 'do ustalenia' : U.price(catalog.shipping[k]);
     });
   }
 
@@ -286,6 +286,10 @@
         showAlert(shortagesHtml(res.shortages || []));
         A.dropCatalog();
         A.catalog(true).then(function (c) { catalog = c; renderSummary(); }, function () {});
+        return;
+      }
+      if (res.error === 'podglad') {
+        showAlert('<h2 class="oa__title">To podgląd sklepu</h2><p>Zamówienia ruszą po podłączeniu arkusza. Koszyk zostaje w tej przeglądarce, niczego nie wysłaliśmy.</p>');
         return;
       }
       showAlert('<h2 class="oa__title">Zamówienie jeszcze nie poszło</h2><p>' + esc(res.message || 'Spróbuj ponownie za chwilę.') + '</p>');

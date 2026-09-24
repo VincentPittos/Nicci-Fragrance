@@ -1,0 +1,39 @@
+# Netlify: strona to gotowe pliki z katalogu site/, bez budowania.
+# Bez tego Netlify publikuje katalog główny repozytorium, gdzie nie ma index.html, i pokazuje „Page not found”.
+[build]
+  publish = "site"
+  command = "echo 'Strona statyczna z katalogu site/, bez budowania'"
+
+# Ładne adresy (/quiz zamiast /quiz.html). Parametry, np. ?src=reel12, przechodzą dalej bez zmian.
+[[redirects]]
+  from = "/quiz"
+  to = "/quiz.html"
+  status = 200
+
+[[redirects]]
+  from = "/wynik"
+  to = "/wynik.html"
+  status = 200
+
+[[redirects]]
+  from = "/zamowienie"
+  to = "/zamowienie.html"
+  status = 200
+
+[[redirects]]
+  from = "/potwierdzenie"
+  to = "/potwierdzenie.html"
+  status = 200
+
+[[redirects]]
+  from = "/regulamin"
+  to = "/regulamin.html"
+  status = 200
+
+[[redirects]]
+  from = "/prywatnosc"
+  to = "/prywatnosc.html"
+  status = 200
+
+# Nieistniejący adres dostaje site/404.html ze statusem 404 (Netlify robi to sam).
+# Nagłówki bezpieczeństwa i cache są w site/_headers (ten sam format na Netlify i Cloudflare Pages).

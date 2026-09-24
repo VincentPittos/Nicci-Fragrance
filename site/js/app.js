@@ -50,16 +50,20 @@
     if (a) decorate(a);
   }, true);
 
-  // ---------- podgląd lokalny ----------
+  // ---------- podgląd ----------
   // Dopóki API_URL w nicci-api.js nie jest uzupełnione, zapytania do niego idą do atrapy backendu na
-  // lokalnym serwerze (dev/serwer.py → dev/atrapa_backendu.js, te same funkcje co Code.gs). Na produkcji,
-  // z prawdziwym API_URL, ten fragment nic nie robi.
+  // lokalnym serwerze (dev/serwer.py → dev/atrapa_backendu.js, te same funkcje co Code.gs). Na hostingu
+  // (Netlify) atrapy nie ma: katalog przychodzi ze statycznego site/podglad/katalog.json (node dev/zbuduj_mock.js),
+  // a zamówienie dostaje odpowiedź „podglad” i nie idzie dalej. Z prawdziwym API_URL ten fragment nic nie robi.
   if (/UZUPELNIJ/.test(N.CONFIG.API_URL) && window.fetch) {
     var realFetch = window.fetch.bind(window);
+    var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     window.fetch = function (input, init) {
       var u = typeof input === 'string' ? input : input && input.url;
-      if (u && u.indexOf(N.CONFIG.API_URL) === 0) return realFetch('/__dev/api' + u.slice(N.CONFIG.API_URL.length), init);
-      return realFetch(input, init);
+      if (!u || u.indexOf(N.CONFIG.API_URL) !== 0) return realFetch(input, init);
+      if (local) return realFetch('/__dev/api' + u.slice(N.CONFIG.API_URL.length), init);
+      if (/[?&]action=catalog\b/.test(u)) return realFetch('/podglad/katalog.json', init);
+      return Promise.resolve(new Response(JSON.stringify({ ok: false, error: 'podglad' }), { headers: { 'Content-Type': 'application/json' } }));
     };
   }
 

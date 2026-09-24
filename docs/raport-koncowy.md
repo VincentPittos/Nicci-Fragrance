@@ -210,16 +210,17 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Profil:** w arkuszu są tylko zapachy męskie (25) i unisex (39). Odpowiedź „Dla niej” w quizie pokazuje zapachy unisex.
 
-## 6. Wdrożenie na Cloudflare Pages
+## 6. Wdrożenie na Netlify
 
 1. **Apps Script:** kroki z `refs/README.md`, punkt „1. Arkusz i backend”. W `CONFIG` wpisz `SITE_URL` (adres strony bez ukośnika na końcu). Po wdrożeniu skopiuj adres kończący się na `/exec` i sprawdź `ADRES/exec?action=catalog`.
 2. **Strona:** w `site/nicci-api.js` wpisz `API_URL` (linia 17, adres `/exec`). `IG_HANDLE` (linia 18) jest już wpisany. Nic więcej w tym pliku się nie zmienia.
 3. **Domena:** zrobione dla `niccifragrance.pl` (`python3 dev/ustaw_domene.py https://niccifragrance.pl`). Skrypt wpisuje adres bezwzględny w canonical, `og:url` i `og:image`, zbuduje `site/sitemap.xml` i dopisze linię Sitemap do `site/robots.txt`. Można go uruchomić ponownie po zmianie domeny.
-4. **Cloudflare Pages:** Workers & Pages, Create, Pages, połącz repozytorium z GitHuba. Framework preset: None. Build command: puste. Build output directory: `site`. Gałąź produkcyjna: ta, do której trafi ten kod. Alternatywnie Direct Upload folderu `site`.
-5. **Własna domena:** w projekcie Pages, Custom domains. Potem, jeśli adres się zmienił, popraw `CONFIG.SITE_URL` w Apps Script i wdróż nową wersję.
-6. **Nagłówki:** `site/_headers` ustawia politykę CSP (skrypty tylko z własnej domeny, zapytania do `script.google.com` i `script.googleusercontent.com`), cache fontów na rok i zdjęć na tydzień. Jeśli włączysz Cloudflare Web Analytics albo inny skrypt zewnętrzny, dopisz jego domenę do CSP, inaczej przeglądarka go zablokuje.
-7. **Strona 404:** `site/404.html`. Bez niej Pages podawałoby stronę główną pod każdym błędnym adresem.
-8. **Po wdrożeniu:** przejdź wszystkie 9 testów z `refs/README.md`, w tym prawdziwe zamówienie BLIK na własny e-mail.
+4. **Netlify:** Add new site, Import an existing project, GitHub, repozytorium Nicci-Fragrance. Katalog publikacji (`site`), brak budowania i ładne adresy (`/quiz`, `/zamowienie` i inne bez `.html`) ustawia `netlify.toml` w katalogu głównym repozytorium i ma to pierwszeństwo przed panelem. Base directory zostaw puste. Gałąź produkcyjna: ta, do której trafi ten kod (dziś `claude/serene-cray-umqpzo`). Bez `netlify.toml` Netlify publikował katalog główny repozytorium, gdzie nie ma `index.html`, i pokazywał „Page not found”.
+5. **Własna domena:** w Netlify, Domain management, Add a domain. Potem, jeśli adres się zmienił, popraw `CONFIG.SITE_URL` w Apps Script i wdróż nową wersję.
+6. **Nagłówki:** `site/_headers` ustawia politykę CSP (skrypty tylko z własnej domeny, zapytania do `script.google.com` i `script.googleusercontent.com`), cache fontów na rok i zdjęć na tydzień. Jeśli dodasz skrypt zewnętrzny (np. analitykę), dopisz jego domenę do CSP, inaczej przeglądarka go zablokuje.
+7. **Strona 404:** `site/404.html`, Netlify podaje ją sam ze statusem 404 pod każdym błędnym adresem.
+8. **Podgląd przed podłączeniem arkusza:** dopóki `API_URL` ma `UZUPELNIJ`, strona na Netlify czyta katalog ze statycznego `site/podglad/katalog.json` (budowanego przez `node dev/zbuduj_mock.js` z pliku importu i `CONFIG` z `Code.gs`, więc koszt dostawy to „do ustalenia”), a złożenie zamówienia kończy się komunikatem „To podgląd sklepu”. Na localhost zapytania idą jak dotąd do atrapy backendu. Po wpisaniu `API_URL` plik jest nieużywany.
+9. **Po wdrożeniu:** przejdź wszystkie 9 testów z `refs/README.md`, w tym prawdziwe zamówienie BLIK na własny e-mail.
 
 Praca lokalna: `python3 dev/serwer.py` (podgląd na http://127.0.0.1:8766 z atrapą backendu, dopóki `API_URL` ma `UZUPELNIJ`), `node dev/testy_backendu.js`, `node dev/testy_readme.js`.
 

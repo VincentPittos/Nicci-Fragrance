@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Lokalny podgląd strony tak, jak poda ją Cloudflare Pages.
+Lokalny podgląd strony tak, jak poda ją Netlify (i Cloudflare Pages, ten sam układ plików).
 
   python3 dev/serwer.py [port]        domyślnie 8766, katalog główny: site/
 
@@ -56,7 +56,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if u.path == '/__dev/api':
             return self._json(atrapa({'method': 'GET', 'query': u.query}))
         if not os.path.exists(self.translate_path(self.path)):
-            # jak Cloudflare Pages: nieistniejący adres dostaje 404.html ze statusem 404
+            # jak Netlify i Cloudflare Pages: nieistniejący adres dostaje 404.html ze statusem 404
             data = open(os.path.join(SITE, '404.html'), 'rb').read()
             self.send_response(404)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
