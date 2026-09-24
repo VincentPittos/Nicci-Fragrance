@@ -203,7 +203,9 @@ test('maile: dane klienta są escapowane, treść bez myślników', () => {
     delivery: v.data.delivery, payment: 'blik', note: '', lines: p.lines, subtotal: p.subtotal, shipping: p.shipping, total: p.total };
   const c = Object.assign({}, cfg, { BLIK_PHONE: '600 000 000', RECIPIENT: 'Nicci', BANK_ACCOUNT: '12345678901234567890123456', SELLER_INFO: 'dane' });
   Object.keys(be.TEMPLATES).forEach((k) => {
-    const t = k === 'klientWyslane' ? be.TEMPLATES[k](order, c, 'ABC123', 'InPost') : be.TEMPLATES[k](order, c, []);
+    const bon = { kod: 'NF-ABCD-EFGH', kwota: 50, prog: 199, wazny_do: new Date('2026-12-22T12:00:00Z') };
+    const t = k === 'klientWyslane' ? be.TEMPLATES[k](order, c, 'ABC123', 'InPost')
+      : /Bon$/.test(k) ? be.TEMPLATES[k](order, c, bon) : be.TEMPLATES[k](order, c, []);
     assert.ok(!/<script>/.test(t.html), k + ': surowy HTML klienta w mailu');
     assert.ok(!/[–—]/.test(t.text + t.subject), k + ': półpauza albo pauza w treści');
   });
@@ -236,6 +238,77 @@ test('odpowiedź zamówienia: pola, których używa strona potwierdzenia', () =>
   ['ok', 'numer', 'kwota', 'kwotaTxt', 'terminTxt', 'tytul', 'dane', 'pozycje', 'igHandle', 'igMessage'].forEach((k) =>
     assert.ok(k in res, 'brak pola ' + k));
   assert.match(res.igMessage, /^ZAMOWIENIE NF0101\n/);
+});
+
+// ---------- bony ----------
+test('bony: kod nieznany, wykorzystany, zwolniony po wygaśnięciu, po terminie, poniżej progu, poprawny', () => {
+  const bony = [
+    { _row: 2, kod: 'NF-AAAA-BBBB', kwota: '', prog: '', wazny_do: new Date('2026-12-22T12:00:00Z'), wykorzystany_w: '' },
+    { _row: 3, kod: 'NF-USED-0001', kwota: 50, prog: 199, wazny_do: '', wykorzystany_w: 'NF0101' },
+    { _row: 4, kod: 'NF-FREE-0002', kwota: 50, prog: 199, wazny_do: '', wykorzystany_w: 'NF0102' },
+    { _row: 5, kod: 'NF-OLD0-0003', kwota: 50, prog: 199, wazny_do: new Date('2026-09-22T10:00:00Z'), wykorzystany_w: '' },
+    { _row: 6, kod: 'NF-HAND-0004', kwota: 30, prog: 100, wazny_do: '', wykorzystany_w: 'w sklepie' }
+  ];
+  const orders = [
+    { numer: 'NF0101', status: 'OPŁACONE', rezerwacja_do: new Date('2026-09-22T10:00:00Z') },
+    { numer: 'NF0102', status: 'NOWE', rezerwacja_do: new Date('2026-09-23T10:00:00Z') }
+  ];
+  const chk = (code, sub) => JSON.parse(JSON.stringify(be.checkVoucher_(code, bony, orders, sub, NOW, cfg)));
+  assert.equal(chk('NF-XXXX-YYYY', 30000).reason, 'nieznany');
+  assert.equal(chk('', 30000).reason, 'nieznany');
+  assert.equal(chk('NF-USED-0001', 30000).reason, 'wykorzystany', 'opłacone zamówienie trzyma bon');
+  deq(chk('NF-FREE-0002', 30000), { ok: true, kod: 'NF-FREE-0002', rabat: 5000, row: 4 });
+  assert.equal(chk('NF-OLD0-0003', 30000).reason, 'wygasl', 'ważny do 22.09, dziś 23.09');
+  assert.equal(chk('NF-HAND-0004', 30000).reason, 'wykorzystany', 'wpis ręczny w wykorzystany_w');
+  deq(chk('NF-AAAA-BBBB', 19800), { ok: false, reason: 'prog', prog: 19900, brakuje: 100 });
+  deq(chk('NF-AAAA-BBBB', 19900), { ok: true, kod: 'NF-AAAA-BBBB', rabat: 5000, row: 2 }, 'puste kwota i prog biorą CONFIG.BON');
+  assert.equal(be.normVoucher_(' nf-aaaa bbbb '), 'NF-AAAABBBB');
+  assert.match(be.voucherCode_(), /^NF-[A-HJKMNP-Z2-9]{4}-[A-HJKMNP-Z2-9]{4}$/);
+  // walidacja formularza: kod z małych liter i spacji się normalizuje, dziwne znaki to błąd pola
+  assert.equal(be.validateOrder_(validBody({ voucher: ' nf-aaaa-bbbb ' }), cfg).data.voucher, 'NF-AAAA-BBBB');
+  deq(be.validateOrder_(validBody({ voucher: 'NF<script>' }), cfg).fields, ['voucher']);
+  assert.equal(be.validateOrder_(validBody(), cfg).data.voucher, '');
+});
+
+test('bony: dni robocze bez weekendów i świąt w Polsce (z Wigilią od 2025)', () => {
+  const h27 = Array.from(be.polishHolidays_(2027));
+  ['2027-01-06', '2027-03-29', '2027-05-03', '2027-05-27', '2027-12-24', '2027-12-26'].forEach((d) => assert.ok(h27.includes(d), d));
+  assert.ok(!Array.from(be.polishHolidays_(2024)).includes('2024-12-24'), 'Wigilia wolna dopiero od 2025');
+  // piątek 18.12.2026: 21, 22, 23, potem 24 do 27 wolne, 28, 29, 30, 31
+  assert.equal(be.workdayDeadline_(new Date('2026-12-18T09:00:00Z'), 7, 'Europe/Warsaw'), '2026-12-31');
+  // czwartek przed Wielkanocą 2026: poniedziałek wielkanocny 6.04 się nie liczy
+  assert.equal(be.workdayDeadline_(new Date('2026-04-02T12:00:00Z'), 7, 'Europe/Warsaw'), '2026-04-14');
+  // wpłata 22.09 o 0:30 w Warszawie (w UTC jeszcze 21.09) liczy się od 22.09
+  assert.equal(be.workdayDeadline_(new Date('2026-09-21T22:30:00Z'), 1, 'Europe/Warsaw'), '2026-09-23');
+});
+
+test('bony: za opóźnienie dopiero dzień po terminie, raz, tylko przy statusie OPŁACONE', () => {
+  const rec = { status: 'OPŁACONE', oplacone: new Date('2026-12-18T09:00:00Z'), bon_za_opoznienie: '' };
+  assert.equal(be.dueVoucher_(rec, new Date('2026-12-31T21:30:00Z'), cfg), false, '31.12, 22:30 w Warszawie: jeszcze w terminie');
+  assert.equal(be.dueVoucher_(rec, new Date('2026-12-31T23:30:00Z'), cfg), true, '1.01, 0:30 w Warszawie: po terminie');
+  assert.equal(be.dueVoucher_(Object.assign({}, rec, { bon_za_opoznienie: 'NF-AAAA-BBBB' }), new Date('2027-01-05T12:00:00Z'), cfg), false);
+  assert.equal(be.dueVoucher_(Object.assign({}, rec, { status: 'WYSŁANE' }), new Date('2027-01-05T12:00:00Z'), cfg), false);
+  assert.equal(be.dueVoucher_(Object.assign({}, rec, { oplacone: '' }), new Date('2027-01-05T12:00:00Z'), cfg), false);
+});
+
+test('bony: rabat w mailu, w odpowiedzi dla strony i po odczycie wiersza z arkusza', () => {
+  const v = be.validateOrder_(validBody({ items: [{ type: 'decant', id: 'p01', ml: 20, qty: 1 }] }), cfg);
+  const p = be.priceOrder_(v.data.items, 'paczkomat', productRows, setRows, {}, cfg);
+  const order = { numer: 'NF0103', until: new Date('2026-09-24T16:40:00Z'), customer: v.data.customer, delivery: v.data.delivery,
+    payment: 'blik', note: '', lines: p.lines, subtotal: p.subtotal, shipping: p.shipping, bon: 'NF-AAAA-BBBB', rabat: 5000,
+    total: p.total - 5000 };
+  const c = Object.assign({}, cfg, { BLIK_PHONE: '600 000 000', RECIPIENT: 'Nicci', BANK_ACCOUNT: '12345678901234567890123456', SELLER_INFO: 'dane' });
+  const mail = be.TEMPLATES.klientNowe(order, c).text;
+  assert.match(mail, /Bon NF-AAAA-BBBB: -50,00 zł/);
+  assert.match(mail, /Razem: 310,00 zł/, '360 zł, dostawa gratis od 200 zł, minus bon 50 zł');
+  const res = be.orderResponse_(order, cfg);
+  assert.equal(res.rabat, 5000);
+  assert.equal(res.kwota, 31000);
+  const back = be.orderFromRecord_({ numer: 'NF0103', kwota: 310, koszt_dostawy: 0, rabat: 50, bon: 'NF-AAAA-BBBB' });
+  assert.equal(back.subtotal, 36000);
+  assert.equal(back.total, 31000);
+  const cat = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
+  deq(cat.bon, { kwota: 5000, prog: 19900 });
 });
 
 test('diagnostyka: wykrywa puste CONFIG i brak stanów w imporcie', () => {

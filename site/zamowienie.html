@@ -146,6 +146,16 @@
         </fieldset>
 
         <fieldset class="order-sec">
+          <legend class="order-sec__title">Kod bonu <span class="field__opt">(nieobowiązkowo)</span></legend>
+          <div class="field" data-field="voucher">
+            <label for="f-voucher" class="visually-hidden">Kod bonu</label>
+            <input id="f-voucher" name="voucher" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="30" aria-describedby="h-voucher e-voucher">
+            <p class="field__hint" id="h-voucher">Bon wysyłamy mailem. Działa, gdy zapachy w koszyku kosztują co najmniej <span data-bon-prog>199 zł</span>.</p>
+            <p class="field__error" id="e-voucher"></p>
+          </div>
+        </fieldset>
+
+        <fieldset class="order-sec">
           <legend class="order-sec__title">Uwagi <span class="field__opt">(nieobowiązkowo)</span></legend>
           <div class="field" data-field="note">
             <label for="f-note" class="visually-hidden">Uwagi do zamówienia</label>

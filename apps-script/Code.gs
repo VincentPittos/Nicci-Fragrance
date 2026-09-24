@@ -44,6 +44,9 @@ const CONFIG = {
   MAX_ORDERS_PER_HOUR: 30,           // bezpiecznik na zalew fałszywych zamówień
   CACHE_SECONDS: 300,
   TIMEZONE: 'Europe/Warsaw',
+  // Bon za realizację dłuższą niż PO_DNIACH_ROBOCZYCH dni roboczych od wpłaty (bez weekendów i świąt w Polsce).
+  // Wystawia się sam (trigger co godzinę), a klient wpisuje kod w polu „Kod bonu”. PROG liczymy za same zapachy.
+  BON: { KWOTA: 50, PROG: 199, WAZNOSC_DNI: 90, PO_DNIACH_ROBOCZYCH: 7 },
   // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
   // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
   TRACKING_URLS: {
@@ -56,7 +59,7 @@ const CONFIG = {
 // ============ 2. STAŁE ============
 const SHEET = {
   PRODUKTY: 'Produkty', ZESTAWY: 'Zestawy', ZAMOWIENIA: 'Zamowienia',
-  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy'
+  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy', BONY: 'Bony'
 };
 
 const STATUS = {
@@ -83,11 +86,14 @@ const HEADERS = {
     'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc', 'cena_5', 'cena_10', 'cena_20',
     'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja'],
   Zestawy: ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad'],
-  Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'imie_nazwisko', 'email', 'telefon', 'instagram',
-    'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
-    'koszt_dostawy', 'kwota', 'uwagi_klienta', 'src', 'quiz', 'numer_przesylki', 'przewoznik', 'uwagi', 'przypomnienie',
-    'historia', 'stan_zdjety', 'status_przetworzony', 'pozycje_json', 'ml_json'],
+  Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'oplacone', 'imie_nazwisko', 'email', 'telefon',
+    'instagram', 'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
+    'koszt_dostawy', 'bon', 'rabat', 'kwota', 'uwagi_klienta', 'src', 'quiz', 'numer_przesylki', 'przewoznik',
+    'bon_za_opoznienie', 'uwagi', 'przypomnienie', 'historia', 'stan_zdjety', 'status_przetworzony', 'pozycje_json',
+    'ml_json'],
   Ewidencja: ['data', 'numer', 'typ', 'kwota', 'platnosc', 'klient', 'uwagi'],
+  // kwota i prog puste = wartości z CONFIG.BON; wazny_do puste = bez terminu; wykorzystany_w wypełnia system
+  Bony: ['kod', 'kwota', 'prog', 'wazny_do', 'wystawiony', 'powod', 'email', 'wykorzystany_w'],
   Log: ['czas', 'poziom', 'zdarzenie', 'szczegoly'],
   Statusy: ['status', 'znaczenie']
 };
@@ -308,6 +314,7 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
     sets: sets,
     freeShippingFrom: toGrosze_(cfg.FREE_SHIPPING_FROM) || 0,
     shipping: { paczkomat: toGrosze_(cfg.SHIPPING.paczkomat), kurier: toGrosze_(cfg.SHIPPING.kurier) },
+    bon: { kwota: toGrosze_(cfg.BON.KWOTA) || 0, prog: toGrosze_(cfg.BON.PROG) || 0 },
     igHandle: str_(cfg.IG_HANDLE),
     updated: (now || new Date()).toISOString()
   };
@@ -346,7 +353,7 @@ function normalizeItems_(items, cfg) {
 
 /**
  * Walidacja lustrzana do formularza /zamowienie. Nazwy w `fields` odpowiadają polom formularza:
- * name, email, phone, instagram, delivery, paczkomat, street, postcode, city, payment, note,
+ * name, email, phone, instagram, delivery, paczkomat, street, postcode, city, payment, note, voucher,
  * regulamin, prywatnosc, items.
  */
 function validateOrder_(body, cfg) {
@@ -381,6 +388,8 @@ function validateOrder_(body, cfg) {
   if (payment !== 'blik' && payment !== 'przelew') fields.push('payment');
   const note = str_(body.note).replace(/\r\n/g, '\n');
   if (note.length > 300) fields.push('note');
+  const voucher = normVoucher_(clean_(body.voucher, 30));
+  if (voucher && !/^[A-Z0-9-]{4,20}$/.test(voucher)) fields.push('voucher');
   if (cons.regulamin !== true) fields.push('regulamin');
   if (cons.prywatnosc !== true) fields.push('prywatnosc');
   const items = normalizeItems_(body.items, cfg);
@@ -393,6 +402,7 @@ function validateOrder_(body, cfg) {
       delivery: { method: method, paczkomat: paczkomat, street: street, postcode: postcode, city: city },
       payment: payment,
       note: note,
+      voucher: voucher,
       items: items,
       src: clean_(body.src, 60),
       quiz: body.quiz && typeof body.quiz === 'object' ? JSON.stringify(body.quiz).slice(0, 500) : ''
@@ -458,6 +468,97 @@ function priceOrder_(items, method, productRows, setRows, reserved, cfg) {
   return { ok: true, lines: lines, need: need, subtotal: subtotal, shipping: shipping, total: subtotal + shipping };
 }
 
+// ---------- bony ----------
+
+/** Kod bonu z formularza albo arkusza: wielkie litery, bez spacji. */
+function normVoucher_(v) {
+  return str_(v).toUpperCase().replace(/\s+/g, '');
+}
+
+/** Czy zamówienie trzyma bon: opłacone, wysłane albo nowe przed końcem rezerwacji. Wygasłe i anulowane go oddają. */
+function orderHoldsVoucher_(rec, now) {
+  const s = normStatus_(rec.status);
+  if (s === STATUS.OPLACONE || s === STATUS.WYSLANE) return true;
+  if (s !== STATUS.NOWE) return false;
+  const until = rec.rezerwacja_do instanceof Date ? rec.rezerwacja_do : new Date(rec.rezerwacja_do);
+  return !(until <= now);
+}
+
+/**
+ * Sprawdza bon dla zamówienia. subtotal w groszach, same zapachy bez dostawy.
+ * → {ok:true, kod, rabat, row} | {ok:false, reason:'nieznany'|'wykorzystany'|'wygasl'|'prog', prog?, brakuje?}
+ * wykorzystany_w z numerem, którego nie ma w zamówieniach (np. wpis ręczny), też oznacza wykorzystany.
+ */
+function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg) {
+  const bon = bonRows.filter(function (b) { return normVoucher_(b.kod) === code; })[0];
+  if (!code || !bon) return { ok: false, reason: 'nieznany' };
+  const used = str_(bon.wykorzystany_w);
+  if (used) {
+    const holder = orderRows.filter(function (o) { return str_(o.numer) === used; })[0];
+    if (!holder || orderHoldsVoucher_(holder, now)) return { ok: false, reason: 'wykorzystany' };
+  }
+  const valid = bon.wazny_do instanceof Date ? bon.wazny_do : (str_(bon.wazny_do) ? new Date(bon.wazny_do) : null);
+  if (valid && !isNaN(valid.getTime()) && ymd_(now, cfg.TIMEZONE) > ymd_(valid, cfg.TIMEZONE)) return { ok: false, reason: 'wygasl' };
+  const kwota = toGrosze_(str_(bon.kwota) === '' ? cfg.BON.KWOTA : bon.kwota) || 0;
+  const prog = toGrosze_(str_(bon.prog) === '' ? cfg.BON.PROG : bon.prog) || 0;
+  if (subtotal < prog) return { ok: false, reason: 'prog', prog: prog, brakuje: prog - subtotal };
+  return { ok: true, kod: normVoucher_(bon.kod), rabat: Math.min(kwota, subtotal), row: bon._row };
+}
+
+/** Kod bonu NF-XXXX-XXXX z liter i cyfr bez łatwych do pomylenia (0, O, 1, I, L). */
+function voucherCode_(rnd) {
+  const abc = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  const r = rnd || Math.random;
+  let s = '';
+  for (let i = 0; i < 8; i++) s += abc.charAt(Math.floor(r() * abc.length));
+  return 'NF-' + s.slice(0, 4) + '-' + s.slice(4);
+}
+
+/** Dni ustawowo wolne od pracy w Polsce w roku y, jako 'RRRR-MM-DD'. Od 2025 także Wigilia. */
+function polishHolidays_(y) {
+  // Wielkanoc według algorytmu Meeusa, Jonesa i Butchera (kalendarz gregoriański)
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4;
+  const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const easter = Date.UTC(y, Math.floor((h + l - 7 * m + 114) / 31) - 1, ((h + l - 7 * m + 114) % 31) + 1);
+  const out = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-25', '12-26']
+    .map(function (md) { return y + '-' + md; });
+  if (y >= 2025) out.push(y + '-12-24');
+  // poniedziałek wielkanocny i Boże Ciało; Wielkanoc i Zielone Świątki wypadają w niedzielę
+  [1, 60].forEach(function (days) { out.push(new Date(easter + days * 86400000).toISOString().slice(0, 10)); });
+  return out;
+}
+
+/** Data 'RRRR-MM-DD' w strefie tz. */
+function ymd_(date, tz) {
+  const p = dateParts_(date, tz);
+  return p.year + '-' + String(p.month).padStart(2, '0') + '-' + String(p.day).padStart(2, '0');
+}
+
+/** 'RRRR-MM-DD' n-tego dnia roboczego po dniu daty `from` (w strefie tz). Dzień wpłaty się nie liczy. */
+function workdayDeadline_(from, n, tz) {
+  const p = dateParts_(from, tz);
+  let t = Date.UTC(p.year, p.month - 1, p.day);
+  const holidays = {};
+  let left = n;
+  while (left > 0) {
+    t += 86400000;
+    const d = new Date(t);
+    const y = d.getUTCFullYear();
+    holidays[y] = holidays[y] || polishHolidays_(y);
+    if (d.getUTCDay() !== 0 && d.getUTCDay() !== 6 && holidays[y].indexOf(d.toISOString().slice(0, 10)) === -1) left--;
+  }
+  return new Date(t).toISOString().slice(0, 10);
+}
+
+/** Czy opłaconemu, niewysłanemu zamówieniu należy się już bon za opóźnienie (i jeszcze go nie dostało). */
+function dueVoucher_(rec, now, cfg) {
+  if (normStatus_(rec.status) !== STATUS.OPLACONE || str_(rec.bon_za_opoznienie)) return false;
+  const paid = rec.oplacone instanceof Date ? rec.oplacone : (str_(rec.oplacone) ? new Date(rec.oplacone) : null);
+  if (!paid || isNaN(paid.getTime())) return false;
+  return ymd_(now, cfg.TIMEZONE) > workdayDeadline_(paid, cfg.BON.PO_DNIACH_ROBOCZYCH, cfg.TIMEZONE);
+}
+
 function nextOrderNumber_(orderRows, cfg) {
   let max = cfg.ORDER_START - 1;
   const re = new RegExp('^' + cfg.ORDER_PREFIX + '(\\d+)$');
@@ -511,6 +612,11 @@ function dateTxt_(date, tz) {
   return String(p.day).padStart(2, '0') + '.' + String(p.month).padStart(2, '0') + '.' + p.year + ' ' + p.time;
 }
 
+/** "25.12.2026" */
+function dayTxt_(date, tz) {
+  return dateTxt_(date, tz).slice(0, 10);
+}
+
 function deliveryTxt_(d) {
   return d.method === 'paczkomat' ? 'Paczkomat InPost ' + d.paczkomat
     : 'Kurier: ' + d.street + ', ' + d.postcode + ' ' + d.city;
@@ -538,6 +644,8 @@ function orderResponse_(order, cfg) {
     kwotaTxt: formatPln_(order.total),
     wartoscProduktow: order.subtotal,
     kosztDostawy: order.shipping,
+    rabat: order.rabat || 0,
+    bon: order.bon || '',
     platnosc: order.payment,
     rezerwacjaDo: order.until.toISOString(),
     terminTxt: terminTxt_(order.until, cfg.TIMEZONE),
@@ -653,6 +761,27 @@ const TEMPLATES = {
     ], cfg);
   },
 
+  klientBon: function (o, cfg, bon) {
+    return mail_('Bon na ' + formatPln_(toGrosze_(bon.kwota)) + ' za dłuższą realizację ' + o.numer, [
+      'Cześć ' + firstName_(o.customer.name) + ',',
+      'realizacja zamówienia ' + o.numer + ' trwa dłużej niż ' + cfg.BON.PO_DNIACH_ROBOCZYCH + ' dni roboczych od wpłaty, a tyle obiecujemy. Przepraszamy.',
+      ['Twój bon', 'Kod: ' + bon.kod, 'Wartość: ' + formatPln_(toGrosze_(bon.kwota)),
+        'Działa, gdy zapachy w zamówieniu kosztują co najmniej ' + formatPln_(toGrosze_(bon.prog)) + ' (bez dostawy).',
+        'Ważny do ' + dayTxt_(bon.wazny_do, cfg.TIMEZONE) + '.'],
+      'Wpisz kod w polu „Kod bonu” przy kolejnym zamówieniu: ' + cfg.SITE_URL,
+      'Obecne zamówienie dalej realizujemy. Gdy paczka wyjdzie, dostaniesz mail z numerem przesyłki.'
+    ], cfg);
+  },
+
+  wlascicielBon: function (o, cfg, bon) {
+    return mail_('Bon za opóźnienie: ' + o.numer, [
+      'Od wpłaty za ' + o.numer + ' minęło ' + cfg.BON.PO_DNIACH_ROBOCZYCH + ' dni roboczych, a zamówienie nie ma jeszcze statusu WYSŁANE.',
+      'Klient dostał mailem bon ' + bon.kod + ' na ' + formatPln_(toGrosze_(bon.kwota)) + ', ważny do ' + dayTxt_(bon.wazny_do, cfg.TIMEZONE) + '. Bon jest w zakładce Bony.',
+      'Jeśli paczka już wyszła, wpisz numer przesyłki w arkuszu.',
+      'Klient: ' + o.customer.name + ', ' + o.customer.email + ', tel. ' + o.customer.phone
+    ], cfg);
+  },
+
   wlascicielPoTerminie: function (o, cfg, braki) {
     return mail_('Wpłata po terminie: ' + o.numer, [
       'Zamówienie ' + o.numer + ' zostało opłacone po wygaśnięciu rezerwacji.',
@@ -668,6 +797,7 @@ function itemsBlock_(o) {
     return l.nazwa + ', ' + l.opis + ' x' + l.ilosc + ': ' + formatPln_(l.suma);
   });
   lines.push('Dostawa (' + deliveryTxt_(o.delivery) + '): ' + (o.shipping === 0 ? 'gratis' : formatPln_(o.shipping)));
+  if (o.rabat) lines.push('Bon ' + o.bon + ': -' + formatPln_(o.rabat));
   lines.push('Razem: ' + formatPln_(o.total));
   return ['Twoje zamówienie'].concat(lines);
 }
@@ -758,13 +888,22 @@ function createOrder_(body) {
       if (priced.error === 'out_of_stock') invalidateCatalog_();
       return { ok: false, error: priced.error, shortages: priced.shortages };
     }
+    let voucher = null;
+    const bonSheet = data.voucher ? ss_().getSheetByName(SHEET.BONY) : null;
+    if (data.voucher) {
+      const bonRows = bonSheet ? tableToObjects_(bonSheet.getDataRange().getValues()) : [];
+      voucher = checkVoucher_(data.voucher, bonRows, orders, priced.subtotal, now, CONFIG);
+      if (!voucher.ok) return { ok: false, error: 'validation', fields: ['voucher'], voucher: voucher };
+    }
+    const rabat = voucher ? voucher.rabat : 0;
     order = {
       numer: nextOrderNumber_(orders, CONFIG),
       created: now,
       until: new Date(now.getTime() + CONFIG.RESERVATION_HOURS * 3600 * 1000),
       customer: data.customer, delivery: data.delivery, payment: data.payment, note: data.note,
       src: data.src, quiz: data.quiz,
-      lines: priced.lines, need: priced.need, subtotal: priced.subtotal, shipping: priced.shipping, total: priced.total
+      lines: priced.lines, need: priced.need, subtotal: priced.subtotal, shipping: priced.shipping,
+      bon: voucher ? voucher.kod : '', rabat: rabat, total: priced.total - rabat
     };
     appendRecord_(orderSheet, {
       numer: order.numer, utworzone: now, status: STATUS.NOWE, rezerwacja_do: order.until,
@@ -773,11 +912,13 @@ function createOrder_(body) {
       ulica: order.delivery.street, kod: order.delivery.postcode, miasto: order.delivery.city,
       platnosc: order.payment,
       pozycje: order.lines.map(function (l) { return l.nazwa + ' ' + l.opis + ' x' + l.ilosc; }).join('; '),
-      wartosc_produktow: order.subtotal / 100, koszt_dostawy: order.shipping / 100, kwota: order.total / 100,
+      wartosc_produktow: order.subtotal / 100, koszt_dostawy: order.shipping / 100,
+      bon: order.bon, rabat: rabat ? rabat / 100 : '', kwota: order.total / 100,
       uwagi_klienta: order.note, src: order.src, quiz: order.quiz,
       historia: dateTxt_(now, CONFIG.TIMEZONE) + ' NOWE', status_przetworzony: STATUS.NOWE,
       pozycje_json: JSON.stringify(order.lines), ml_json: JSON.stringify(order.need)
     });
+    if (voucher) writeFields_(bonSheet, headerMap_(bonSheet), voucher.row, { wykorzystany_w: order.numer });
     SpreadsheetApp.flush();
     cache.put(rlKey, '1', CONFIG.RATE_LIMIT_SECONDS);
     cache.put('orders_hour', String(hourCount + 1), 3600);
@@ -859,6 +1000,7 @@ function orderFromRecord_(o) {
   try { lines = JSON.parse(str_(o.pozycje_json) || '[]'); } catch (e) { lines = []; }
   const total = Math.round(Number(o.kwota || 0) * 100);
   const shipping = Math.round(Number(o.koszt_dostawy || 0) * 100);
+  const rabat = Math.round(Number(o.rabat || 0) * 100);
   return {
     numer: str_(o.numer),
     created: o.utworzone instanceof Date ? o.utworzone : new Date(o.utworzone),
@@ -866,7 +1008,8 @@ function orderFromRecord_(o) {
     customer: { name: str_(o.imie_nazwisko), email: str_(o.email), phone: str_(o.telefon), instagram: str_(o.instagram) },
     delivery: { method: str_(o.dostawa), paczkomat: str_(o.paczkomat), street: str_(o.ulica), postcode: str_(o.kod), city: str_(o.miasto) },
     payment: str_(o.platnosc), note: str_(o.uwagi_klienta), src: str_(o.src),
-    lines: lines, subtotal: total - shipping, shipping: shipping, total: total
+    bon: str_(o.bon), rabat: rabat,
+    lines: lines, subtotal: total - shipping + rabat, shipping: shipping, total: total
   };
 }
 
@@ -1019,6 +1162,11 @@ function handleStatus_(sh, H, r) {
   if ((status === STATUS.OPLACONE || status === STATUS.WYSLANE) && str_(rec.stan_zdjety) !== 'TAK') {
     const braki = adjustStock_(ml, -1);
     updates.stan_zdjety = 'TAK';
+    if (!str_(rec.oplacone)) updates.oplacone = new Date();
+    if (order.bon) {
+      const clash = claimVoucherOnPayment_(order, tableToObjects_(sh.getDataRange().getValues()), new Date());
+      if (clash) { updates.uwagi = appendNote_(rec.uwagi, clash); log_('WARN', 'bon', order.numer + ': ' + clash); }
+    }
     addLedger_(order, 'wpłata', order.total, '');
     const late = prev === STATUS.WYGASLE || new Date() > order.until;
     if (late || braki.length) sendMail_(CONFIG.OWNER_EMAIL, TEMPLATES.wlascicielPoTerminie(order, CONFIG, braki), 'poTerminie ' + order.numer);
@@ -1038,12 +1186,48 @@ function handleStatus_(sh, H, r) {
   invalidateCatalog_();
 }
 
+/**
+ * Opłacone zamówienie z bonem (np. wpłata po wygaśnięciu rezerwacji): bon wraca do tego zamówienia, chyba że
+ * w międzyczasie użyło go inne, aktywne zamówienie. Zwraca opis kolizji do kolumny uwagi albo ''.
+ */
+function claimVoucherOnPayment_(order, orderRows, now) {
+  const sh = ss_().getSheetByName(SHEET.BONY);
+  if (!sh) return 'Brak zakładki Bony, bon ' + order.bon + ' nie został oznaczony jako wykorzystany.';
+  const bon = tableToObjects_(sh.getDataRange().getValues()).filter(function (b) { return normVoucher_(b.kod) === order.bon; })[0];
+  if (!bon) return 'Bonu ' + order.bon + ' nie ma w zakładce Bony.';
+  const used = str_(bon.wykorzystany_w);
+  if (used && used !== order.numer) {
+    const other = orderRows.filter(function (o) { return str_(o.numer) === used; })[0];
+    if (!other || orderHoldsVoucher_(other, now)) return 'Bon ' + order.bon + ' jest też w zamówieniu ' + used + '. Sprawdź, czy rabat nie liczy się dwa razy.';
+  }
+  if (used !== order.numer) writeFields_(sh, headerMap_(sh), bon._row, { wykorzystany_w: order.numer });
+  return '';
+}
+
+/** Wystawia bon za opóźnienie: wiersz w Bony, kod w zamówieniu, mail do klienta i do właściciela. */
+function issueDelayVoucher_(sh, H, rec, now) {
+  const order = orderFromRecord_(rec);
+  const bonSheet = ensureSheet_(ss_(), SHEET.BONY, HEADERS[SHEET.BONY]);
+  const taken = tableToObjects_(bonSheet.getDataRange().getValues()).map(function (b) { return normVoucher_(b.kod); });
+  let kod = voucherCode_();
+  while (taken.indexOf(kod) !== -1) kod = voucherCode_();
+  const bon = { kod: kod, kwota: CONFIG.BON.KWOTA, prog: CONFIG.BON.PROG,
+    wazny_do: new Date(now.getTime() + CONFIG.BON.WAZNOSC_DNI * 86400000) };
+  appendRecord_(bonSheet, { kod: kod, kwota: bon.kwota, prog: bon.prog, wazny_do: bon.wazny_do, wystawiony: now,
+    powod: 'opóźnienie ' + order.numer, email: order.customer.email, wykorzystany_w: '' });
+  writeFields_(sh, H, rec._row, { bon_za_opoznienie: kod,
+    historia: appendNote_(rec.historia, dateTxt_(now, CONFIG.TIMEZONE) + ' bon ' + kod + ' za opóźnienie') });
+  sendMail_(order.customer.email, TEMPLATES.klientBon(order, CONFIG, bon), 'klientBon ' + order.numer);
+  sendMail_(CONFIG.OWNER_EMAIL, TEMPLATES.wlascicielBon(order, CONFIG, bon), 'wlascicielBon ' + order.numer);
+  log_('INFO', 'bon', order.numer + ': wystawiony ' + kod);
+}
+
 function appendNote_(current, line) {
   const c = str_(current);
   return c ? c + '\n' + line : line;
 }
 
-/** Trigger co godzinę: przypomnienie po REMINDER_AFTER_HOURS, wygaszenie po terminie rezerwacji. */
+/** Trigger co godzinę: przypomnienie po REMINDER_AFTER_HOURS, wygaszenie po terminie rezerwacji, bon za opóźnienie. */
 function hourly() {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(30000)) return;
@@ -1054,6 +1238,7 @@ function hourly() {
     const now = new Date();
     let changed = false;
     rows.forEach(function (rec) {
+      if (dueVoucher_(rec, now, CONFIG)) { issueDelayVoucher_(sh, H, rec, now); return; }
       if (normStatus_(rec.status) !== STATUS.NOWE) return;
       const order = orderFromRecord_(rec);
       if (now >= order.until) {
@@ -1103,16 +1288,20 @@ function setup() {
   const carriers = SpreadsheetApp.newDataValidation()
     .requireValueInList(Object.keys(CONFIG.TRACKING_URLS), true).setAllowInvalid(false).build();
   zam.getRange(2, H.przewoznik, zam.getMaxRows() - 1, 1).setDataValidation(carriers);
-  ['utworzone', 'rezerwacja_do', 'przypomnienie'].forEach(function (k) {
+  ['utworzone', 'rezerwacja_do', 'oplacone', 'przypomnienie'].forEach(function (k) {
     zam.getRange(2, H[k], zam.getMaxRows() - 1, 1).setNumberFormat('dd.mm.yyyy HH:mm');
   });
-  ['wartosc_produktow', 'koszt_dostawy', 'kwota'].forEach(function (k) {
+  ['wartosc_produktow', 'koszt_dostawy', 'rabat', 'kwota'].forEach(function (k) {
     zam.getRange(2, H[k], zam.getMaxRows() - 1, 1).setNumberFormat('0.00 "zł"');
   });
   UKRYTE_KOLUMNY.forEach(function (k) { if (H[k]) zam.hideColumns(H[k]); });
   const ew = ss.getSheetByName(SHEET.EWIDENCJA);
   ew.getRange(2, 1, ew.getMaxRows() - 1, 1).setNumberFormat('dd.mm.yyyy HH:mm');
   ew.getRange(2, 4, ew.getMaxRows() - 1, 1).setNumberFormat('0.00 "zł"');
+  const bony = ss.getSheetByName(SHEET.BONY);
+  const HB = headerMap_(bony);
+  ['kwota', 'prog'].forEach(function (k) { bony.getRange(2, HB[k], bony.getMaxRows() - 1, 1).setNumberFormat('0.00 "zł"'); });
+  ['wazny_do', 'wystawiony'].forEach(function (k) { bony.getRange(2, HB[k], bony.getMaxRows() - 1, 1).setNumberFormat('dd.mm.yyyy'); });
 
   ScriptApp.getProjectTriggers().forEach(function (t) {
     const fn = t.getHandlerFunction();

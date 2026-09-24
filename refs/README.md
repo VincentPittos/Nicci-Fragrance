@@ -41,11 +41,11 @@ Rezerwacje nie są zapisywane w stanach. Dostępność liczy się na bieżąco j
 
 ### 1. Arkusz i backend
 
-1. Utwórz nowy arkusz Google (albo zrób kopię arkusza z katalogiem). Rozszerzenia, Apps Script.
+1. Nie przepisuj katalogu ręcznie: plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty i Zestawy z Twojej bazy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i wybierz Plik, Zapisz jako Arkusze Google. W tym arkuszu: Rozszerzenia, Apps Script.
 2. Wklej zawartość `Code.gs`. W Ustawieniach projektu ustaw strefę czasową Europe/Warsaw.
 3. Uzupełnij `CONFIG` na górze pliku: e-mail właściciela, handle IG, adres strony, numer BLIK, numer konta, odbiorcę, ceny dostawy, próg darmowej dostawy.
-4. Wybierz funkcję `setup` i kliknij Uruchom. Zaakceptuj uprawnienia (przy ekranie "Google nie zweryfikował aplikacji" wybierz Zaawansowane i przejdź do projektu, to normalne przy własnych skryptach). Powstaną zakładki Produkty, Zestawy, Zamowienia, Ewidencja, Log, lista statusów i dwa triggery.
-5. Wypełnij zakładki Produkty i Zestawy (opis kolumn niżej). Dane z istniejącego arkusza katalogu przenieś kopiuj wklej, pilnując nazw kolumn.
+4. Wybierz funkcję `setup` i kliknij Uruchom. Zaakceptuj uprawnienia (przy ekranie "Google nie zweryfikował aplikacji" wybierz Zaawansowane i przejdź do projektu, to normalne przy własnych skryptach). Dojdą zakładki Zamowienia, Ewidencja, Bony, Log, lista statusów i dwa triggery. Dane w Produktach i Zestawach zostają bez zmian.
+5. Uzupełnij w Produktach `ml_dostepne` (ile ml zostało w każdym flakonie) i przejrzyj zakładkę Do weryfikacji (po przejrzeniu możesz ją usunąć). Opis kolumn jest niżej.
 6. Uruchom `diagnostyka` i sprawdź zakładkę Log. Nie może być wpisów "nie jest uzupełnione" ani "nie ma żadnej ceny".
 7. Wdróż, Nowe wdrożenie, typ Aplikacja internetowa. Wykonaj jako: Ja. Kto ma dostęp: Każdy. Skopiuj adres kończący się na `/exec`.
 8. Otwórz w przeglądarce `ADRES/exec?action=catalog`. Musisz zobaczyć JSON z `"ok":true` i listą produktów.
@@ -131,9 +131,23 @@ Tego zapachu właśnie zabrakło, ale mamy bardzo podobny: [nazwa]. Możemy podm
 
 Wypełnia system. Właściciel edytuje tylko `status`, `numer_przesylki`, `przewoznik` i ewentualnie `uwagi`. Nie sortuj tej zakładki ręcznie w trakcie pracy triggerów. Do przeglądania używaj filtra.
 
+Kolumny `bon` i `rabat` wypełnia system, gdy klient wpisze kod bonu. `oplacone` to chwila zmiany statusu na OPŁACONE, od niej liczy się termin realizacji. `bon_za_opoznienie` to kod bonu wystawionego za to zamówienie.
+
 ### Ewidencja
 
 Wpis przy każdej płatności i korekta przy anulowaniu opłaconego zamówienia. Służy jako rejestr wpłat.
+
+### Bony
+
+| Kolumna | Przykład | Uwagi |
+|---|---|---|
+| kod | NF-7KQM-D3XA | to klient wpisuje w formularzu |
+| kwota, prog | 50, 199 | w zł; puste pola biorą `CONFIG.BON` (50 zł, próg 199 zł za same zapachy) |
+| wazny_do | 23.12.2026 | ostatni dzień ważności; puste pole = bez terminu |
+| wystawiony, powod, email | | informacyjnie |
+| wykorzystany_w | NF0123 | wypełnia system; bon z zamówienia, które wygasło albo zostało anulowane, znów działa |
+
+Bon za opóźnienie wystawia się sam: jeśli zamówienie ma status OPŁACONE dłużej niż 7 dni roboczych (bez weekendów i świąt w Polsce), trigger co godzinę dopisuje bon, wysyła klientowi mail z kodem (ważny 90 dni), a Tobie powiadomienie. Własny bon (np. na przeprosiny) dodajesz, wpisując wiersz z kodem.
 
 ## Codzienna obsługa (właściciel)
 
@@ -143,7 +157,7 @@ Wpis przy każdej płatności i korekta przy anulowaniu opłaconego zamówienia.
 4. Przy kurierze wybierz firmę w kolumnie `przewoznik`. Wklej numer przesyłki w kolumnę `numer_przesylki`. Status zmieni się na WYSŁANE i klient dostanie link do śledzenia u tego przewoźnika. Przy paczkomacie kolumna `przewoznik` może zostać pusta.
 5. Nowy flakon: dodaj jego ml do `ml_dostepne`. Koniec zapachu: `aktywny` na NIE albo zostaw z zerowym stanem (karta pokaże "Wyprzedane").
 
-Termin realizacji: najpóźniej 7 dni roboczych od zaksięgowania wpłaty. Jeśli potrwa dłużej, klientowi należy się bon 50 zł na kolejne zakupy od 199 zł (regulamin, punkt 5).
+Termin realizacji: najpóźniej 7 dni roboczych od zmiany statusu na OPŁACONE. Po tym terminie system sam wystawi klientowi bon 50 zł (regulamin, punkt 5), dlatego numer przesyłki wpisuj od razu po nadaniu.
 
 Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE i zrealizuj zamówienie. System wyśle Ci mail z prośbą o sprawdzenie dostępności. Jeśli zapachu brakuje, sprowadź go (do 5 dni roboczych). Zwrot pieniędzy: ustaw ANULOWANE (ml wrócą na stan, w ewidencji pojawi się korekta), a przelew zwrotny zrób ręcznie.
 
@@ -158,6 +172,7 @@ Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE i zrealizuj zamówienie. S
 7. Formularz: błędny kod pocztowy, brak zgody, ukryte pole `website` wypełnione (zamówienie nie może powstać).
 8. Instagram: komentarz pod testowym postem, DM z linkiem, przycisk "Wyślij zamówienie na Instagramie" na telefonie.
 9. Maile nie lądują w spamie w Gmailu i Outlooku.
+10. Bon: dopisz w zakładce Bony wiersz z kodem TEST-BON (reszta pusta) i złóż zamówienie z zapachami za co najmniej 199 zł, wpisując ten kod. Kwota do zapłaty jest niższa o 50 zł, a w Bony pojawia się numer zamówienia. Drugie zamówienie z tym kodem musi zostać odrzucone. Po teście anuluj zamówienie i usuń wiersz.
 
 ## Limity i ryzyka
 

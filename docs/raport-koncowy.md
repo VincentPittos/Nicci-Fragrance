@@ -42,7 +42,6 @@ Każdy `{TODO}` na stronie ma przerywaną ramkę (`[data-todo]`), więc widać g
 | `regulamin.html:66`, `prywatnosc.html:66` | imię i nazwisko oraz adres sprzedawcy i administratora danych |
 | `regulamin.html:70` | sformułowanie i status sprzedaży odlewek |
 | `regulamin.html:75` | moment zawarcia umowy: złożenie zamówienia czy zaksięgowanie wpłaty |
-| `regulamin.html:84` | zasady bonu 50 zł za realizację dłuższą niż 7 dni roboczych: przekazanie i wykorzystanie, termin ważności, próg z dostawą czy bez |
 | `regulamin.html:88` | prawo odstąpienia, formularz odstąpienia; zasady właściciela są wpisane w TODO do oceny |
 | `regulamin.html:92` | reklamacje: jak zgłosić, termin odpowiedzi, zwrot pieniędzy |
 | `regulamin.html:100` | prawo właściwe, pozasądowe rozwiązywanie sporów, data wejścia w życie |
@@ -178,8 +177,8 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 22/22 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, odpowiedź zamówienia, zgodność z `nicci-api.js` |
-| `node dev/testy_readme.js` | 15/15 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu |
+| `node dev/testy_backendu.js` | 27/27 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, odpowiedź zamówienia, zgodność z `nicci-api.js` |
+| `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
 
 Test 1: katalog z `?action=catalog`; zapisany w przeglądarce katalog starszy niż 2 minuty odświeża się w tle, więc zmiana ceny dociera na stronę w czasie cache backendu (5 minut). Próba kontrolna potwierdza, że test umie wykryć starą cenę.
 Test 2: zamówienie BLIK z `?src=`, wiersz ze statusem NOWE i źródłem, dane BLIK do kopiowania, dostępność spada o zarezerwowane 10 ml (z 40 na 30 ml, backend oznacza niski stan, więc karta pokaże „Zostało 30 ml tego zapachu”).

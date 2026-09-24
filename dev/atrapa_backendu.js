@@ -3,7 +3,8 @@
 //
 //   echo '{"method":"GET","query":"action=catalog"}' | node dev/atrapa_backendu.js
 //   echo '{"method":"POST","body":"{...}"}' | node dev/atrapa_backendu.js
-// Zmienne: NICCI_STAN="p06=5,p07=0" nadpisuje ml_dostepne (test braków), NICCI_ZAMOWIENIA=plik.json.
+// Zmienne: NICCI_STAN="p06=5,p07=0" nadpisuje ml_dostepne (test braków), NICCI_ZAMOWIENIA=plik.json,
+// NICCI_BONY='[{"kod":"...","kwota":50,"prog":199,"wazny_do":"2099-12-31"}]' zamiast bonów testowych niżej.
 // Dane przykładowe (BLIK, konto, odbiorca) są wyłącznie do podglądu i nie trafiają do Code.gs.
 'use strict';
 const fs = require('fs');
@@ -11,6 +12,12 @@ const path = require('path');
 const { ROOT, loadBackend, readSheetJson, devConfig, withPlaceholderStock } = require('./wspolne');
 
 const ORDERS_FILE = process.env.NICCI_ZAMOWIENIA || path.join(ROOT, 'dev', 'zamowienia-dev.json');
+// Bony do podglądu: ważny, drugi ważny (np. do testu progu) i po terminie. wykorzystany_w wynika z pliku zamówień.
+const BONY = process.env.NICCI_BONY ? JSON.parse(process.env.NICCI_BONY) : [
+  { kod: 'NF-TEST-BON1', kwota: 50, prog: 199, wazny_do: '2099-12-31' },
+  { kod: 'NF-TEST-BON2', kwota: 50, prog: 199, wazny_do: '2099-12-31' },
+  { kod: 'NF-TEST-STARY', kwota: 50, prog: 199, wazny_do: '2020-01-01' }
+];
 
 function stockOverrides(values) {
   const spec = process.env.NICCI_STAN || '';
@@ -47,14 +54,26 @@ function createBackend() {
     const d = v.data;
     const priced = be.priceOrder_(d.items, d.delivery.method, productRows, setRows, be.reservedMl_(rows(), now), cfg);
     if (!priced.ok) return JSON.parse(JSON.stringify({ ok: false, error: priced.error, shortages: priced.shortages }));
+    let voucher = null;
+    if (d.voucher) {
+      const bonRows = BONY.map((b, i) => {
+        const last = orders.filter((o) => o.bon === b.kod).pop();
+        return Object.assign({ _row: i + 2, wykorzystany_w: last ? last.numer : '' }, b);
+      });
+      voucher = be.checkVoucher_(d.voucher, bonRows, rows(), priced.subtotal, now, cfg);
+      if (!voucher.ok) return JSON.parse(JSON.stringify({ ok: false, error: 'validation', fields: ['voucher'], voucher }));
+    }
+    const rabat = voucher ? voucher.rabat : 0;
     const order = {
       numer: be.nextOrderNumber_(orders, cfg), created: now,
       until: new Date(now.getTime() + cfg.RESERVATION_HOURS * 3600 * 1000),
       customer: d.customer, delivery: d.delivery, payment: d.payment, note: d.note, src: d.src, quiz: d.quiz,
-      lines: priced.lines, need: priced.need, subtotal: priced.subtotal, shipping: priced.shipping, total: priced.total
+      lines: priced.lines, need: priced.need, subtotal: priced.subtotal, shipping: priced.shipping,
+      bon: voucher ? voucher.kod : '', rabat, total: priced.total - rabat
     };
     orders.push({
       numer: order.numer, status: 'NOWE', rezerwacja_do: order.until.toISOString(), ml_json: JSON.stringify(order.need),
+      bon: order.bon, rabat: rabat / 100,
       email: d.customer.email, kwota: order.total / 100, src: d.src, quiz: d.quiz, pozycje: order.lines.map((l) => l.nazwa + ' ' + l.opis + ' x' + l.ilosc).join('; ')
     });
     fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 1));

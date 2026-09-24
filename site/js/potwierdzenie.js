@@ -75,6 +75,7 @@
           '<dl class="os__totals">' +
             '<div><dt>Zapachy</dt><dd>' + U.price(o.wartoscProduktow) + '</dd></div>' +
             '<div><dt>Dostawa</dt><dd>' + (o.kosztDostawy ? U.price(o.kosztDostawy) : 'gratis') + '</dd></div>' +
+            (o.rabat ? '<div><dt>Bon ' + esc(o.bon) + '</dt><dd>−' + U.price(o.rabat) + '</dd></div>' : '') +
             '<div class="os__grand"><dt>Do zapłaty</dt><dd>' + esc(o.kwotaTxt) + '</dd></div>' +
           '</dl>' +
           (o.dostawa && o.dostawa.opis ? '<p class="confirm__ship">' + esc(o.dostawa.opis) + '</p>' : '') +

@@ -1,6 +1,6 @@
 # Co przygotować przed publikacją
 
-Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 56). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Zostało to, co poniżej.
+Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 57). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Bon 50 zł za opóźnienie działa według Twoich zasad (90 dni, próg 199 zł za same zapachy): wystawia się sam i klient wpisuje go w polu „Kod bonu”. Zostało to, co poniżej.
 
 * **Część 1: wyślij mi.** Materiały i potwierdzenia, które wpiszę na stronę.
 * **Część 2: wpisujesz sam.** Dane do płatności i e-mail wpisujesz bezpośrednio w Apps Script. Repozytorium jest publiczne, więc te dane nie powinny w nim leżeć.
@@ -11,18 +11,6 @@ Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już 
 ---
 
 ## Część 1. Wyślij mi
-
-### Bon 50 zł za opóźnienie
-
-Na stronie i w regulaminie jest już Twoja zasada: jeśli realizacja potrwa dłużej niż 7 dni roboczych, klient dostaje bon na 50 zł na kolejne zakupy za co najmniej 199 zł. Brakuje ustaleń, bez których klient nie ma jak z bonu skorzystać:
-
-```
-1. Jak klient ma użyć bonu? Formularz zamówienia nie ma dziś pola na kod.
-   Propozycja: pole „Kod bonu” w zamówieniu i zakładka Bony w arkuszu (kod, kwota, próg, data ważności,
-   wykorzystany); backend sprawdza kod i odejmuje 50 zł od kwoty do zapłaty.
-2. Termin ważności bonu:
-3. Czy próg 199 zł liczymy z kosztem dostawy, czy tylko za zapachy:
-```
 
 ### D. ★ Regulamin i polityka prywatności (wyślesz później)
 
@@ -53,7 +41,8 @@ Najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tł
 
 Kroki są w `refs/README.md`, punkt 1. W skrócie:
 
-1. Wklej `apps-script/Code.gs` do projektu Apps Script przy arkuszu.
+0. Arkusza z perfumami nie tworzysz od zera. Plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i zapisz jako Arkusz Google. Ręcznie uzupełniasz tylko `ml_dostepne` (część 3).
+1. Wklej `apps-script/Code.gs` do projektu Apps Script przy tym arkuszu (Rozszerzenia, Apps Script).
 2. W `CONFIG` na górze pliku wpisz:
    * `OWNER_EMAIL`: e-mail, na który mają przychodzić zamówienia,
    * `BLIK_PHONE`: numer telefonu do przelewów BLIK,
@@ -63,7 +52,7 @@ Kroki są w `refs/README.md`, punkt 1. W skrócie:
    * `FREE_SHIPPING_FROM`: próg darmowej dostawy w zł albo `0`, jeśli jej nie ma.
 
    `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane (Nicci Fragrance, `nicci_fragrance`, `https://niccifragrance.pl`).
-3. Uruchom `setup`, potem `diagnostyka`. Zakładka Log nie może mieć wpisów „nie jest uzupełnione” ani „nie ma żadnej ceny”. `setup` doda w zakładce Zamowienia kolumnę `przewoznik` z listą InPost, DPD i DHL.
+3. Uruchom `setup`, potem `diagnostyka`. Zakładka Log nie może mieć wpisów „nie jest uzupełnione” ani „nie ma żadnej ceny”. `setup` dopisze zakładki Zamowienia (z listą przewoźników InPost, DPD i DHL), Ewidencja, Bony, Log i Statusy, a Produktów i Zestawów nie zmieni.
 4. Wdróż jako aplikację internetową (Wykonaj jako: Ja, dostęp: Każdy).
 5. **Wyślij mi tylko adres kończący się na `/exec`.** Ten adres i tak jest widoczny w przeglądarce każdego klienta, więc może trafić do repozytorium.
 
@@ -93,7 +82,7 @@ Nie mam dostępu do Twojego konta Cloudflare. Połącz repozytorium według `doc
 6. Rodziny zestawów: ma ją tylko z04, więc quiz nie proponuje zestawu z innych rodzin.
 7. Zestaw z07 zawiera p60, który jest nieaktywny, więc zestaw jest niedostępny. Aktywować p60 czy zmienić skład?
 8. Plik do weryfikacji: dev/dane/do-weryfikacji.csv, 118 wierszy dla 60 pozycji; najwięcej dotyczy rodziny (28), sezonu (19), nut i osiągów (17) oraz podobnych zapachów (10). Każdy wiersz ma powód. Popraw w arkuszu albo odeślij mi decyzje.
-9. zdjecie_url: 15 zapachów z Twoimi zdjęciami ma adres w pliku importu dev/dane/import-do-arkusza.xlsx. Jeśli zakładkę Produkty wypełniłeś wcześniej, wpisz dla p01 do p05, p42, p43 i p51 do p55, p63, p64 i p65 adres /img/produkty/ID-800.webp (np. /img/produkty/p43-800.webp).
+9. zdjecie_url: jeśli arkusz powstaje z pliku importu, adresy wszystkich zdjęć już w nim są. Jeśli zakładkę Produkty wypełniłeś wcześniej inaczej, wpisz dla p01 do p05, p42, p43 i p51 do p55, p63, p64 i p65 adres /img/produkty/ID-800.webp (np. /img/produkty/p43-800.webp).
 ```
 
 Po uzupełnieniu uruchom `diagnostyka` w Apps Script, wypisze to, co jeszcze się nie zgadza.

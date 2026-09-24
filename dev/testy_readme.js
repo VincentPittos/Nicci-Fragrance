@@ -152,6 +152,44 @@ function orders() { try { return JSON.parse(fs.readFileSync(ORDERS, 'utf8')); } 
     const hp = await page.evaluate(() => { const i = document.getElementById('f-website'); const b = i.getBoundingClientRect(); return { tab: i.tabIndex, hidden: i.closest('[aria-hidden="true"]') !== null, w: b.width, h: b.height }; });
     check('7. pole website poza tabulacją i czytnikiem ekranu', hp.tab === -1 && hp.hidden, JSON.stringify(hp));
 
+    // ---------- bon za opóźnienie: kod w zamówieniu (bony testowe z dev/atrapa_backendu.js) ----------
+    async function orderWithVoucher(ml, code) {
+      await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+      await page.evaluate(() => { localStorage.removeItem('nicci_cart_v1'); });
+      await page.evaluate((m) => window.Nicci.cart.addDecant('p01', m, 1), ml);
+      await page.goto(BASE + '/zamowienie', { waitUntil: 'networkidle' });
+      await fillForm(page);
+      await page.fill('#f-voucher', code);
+      await page.waitForTimeout(200);
+    }
+    await orderWithVoucher(20, 'nf-test-bon1');
+    const preview = await page.locator('[data-order-summary]').textContent();
+    check('bon: kod zamieniony na wielkie litery, podgląd rabatu w podsumowaniu',
+      await page.inputValue('#f-voucher') === 'NF-TEST-BON1' && /Bon NF-TEST-BON1/.test(preview) && /−/.test(preview), preview.replace(/\s+/g, ' ').slice(-200));
+    const beforeBon = orders().length;
+    await page.click('[data-submit]');
+    await page.waitForURL(/potwierdzenie/, { timeout: 20000 });
+    const bonRow = orders()[orders().length - 1];
+    const confirmText = await page.locator('main').textContent();
+    check('bon: zamówienie z rabatem 50 zł, kwota 360 zł minus 50 zł', orders().length === beforeBon + 1 && bonRow.bon === 'NF-TEST-BON1' && bonRow.rabat === 50 && bonRow.kwota === 310, JSON.stringify(bonRow));
+    check('bon: rabat widoczny na stronie potwierdzenia', /Bon NF-TEST-BON1/.test(confirmText));
+
+    const bonError = async () => {
+      await page.click('[data-submit]');
+      await page.waitForSelector('[data-field="voucher"][data-invalid]', { timeout: 20000 });
+      return page.locator('#e-voucher').textContent();
+    };
+    await orderWithVoucher(20, 'NF-TEST-BON1');
+    const again = await bonError();
+    check('bon: drugi raz ten sam kod odrzucony, zamówienie nie powstało', /już wykorzystany/.test(again) && orders().length === beforeBon + 1, again);
+    await orderWithVoucher(5, 'NF-TEST-BON2');
+    const below = await bonError();
+    check('bon: poniżej progu 199 zł komunikat z brakującą kwotą', /co najmniej 199/.test(below) && /Brakuje 89/.test(below), below);
+    await orderWithVoucher(20, 'NF-TEST-STARY');
+    check('bon: po terminie ważności odrzucony', /stracił ważność/.test(await bonError()));
+    await orderWithVoucher(20, 'NF-ZLY-KOD');
+    check('bon: nieznany kod odrzucony', /Nie znamy tego kodu/.test(await bonError()) && orders().length === beforeBon + 1);
+
     check('bez błędów JavaScript na stronach', errors.length === 0, errors.join(' | '));
   } catch (e) {
     failed++;

@@ -24,6 +24,8 @@
   function val(name) { var el = form.elements[name]; return el ? (el.type === 'checkbox' ? el.checked : el.value) : ''; }
   function method() { var r = form.querySelector('input[name="delivery"]:checked'); return r ? r.value : ''; }
   function payment() { var r = form.querySelector('input[name="payment"]:checked'); return r ? r.value : ''; }
+  function voucherCode() { return String(val('voucher')).toUpperCase().replace(/\s+/g, ''); }
+  var voucherRejected = '', voucherRejectedMsg = ''; // kod odrzucony przez backend i powód po polsku
 
   // ---------- reguły jak w Code.gs ----------
   var RULES = {
@@ -38,6 +40,12 @@
     city: function () { return method() !== 'kurier' || clean(val('city'), 60).length >= 2; },
     payment: function () { return payment() === 'blik' || payment() === 'przelew'; },
     note: function () { return String(val('note')).replace(/\r\n/g, '\n').length <= 300; },
+    voucher: function () {
+      var v = voucherCode();
+      MSG.voucher = v && v === voucherRejected ? voucherRejectedMsg : VOUCHER_FORMAT;
+      if (v && v === voucherRejected) return false;
+      return !v || /^[A-Z0-9-]{4,20}$/.test(v);
+    },
     regulamin: function () { return val('regulamin') === true; },
     prywatnosc: function () { return val('prywatnosc') === true; }
   };
@@ -53,6 +61,7 @@
     city: 'Wpisz miejscowość.',
     payment: 'Wybierz sposób płatności.',
     note: 'Uwagi mogą mieć najwyżej 300 znaków.',
+    voucher: '',
     regulamin: 'Zaakceptuj regulamin, żeby złożyć zamówienie.',
     prywatnosc: 'Potwierdź, że znasz politykę prywatności.',
     items: 'Koszyk jest pusty albo nieaktualny. Wróć do katalogu i dodaj zapachy jeszcze raz.'
@@ -60,8 +69,18 @@
   var LABEL = {
     name: 'Imię i nazwisko', email: 'E-mail', phone: 'Telefon', instagram: 'Instagram', delivery: 'Dostawa',
     paczkomat: 'Kod paczkomatu', street: 'Ulica i numer', postcode: 'Kod pocztowy', city: 'Miejscowość',
-    payment: 'Płatność', note: 'Uwagi', regulamin: 'Regulamin', prywatnosc: 'Polityka prywatności', items: 'Koszyk'
+    payment: 'Płatność', note: 'Uwagi', voucher: 'Kod bonu', regulamin: 'Regulamin', prywatnosc: 'Polityka prywatności', items: 'Koszyk'
   };
+
+  var VOUCHER_FORMAT = 'Kod bonu ma od 4 do 20 znaków: litery, cyfry i łączniki, tak jak w mailu od nas.';
+  MSG.voucher = VOUCHER_FORMAT;
+  /** Komunikat dla bonu odrzuconego przez backend. */
+  function voucherMsg(v) {
+    if (v.reason === 'wykorzystany') return 'Ten bon został już wykorzystany.';
+    if (v.reason === 'wygasl') return 'Ten bon stracił ważność.';
+    if (v.reason === 'prog') return 'Bon działa, gdy zapachy kosztują co najmniej ' + U.price(v.prog) + '. Brakuje ' + U.price(v.brakuje) + '.';
+    return 'Nie znamy tego kodu. Sprawdź, czy jest przepisany tak jak w mailu od nas.';
+  }
 
   function fieldBox(name) { return form.querySelector('[data-field="' + name + '"]'); }
 
@@ -127,7 +146,8 @@
   });
   form.addEventListener('input', function (e) {
     var t = e.target;
-    if (t.name === 'paczkomat') { var p = t.selectionStart; t.value = t.value.toUpperCase(); t.setSelectionRange(p, p); }
+    if (t.name === 'paczkomat' || t.name === 'voucher') { var p = t.selectionStart; t.value = t.value.toUpperCase(); t.setSelectionRange(p, p); }
+    if (t.name === 'voucher') renderSummary();
     if (t.name === 'postcode') {
       var d = t.value.replace(/\D/g, '').slice(0, 5);
       t.value = d.length > 2 ? d.slice(0, 2) + '-' + d.slice(2) : d;
@@ -159,8 +179,16 @@
     var m = method();
     var sum = N.cart.summary(catalog, m || null);
     var n = N.cart.count();
+    // bon: podgląd rabatu z ustawień katalogu; ostatecznie kod i kwotę sprawdza backend przy składaniu zamówienia
+    var code = voucherCode(), bon = catalog.bon, disc = 0, bonRow = '';
+    if (bon && bon.prog) document.querySelectorAll('[data-bon-prog]').forEach(function (el) { el.textContent = U.price(bon.prog); });
+    if (code && RULES.voucher() && bon && bon.kwota) {
+      if (sum.subtotal >= bon.prog) disc = Math.min(bon.kwota, sum.subtotal);
+      bonRow = '<div class="os__bon"><dt>Bon ' + esc(code) + '</dt><dd>' + (disc ? '−' + U.price(disc) : 'od ' + U.price(bon.prog) + ' za zapachy') + '</dd></div>';
+    }
+    var total = sum.total - disc;
     document.querySelectorAll('[data-sum-count]').forEach(function (el) { el.textContent = n + ' szt.'; });
-    document.querySelectorAll('[data-sum-total]').forEach(function (el) { el.textContent = U.price(sum.total); });
+    document.querySelectorAll('[data-sum-total]').forEach(function (el) { el.textContent = U.price(total); });
     if (!sum.lines.length) {
       summaryBox.innerHTML = '<p class="os__empty">Koszyk jest pusty.</p><a class="btn btn--primary btn--block" href="' + A.url('/#katalog') + '">Wróć do katalogu</a>';
       submit.disabled = true;
@@ -179,7 +207,8 @@
       '<dl class="os__totals">' +
         '<div><dt>Zapachy</dt><dd>' + U.price(sum.subtotal) + '</dd></div>' +
         '<div><dt>Dostawa' + (m ? (m === 'paczkomat' ? ', paczkomat' : ', kurier') : '') + '</dt><dd>' + (sum.shipping === null ? 'wybierz niżej' : sum.shipping === 0 ? 'gratis' : U.price(sum.shipping)) + '</dd></div>' +
-        '<div class="os__grand"><dt>Do zapłaty</dt><dd>' + U.price(sum.total) + '</dd></div>' +
+        bonRow +
+        '<div class="os__grand"><dt>Do zapłaty</dt><dd>' + U.price(total) + '</dd></div>' +
       '</dl>' +
       (sum.toFreeShipping ? '<p class="os__free">Dodaj zapachy za ' + U.price(sum.toFreeShipping) + ', a dostawa będzie gratis.</p>' : '') +
       (blocked ? '<p class="os__warn">W koszyku jest pozycja, której zabrakło. Usuń ją w koszyku, żeby złożyć zamówienie.</p>' : '') +
@@ -202,6 +231,7 @@
       payment: payment(),
       consents: { regulamin: val('regulamin') === true, prywatnosc: val('prywatnosc') === true },
       note: val('note'),
+      voucher: voucherCode(),
       website: val('website')
     };
   }
@@ -246,6 +276,7 @@
       }
       busy(false);
       if (res.error === 'validation') {
+        if (res.voucher && res.voucher.reason) { voucherRejected = voucherCode(); voucherRejectedMsg = MSG.voucher = voucherMsg(res.voucher); renderSummary(); }
         var fields = (res.fields || []).filter(function (f) { return MSG[f]; });
         fields.forEach(function (f) { setError(f, true); });
         showSummary(fields.length ? fields : ['items']);

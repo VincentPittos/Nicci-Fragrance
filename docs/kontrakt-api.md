@@ -11,8 +11,9 @@ Wszystkie kwoty w API są w **groszach**. W arkuszu są w złotych.
   products: [Produkt],
   sets: [Zestaw],
   freeShippingFrom: 20000,              // 0 = brak darmowej dostawy
+  bon: { kwota: 5000, prog: 19900 },    // CONFIG.BON, tylko do podglądu rabatu w podsumowaniu zamówienia
   shipping: { paczkomat: 1499, kurier: 1999 },
-  igHandle: 'niccifragrances',
+  igHandle: 'nicci_fragrance',
   updated: '2026-09-23T12:00:00.000Z'
 }}
 ```
@@ -62,14 +63,16 @@ Ciało wysyła `Nicci.createOrder(payload)` jako `text/plain` (bez preflight COR
   delivery: { method: 'paczkomat'|'kurier', paczkomat, street, postcode, city },
   payment: 'blik'|'przelew',
   consents: { regulamin: true, prywatnosc: true },
-  note, website /* honeypot */, items, src, quiz }
+  note, voucher /* kod bonu, opcjonalny */, website /* honeypot */, items, src, quiz }
 ```
+
+`voucher` przechodzi przez `Nicci.createOrder` bez zmian w module (payload jest kopiowany w całości).
 
 ### Odpowiedź `ok`
 
 ```js
 { ok: true, numer: 'NF0101', kwota: 20499, kwotaTxt: '204,99 zł',
-  wartoscProduktow: 19000, kosztDostawy: 1499, platnosc: 'blik',
+  wartoscProduktow: 19000, kosztDostawy: 1499, rabat: 0, bon: '', platnosc: 'blik',   // rabat w groszach
   rezerwacjaDo: ISO, terminTxt: 'czwartku 24 września, 18:40',   // „Zarezerwowaliśmy do {terminTxt}”
   tytul: 'NF0101',
   dane: { blik: { telefon, odbiorca }, przelew: { konto, odbiorca } },
@@ -82,7 +85,8 @@ Ciało wysyła `Nicci.createOrder(payload)` jako `text/plain` (bez preflight COR
 
 | `error` | Dodatkowe pola | Kiedy |
 |---|---|---|
-| `validation` | `fields`: name, email, phone, instagram, delivery, paczkomat, street, postcode, city, payment, note, regulamin, prywatnosc, items | walidacja lustrzana |
+| `validation` | `fields`: name, email, phone, instagram, delivery, paczkomat, street, postcode, city, payment, note, voucher, regulamin, prywatnosc, items | walidacja lustrzana |
+| `validation` z `fields: ['voucher']` | `voucher: {reason, prog, brakuje}`, gdzie `reason` to nieznany, wykorzystany, wygasl albo prog (wtedy są `prog` i `brakuje`) | kod bonu odrzucony; kwoty w groszach, próg liczony za same zapachy |
 | `out_of_stock` | `shortages: [{id, nazwa, zostalo, potrzeba, podobne:[{id, nazwa}]}]` | ktoś zarezerwował ml w międzyczasie |
 | `invalid_item` | | pozycja albo wariant zniknęły z oferty |
 | `rate_limited` | | drugie zamówienie z tego samego e-maila w ciągu minuty |
