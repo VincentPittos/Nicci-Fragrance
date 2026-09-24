@@ -288,12 +288,15 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- przejście z grafitu do kremu ----------
-   Łagodna strefa: pas ma ok. 30% wysokości ekranu na telefonie i 36% na większych ekranach (właściciel: mniejsza
-   przerwa między sekcjami, decyzja 68), a kolor zmienia się na 90% jego
-   wysokości po krzywej sinusoidalnej (wolny start i wolny koniec) w przestrzeni oklab, w 15 krokach, z lekkim złotym
-   światłem w środku (do 9% złota). Delikatne ziarno (::after) rozmywa schodki kolorów, które na długim gradiencie
-   widać na zwykłych monitorach. Na komputerze strefa lekko wędruje z przewijaniem (--p ze strona-glowna.js),
-   na ekranach dotykowych stoi w miejscu (--p: 0.6). --hz-dark to kolor sekcji 2. */
+   Jeden długi gradient bez widocznego początku i końca (właściciel, decyzja 70). Pas zaczyna się pod przyciskiem
+   sekcji 2 (ujemny margines --hz-up; przycisk z dopiskiem leży nad pasem) i kończy pod nagłówkiem rodzin (.light-page
+   wchodzi na jego dół), więc najwolniejsze części zmiany chowają się pod treścią, a w odstępie między sekcjami widać
+   płynny środek. Kolor zmienia się na 90% wysokości pasa po krzywej smootherstep (6t^5 - 15t^4 + 10t^3): na obu końcach
+   zmiana rusza i staje z zerowym nachyleniem i zerową krzywizną, więc oko nie znajduje linii, od której zaczyna się
+   rozjaśnianie albo krem (krzywa sinusoidalna miała na końcach skok krzywizny). Mieszanie w oklab, 24 odcinki; złote
+   światło (do 9% złota) rośnie i gaśnie razem z postępem zmiany. Ziarno (::after) rozmywa schodki kolorów na zwykłych
+   monitorach i samo pojawia się i znika stopniowo. Na komputerze strefa lekko wędruje z przewijaniem (--p ze
+   strona-glowna.js), na ekranach dotykowych stoi w miejscu (--p: 0.6). --hz-dark to kolor sekcji 2. */
 .horizon {
   --p: 0;
   --hz-dark: var(--bg-graphite);
@@ -301,31 +304,52 @@ body { background: var(--bg-dark); }
   --hz-l: 90%;
   position: relative;
   height: var(--hz-h);
+  margin-top: calc(-1 * var(--hz-up));
   background: var(--bg-light);
   overflow: hidden;
+  pointer-events: none;
 }
-/* wysokość pasa jako zmienna na :root, bo korzysta z niej też .light-page (nagłówek rodzin wchodzi na koniec przejścia) */
-:root { --hz-h: clamp(9rem, calc(var(--screen-h) * 0.3), 16rem); }
-@media (min-width: 48rem) { :root { --hz-h: clamp(12rem, calc(var(--screen-h) * 0.36), 22rem); } }
+/* przycisk i dopisek sekcji 2 nad początkiem pasa */
+.nf-how__cta { position: relative; z-index: 1; }
+/* Wysokość pasa i jego wejście pod sekcję 2 jako zmienne na :root, bo korzysta z nich też .light-page.
+   --hz-up = dolny margines sekcji 2 + część przycisku z dopiskiem: szerzej niż 640 px (przycisk i dopisek w rzędzie,
+   52 px) pas zaczyna się na górnej krawędzi przycisku; na telefonie (jeden pod drugim, 86 px) 60 px nad dołem dopisku, więc
+   tło pod dopiskiem rozjaśnia się najwyżej o 1% i kontrast tekstu zostaje powyżej 5:1. Pas nie sięga kropek karuzeli.
+   Odstęp od dopisku do nadtytułu rodzin zostaje jak w decyzji 69 (telefon ok. 250 px, komputer ok. 340 px), dłuższa jest
+   sama zmiana koloru. */
+:root { --hz-h: clamp(20rem, calc(var(--screen-h) * 0.465), 25rem); --hz-up: 5.75rem; }
+@media (min-width: 40.0625rem) { :root { --hz-up: 5.25rem; } }
+@media (min-width: 48rem) { :root { --hz-h: clamp(26rem, calc(var(--screen-h) * 0.52), 31rem); } }
+@media (min-width: 64rem) { :root { --hz-up: 6.25rem; } }
 .horizon::before {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg,
     var(--hz-dark) 0%,
     var(--hz-dark) var(--hz-s),
-    color-mix(in oklab, var(--bg-light) 1%, var(--hz-dark)) calc(var(--hz-s) + var(--hz-l) * 0.071),
-    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 5%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.143),
-    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 11%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.214),
-    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 19%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.286),
-    color-mix(in oklab, var(--accent) 7%, color-mix(in oklab, var(--bg-light) 28%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.357),
-    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 39%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.429),
-    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 50%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.500),
-    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 61%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.571),
-    color-mix(in oklab, var(--accent) 7%, color-mix(in oklab, var(--bg-light) 72%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.643),
-    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 81%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.714),
-    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 89%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.786),
-    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 95%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.857),
-    color-mix(in oklab, var(--bg-light) 99%, var(--hz-dark)) calc(var(--hz-s) + var(--hz-l) * 0.929),
-    var(--bg-light) calc(var(--hz-s) + var(--hz-l) * 1.000));
+    color-mix(in oklab, var(--accent) 0.02%, color-mix(in oklab, var(--bg-light) 0.07%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.0417),
+    color-mix(in oklab, var(--accent) 0.18%, color-mix(in oklab, var(--bg-light) 0.51%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.0833),
+    color-mix(in oklab, var(--accent) 0.57%, color-mix(in oklab, var(--bg-light) 1.61%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.1250),
+    color-mix(in oklab, var(--accent) 1.23%, color-mix(in oklab, var(--bg-light) 3.55%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.1667),
+    color-mix(in oklab, var(--accent) 2.17%, color-mix(in oklab, var(--bg-light) 6.45%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.2083),
+    color-mix(in oklab, var(--accent) 3.34%, color-mix(in oklab, var(--bg-light) 10.35%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.2500),
+    color-mix(in oklab, var(--accent) 4.65%, color-mix(in oklab, var(--bg-light) 15.22%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.2917),
+    color-mix(in oklab, var(--accent) 5.97%, color-mix(in oklab, var(--bg-light) 20.99%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.3333),
+    color-mix(in oklab, var(--accent) 7.18%, color-mix(in oklab, var(--bg-light) 27.52%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.3750),
+    color-mix(in oklab, var(--accent) 8.15%, color-mix(in oklab, var(--bg-light) 34.66%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.4167),
+    color-mix(in oklab, var(--accent) 8.78%, color-mix(in oklab, var(--bg-light) 42.22%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.4583),
+    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 50%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.5000),
+    color-mix(in oklab, var(--accent) 8.78%, color-mix(in oklab, var(--bg-light) 57.78%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.5417),
+    color-mix(in oklab, var(--accent) 8.15%, color-mix(in oklab, var(--bg-light) 65.34%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.5833),
+    color-mix(in oklab, var(--accent) 7.18%, color-mix(in oklab, var(--bg-light) 72.48%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.6250),
+    color-mix(in oklab, var(--accent) 5.97%, color-mix(in oklab, var(--bg-light) 79.01%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.6667),
+    color-mix(in oklab, var(--accent) 4.65%, color-mix(in oklab, var(--bg-light) 84.78%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.7083),
+    color-mix(in oklab, var(--accent) 3.34%, color-mix(in oklab, var(--bg-light) 89.65%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.7500),
+    color-mix(in oklab, var(--accent) 2.17%, color-mix(in oklab, var(--bg-light) 93.55%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.7917),
+    color-mix(in oklab, var(--accent) 1.23%, color-mix(in oklab, var(--bg-light) 96.45%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.8333),
+    color-mix(in oklab, var(--accent) 0.57%, color-mix(in oklab, var(--bg-light) 98.39%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.8750),
+    color-mix(in oklab, var(--accent) 0.18%, color-mix(in oklab, var(--bg-light) 99.49%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.9167),
+    color-mix(in oklab, var(--accent) 0.02%, color-mix(in oklab, var(--bg-light) 99.93%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.9583),
+    var(--bg-light) calc(var(--hz-s) + var(--hz-l)));
 }
 .horizon::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -333,12 +357,21 @@ body { background: var(--bg-dark); }
   background-size: 180px 180px;
   opacity: 0.05;
   mix-blend-mode: soft-light;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
 }
+/* poświata gaśnie po krzywej (bez twardego brzegu elipsy) i mieści się w pasie, więc nic jej nie ucina */
 .horizon__glow {
   position: absolute; left: 50%; top: calc(var(--hz-s) + var(--hz-l) * 0.45);
   width: min(90rem, 160vw); height: 22rem;
   transform: translate(-50%, -50%);
-  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent-soft) 26%, transparent), transparent 75%);
+  background: radial-gradient(50% 50% at 50% 50%,
+    color-mix(in srgb, var(--accent-soft) 26%, transparent) 0%,
+    color-mix(in srgb, var(--accent-soft) 24.5%, transparent) 15%,
+    color-mix(in srgb, var(--accent-soft) 17.8%, transparent) 30%,
+    color-mix(in srgb, var(--accent-soft) 8.2%, transparent) 45%,
+    color-mix(in srgb, var(--accent-soft) 1.5%, transparent) 60%,
+    transparent 75%);
   opacity: calc(0.35 + 0.4 * var(--p));
   pointer-events: none;
 }
@@ -351,10 +384,11 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- część jasna ---------- */
-/* Kremowa część wchodzi na ostatnie 15% przejścia, więc nadtytuł „Rodziny zapachowe” zaczyna się tam, gdzie gradient
-   jest już prawie kremowy (właściciel: napis może nachodzić na gradient). --n-space-7 to górny margines .families. */
+/* Kremowa część wchodzi na dolne 19,5% pasa, więc nadtytuł „Rodziny zapachowe” stoi na 80,5% jego wysokości: na ekranach
+   dotykowych to 85% zmiany koloru, gdzie tło ma już 97% kremu (właściciel: napis może nachodzić na gradient),
+   a tytuł pod nim leży na samym końcu przejścia. --n-space-7 to górny margines .families. */
 .light-page {
-  --lp-overlap: calc(var(--n-space-7) + var(--hz-h) * 0.15);
+  --lp-overlap: calc(var(--n-space-7) + var(--hz-h) * 0.195);
   position: relative;
   margin-top: calc(-1 * var(--lp-overlap));
 }
