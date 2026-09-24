@@ -29,6 +29,7 @@ python3 dev/ustaw_domene.py https://twoja-domena.pl   # canonical, og:url, sitem
 
 * `docs/01-rozpoznanie.md`: kontrakt `window.Nicci`, analiza arkusza, struktura plików
 * `docs/kontrakt-api.md`: pola katalogu, zamówienia i błędów
+* `docs/lista-przed-publikacja.md`: co właściciel wysyła, co wpisuje sam, co uzupełnia w arkuszu
 * `docs/raport-koncowy.md`: lista TODO, wyniki audytu, braki w arkuszu, wdrożenie na Cloudflare Pages
 * `docs/decyzje.md`: decyzje właściciela i sprawy otwarte
 * `dev/dane/raport-konwersji.md`: mapowanie danych z arkusza
