@@ -24,7 +24,9 @@
 /* ================= SEKCJA: JAK TO DZIAŁA ================= */
 .nf-how{padding-block:var(--n-space-8) var(--n-space-6);overflow:hidden;background:var(--nf-char);color:var(--nf-cream);scroll-margin-top:4rem;
   /* czerń paska zaufania przechodzi w grafit sekcji przez 20rem, po tej samej krzywej (smootherstep) co przejście do kremu */
-  background-image:linear-gradient(180deg,var(--bg-dark) 0rem,color-mix(in oklab,var(--bg-dark) 99.78%,var(--nf-char)) 1.25rem,color-mix(in oklab,var(--bg-dark) 98.39%,var(--nf-char)) 2.5rem,color-mix(in oklab,var(--bg-dark) 95.12%,var(--nf-char)) 3.75rem,color-mix(in oklab,var(--bg-dark) 89.65%,var(--nf-char)) 5rem,color-mix(in oklab,var(--bg-dark) 82%,var(--nf-char)) 6.25rem,color-mix(in oklab,var(--bg-dark) 72.48%,var(--nf-char)) 7.5rem,color-mix(in oklab,var(--bg-dark) 61.6%,var(--nf-char)) 8.75rem,color-mix(in oklab,var(--bg-dark) 50%,var(--nf-char)) 10rem,color-mix(in oklab,var(--bg-dark) 38.4%,var(--nf-char)) 11.25rem,color-mix(in oklab,var(--bg-dark) 27.52%,var(--nf-char)) 12.5rem,color-mix(in oklab,var(--bg-dark) 18%,var(--nf-char)) 13.75rem,color-mix(in oklab,var(--bg-dark) 10.35%,var(--nf-char)) 15rem,color-mix(in oklab,var(--bg-dark) 4.88%,var(--nf-char)) 16.25rem,color-mix(in oklab,var(--bg-dark) 1.61%,var(--nf-char)) 17.5rem,color-mix(in oklab,var(--bg-dark) 0.22%,var(--nf-char)) 18.75rem,var(--nf-char) 20rem)}
+  background-image:var(--hz-curve,none),linear-gradient(180deg,var(--bg-dark) 0rem,color-mix(in oklab,var(--bg-dark) 99.78%,var(--nf-char)) 1.25rem,color-mix(in oklab,var(--bg-dark) 98.39%,var(--nf-char)) 2.5rem,color-mix(in oklab,var(--bg-dark) 95.12%,var(--nf-char)) 3.75rem,color-mix(in oklab,var(--bg-dark) 89.65%,var(--nf-char)) 5rem,color-mix(in oklab,var(--bg-dark) 82%,var(--nf-char)) 6.25rem,color-mix(in oklab,var(--bg-dark) 72.48%,var(--nf-char)) 7.5rem,color-mix(in oklab,var(--bg-dark) 61.6%,var(--nf-char)) 8.75rem,color-mix(in oklab,var(--bg-dark) 50%,var(--nf-char)) 10rem,color-mix(in oklab,var(--bg-dark) 38.4%,var(--nf-char)) 11.25rem,color-mix(in oklab,var(--bg-dark) 27.52%,var(--nf-char)) 12.5rem,color-mix(in oklab,var(--bg-dark) 18%,var(--nf-char)) 13.75rem,color-mix(in oklab,var(--bg-dark) 10.35%,var(--nf-char)) 15rem,color-mix(in oklab,var(--bg-dark) 4.88%,var(--nf-char)) 16.25rem,color-mix(in oklab,var(--bg-dark) 1.61%,var(--nf-char)) 17.5rem,color-mix(in oklab,var(--bg-dark) 0.22%,var(--nf-char)) 18.75rem,var(--nf-char) 20rem);
+  /* dolny pas: początek przejścia do kremu pod przyciskiem (strona.css, --hz-curve, --hz-up) */
+  background-size:100% var(--hz-up,0px),auto;background-position:0 100%,0 0;background-repeat:no-repeat}
 .nf-how__head,.nf-steps,.nf-how__cta{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
 .nf-how__lead{color:var(--nf-cream-2)}
 /* kursywa w osobnej linii: „Cztery kroki” / „do Twojego zapachu”, bez sierot na końcu pierwszej linii */
@@ -139,7 +141,7 @@
 .nf-how.is-paused *{animation-play-state:paused !important}
 
 /* ---------- Responsywność ---------- */
-/* dół sekcji krótszy: przejście do kremu (.horizon) zaczyna się pod przyciskiem (strona.css, --hz-up) */
+/* dół sekcji krótszy: przejście do kremu zaczyna się w dolnym pasie tła sekcji, pod przyciskiem (strona.css, --hz-up) */
 @media (min-width:64rem){
   .nf-how{padding-block:var(--n-space-9) var(--n-space-7)}
 }

@@ -28,12 +28,13 @@
     window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
   }
 
-  // ---------- przejście z sekcji 2 do 3: światło wstaje razem z przewijaniem ----------
+  // ---------- przejście z sekcji 2 do 3: poświata jaśnieje razem z przewijaniem ----------
   function initHorizon() {
     var el = document.querySelector('[data-horizon]');
     if (!el) return;
-    // Na ekranach dotykowych przejście stoi w jednym położeniu: gradient przeliczany przy każdej klatce przewijania
-    // na iPhonie i iPadzie nie nadąża za przewijaniem i drży. Na komputerze z myszą światło dalej wstaje z przewijaniem.
+    // Na ekranach dotykowych poświata stoi w jednym położeniu: przeliczana przy każdej klatce przewijania
+    // na iPhonie i iPadzie nie nadąża za przewijaniem i drży. Na komputerze z myszą jaśnieje z przewijaniem.
+    // Sam gradient (strona.css, --hz-curve) nie zależy od przewijania.
     var touch = window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
     if (M.reduced() || touch) { el.style.setProperty('--p', '0.6'); return; }
     var raf = 0, on = false;
