@@ -32,6 +32,7 @@ Dopóki `API_URL` w `nicci-api.js` ma `UZUPELNIJ`, strona na hostingu pokazuje k
 * `docs/01-rozpoznanie.md`: kontrakt `window.Nicci`, analiza arkusza, struktura plików
 * `docs/kontrakt-api.md`: pola katalogu, zamówienia i błędów
 * `docs/lista-przed-publikacja.md`: co właściciel wysyła, co wpisuje sam, co uzupełnia w arkuszu
+* `docs/uruchomienie-domeny-i-poczty.md`: domena (domeny.pl, Cloudflare, Netlify), poczta Google Workspace i podłączenie arkusza krok po kroku
 * `docs/raport-koncowy.md`: lista TODO, wyniki audytu, braki w arkuszu, wdrożenie na Netlify
 * `docs/decyzje.md`: decyzje właściciela i sprawy otwarte
 * `dev/dane/raport-konwersji.md`: mapowanie danych z arkusza

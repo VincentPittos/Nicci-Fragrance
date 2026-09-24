@@ -35,9 +35,9 @@ Przy kolejnych zdjęciach najlepiej: flakon od frontu, cały w kadrze, co najmni
 
 ### G. ★ Apps Script
 
-Kroki są w `refs/README.md`, punkt 1. W skrócie:
+Pełna kolejność razem z domeną i pocztą: `docs/uruchomienie-domeny-i-poczty.md` (skrypt uruchamiasz na koncie `kontakt@niccifragrance.pl` w Google Workspace). Kroki są też w `refs/README.md`, punkt 1. W skrócie:
 
-0. Arkusz z perfumami jest już na Dysku Google: folder „Nicci Fragrance”, plik „Nicci Fragrance: katalog i zamówienia”, z zakładkami Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy, sprawdzony komórka po komórce z plikiem `dev/dane/import-do-arkusza.xlsx`. Zakładki Do weryfikacji w nim nie ma, lista jest w `dev/dane/do-weryfikacji.csv`. Stanów (`ml_dostepne`) nie musisz wpisywać (część 3). ★ Maile do klientów wychodzą z konta Google, na którym uruchomisz skrypt. Arkusz leży dziś na koncie kontakt@skalentra.pl, więc przed wdrożeniem przenieś go (albo jego kopię) na konto, z którego mają iść maile sklepu.
+0. Arkusz z perfumami jest już na Dysku Google: folder „Nicci Fragrance”, plik „Nicci Fragrance: katalog i zamówienia”, z zakładkami Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy, sprawdzony komórka po komórce z plikiem `dev/dane/import-do-arkusza.xlsx`. Zakładki Do weryfikacji w nim nie ma, lista jest w `dev/dane/do-weryfikacji.csv`. Stanów (`ml_dostepne`) nie musisz wpisywać (część 3). ★ Maile do klientów wychodzą z konta Google, na którym uruchomisz skrypt. Arkusz leży dziś na koncie kontakt@skalentra.pl: udostępnię go na `kontakt@niccifragrance.pl`, a tam zrobisz kopię (Plik, Utwórz kopię) i na niej uruchomisz skrypt.
 1. Wklej `apps-script/Code.gs` do projektu Apps Script przy tym arkuszu (Rozszerzenia, Apps Script).
 2. W `CONFIG` na górze pliku wpisz:
    * `OWNER_EMAIL`: e-mail, na który mają przychodzić zamówienia,
@@ -55,12 +55,12 @@ Kroki są w `refs/README.md`, punkt 1. W skrócie:
 ### H. Bank, poczta i Instagram
 
 * ★ Włącz przelewy BLIK na telefon dla numeru z `BLIK_PHONE` i zrób próbny przelew z innego konta.
-* ★ Po zakupie domeny uruchom skrzynkę `kontakt@niccifragrance.pl`. Adres jest w stopce, regulaminie, polityce prywatności i w mailach do klientów, więc musi działać przed startem.
+* ★ Skrzynka `kontakt@niccifragrance.pl` w Google Workspace (zakładasz Ty, kartę dodaje Nicci): `docs/uruchomienie-domeny-i-poczty.md`, punkt 4. Adres jest w stopce, regulaminie, polityce prywatności i w mailach do klientów, więc musi działać przed startem. Z tego samego konta skrypt wysyła maile sklepu.
 * Automatyzacje na Instagramie według `refs/README.md`, punkt 4. Szablony mają już właściwe linki (`https://niccifragrance.pl/quiz?src=reel12`) i nazwę marki.
 
 ### I. ★ Netlify i domena
 
-Strona jest na Netlify (`nfragrance.netlify.app`). Plik `netlify.toml` w repozytorium mówi Netlify, że strona leży w katalogu `site` i nie wymaga budowania; te ustawienia mają pierwszeństwo przed panelem Netlify. Pole Base directory w panelu (Site configuration, Build & deploy) ma zostać puste, inaczej Netlify nie znajdzie tego pliku. Repozytorium ma jedną gałąź, `claude/serene-cray-umqpzo`, i z niej Netlify publikuje; na Twoje hasło połączę ją z gałęzią główną i wtedy zmienisz gałąź produkcyjną w Site configuration, Build & deploy, Branches. Do startu zostaje podłączenie domeny `niccifragrance.pl` (Domain management, Add a domain). Adresy kanoniczne, mapa strony i `robots.txt` wskazują już na tę domenę, więc wyszukiwarki nie powinny indeksować adresu `*.netlify.app`.
+Strona jest na Netlify (`niccifragrance.netlify.app`). Plik `netlify.toml` w repozytorium mówi Netlify, że strona leży w katalogu `site` i nie wymaga budowania; te ustawienia mają pierwszeństwo przed panelem Netlify. Pole Base directory w panelu (Site configuration, Build & deploy) ma zostać puste, inaczej Netlify nie znajdzie tego pliku. Repozytorium ma jedną gałąź, `claude/serene-cray-umqpzo`, i z niej Netlify publikuje; na Twoje hasło połączę ją z gałęzią główną i wtedy zmienisz gałąź produkcyjną w Site configuration, Build & deploy, Branches. Do startu zostaje podłączenie domeny `niccifragrance.pl` (kupionej w domeny.pl) przez DNS w Cloudflare: `docs/uruchomienie-domeny-i-poczty.md`, punkty 1 do 3. Adresy kanoniczne, mapa strony i `robots.txt` wskazują już na tę domenę, więc wyszukiwarki nie powinny indeksować adresu `*.netlify.app`.
 
 Dopóki nie wpiszę adresu `/exec` z punktu G, strona działa jako podgląd: katalog, quiz i koszyk działają na danych z pliku importu, a przy składaniu zamówienia klient widzi komunikat „To podgląd sklepu” i nic nie jest wysyłane.
 

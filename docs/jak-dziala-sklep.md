@@ -39,4 +39,4 @@ Nicci robi w arkuszu tylko trzy rzeczy: zmienia status na OPŁACONE, wpisuje num
 
 ## Skąd wychodzą maile
 
-Maile do klientów wysyła konto Google, na którym zostanie uruchomiony skrypt. Nadawca ma nazwę „Nicci Fragrance”, a odpowiedzi klientów trafiają na adres wpisany w ustawieniach jako e-mail właściciela. Dzienny limit zwykłego konta Gmail to 100 maili. Jedno zamówienie to zwykle 4 do 5 maili, więc wystarcza to na około 20 zamówień dziennie; konto Google Workspace ma limit 1500.
+Maile do klientów wysyła firmowe konto `kontakt@niccifragrance.pl` (Google Workspace), bo na nim działa skrypt. Nadawca ma nazwę „Nicci Fragrance”, a odpowiedzi klientów i powiadomienia o nowych zamówieniach trafiają na tę samą skrzynkę. Konto Google Workspace może wysłać ze skryptu maile do 1500 odbiorców dziennie. Jedno zamówienie to zwykle 4 do 5 maili, więc limit wystarcza na około 300 zamówień dziennie.
