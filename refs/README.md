@@ -143,6 +143,8 @@ Wpis przy każdej płatności i korekta przy anulowaniu opłaconego zamówienia.
 4. Przy kurierze wybierz firmę w kolumnie `przewoznik`. Wklej numer przesyłki w kolumnę `numer_przesylki`. Status zmieni się na WYSŁANE i klient dostanie link do śledzenia u tego przewoźnika. Przy paczkomacie kolumna `przewoznik` może zostać pusta.
 5. Nowy flakon: dodaj jego ml do `ml_dostepne`. Koniec zapachu: `aktywny` na NIE albo zostaw z zerowym stanem (karta pokaże "Wyprzedane").
 
+Termin realizacji: najpóźniej 7 dni roboczych od zaksięgowania wpłaty. Jeśli potrwa dłużej, klientowi należy się bon 50 zł na kolejne zakupy od 199 zł (regulamin, punkt 5).
+
 Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE i zrealizuj zamówienie. System wyśle Ci mail z prośbą o sprawdzenie dostępności. Jeśli zapachu brakuje, sprowadź go (do 5 dni roboczych). Zwrot pieniędzy: ustaw ANULOWANE (ml wrócą na stan, w ewidencji pojawi się korekta), a przelew zwrotny zrób ręcznie.
 
 ## Testy przed startem

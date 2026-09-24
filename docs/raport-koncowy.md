@@ -42,6 +42,7 @@ Każdy `{TODO}` na stronie ma przerywaną ramkę (`[data-todo]`), więc widać g
 | `regulamin.html:66`, `prywatnosc.html:66` | imię i nazwisko oraz adres sprzedawcy i administratora danych |
 | `regulamin.html:70` | sformułowanie i status sprzedaży odlewek |
 | `regulamin.html:75` | moment zawarcia umowy: złożenie zamówienia czy zaksięgowanie wpłaty |
+| `regulamin.html:84` | zasady bonu 50 zł za realizację dłuższą niż 7 dni roboczych: przekazanie i wykorzystanie, termin ważności, próg z dostawą czy bez |
 | `regulamin.html:88` | prawo odstąpienia, formularz odstąpienia; zasady właściciela są wpisane w TODO do oceny |
 | `regulamin.html:92` | reklamacje: jak zgłosić, termin odpowiedzi, zwrot pieniędzy |
 | `regulamin.html:100` | prawo właściwe, pozasądowe rozwiązywanie sporów, data wejścia w życie |
@@ -66,7 +67,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-63 z 64 aktywnych produktów ma zdjęcie: 49 ze stron producentów (tabela niżej) i 14 od właściciela (akapit pod tabelą). Źródło tych 49: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
+Wszystkie 64 aktywne produkty mają zdjęcie: 49 ze stron producentów (tabela niżej) i 15 od właściciela (akapit pod tabelą). Źródło tych 49: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -122,7 +123,7 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p70 | Azzaro | Forever Wanted Elixir | https://www.azzaro.com/en/fragrances/azzaro-forever-wanted-elixir/eau-de-parfum |  |
 | p71 | Azzaro | The Most Wanted Parfum | https://www.azzaro.com/en/fragrances/azzaro-the-most-wanted/parfum |  |
 
-**Zdjęcia od właściciela (24.09.2026):** 14 z 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51, p53 do p55, p63 do p65), ma zdjęcie z folderu „Nicci Fragrance” na Dysku właściciela. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`. Brakuje p52 Dior Sauvage Parfum (przysłany plik przedstawia Sauvage Eau de Parfum), karta pokazuje kadr zastępczy z inicjałem marki. p51 ma słabe źródło (640 × 335 px).
+**Zdjęcia od właściciela (24.09.2026):** wszystkie 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51 do p55, p63 do p65), ma zdjęcie od właściciela: 13 z folderu „Nicci Fragrance” na Dysku, p51 i p52 z plików przysłanych w rozmowie. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`.
 
 ## 4. Wyniki audytu
 
@@ -193,7 +194,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Stanów:** `ml_dostepne` puste w 62 produktach (patrz blokada 1). Wypełnione tylko p34 i p37, oba 0 ml.
 
-**Zdjęć:** p52 Dior Sauvage Parfum (punkt 3).
+**Zdjęć:** brak braków, wszystkie 64 aktywne produkty mają zdjęcie (punkt 3).
 
 **Cen:** strona pokazuje tylko pojemności z ceną, więc te warianty są ukryte. p34 i p37 nie mają żadnej ceny i mają 0 ml, więc są wyprzedane (widać je po wyłączeniu filtra „Tylko dostępne”). Produkt ze stanem, ale bez żadnej ceny, backend teraz pomija, a diagnostyka zgłasza go jako błąd.
 
@@ -207,7 +208,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Zestawów:** żaden z 6 aktywnych nie ma opisu dla klienta (arkusz ma tylko opis dla doradcy). Rodzinę ma tylko z04, więc quiz nie proponuje zestawu z innych rodzin. z04 jest niedostępny, bo zawiera p34 (0 ml); z07 zawiera p60, który jest nieaktywny.
 
-**Pola do weryfikacji:** `dev/dane/do-weryfikacji.csv`, 119 wierszy dla 61 pozycji (najwięcej: rodzina 28, sezon 19, nuty i osiągi 17, podobne 10; stan na 24.09.2026, po dodaniu zdjęć właściciela). Okazja p01 w źródle to liczba 11, więc w imporcie jest pusta.
+**Pola do weryfikacji:** `dev/dane/do-weryfikacji.csv`, 118 wierszy dla 60 pozycji (najwięcej: rodzina 28, sezon 19, nuty i osiągi 17, podobne 10; stan na 24.09.2026, po dodaniu zdjęć właściciela). Okazja p01 w źródle to liczba 11, więc w imporcie jest pusta.
 
 **Profil:** w arkuszu są tylko zapachy męskie (25) i unisex (39). Odpowiedź „Dla niej” w quizie pokazuje zapachy unisex.
 

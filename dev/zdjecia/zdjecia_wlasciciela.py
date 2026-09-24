@@ -3,14 +3,15 @@
 Zdjęcia flakonów przysłane przez właściciela (Dysk, folder „Nicci Fragrance”), dla produktów, których strony
 producentów blokują pobieranie.
 
-  python3 dev/zdjecia/zdjecia_wlasciciela.py <katalog_z_plikami_z_dysku>
+  python3 dev/zdjecia/zdjecia_wlasciciela.py <katalog_z_plikami_z_dysku> [id ...]
   python3 dev/zdjecia/ujednolic_zdjecia.py dev/zdjecia/zrodla/wlasciciel
 
 Pierwszy krok kopiuje pliki pod nazwą id produktu do dev/zdjecia/zrodla/wlasciciel/ (poza gitem). Zdjęcie, którego
 krótszy bok ma mniej niż 1000 px, najpierw powiększa EDSR (x2, w razie potrzeby dwa razy), bo na karcie flakon
 ma ok. 740 px wysokości. Potem czyści tło (czyste_tlo) i zapisuje bezstratnie jako PNG. Wymaga
 opencv-contrib-python-headless w venv, jak dev/grafiki/hero_telefon.py.
-Źródła trafiają do dev/zdjecia/zrodla-wlasciciel.csv (raport końcowy).
+Źródła trafiają do dev/zdjecia/zrodla-wlasciciel.csv (raport końcowy). Z listą id skrypt przetwarza tylko te
+zdjęcia i podmienia ich wiersze w CSV, reszty nie rusza.
 """
 import csv
 import os
@@ -29,8 +30,8 @@ JASNE = 250          # tło JPG: piksele jaśniejsze od tego progu, połączone 
 # PNG, w których wokół flakonu zostały nieprzezroczyste białe resztki tła (p64: pola obok nakrętki)
 RESZTKI_BIELI = {'p64': 245}
 
-# id: plik z Dysku. p52 (Sauvage Parfum) celowo pominięty: przysłany plik to Sauvage Eau de Parfum
-# (inne stężenie, etykieta „EAU DE PARFUM”), czekamy na właściwe zdjęcie.
+# id: plik od właściciela. Większość z folderu na Dysku; p51 i p52 przysłane później w rozmowie („(czat)” w nazwie):
+# pierwszy plik p52 z Dysku przedstawiał Sauvage Eau de Parfum, a pierwsze p51 miało tylko 640 × 335 px.
 PLIKI = {
     'p01': 'louis-vuitton-imagination--LP0476_PM2_Front view.webp',
     'p02': 'louis-vuitton-pacific-chill---LP0460_PM2_Front view.webp',
@@ -39,7 +40,8 @@ PLIKI = {
     'p05': 'louis-vuitton-ombre-nomade--LP0096_PM2_Front view.webp',
     'p42': 'grandsoirpack.png',
     'p43': 'Maison_Francis_Kurdjian_-_Baccarat_Rouge_540_disponible_en_abanuc.webp',
-    'p51': 'Dior Homme Cologne.jpg',
+    'p51': 'dior-homme-cologne (czat).webp',
+    'p52': 'dior-sauvage-parfum (czat).png',
     'p53': 'sauvage elixir.png',
     'p54': 'dior-sauvage-extrait-parfum.png',
     'p55': 'versace-eros-parfum-perfume-cologne-238192.webp',
@@ -89,10 +91,12 @@ def czyste_tlo(im, pid):
 
 
 def main():
-    src_dir = sys.argv[1]
+    src_dir, only = sys.argv[1], set(sys.argv[2:])
     os.makedirs(OUT, exist_ok=True)
     rows = []
     for pid, name in PLIKI.items():
+        if only and pid not in only:
+            continue
         im = Image.open(os.path.join(src_dir, name))
         im = im.convert('RGBA') if im.mode in ('RGBA', 'LA', 'P') else im.convert('RGB')
         if im.mode == 'RGBA' and im.getchannel('A').getextrema()[0] == 255:
@@ -111,10 +115,16 @@ def main():
         rows.append({'id': pid, 'plik_od_wlasciciela': name, 'rozmiar_zrodla': '%dx%d' % size0,
                      'powiekszenie': 'EDSR x%d' % (2 ** steps) if steps else ''})
         print(pid, name, size0, '->', im.size, ('EDSR x%d' % (2 ** steps)) if steps else '')
-    with open(os.path.join(HERE, 'zrodla-wlasciciel.csv'), 'w', newline='', encoding='utf-8') as f:
+    report = os.path.join(HERE, 'zrodla-wlasciciel.csv')
+    merged = {}
+    if only and os.path.exists(report):
+        with open(report, newline='', encoding='utf-8') as f:
+            merged = {r['id']: r for r in csv.DictReader(f)}
+    merged.update({r['id']: r for r in rows})
+    with open(report, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=['id', 'plik_od_wlasciciela', 'rozmiar_zrodla', 'powiekszenie'])
         w.writeheader()
-        w.writerows(rows)
+        w.writerows(merged[k] for k in sorted(merged))
 
 
 if __name__ == '__main__':

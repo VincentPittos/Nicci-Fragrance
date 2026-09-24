@@ -100,14 +100,16 @@
 | 52 | Kursywa hero | Carattere (SIL OFL, podzbiór z polskimi znakami, 21 KB, hostowany lokalnie) zamiast pochylonego Cormoranta. Rozmiar ×1,38 na telefonie i ×1,47 od 80rem: szerokość drugiej linii to 0,76 pierwszej, jak w makiecie. Na prośbę właściciela zawijas „Z” nie nachodzi na pierwszą linię: między linią bazową pierwszej linii a górą „Z” jest 3 do 6 px na każdej szerokości (górny margines drugiej linii −0,19 em od 80rem, −0,18 em węższe ekrany). Żeby przyciski nie weszły na magnolię od 1280 px, tekst hero zaczyna się wyżej (8vw zamiast 9vw), a odstępy w hero mają 1,45vw. | właściciel, pomiar makiety |
 | 53 | Oferta | „Dla niej” w quizie zostaje z zapachami unisex; damskie flakony dojdą z rozwojem oferty. Zdjęcia producentów przy 49 zapachach zostają. | właściciel |
 | 54 | Nazwa marki | „Nicci Fragrance” wszędzie, także w `refs/README.md` i szablonach Instagrama (linki poprawione na `/quiz?src=...`). Wyjątek bez zmian: komentarz w nagłówku `nicci-api.js` i pliki briefu. | właściciel |
+| 55 | Zdjęcia p51 i p52 | Przysłane w rozmowie: p52 Sauvage Parfum (etykieta „PARFUM”, 649 px, powiększone EDSR ×2) i nowe p51 Dior Homme Cologne (1333 × 2000 px) w miejsce słabego pliku z Dysku. Wszystkie 64 aktywne zapachy mają zdjęcie, więc kolejność w grupie wynika już tylko z kolumny `kolejnosc`; reguła „najpierw ze zdjęciem” (decyzja 26) zostaje w kodzie na wypadek nowego zapachu bez zdjęcia. | właściciel |
+| 56 | Termin i bon | Właściciel potwierdził `kontakt@niccifragrance.pl` i realizację w 7 dni roboczych. Gdy realizacja potrwa dłużej, klient dostaje bon 50 zł na kolejne zakupy od 199 zł: w gwarancjach, FAQ, regulaminie (punkt 5, z `{TODO}` na zasady bonu) i w `refs/README.md`. Sposób wykorzystania bonu czeka na decyzję, bo formularz nie ma pola na kod. | właściciel |
 
 ## Otwarte
 
-* Weryfikacja `dev/dane/do-weryfikacji.csv` (119 wierszy dla 61 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.
+* Weryfikacja `dev/dane/do-weryfikacji.csv` (118 wierszy dla 60 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.
 * `ml_dostepne` dla wszystkich aktywnych pozycji: puste w 62 z 64, bez tego backend uzna je za niedostępne. Pełna lista braków: `docs/raport-koncowy.md`.
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
 * Wartości w `CONFIG` Apps Script: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
 * Regulamin i polityka prywatności od prawnika, w tym dane sprzedawcy i ocena zasad zwrotu.
-* Zdjęcie p52 Dior Sauvage Parfum (przysłane było Eau de Parfum) i lepsze zdjęcie p51 Dior Homme Cologne (źródło 640 × 335 px).
+* Bon 50 zł za opóźnienie: sposób wykorzystania (pole na kod i zakładka Bony?), termin ważności, czy próg 199 zł obejmuje dostawę.
 * Skrzynka `kontakt@niccifragrance.pl` musi działać przed startem: adres jest w stopce, regulaminie, polityce i mailach.
 * Prawa do packshotów producentów: to materiały marek. Na dłuższą metę bezpieczniejsze są własne zdjęcia flakonów i atomizerów Nicci (rekomendacja z promptu).

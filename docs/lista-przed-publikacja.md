@@ -1,6 +1,6 @@
 # Co przygotować przed publikacją
 
-Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 54). Zostało to, co poniżej.
+Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 56). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Zostało to, co poniżej.
 
 * **Część 1: wyślij mi.** Materiały i potwierdzenia, które wpiszę na stronę.
 * **Część 2: wpisujesz sam.** Dane do płatności i e-mail wpisujesz bezpośrednio w Apps Script. Repozytorium jest publiczne, więc te dane nie powinny w nim leżeć.
@@ -12,12 +12,16 @@ Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już 
 
 ## Część 1. Wyślij mi
 
-### Potwierdzenia do Twoich odpowiedzi
+### Bon 50 zł za opóźnienie
+
+Na stronie i w regulaminie jest już Twoja zasada: jeśli realizacja potrwa dłużej niż 7 dni roboczych, klient dostaje bon na 50 zł na kolejne zakupy za co najmniej 199 zł. Brakuje ustaleń, bez których klient nie ma jak z bonu skorzystać:
 
 ```
-1. ★ Adres e-mail: w odpowiedzi było „kontakt@niccifrangrance.pl”, a domena to niccifragrance.pl.
-   Na stronie wpisałem kontakt@niccifragrance.pl. Zgadza się?
-2. „Realizacja do 7”: na stronie jest „najpóźniej w 7 dni roboczych” od zaksięgowania wpłaty. Zgadza się?
+1. Jak klient ma użyć bonu? Formularz zamówienia nie ma dziś pola na kod.
+   Propozycja: pole „Kod bonu” w zamówieniu i zakładka Bony w arkuszu (kod, kwota, próg, data ważności,
+   wykorzystany); backend sprawdza kod i odejmuje 50 zł od kwoty do zapłaty.
+2. Termin ważności bonu:
+3. Czy próg 199 zł liczymy z kosztem dostawy, czy tylko za zapachy:
 ```
 
 ### D. ★ Regulamin i polityka prywatności (wyślesz później)
@@ -31,12 +35,11 @@ Najlepiej gotowe teksty od prawnika. Szkielety są pod `/regulamin` i `/prywatno
 
 Obie strony mają dziś `noindex` i dopisek „nie publikować w tej postaci”. Po wstawieniu zatwierdzonych tekstów zdejmę jedno i drugie.
 
-### E. Zdjęcia: dwa flakony
+### E. Zdjęcia: gotowe
 
-14 z 15 flakonów ma już na stronie zdjęcie z Twojego Dysku. Przezroczyste i białe tła dostały ten sam jasny, ciepły kolor co pozostałe 49 kart (#F1EFEC), a nie czystą biel, żeby siatka katalogu była równa. Jeśli wolisz biel, mogę ją ustawić na wszystkich kartach. Zostały dwie sprawy:
+Wszystkie 15 flakonów ma na stronie Twoje zdjęcie, więc zdjęcie ma teraz każdy z 64 aktywnych zapachów. p51 Dior Homme Cologne i p52 Dior Sauvage Parfum są z plików przysłanych w rozmowie 24.09. Przezroczyste i białe tła dostały ten sam jasny, ciepły kolor co pozostałe karty (#F1EFEC), a nie czystą biel, żeby siatka katalogu była równa. Jeśli wolisz biel, mogę ją ustawić na wszystkich kartach.
 
-| id | Zapach | Co jest nie tak |
-|---|---|---|
+---|---|---|
 | p52 | Dior Sauvage Parfum | Plik z Dysku to Sauvage Eau de Parfum, inne stężenie i inna etykieta. Karta pokazuje kadr z inicjałami. |
 | p51 | Dior Homme Cologne | Jest na stronie, ale źródło ma 640 × 335 px i flakon zajmuje mały fragment. Powiększyłem je, ale ostrość jest słabsza niż przy innych kartach. Lepsze zdjęcie się przyda. |
 
@@ -89,8 +92,8 @@ Nie mam dostępu do Twojego konta Cloudflare. Połącz repozytorium według `doc
 5. Opisy zestawów dla klienta: żaden z 6 aktywnych nie ma (arkusz ma tylko opis dla doradcy). Możesz przysłać fakty, a ja napiszę teksty.
 6. Rodziny zestawów: ma ją tylko z04, więc quiz nie proponuje zestawu z innych rodzin.
 7. Zestaw z07 zawiera p60, który jest nieaktywny, więc zestaw jest niedostępny. Aktywować p60 czy zmienić skład?
-8. Plik do weryfikacji: dev/dane/do-weryfikacji.csv, 119 wierszy dla 61 pozycji; najwięcej dotyczy rodziny (28), sezonu (19), nut i osiągów (17) oraz podobnych zapachów (10). Każdy wiersz ma powód. Popraw w arkuszu albo odeślij mi decyzje.
-9. zdjecie_url: 14 zapachów z Twoimi zdjęciami ma adres w pliku importu dev/dane/import-do-arkusza.xlsx. Jeśli zakładkę Produkty wypełniłeś wcześniej, wpisz dla p01 do p05, p42, p43, p51, p53, p54, p55, p63, p64 i p65 adres /img/produkty/ID-800.webp (np. /img/produkty/p43-800.webp).
+8. Plik do weryfikacji: dev/dane/do-weryfikacji.csv, 118 wierszy dla 60 pozycji; najwięcej dotyczy rodziny (28), sezonu (19), nut i osiągów (17) oraz podobnych zapachów (10). Każdy wiersz ma powód. Popraw w arkuszu albo odeślij mi decyzje.
+9. zdjecie_url: 15 zapachów z Twoimi zdjęciami ma adres w pliku importu dev/dane/import-do-arkusza.xlsx. Jeśli zakładkę Produkty wypełniłeś wcześniej, wpisz dla p01 do p05, p42, p43 i p51 do p55, p63, p64 i p65 adres /img/produkty/ID-800.webp (np. /img/produkty/p43-800.webp).
 ```
 
 Po uzupełnieniu uruchom `diagnostyka` w Apps Script, wypisze to, co jeszcze się nie zgadza.
