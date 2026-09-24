@@ -300,11 +300,13 @@ body { background: var(--bg-dark); }
   --hz-s: calc((1 - var(--p)) * 10%);
   --hz-l: 90%;
   position: relative;
-  height: clamp(9rem, calc(var(--screen-h) * 0.3), 16rem);
+  height: var(--hz-h);
   background: var(--bg-light);
   overflow: hidden;
 }
-@media (min-width: 48rem) { .horizon { height: clamp(12rem, calc(var(--screen-h) * 0.36), 22rem); } }
+/* wysokość pasa jako zmienna na :root, bo korzysta z niej też .light-page (nagłówek rodzin wchodzi na koniec przejścia) */
+:root { --hz-h: clamp(9rem, calc(var(--screen-h) * 0.3), 16rem); }
+@media (min-width: 48rem) { :root { --hz-h: clamp(12rem, calc(var(--screen-h) * 0.36), 22rem); } }
 .horizon::before {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg,
@@ -349,7 +351,17 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- część jasna ---------- */
-.light-page { background: var(--bg-light); }
+/* Kremowa część wchodzi na ostatnie 15% przejścia, więc nadtytuł „Rodziny zapachowe” zaczyna się tam, gdzie gradient
+   jest już prawie kremowy (właściciel: napis może nachodzić na gradient). --n-space-7 to górny margines .families. */
+.light-page {
+  --lp-overlap: calc(var(--n-space-7) + var(--hz-h) * 0.15);
+  position: relative;
+  margin-top: calc(-1 * var(--lp-overlap));
+}
+/* Na odcinku nad przejściem tło jest przezroczyste (widać koniec gradientu), niżej kremowe; samo transparent nie wystarczy,
+   bo body strony głównej jest czarne. Krem zaczyna się 2 px przed końcem przejścia, gdzie gradient jest już kremowy,
+   żeby przy ułamkowych pikselach nie prześwitywała linia czarnego body. */
+.light-page.theme-light { background: linear-gradient(180deg, transparent calc(var(--lp-overlap) - 2px), var(--bg-light) calc(var(--lp-overlap) - 2px)); }
 .container--wide { max-width: 90rem; }
 .section-head { display: grid; gap: var(--n-space-3); margin-bottom: var(--n-space-6); }
 .section-head .t-h2 { max-width: 20ch; }
