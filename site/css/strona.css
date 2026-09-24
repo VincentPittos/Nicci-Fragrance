@@ -288,7 +288,8 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- przejście z grafitu do kremu ----------
-   Bardzo długa, rzadka strefa: pas ma ok. 2/3 wysokości ekranu (18 do 38rem), a kolor zmienia się na 90% jego
+   Łagodna strefa: pas ma ok. 30% wysokości ekranu na telefonie i 36% na większych ekranach (właściciel: mniejsza
+   przerwa między sekcjami, decyzja 68), a kolor zmienia się na 90% jego
    wysokości po krzywej sinusoidalnej (wolny start i wolny koniec) w przestrzeni oklab, w 15 krokach, z lekkim złotym
    światłem w środku (do 9% złota). Delikatne ziarno (::after) rozmywa schodki kolorów, które na długim gradiencie
    widać na zwykłych monitorach. Na komputerze strefa lekko wędruje z przewijaniem (--p ze strona-glowna.js),
@@ -299,10 +300,11 @@ body { background: var(--bg-dark); }
   --hz-s: calc((1 - var(--p)) * 10%);
   --hz-l: 90%;
   position: relative;
-  height: clamp(18rem, calc(var(--screen-h) * 0.65), 38rem);
+  height: clamp(9rem, calc(var(--screen-h) * 0.3), 16rem);
   background: var(--bg-light);
   overflow: hidden;
 }
+@media (min-width: 48rem) { .horizon { height: clamp(12rem, calc(var(--screen-h) * 0.36), 22rem); } }
 .horizon::before {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg,
@@ -355,6 +357,7 @@ body { background: var(--bg-dark); }
 .families { padding-top: var(--n-space-7); }
 @media (min-width: 64rem) {
   .families, .catalog, .sets, .guarantees, .faq { padding-block: var(--n-space-9); }
+  .families { padding-top: var(--n-space-7); }
   .section-head { margin-bottom: var(--n-space-7); }
 }
 
