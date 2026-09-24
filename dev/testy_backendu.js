@@ -315,7 +315,45 @@ test('diagnostyka: wykrywa puste CONFIG i brak stanów w imporcie', () => {
   const d = be.diagnoza_(be.tableToObjects_(sheet.Produkty), setRows, be.CONFIG);
   const msgs = d.map((x) => x[1]).join('\n');
   assert.match(msgs, /CONFIG\.OWNER_EMAIL nie jest uzupełnione/);
-  assert.match(msgs, /ml_dostepne nie jest uzupełnione/);
+  assert.match(msgs, /62 aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu/);
+  assert.ok(!d.some((x) => x[0] === 'ERROR' && /ml_dostepne/.test(x[1])), 'pusty stan to nie błąd');
+});
+
+test('stan: puste ml_dostepne = sprzedaż bez limitu i bez etykiety, 0 = wyprzedane, bez ceny = ukryty', () => {
+  const raw = be.tableToObjects_(sheet.Produkty); // bez stanu zastępczego, jak w arkuszu właściciela
+  const c = be.buildCatalog_(raw, setRows, { p01: 5000 }, cfg, NOW);
+  const p01 = c.products.find((p) => p.id === 'p01');
+  deq(p01.variants.map((v) => v.available), [true, true, true], 'rezerwacje nie zmniejszają nieliczonego stanu');
+  assert.equal(p01.malo, false);
+  assert.equal(p01.zostalo, null);
+  const p34 = c.products.find((p) => p.id === 'p34');
+  assert.ok(p34 && p34.variants.length === 0, 'p34 ma 0 ml: wyprzedany');
+  const bezCeny = raw.map((r) => (r.id === 'p02' ? Object.assign({}, r, { cena_5: '', cena_10: '', cena_20: '' }) : r));
+  assert.ok(!be.buildCatalog_(bezCeny, setRows, {}, cfg, NOW).products.some((p) => p.id === 'p02'), 'bez ceny i bez stanu: ukryty');
+  const v = be.validateOrder_(validBody({ items: [{ type: 'decant', id: 'p01', ml: 20, qty: 5 }] }), cfg);
+  assert.equal(be.priceOrder_(v.data.items, 'paczkomat', raw, setRows, {}, cfg).ok, true, '100 ml z nieliczonego stanu przechodzi');
+  const z = be.buildCatalog_(raw, setRows, {}, cfg, NOW).sets;
+  assert.ok(z.every((x) => x.sklad.every((k) => k.id === 'p34' || k.id === 'p60' || k.available)), 'składniki bez stanu są dostępne');
+});
+
+test('stan: płatność i anulowanie nie wpisują liczby do pustej komórki ml_dostepne', () => {
+  const grid = [['id', 'ml_dostepne'], ['p01', ''], ['p02', 40]];
+  const sheetFake = {
+    getLastRow: () => grid.length, getLastColumn: () => 2,
+    getRange: (r, c, nr, nc) => ({
+      getValues: () => grid.slice(r - 1, r - 1 + (nr || 1)).map((row) => row.slice(c - 1, c - 1 + (nc || 1))),
+      setValues: (vals) => vals.forEach((row, i) => row.forEach((v, j) => { grid[r - 1 + i][c - 1 + j] = v; }))
+    })
+  };
+  be.SpreadsheetApp = { getActiveSpreadsheet: () => ({ getSheetByName: () => sheetFake }) };
+  be.CacheService = { getScriptCache: () => ({ remove: () => {} }) };
+  const braki = be.adjustStock_({ p01: 10, p02: 50 }, -1);
+  assert.equal(grid[1][1], '', 'nieliczony zapach zostaje pusty');
+  assert.equal(grid[2][1], -10);
+  deq(braki, ['p02 (-10 ml)']);
+  be.adjustStock_({ p01: 10, p02: 50 }, +1);
+  assert.equal(grid[1][1], '');
+  assert.equal(grid[2][1], 40);
 });
 
 // ---------- zgodność z nicci-api.js (bez zmian w module) ----------

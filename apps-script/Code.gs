@@ -235,9 +235,10 @@ function reservedMl_(orderRows, now) {
   return out;
 }
 
+/** Wolne ml. Puste ml_dostepne = stanu nie liczymy: zapach jest w sprzedaży bez limitu (Infinity). */
 function freeMl_(product, reserved) {
-  const stock = product.ml === null ? 0 : product.ml;
-  return Math.max(0, stock - (reserved[product.id] || 0));
+  if (product.ml === null) return Infinity;
+  return Math.max(0, product.ml - (reserved[product.id] || 0));
 }
 
 function isSellable_(p) {
@@ -249,10 +250,10 @@ function hasPrice_(p) {
   return POJEMNOSCI.some(function (ml) { return p.ceny[ml] !== null; });
 }
 
-/** Na liście: produkt z ceną albo wyprzedany (ml_dostepne 0 lub puste). Produkt ze stanem, ale bez żadnej ceny,
- *  nie trafia na listę: nie da się go kupić, a etykieta „Wyprzedane” byłaby nieprawdą. */
+/** Na liście: produkt z ceną albo wyprzedany (ml_dostepne 0 albo mniej). Produkt bez żadnej ceny, a ze stanem
+ *  albo bez liczonego stanu, nie trafia na listę: nie da się go kupić, a „Wyprzedane” byłoby nieprawdą. */
 function isListed_(p) {
-  return hasPrice_(p) || !(p.ml > 0);
+  return hasPrice_(p) || (p.ml !== null && !(p.ml > 0));
 }
 
 /**
@@ -1015,7 +1016,8 @@ function orderFromRecord_(o) {
 
 /**
  * Zmienia ml_dostepne o znak * ml z mapy {id: ml}. Zwraca listę opisów produktów, które zeszły poniżej zera.
- * Stanu nie przycinamy do zera, żeby anulowanie mogło go dokładnie odwrócić.
+ * Stanu nie przycinamy do zera, żeby anulowanie mogło go dokładnie odwrócić. Pustej komórki nie ruszamy:
+ * tego zapachu nie liczymy, a wpisana tam liczba ujemna zrobiłaby z niego wyprzedany.
  */
 function adjustStock_(mlMap, sign) {
   const sh = sheet_(SHEET.PRODUKTY);
@@ -1029,8 +1031,9 @@ function adjustStock_(mlMap, sign) {
   const braki = [];
   ids.forEach(function (row, i) {
     const id = str_(row[0]);
-    if (!mlMap[id]) return;
-    const next = (toNumber_(stock[i][0]) || 0) + sign * Number(mlMap[id]);
+    const current = toNumber_(stock[i][0]);
+    if (!mlMap[id] || current === null) return;
+    const next = current + sign * Number(mlMap[id]);
     stock[i][0] = next;
     if (next < 0) braki.push(id + ' (' + next + ' ml)');
   });
@@ -1354,6 +1357,7 @@ function diagnoza_(productRows, setRows, cfg) {
 
   const products = productRows.map(productFromRow_);
   const ids = {};
+  let bezStanu = 0;
   products.forEach(function (p) {
     const label = (p.id || 'wiersz ' + p._row) + ' ' + p.marka + ' ' + p.nazwa;
     if (!p.id) { E('Produkty wiersz ' + p._row + ': id nie jest uzupełnione'); return; }
@@ -1367,12 +1371,13 @@ function diagnoza_(productRows, setRows, cfg) {
     if (PORY.indexOf(p.pora) === -1) W(label + ': pora „' + p.pora + '” spoza listy');
     p.sezon.forEach(function (s) { if (SEZONY.indexOf(s) === -1) W(label + ': sezon „' + s + '” spoza listy'); });
     if (p.intensywnosc === null) W(label + ': intensywnosc nie jest uzupełniona (quiz przyjmie 2)');
-    if (p.ml === null) E(label + ': ml_dostepne nie jest uzupełnione');
+    if (p.ml === null) bezStanu++;
     else if (p.ml < 0) W(label + ': ml_dostepne poniżej zera (' + p.ml + ')');
-    if (!hasPrice_(p) && p.ml !== null && p.ml > 0) E(label + ': ma stan, ale nie ma żadnej ceny, strona go nie pokaże');
+    if (!hasPrice_(p) && !(p.ml !== null && p.ml <= 0)) E(label + ': nie ma żadnej ceny, strona go nie pokaże');
     if (!p.opis) W(label + ': brak opisu');
     if (!p.zdjecie) W(label + ': brak zdjęcia');
   });
+  if (bezStanu) out.push(['INFO', bezStanu + ' aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu i bez etykiety „Zostało X ml”. Gdy zapach się skończy, wpisz 0.']);
   products.forEach(function (p) {
     if (!p.aktywny) return;
     p.podobne.forEach(function (x) { if (!ids[x]) W(p.id + ': podobne wskazuje na nieistniejące id ' + x); });

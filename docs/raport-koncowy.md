@@ -4,15 +4,14 @@ Stan na 23.09.2026, gałąź `claude/serene-cray-umqpzo`. Strona jest kompletna 
 
 ## 0. Najpierw to: blokady startu
 
-Aktualizacja 24.09.2026: odpowiedzi właściciela z `docs/lista-przed-publikacja.md` są wpisane (decyzje 46 do 54). Zostały te blokady:
+Aktualizacja 24.09.2026: odpowiedzi właściciela z `docs/lista-przed-publikacja.md` są wpisane (decyzje 46 do 58). Zostały te blokady:
 
 | # | Co | Dlaczego blokuje | Kto |
 |---|---|---|---|
-| 1 | `ml_dostepne` w arkuszu: puste w 62 z 64 aktywnych produktów | Backend traktuje pusty stan jak zero, więc na produkcji prawie cały katalog pokaże się jako wyprzedany. W podglądzie stan zastępczy 100 ml ukrywa ten problem. | właściciel |
-| 2 | `CONFIG` w `apps-script/Code.gs`: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane. | właściciel |
-| 3 | `API_URL` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | właściciel po wdrożeniu Apps Script |
-| 4 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Prawnik musi też ocenić zasadę „odlewek nie przyjmujemy z powrotem” wobec prawa odstąpienia. | właściciel i prawnik |
-| 5 | Dane sprzedawcy | Stopka i maile mają „Nicci Fragrance, działalność nierejestrowana” i `kontakt@niccifragrance.pl`. Imię, nazwisko i adres w dokumentach czekają na prawnika. Skrzynka ruszy po zakupie domeny i musi działać przed startem. | właściciel |
+| 1 | `CONFIG` w `apps-script/Code.gs`: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane. | właściciel |
+| 2 | `API_URL` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | właściciel po wdrożeniu Apps Script |
+| 3 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Prawnik musi też ocenić zasadę „odlewek nie przyjmujemy z powrotem” wobec prawa odstąpienia. | właściciel i prawnik |
+| 4 | Dane sprzedawcy | Stopka i maile mają „Nicci Fragrance, działalność nierejestrowana” i `kontakt@niccifragrance.pl`. Imię, nazwisko i adres w dokumentach czekają na prawnika. Skrzynka ruszy po zakupie domeny i musi działać przed startem. | właściciel |
 
 ## 1. Lista `{TODO}` i `UZUPELNIJ`, od kogo potrzebne są dane
 
@@ -177,7 +176,7 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 27/27 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, odpowiedź zamówienia, zgodność z `nicci-api.js` |
+| `node dev/testy_backendu.js` | 29/29 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js` |
 | `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
 
 Test 1: katalog z `?action=catalog`; zapisany w przeglądarce katalog starszy niż 2 minuty odświeża się w tle, więc zmiana ceny dociera na stronę w czasie cache backendu (5 minut). Próba kontrolna potwierdza, że test umie wykryć starą cenę.
@@ -191,7 +190,7 @@ Czego nie da się sprawdzić lokalnie: wysyłki maili (test 2, 4, 5, 6), trigger
 
 Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnione we wszystkich 64 aktywnych produktach. Brakuje:
 
-**Stanów:** `ml_dostepne` puste w 62 produktach (patrz blokada 1). Wypełnione tylko p34 i p37, oba 0 ml.
+**Stanów:** `ml_dostepne` puste w 62 produktach. Od 24.09 to nie blokada: puste pole znaczy sprzedaż bez limitu (decyzja 58). Wypełnione tylko p34 i p37, oba 0 ml, więc są wyprzedane.
 
 **Zdjęć:** brak braków, wszystkie 64 aktywne produkty mają zdjęcie (punkt 3).
 

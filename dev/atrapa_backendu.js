@@ -9,7 +9,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const { ROOT, loadBackend, readSheetJson, devConfig, withPlaceholderStock } = require('./wspolne');
+const { ROOT, loadBackend, readSheetJson, devConfig } = require('./wspolne');
 
 const ORDERS_FILE = process.env.NICCI_ZAMOWIENIA || path.join(ROOT, 'dev', 'zamowienia-dev.json');
 // Bony do podglądu: ważny, drugi ważny (np. do testu progu) i po terminie. wykorzystany_w wynika z pliku zamówień.
@@ -37,7 +37,8 @@ function createBackend() {
     RECIPIENT: 'Nicci Fragrance (dane przykładowe)', SITE_URL: 'http://127.0.0.1:8766'
   });
   const sheet = readSheetJson();
-  const productRows = be.tableToObjects_(stockOverrides(withPlaceholderStock(sheet.Produkty, 100)));
+  // stany jak w arkuszu właściciela: puste ml_dostepne = bez limitu, 0 = wyprzedane; NICCI_STAN nadpisuje wybrane
+  const productRows = be.tableToObjects_(stockOverrides(sheet.Produkty));
   const setRows = be.tableToObjects_(sheet.Zestawy);
   let orders = [];
   try { orders = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8')); } catch (e) { orders = []; }

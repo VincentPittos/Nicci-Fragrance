@@ -45,7 +45,7 @@ Rezerwacje nie są zapisywane w stanach. Dostępność liczy się na bieżąco j
 2. Wklej zawartość `Code.gs`. W Ustawieniach projektu ustaw strefę czasową Europe/Warsaw.
 3. Uzupełnij `CONFIG` na górze pliku: e-mail właściciela, handle IG, adres strony, numer BLIK, numer konta, odbiorcę, ceny dostawy, próg darmowej dostawy.
 4. Wybierz funkcję `setup` i kliknij Uruchom. Zaakceptuj uprawnienia (przy ekranie "Google nie zweryfikował aplikacji" wybierz Zaawansowane i przejdź do projektu, to normalne przy własnych skryptach). Dojdą zakładki Zamowienia, Ewidencja, Bony, Log, lista statusów i dwa triggery. Dane w Produktach i Zestawach zostają bez zmian.
-5. Uzupełnij w Produktach `ml_dostepne` (ile ml zostało w każdym flakonie) i przejrzyj zakładkę Do weryfikacji (po przejrzeniu możesz ją usunąć). Opis kolumn jest niżej.
+5. Przejrzyj zakładkę Do weryfikacji (po przejrzeniu możesz ją usunąć). `ml_dostepne` może zostać puste: wtedy zapach jest w sprzedaży bez limitu. Opis kolumn jest niżej.
 6. Uruchom `diagnostyka` i sprawdź zakładkę Log. Nie może być wpisów "nie jest uzupełnione" ani "nie ma żadnej ceny".
 7. Wdróż, Nowe wdrożenie, typ Aplikacja internetowa. Wykonaj jako: Ja. Kto ma dostęp: Każdy. Skopiuj adres kończący się na `/exec`.
 8. Otwórz w przeglądarce `ADRES/exec?action=catalog`. Musisz zobaczyć JSON z `"ok":true` i listą produktów.
@@ -111,7 +111,7 @@ Tego zapachu właśnie zabrakło, ale mamy bardzo podobny: [nazwa]. Możemy podm
 | trwalosc, projekcja | 8 h, umiarkowana | tekst na kartę |
 | intensywnosc | 2 | 1 blisko skóry, 2 wyczuwalny, 3 zostawia ślad (używane przez quiz) |
 | cena_5, cena_10, cena_20 | 39, 69, 119 | w zł, puste pole ukrywa wariant |
-| ml_dostepne | 92 | ile ml zostało we flakonie, aktualizuje się samo po płatności |
+| ml_dostepne | 92 | ile ml zostało we flakonie, zmniejsza się samo po płatności. Puste = stanu nie liczymy: zapach jest w sprzedaży bez limitu i bez etykiety „Zostało X ml”. 0 = wyprzedany. |
 | podobne | p07, p12 | id podobnych zapachów |
 | zdjecie_url | | link do zdjęcia (np. z hostingu strony) |
 | kolejnosc | 1 | kolejność w katalogu |
@@ -155,7 +155,7 @@ Bon za opóźnienie wystawia się sam: jeśli zamówienie ma status OPŁACONE d�
 2. W arkuszu włącz filtr `status = NOWE` i przy opłaconych zamówieniach zmień status na OPŁACONE. Mail do klienta, stan i ewidencja zrobią się same. Działa też z aplikacji Arkusze na telefonie (sprawdź w teście).
 3. Odlej, spakuj, nadaj. Paczkomat to zawsze InPost, kuriera wybierasz sam (InPost, DPD albo DHL).
 4. Przy kurierze wybierz firmę w kolumnie `przewoznik`. Wklej numer przesyłki w kolumnę `numer_przesylki`. Status zmieni się na WYSŁANE i klient dostanie link do śledzenia u tego przewoźnika. Przy paczkomacie kolumna `przewoznik` może zostać pusta.
-5. Nowy flakon: dodaj jego ml do `ml_dostepne`. Koniec zapachu: `aktywny` na NIE albo zostaw z zerowym stanem (karta pokaże "Wyprzedane").
+5. Koniec zapachu: wpisz 0 w `ml_dostepne` (karta pokaże "Wyprzedane") albo ustaw `aktywny` na NIE (zapach zniknie ze strony). Nowy flakon: wyczyść komórkę albo wpisz jego ml, jeśli chcesz, żeby system liczył stan.
 
 Termin realizacji: najpóźniej 7 dni roboczych od zmiany statusu na OPŁACONE. Po tym terminie system sam wystawi klientowi bon 50 zł (regulamin, punkt 5), dlatego numer przesyłki wpisuj od razu po nadaniu.
 
@@ -166,7 +166,7 @@ Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE i zrealizuj zamówienie. S
 1. Katalog: `?action=catalog` zwraca produkty, zmiana ceny w arkuszu widoczna na stronie po maksymalnie 5 minutach.
 2. Zamówienie BLIK na własny e-mail: mail z danymi przyszedł, wiersz w Zamowienia, dostępność w katalogu spadła o zarezerwowane ml.
 3. Zamówienie ze zbyt dużą ilością (ustaw na chwilę `ml_dostepne` na 5): strona pokazuje brak i podobne zapachy.
-4. Status OPŁACONE: mail do klienta, spadek `ml_dostepne`, wpis w Ewidencji.
+4. Status OPŁACONE: mail do klienta, wpis w Ewidencji, spadek `ml_dostepne` u zapachów, które mają wpisany stan.
 5. Numer przesyłki: status WYSŁANE, mail z działającym linkiem.
 6. Wygaśnięcie: ustaw na chwilę `RESERVATION_HOURS: 1` i `REMINDER_AFTER_HOURS: 0`, wdróż, złóż zamówienie, poczekaj na trigger. Przyjdzie przypomnienie, potem mail o wygaśnięciu, a ml wrócą do katalogu. Przywróć wartości.
 7. Formularz: błędny kod pocztowy, brak zgody, ukryte pole `website` wypełnione (zamówienie nie może powstać).

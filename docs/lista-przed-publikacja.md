@@ -1,6 +1,6 @@
 # Co przygotować przed publikacją
 
-Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 57). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Bon 50 zł za opóźnienie działa według Twoich zasad (90 dni, próg 199 zł za same zapachy): wystawia się sam i klient wpisuje go w polu „Kod bonu”. Zostało to, co poniżej.
+Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 58). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Bon 50 zł za opóźnienie działa według Twoich zasad (90 dni, próg 199 zł za same zapachy): wystawia się sam i klient wpisuje go w polu „Kod bonu”. Zostało to, co poniżej.
 
 * **Część 1: wyślij mi.** Materiały i potwierdzenia, które wpiszę na stronę.
 * **Część 2: wpisujesz sam.** Dane do płatności i e-mail wpisujesz bezpośrednio w Apps Script. Repozytorium jest publiczne, więc te dane nie powinny w nim leżeć.
@@ -41,7 +41,7 @@ Najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tł
 
 Kroki są w `refs/README.md`, punkt 1. W skrócie:
 
-0. Arkusza z perfumami nie tworzysz od zera. Plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i zapisz jako Arkusz Google. Ręcznie uzupełniasz tylko `ml_dostepne` (część 3).
+0. Arkusza z perfumami nie tworzysz od zera. Plik `dev/dane/import-do-arkusza.xlsx` ma gotowe zakładki Produkty (71 pozycji, 64 aktywne, z opisami, cenami i adresami zdjęć) i Zestawy. Wgraj go na Dysk Google, otwórz w Arkuszach Google i zapisz jako Arkusz Google. Stanów (`ml_dostepne`) nie musisz wpisywać (część 3).
 1. Wklej `apps-script/Code.gs` do projektu Apps Script przy tym arkuszu (Rozszerzenia, Apps Script).
 2. W `CONFIG` na górze pliku wpisz:
    * `OWNER_EMAIL`: e-mail, na który mają przychodzić zamówienia,
@@ -71,7 +71,7 @@ Nie mam dostępu do Twojego konta Cloudflare. Połącz repozytorium według `doc
 ## Część 3. Arkusz Google
 
 ```
-3. ★ ml_dostepne: puste w 62 z 64 aktywnych produktów. Pusty stan = zero, więc bez tego prawie cały katalog pokaże się jako wyprzedany.
+3. ml_dostepne: nie musisz go wypełniać. Puste pole = zapach w sprzedaży bez limitu. Gdy zapach się skończy, wpisz 0 (karta pokaże „Wyprzedane”). Liczbę ml wpisuj tylko tam, gdzie chcesz, żeby system sam pilnował stanu i pokazywał „Zostało X ml”.
 4. Brakujące ceny: potwierdź, że te pojemności celowo nie są w sprzedaży:
    • bez 5 ml: p12, p21 do p25, p27 do p33, p36, p40, p44, p46 do p53, p55, p59, p61 do p65, p70, p71
    • bez 5 i 10 ml: p66, p67, p68, p69
