@@ -288,17 +288,18 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- przejście z grafitu do kremu ----------
-   Długa, łagodna strefa (--hz-l, 80% wysokości pasa, czyli do ok. 24rem): kolor przechodzi po krzywej smoothstep w przestrzeni oklab,
-   bez pasów i bez brązowego zabrudzenia, z lekkim złotym światłem w środku (do 9% złota). Na komputerze strefa
-   wędruje w górę z przewijaniem (--p ze strona-glowna.js), na ekranach dotykowych stoi w jednym miejscu (--p: 0.6).
-   Kolor ciemnej strony (--hz-dark) jest kolorem sekcji 2. */
+   Bardzo długa, rzadka strefa: pas ma ok. 2/3 wysokości ekranu (18 do 38rem), a kolor zmienia się na 90% jego
+   wysokości po krzywej sinusoidalnej (wolny start i wolny koniec) w przestrzeni oklab, w 15 krokach, z lekkim złotym
+   światłem w środku (do 9% złota). Delikatne ziarno (::after) rozmywa schodki kolorów, które na długim gradiencie
+   widać na zwykłych monitorach. Na komputerze strefa lekko wędruje z przewijaniem (--p ze strona-glowna.js),
+   na ekranach dotykowych stoi w miejscu (--p: 0.6). --hz-dark to kolor sekcji 2. */
 .horizon {
   --p: 0;
   --hz-dark: var(--bg-graphite);
-  --hz-s: calc((1 - var(--p)) * 20%);
-  --hz-l: 80%;
+  --hz-s: calc((1 - var(--p)) * 10%);
+  --hz-l: 90%;
   position: relative;
-  height: clamp(15rem, calc(var(--screen-h) * 0.5), 30rem);
+  height: clamp(18rem, calc(var(--screen-h) * 0.65), 38rem);
   background: var(--bg-light);
   overflow: hidden;
 }
@@ -307,29 +308,42 @@ body { background: var(--bg-dark); }
   background: linear-gradient(180deg,
     var(--hz-dark) 0%,
     var(--hz-dark) var(--hz-s),
-    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 4%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.12),
-    color-mix(in oklab, var(--accent) 5%, color-mix(in oklab, var(--bg-light) 14%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.24),
-    color-mix(in oklab, var(--accent) 8%, color-mix(in oklab, var(--bg-light) 29%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.36),
-    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 47%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.48),
-    color-mix(in oklab, var(--accent) 8%, color-mix(in oklab, var(--bg-light) 65%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.60),
-    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 80%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.72),
-    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 92%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.84),
-    var(--bg-light) calc(var(--hz-s) + var(--hz-l) * 1.00));
+    color-mix(in oklab, var(--bg-light) 1%, var(--hz-dark)) calc(var(--hz-s) + var(--hz-l) * 0.071),
+    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 5%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.143),
+    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 11%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.214),
+    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 19%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.286),
+    color-mix(in oklab, var(--accent) 7%, color-mix(in oklab, var(--bg-light) 28%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.357),
+    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 39%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.429),
+    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 50%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.500),
+    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 61%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.571),
+    color-mix(in oklab, var(--accent) 7%, color-mix(in oklab, var(--bg-light) 72%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.643),
+    color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, var(--bg-light) 81%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.714),
+    color-mix(in oklab, var(--accent) 3%, color-mix(in oklab, var(--bg-light) 89%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.786),
+    color-mix(in oklab, var(--accent) 2%, color-mix(in oklab, var(--bg-light) 95%, var(--hz-dark))) calc(var(--hz-s) + var(--hz-l) * 0.857),
+    color-mix(in oklab, var(--bg-light) 99%, var(--hz-dark)) calc(var(--hz-s) + var(--hz-l) * 0.929),
+    var(--bg-light) calc(var(--hz-s) + var(--hz-l) * 1.000));
+}
+.horizon::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
 }
 .horizon__glow {
   position: absolute; left: 50%; top: calc(var(--hz-s) + var(--hz-l) * 0.45);
-  width: min(80rem, 140vw); height: 16rem;
+  width: min(90rem, 160vw); height: 22rem;
   transform: translate(-50%, -50%);
-  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent-soft) 32%, transparent), transparent 72%);
+  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--accent-soft) 26%, transparent), transparent 75%);
   opacity: calc(0.35 + 0.4 * var(--p));
   pointer-events: none;
 }
 .horizon__line {
   position: absolute; left: 50%; top: calc(var(--hz-s) + var(--hz-l) * 0.45);
   width: min(60rem, 88vw); height: var(--n-hairline);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent) 30%, color-mix(in srgb, var(--accent) 55%, transparent) 70%, transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 40%, transparent) 35%, color-mix(in srgb, var(--accent) 40%, transparent) 65%, transparent);
   transform: translateX(-50%) scaleX(calc(0.25 + 0.75 * var(--p)));
-  opacity: calc(0.3 + 0.45 * var(--p));
+  opacity: calc(0.25 + 0.4 * var(--p));
 }
 
 /* ---------- część jasna ---------- */
