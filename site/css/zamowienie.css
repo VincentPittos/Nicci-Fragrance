@@ -1,7 +1,7 @@
 /* NICCI: /zamowienie i /potwierdzenie. Jeden ekran, formularz i podsumowanie obok siebie na komputerze. */
 
 .plain-page { background: var(--bg-light); }
-.order { padding-block: var(--n-space-6) var(--n-space-9); min-height: 70vh; }
+.order { padding-block: var(--n-space-6) var(--n-space-9); min-height: calc(var(--screen-h) * 0.7); }
 .order__head { display: grid; gap: var(--n-space-2); margin-bottom: var(--n-space-5); }
 .order__title { font-family: var(--font-display); font-weight: 500; font-size: var(--n-size-h2); line-height: 1.05; letter-spacing: -0.016em; }
 .order__lead { color: var(--text); max-width: 34em; }

@@ -117,6 +117,11 @@
 
   --gutter: max(1rem, 4.5vw);
   --container: 80rem;
+  /* Wysokość ekranu z chwili wejścia; app.js wpisuje ją w px i zmienia tylko razem z szerokością (obrót telefonu).
+     W przeglądarkach Instagrama i Messengera dolny pasek chowa się przy przewijaniu, widok rośnie, a z nim vh, svh
+     i dvh: kadr hero się powiększał, a pas przejścia pod sekcją 2 przesuwał wszystko pod sobą. Układ zależny
+     od wysokości ekranu korzysta więc z tej zmiennej. Zanim skrypt zadziała: 100svh, a w starszych przeglądarkach 100vh. */
+  --screen-h: 100vh;
 
   --selected-bg: var(--n-black);      /* zaznaczona opcja na jasnym */
   --selected-fg: var(--n-cream-50);
@@ -129,6 +134,8 @@
   --btn-height: 3.25rem;
   --btn-radius: var(--n-radius-2);
 }
+
+@supports (height: 100svh) { :root { --screen-h: 100svh; } }
 
 /* Kontekst ciemny: hero, stopka, pasek zaufania */
 .theme-dark,

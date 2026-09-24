@@ -149,8 +149,14 @@
     viewport.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     function refresh() { measure(); driver.stop(); M.set(track, { x: xFor(i) }); x = xFor(i); }
-    var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(refresh, 80); });
+    // tylko zmiana szerokości: przeglądarki Instagrama i Messengera zmieniają wysokość widoku przy przewijaniu,
+    // a przeliczenie zatrzymywało wtedy trwający przesuw slajdu i ustawiało go od nowa
+    var rt, lastW = viewport.clientWidth;
+    window.addEventListener('resize', function () {
+      if (viewport.clientWidth === lastW) return;
+      lastW = viewport.clientWidth;
+      clearTimeout(rt); rt = setTimeout(refresh, 80);
+    });
 
     measure();
     paint();

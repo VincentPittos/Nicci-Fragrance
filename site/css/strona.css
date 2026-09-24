@@ -144,12 +144,13 @@ body { background: var(--bg-dark); }
 /* Telefon (wariant C zatwierdzony przez właściciela): nagłówek, pod nim opis na zdjęciu z lekkim cieniem,
    atomizery Nicci w całości pod opisem, przyciski na kamieniu u dołu kadru. Kadr to prawe 70% zdjęcia
    (hero-m-*.webp, 1400 × 1116). Górne 31,7% kadru to ściana, dolne 23,8% kamień i piasek: z tych proporcji
-   wynikają ujemne marginesy zdjęcia i przycisków. Środek atomizerów leży na 59% szerokości kadru. */
+   wynikają ujemne marginesy zdjęcia i przycisków. Środek stojącego złotego atomizera leży na 51,5% szerokości
+   kadru (piksele 664 do 779 z 1400). Wysokość z --screen-h, żeby kadr nie rósł, gdy chowa się pasek przeglądarki. */
 @media (max-width: 47.99rem) {
   .hero {
     /* wysokość kadru: atomizery i przyciski na 1. ekranie. Szerokość kadru to 1,2545 × --hb; przy zmianie wzoru
        popraw też sizes kadru hero-m w index.html (obraz i preload), bo zależy od wysokości ekranu. */
-    --hb: clamp(24rem, calc((100svh - 36.5rem) * 2.2), 38rem);
+    --hb: clamp(24rem, calc((var(--screen-h) - 36.5rem) * 2.2), 38rem);
     padding-top: calc(4.25rem + var(--n-space-5));
     padding-bottom: var(--n-space-5);
   }
@@ -164,8 +165,8 @@ body { background: var(--bg-dark); }
   .hero__media img {
     width: 100%; height: 100%;
     object-fit: cover;
-    /* środek atomizerów na środku ekranu, ale bez pustego pasa przy krawędzi na szerszych telefonach */
-    object-position: min(0px, max(calc(100vw - var(--hb) * 1.2545), calc(50vw - var(--hb) * 0.74))) 100%;
+    /* stojący złoty atomizer na środku ekranu (51,5% × 1,2545 = 0,6466), ale bez pustego pasa przy krawędzi */
+    object-position: min(0px, max(calc(100vw - var(--hb) * 1.2545), calc(50vw - var(--hb) * 0.6466))) 100%;
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 88%, transparent 100%);
     mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 88%, transparent 100%);
   }
@@ -273,7 +274,7 @@ body { background: var(--bg-dark); }
 .horizon {
   --p: 0;
   position: relative;
-  height: clamp(9rem, 26vh, 15rem);
+  height: clamp(9rem, calc(var(--screen-h) * 0.26), 15rem);
   background: var(--bg-light);
   overflow: hidden;
 }

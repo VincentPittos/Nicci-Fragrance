@@ -12,12 +12,14 @@
     var media = document.querySelector('[data-parallax]');
     if (!media || M.reduced()) return;
     var hero = media.parentElement;
-    var raf = 0;
-    // na telefonie opis leży tuż nad atomizerami, a przyciski tuż pod nimi: przesunięcie zdjęcia by je zbliżyło
+    var raf = 0, moved = false;
+    // na telefonie opis leży tuż nad atomizerami, a przyciski tuż pod nimi: przesunięcie zdjęcia by je zbliżyło.
+    // Tam zdjęcie stoi w miejscu i nie dostaje transformacji przy każdej klatce przewijania.
     var phone = window.matchMedia('(max-width: 47.99rem)');
     function update() {
       raf = 0;
-      if (phone.matches) { M.set(media, { y: 0 }); return; }
+      if (phone.matches) { if (moved) { M.set(media, { y: 0 }); moved = false; } return; }
+      moved = true;
       var h = hero.offsetHeight;
       if (window.scrollY > h) return;
       M.set(media, { y: Math.min(12, window.scrollY * 0.03) });
@@ -33,7 +35,8 @@
     var raf = 0, on = false;
     function update() {
       raf = 0;
-      var r = el.getBoundingClientRect(), vh = window.innerHeight;
+      // wysokość z chwili wejścia (NicciApp.screenH): chowający się pasek przeglądarki nie szarpie przejściem
+      var r = el.getBoundingClientRect(), vh = A.screenH();
       // 0: pas dopiero wchodzi od dołu ekranu; 1: jego dół minął 45% wysokości ekranu
       var p = (vh - r.top) / (vh * 0.55 + r.height);
       el.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));

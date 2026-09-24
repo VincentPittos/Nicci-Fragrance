@@ -200,9 +200,9 @@
 .drawer--product .drawer__body { padding: 0 0 var(--n-space-6); }
 .pd { display: grid; gap: var(--n-space-4); }
 .pd > :not(.pd__media) { margin-inline: var(--n-space-5); }
-.pd__media { position: relative; aspect-ratio: 4 / 5; max-height: min(44vh, 44dvh); margin: 0 auto; width: 100%; background: var(--surface-media); overflow: hidden; }
+.pd__media { position: relative; aspect-ratio: 4 / 5; max-height: calc(var(--screen-h) * 0.44); margin: 0 auto; width: 100%; background: var(--surface-media); overflow: hidden; }
 .pd__media img { width: 100%; height: 100%; object-fit: contain; }
-@media (min-width: 48rem) { .pd__media { max-height: 58vh; } }
+@media (min-width: 48rem) { .pd__media { max-height: calc(var(--screen-h) * 0.58); } }
 .pd__head { display: grid; gap: 0.1rem; text-align: center; }
 .pd__brand { font-family: var(--font-display); font-size: 2rem; line-height: 1.05; color: var(--text-accent); letter-spacing: -0.01em; }
 .pd__name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; color: var(--text-strong); }

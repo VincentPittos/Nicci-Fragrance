@@ -1,7 +1,7 @@
 /* NICCI: quiz. Pełny ekran, ciemne tło, jedno pytanie na ekran, kafle z ikoną w złocie. */
 
 .quiz-page {
-  min-height: 100vh; min-height: 100dvh;
+  min-height: var(--screen-h);
   display: flex; flex-direction: column;
   background:
     radial-gradient(90% 60% at 85% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),

@@ -492,7 +492,7 @@
 }
 .drawer--bottom .drawer__panel {
   left: 0; right: 0; bottom: 0;
-  max-height: min(88vh, 88dvh);
+  max-height: calc(var(--screen-h) * 0.88);
   border-top: var(--n-hairline) solid var(--border-gold);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }

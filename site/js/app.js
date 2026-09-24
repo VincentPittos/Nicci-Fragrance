@@ -16,6 +16,21 @@
   // Backend trzyma katalog w cache 5 minut (CONFIG.CACHE_SECONDS), więc zmiana ceny w arkuszu dociera na stronę w tym czasie.
   var FRESH_MS = 2 * 60 * 1000;
 
+  // ---------- wysokość ekranu ----------
+  // Zapamiętana przy wejściu i zmieniana tylko razem z szerokością (obrót telefonu). W przeglądarkach Instagrama
+  // i Messengera dolny pasek chowa się przy przewijaniu i widok rośnie; układ oparty na --screen-h (tokens.css)
+  // zostaje wtedy w miejscu, zamiast powiększać kadr hero i przesuwać sekcje w trakcie przewijania.
+  var screenW = 0, screenH = 0;
+  function lockScreen() {
+    if (window.innerWidth === screenW || window.innerHeight < 200) return;
+    screenW = window.innerWidth;
+    screenH = window.innerHeight;
+    document.documentElement.style.setProperty('--screen-h', screenH + 'px');
+  }
+  lockScreen();
+  window.addEventListener('resize', lockScreen);
+  window.addEventListener('pageshow', lockScreen);
+
   function ss(method, key, value) {
     try { return method === 'get' ? sessionStorage.getItem(key) : method === 'set' ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key); }
     catch (e) { return null; } // tryb prywatny: działamy bez pamięci sesji
@@ -178,7 +193,8 @@
 
   window.NicciApp = {
     src: src, url: url, decorate: decorateAll, catalog: catalog, onCatalog: onCatalog, dropCatalog: dropCatalog,
-    plural: plural, params: params, isDev: isDev, igHandle: igHandle
+    plural: plural, params: params, isDev: isDev, igHandle: igHandle,
+    screenH: function () { return screenH || window.innerHeight; }
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
