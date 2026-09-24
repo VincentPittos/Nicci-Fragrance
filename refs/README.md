@@ -1,4 +1,4 @@
-# Nicci Fragrances: system sprzedaży
+# Nicci Fragrance: system sprzedaży
 
 Instagram przyprowadza ruch, strona dobiera zapach i przyjmuje zamówienie, arkusz Google jest bazą danych i panelem właściciela, a płatność idzie BLIKiem na telefon albo przelewem. Koszt stały: 0 zł (opcjonalnie domena).
 
@@ -69,14 +69,14 @@ InstantDM (plan darmowy, 500 automatyzacji miesięcznie): automatyzacja komentar
 
 Wiadomość po komentarzu:
 ```
-Hej, dzięki za komentarz! Tu dobierzesz zapach w minutę: https://TWOJASTRONA/?src=reel12#quiz Odpowiesz na pięć krótkich pytań, a my pokażemy trzy odlewki, które najbardziej do Ciebie pasują.
+Hej, dzięki za komentarz! Tu dobierzesz zapach w minutę: https://niccifragrance.pl/quiz?src=reel12 Odpowiesz na pięć krótkich pytań, a my pokażemy trzy odlewki, które najbardziej do Ciebie pasują.
 ```
 
 Meta Business Suite, Skrzynka odbiorcza, Automatyzacje (darmowe):
 
 Natychmiastowa odpowiedź na pierwszą wiadomość:
 ```
-Cześć, tu Nicci Fragrances. Odpiszemy najszybciej, jak się da. Jeśli chcesz od razu dobrać zapach, zrób nasz krótki quiz: https://TWOJASTRONA/?src=dm#quiz
+Cześć, tu Nicci Fragrance. Odpiszemy najszybciej, jak się da. Jeśli chcesz od razu dobrać zapach, zrób nasz krótki quiz: https://niccifragrance.pl/quiz?src=dm
 ```
 
 Słowo kluczowe ZAMOWIENIE (wiadomość kopiowana ze strony zaczyna się od tego słowa):
@@ -129,7 +129,7 @@ Tego zapachu właśnie zabrakło, ale mamy bardzo podobny: [nazwa]. Możemy podm
 
 ### Zamowienia
 
-Wypełnia system. Właściciel edytuje tylko `status`, `numer_przesylki` i ewentualnie `uwagi`. Nie sortuj tej zakładki ręcznie w trakcie pracy triggerów. Do przeglądania używaj filtra.
+Wypełnia system. Właściciel edytuje tylko `status`, `numer_przesylki`, `przewoznik` i ewentualnie `uwagi`. Nie sortuj tej zakładki ręcznie w trakcie pracy triggerów. Do przeglądania używaj filtra.
 
 ### Ewidencja
 
@@ -139,11 +139,11 @@ Wpis przy każdej płatności i korekta przy anulowaniu opłaconego zamówienia.
 
 1. Rano i wieczorem otwórz aplikację banku i sprawdź wpłaty z tytułem NF.
 2. W arkuszu włącz filtr `status = NOWE` i przy opłaconych zamówieniach zmień status na OPŁACONE. Mail do klienta, stan i ewidencja zrobią się same. Działa też z aplikacji Arkusze na telefonie (sprawdź w teście).
-3. Odlej, spakuj, nadaj w InPost.
-4. Wklej numer przesyłki w kolumnę `numer_przesylki`. Status zmieni się na WYSŁANE i klient dostanie link do śledzenia.
+3. Odlej, spakuj, nadaj. Paczkomat to zawsze InPost, kuriera wybierasz sam (InPost, DPD albo DHL).
+4. Przy kurierze wybierz firmę w kolumnie `przewoznik`. Wklej numer przesyłki w kolumnę `numer_przesylki`. Status zmieni się na WYSŁANE i klient dostanie link do śledzenia u tego przewoźnika. Przy paczkomacie kolumna `przewoznik` może zostać pusta.
 5. Nowy flakon: dodaj jego ml do `ml_dostepne`. Koniec zapachu: `aktywny` na NIE albo zostaw z zerowym stanem (karta pokaże "Wyprzedane").
 
-Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE. System wyśle Ci mail z prośbą o sprawdzenie dostępności. Zwrot pieniędzy: ustaw ANULOWANE (ml wrócą na stan, w ewidencji pojawi się korekta), a przelew zwrotny zrób ręcznie.
+Wpłata po terminie rezerwacji: i tak ustaw OPŁACONE i zrealizuj zamówienie. System wyśle Ci mail z prośbą o sprawdzenie dostępności. Jeśli zapachu brakuje, sprowadź go (do 5 dni roboczych). Zwrot pieniędzy: ustaw ANULOWANE (ml wrócą na stan, w ewidencji pojawi się korekta), a przelew zwrotny zrób ręcznie.
 
 ## Testy przed startem
 

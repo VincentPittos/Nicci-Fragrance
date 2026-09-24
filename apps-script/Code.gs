@@ -25,12 +25,12 @@
 const CONFIG = {
   SHOP_NAME: 'Nicci Fragrance',
   OWNER_EMAIL: 'UZUPELNIJ',          // tu przychodzą powiadomienia o zamówieniach
-  IG_HANDLE: 'UZUPELNIJ',            // bez @
-  SITE_URL: 'UZUPELNIJ',             // np. https://niccifragrances.pl, bez ukośnika na końcu
+  IG_HANDLE: 'nicci_fragrance',      // bez @
+  SITE_URL: 'https://niccifragrance.pl', // adres strony, bez ukośnika na końcu
   BLIK_PHONE: 'UZUPELNIJ',           // numer telefonu podpięty pod przelewy BLIK
   BANK_ACCOUNT: 'UZUPELNIJ',         // 26 cyfr, spacje dowolne
   RECIPIENT: 'UZUPELNIJ',            // odbiorca przelewu
-  SELLER_INFO: 'UZUPELNIJ',          // dane sprzedawcy do stopki maili
+  SELLER_INFO: 'Nicci Fragrance, działalność nierejestrowana, kontakt@niccifragrance.pl', // stopka maili
   SHIPPING: { paczkomat: null, kurier: null },   // w zł, np. 14.99
   FREE_SHIPPING_FROM: 0,             // w zł, 0 wyłącza darmową dostawę
   RESERVATION_HOURS: 24,
@@ -44,7 +44,13 @@ const CONFIG = {
   MAX_ORDERS_PER_HOUR: 30,           // bezpiecznik na zalew fałszywych zamówień
   CACHE_SECONDS: 300,
   TIMEZONE: 'Europe/Warsaw',
-  TRACKING_URL: 'https://inpost.pl/sledzenie-przesylek?number={numer}'
+  // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
+  // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
+  TRACKING_URLS: {
+    InPost: 'https://inpost.pl/sledzenie-przesylek?number={numer}',
+    DPD: 'https://tracktrace.dpd.com.pl/parcelDetails?typ=1&p1={numer}',
+    DHL: 'https://www.dhl.com/pl-pl/home/sledzenie.html?tracking-id={numer}&submit=1'
+  }
 };
 
 // ============ 2. STAŁE ============
@@ -79,7 +85,7 @@ const HEADERS = {
   Zestawy: ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad'],
   Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'imie_nazwisko', 'email', 'telefon', 'instagram',
     'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
-    'koszt_dostawy', 'kwota', 'uwagi_klienta', 'src', 'quiz', 'numer_przesylki', 'uwagi', 'przypomnienie',
+    'koszt_dostawy', 'kwota', 'uwagi_klienta', 'src', 'quiz', 'numer_przesylki', 'przewoznik', 'uwagi', 'przypomnienie',
     'historia', 'stan_zdjety', 'status_przetworzony', 'pozycje_json', 'ml_json'],
   Ewidencja: ['data', 'numer', 'typ', 'kwota', 'platnosc', 'klient', 'uwagi'],
   Log: ['czas', 'poziom', 'zdarzenie', 'szczegoly'],
@@ -624,7 +630,7 @@ const TEMPLATES = {
     return mail_('Rezerwacja ' + o.numer + ' wygasła', [
       'Cześć ' + firstName_(o.customer.name) + ',',
       'nie zobaczyliśmy wpłaty za zamówienie ' + o.numer + ', więc rezerwacja wygasła, a zapachy wróciły do katalogu.',
-      'Jeśli pieniądze są już w drodze, napisz do nas, a sprawdzimy, czy wszystko jest jeszcze na stanie.',
+      'Jeśli pieniądze są już w drodze, nic więcej nie musisz robić: gdy wpłata dotrze, zrealizujemy zamówienie.',
       'Możesz też złożyć zamówienie jeszcze raz: ' + cfg.SITE_URL
     ], cfg);
   },
@@ -637,11 +643,12 @@ const TEMPLATES = {
     ], cfg);
   },
 
-  klientWyslane: function (o, cfg, tracking) {
+  klientWyslane: function (o, cfg, tracking, carrier) {
+    const url = trackingUrl_(carrier, tracking, cfg);
     return mail_('Zamówienie ' + o.numer + ' jest w drodze', [
       'Cześć ' + firstName_(o.customer.name) + ',',
-      'paczka jest już nadana. Numer przesyłki: ' + tracking + '.',
-      'Śledzenie: ' + cfg.TRACKING_URL.replace('{numer}', encodeURIComponent(tracking)),
+      'paczka jest już nadana' + (carrier ? ', wiezie ją ' + carrier : '') + '. Numer przesyłki: ' + tracking + '.',
+      url ? 'Śledzenie: ' + url : '',
       'Miłego testowania. Jeśli któryś zapach zostanie z Tobą na dłużej, daj nam znać na Instagramie.'
     ], cfg);
   },
@@ -649,7 +656,7 @@ const TEMPLATES = {
   wlascicielPoTerminie: function (o, cfg, braki) {
     return mail_('Wpłata po terminie: ' + o.numer, [
       'Zamówienie ' + o.numer + ' zostało opłacone po wygaśnięciu rezerwacji.',
-      braki.length ? 'Po zdjęciu ze stanu brakuje: ' + braki.join('; ') + '. Sprawdź flakony i skontaktuj się z klientem w sprawie zamiany albo zwrotu.'
+      braki.length ? 'Po zdjęciu ze stanu brakuje: ' + braki.join('; ') + '. Zamówienie realizujemy: sprowadź brakujący zapach (do 5 dni roboczych) i daj klientowi znać o terminie.'
         : 'Stany wystarczyły, ml zdjęliśmy normalnie. Upewnij się tylko, że flakony się zgadzają.',
       'Klient: ' + o.customer.name + ', ' + o.customer.email + ', tel. ' + o.customer.phone
     ], cfg);
@@ -944,13 +951,13 @@ function handleEdit(e) {
   const H = headerMap_(sh);
   const c0 = e.range.getColumn(), c1 = c0 + e.range.getNumColumns() - 1;
   const touches = function (col) { return H[col] && H[col] >= c0 && H[col] <= c1; };
-  if (!touches('status') && !touches('numer_przesylki')) return;
+  if (!touches('status') && !touches('numer_przesylki') && !touches('przewoznik')) return;
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {
     const r0 = Math.max(2, e.range.getRow()), r1 = e.range.getRow() + e.range.getNumRows() - 1;
     for (let r = r0; r <= r1; r++) {
-      if (touches('numer_przesylki')) handleTracking_(sh, H, r);
+      if (touches('numer_przesylki') || touches('przewoznik')) handleTracking_(sh, H, r);
       handleStatus_(sh, H, r);
     }
   } catch (err) {
@@ -970,10 +977,27 @@ function handleTracking_(sh, H, r) {
     writeFields_(sh, H, r, { uwagi: appendNote_(rec.uwagi, 'Numer przesyłki wpisany przy statusie ' + status + '. Mail nie poszedł, najpierw ustaw OPŁACONE.') });
     return;
   }
+  const carrier = carrierFor_(rec, CONFIG);
+  if (!carrier) {
+    writeFields_(sh, H, r, { uwagi: appendNote_(rec.uwagi, 'Wybierz przewoźnika w kolumnie przewoznik. Mail z numerem przesyłki pójdzie zaraz po wyborze.') });
+    return;
+  }
   writeFields_(sh, H, r, { status: STATUS.WYSLANE });
   handleStatus_(sh, H, r);
   const order = orderFromRecord_(rec);
-  sendMail_(order.customer.email, TEMPLATES.klientWyslane(order, CONFIG, tracking), 'klientWyslane ' + order.numer);
+  sendMail_(order.customer.email, TEMPLATES.klientWyslane(order, CONFIG, tracking, carrier), 'klientWyslane ' + order.numer);
+}
+
+/** Przewoźnik z kolumny przewoznik (wielkość liter bez znaczenia); przy paczkomacie zawsze InPost. Pusty, gdy nie wiadomo. */
+function carrierFor_(rec, cfg) {
+  if (str_(rec.dostawa) === 'paczkomat') return 'InPost';
+  const want = str_(rec.przewoznik).toLowerCase();
+  return Object.keys(cfg.TRACKING_URLS).filter(function (k) { return k.toLowerCase() === want; })[0] || '';
+}
+
+function trackingUrl_(carrier, tracking, cfg) {
+  const tpl = carrier && cfg.TRACKING_URLS[carrier];
+  return tpl ? tpl.replace('{numer}', encodeURIComponent(tracking)) : '';
 }
 
 /** Skutki zmiany statusu. Idempotentne dzięki kolumnom status_przetworzony i stan_zdjety. */
@@ -1076,6 +1100,9 @@ function setup() {
   const rule = SpreadsheetApp.newDataValidation()
     .requireValueInRange(st.getRange(2, 1, STATUS_OPIS.length, 1), true).setAllowInvalid(false).build();
   zam.getRange(2, H.status, zam.getMaxRows() - 1, 1).setDataValidation(rule);
+  const carriers = SpreadsheetApp.newDataValidation()
+    .requireValueInList(Object.keys(CONFIG.TRACKING_URLS), true).setAllowInvalid(false).build();
+  zam.getRange(2, H.przewoznik, zam.getMaxRows() - 1, 1).setDataValidation(carriers);
   ['utworzone', 'rezerwacja_do', 'przypomnienie'].forEach(function (k) {
     zam.getRange(2, H[k], zam.getMaxRows() - 1, 1).setNumberFormat('dd.mm.yyyy HH:mm');
   });

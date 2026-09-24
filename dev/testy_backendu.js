@@ -203,13 +203,29 @@ test('maile: dane klienta są escapowane, treść bez myślników', () => {
     delivery: v.data.delivery, payment: 'blik', note: '', lines: p.lines, subtotal: p.subtotal, shipping: p.shipping, total: p.total };
   const c = Object.assign({}, cfg, { BLIK_PHONE: '600 000 000', RECIPIENT: 'Nicci', BANK_ACCOUNT: '12345678901234567890123456', SELLER_INFO: 'dane' });
   Object.keys(be.TEMPLATES).forEach((k) => {
-    const t = be.TEMPLATES[k](order, c, k === 'klientWyslane' ? 'ABC123' : []);
+    const t = k === 'klientWyslane' ? be.TEMPLATES[k](order, c, 'ABC123', 'InPost') : be.TEMPLATES[k](order, c, []);
     assert.ok(!/<script>/.test(t.html), k + ': surowy HTML klienta w mailu');
     assert.ok(!/[–—]/.test(t.text + t.subject), k + ': półpauza albo pauza w treści');
   });
   const nowe = be.TEMPLATES.klientNowe(order, c);
   assert.match(nowe.text, /Tytuł: NF0101/);
   assert.match(nowe.text, /12 3456 7890 1234 5678 9012 3456/);
+});
+
+test('wysyłka: przewoźnik z kolumny, paczkomat zawsze InPost, link śledzenia w mailu', () => {
+  const c = Object.assign({}, cfg, { SELLER_INFO: 'dane' });
+  assert.equal(be.carrierFor_({ dostawa: 'paczkomat', przewoznik: '' }, c), 'InPost');
+  assert.equal(be.carrierFor_({ dostawa: 'kurier', przewoznik: 'dpd' }, c), 'DPD', 'wielkość liter bez znaczenia');
+  assert.equal(be.carrierFor_({ dostawa: 'kurier', przewoznik: '' }, c), '', 'kurier bez przewoźnika: mail czeka');
+  assert.equal(be.carrierFor_({ dostawa: 'kurier', przewoznik: 'Poczta' }, c), '', 'spoza listy: mail czeka');
+  const order = { numer: 'NF0101', customer: { name: 'Anna Kowal', email: 'a@b.pl' }, delivery: { method: 'kurier' }, lines: [], total: 0 };
+  const dpd = be.TEMPLATES.klientWyslane(order, c, 'AB 12/3', 'DPD');
+  assert.match(dpd.text, /wiezie ją DPD/);
+  assert.match(dpd.text, /tracktrace\.dpd\.com\.pl\/parcelDetails\?typ=1&p1=AB%2012%2F3/, 'numer zakodowany w adresie');
+  const dhl = be.TEMPLATES.klientWyslane(order, c, '123', 'DHL');
+  assert.match(dhl.text, /dhl\.com\/pl-pl\/home\/sledzenie\.html\?tracking-id=123/);
+  const none = be.TEMPLATES.klientWyslane(order, c, '123', '');
+  assert.ok(!/Śledzenie:/.test(none.text), 'bez przewoźnika nie ma zmyślonego linku');
 });
 
 test('odpowiedź zamówienia: pola, których używa strona potwierdzenia', () => {

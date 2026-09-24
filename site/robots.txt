@@ -3,3 +3,5 @@
 # Linię Sitemap dopisuje dev/ustaw_domene.py po ustaleniu domeny.
 User-agent: *
 Allow: /
+
+Sitemap: https://niccifragrance.pl/sitemap.xml
