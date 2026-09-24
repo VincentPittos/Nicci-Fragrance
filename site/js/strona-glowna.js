@@ -55,23 +55,6 @@
     });
   }
 
-  /** Na telefonie pasek przewija się w bok: wtedy dostaje fokus z klawiatury, na komputerze nie ma zbędnego przystanku. */
-  function trustScroll() {
-    var list = document.querySelector('.trust__list');
-    if (!list) return;
-    var sync = function () {
-      if (list.scrollWidth > list.clientWidth + 1) {
-        list.setAttribute('tabindex', '0');
-        list.setAttribute('aria-label', 'Co dostajesz, przewiń w bok');
-      } else {
-        list.removeAttribute('tabindex');
-        list.removeAttribute('aria-label');
-      }
-    };
-    sync();
-    window.addEventListener('resize', sync);
-  }
-
   // ---------- rodziny ----------
   /** Najczęstsze nuty rodziny, które mają miniaturę (bez powtórzeń tej samej miniatury). */
   function familyNotes(items, k) {
@@ -168,7 +151,6 @@
   function init() {
     initParallax();
     initHorizon();
-    trustScroll();
     A.catalog().then(function (catalog) {
       trustCount(catalog);
       renderFamilies(catalog);

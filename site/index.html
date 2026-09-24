@@ -113,13 +113,14 @@
   </ul>
 </section>
 
-<!-- 2. JAK TO DZIAŁA: artifact właściciela. Zmienione wyłącznie: kolory na tokeny (css/sekcja2.css),
-     typografia, responsywność, animacja wejścia, zdjęcie w karcie 3 (kadr odlewania) i licznik rezerwacji
-     zamieniony na stałą informację o 24 godzinach (decyzja właściciela). -->
+<!-- 2. JAK TO DZIAŁA: interaktywne karty z artifactu właściciela. Wygląd dopasowany do reszty strony
+     (decyzja 61): nagłówek z nadtytułem, karty w równym rzędzie, numer kroku nad złotą linią, przycisk .btn.
+     Zachowanie kart bez zmian (js/sekcja2.js). -->
 <section class="nf-how theme-graphite" id="jak-to-dziala" aria-labelledby="nf-how-title">
-  <header class="nf-how__head">
-    <h2 class="nf-how__title" id="nf-how-title">Jak to działa</h2>
-    <p class="nf-how__lead">Od pierwszego pytania do paczki w Twoim paczkomacie. Zamówienie składasz w kilka minut, resztą zajmujemy się my.</p>
+  <header class="nf-how__head section-head">
+    <p class="t-eyebrow t-eyebrow--rule">Jak to działa</p>
+    <h2 class="t-h2" id="nf-how-title">Cztery kroki <span class="t-accent">do Twojego zapachu</span></h2>
+    <p class="t-lead nf-how__lead">Od pierwszego pytania do paczki w Twoim paczkomacie. Zamówienie składasz w kilka minut, resztą zajmujemy się my.</p>
   </header>
 
   <ol class="nf-steps">
@@ -144,7 +145,7 @@
         </div>
       </div>
       <div class="nf-step__text">
-        <span class="nf-step__num">1</span>
+        <span class="nf-step__num">01</span>
         <h3 class="nf-step__title">Zrób quiz</h3>
         <p class="nf-step__desc">Pięć krótkich pytań o to, co lubisz. Na końcu dostajesz trzy zapachy dobrane do Ciebie.</p>
       </div>
@@ -174,7 +175,7 @@
         <div class="nf-hold"><span>Rezerwujemy<br>Twoje zapachy na</span><b>24 h</b></div>
       </div>
       <div class="nf-step__text">
-        <span class="nf-step__num">2</span>
+        <span class="nf-step__num">02</span>
         <h3 class="nf-step__title">Wybierz odlewki</h3>
         <p class="nf-step__desc">Dodaj do koszyka 5, 10 albo 20 ml. Po złożeniu zamówienia trzymamy dla Ciebie rezerwację przez 24 godziny.</p>
       </div>
@@ -189,7 +190,7 @@
         <p class="nf-photo__cap"><i>Oryginał</i><br>w złotym atomizerze, który zmieścisz w kieszeni</p>
       </div>
       <div class="nf-step__text">
-        <span class="nf-step__num">3</span>
+        <span class="nf-step__num">03</span>
         <h3 class="nf-step__title">Odlewamy z oryginału</h3>
         <p class="nf-step__desc">Każdą odlewkę przygotowujemy ręcznie, prosto z oryginalnego flakonu, do atomizera, który zabierzesz wszędzie.</p>
       </div>
@@ -214,7 +215,7 @@
         </div>
       </div>
       <div class="nf-step__text">
-        <span class="nf-step__num">4</span>
+        <span class="nf-step__num">04</span>
         <h3 class="nf-step__title">Zapłać i odbierz</h3>
         <p class="nf-step__desc">Płacisz BLIKiem na telefon albo przelewem. Paczkę odbierasz w paczkomacie, który sam wybierzesz.</p>
       </div>
@@ -222,7 +223,7 @@
   </ol>
 
   <div class="nf-how__cta">
-    <a class="nf-btn" href="/quiz">Znajdź zapach dla siebie</a>
+    <a class="btn btn--primary" href="/quiz">Znajdź zapach dla siebie</a>
     <p class="nf-how__note">Bez zakładania konta. Płatność BLIKiem albo przelewem.</p>
   </div>
 </section>
