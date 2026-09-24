@@ -13,8 +13,11 @@
     if (!media || M.reduced()) return;
     var hero = media.parentElement;
     var raf = 0;
+    // na telefonie opis leży tuż nad atomizerami, a przyciski tuż pod nimi: przesunięcie zdjęcia by je zbliżyło
+    var phone = window.matchMedia('(max-width: 47.99rem)');
     function update() {
       raf = 0;
+      if (phone.matches) { M.set(media, { y: 0 }); return; }
       var h = hero.offsetHeight;
       if (window.scrollY > h) return;
       M.set(media, { y: Math.min(12, window.scrollY * 0.03) });

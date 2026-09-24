@@ -101,6 +101,18 @@ Słownik `site/js/nuty.js` przypisuje nutę do miniatury po rdzeniu słowa (np. 
 
 Ujednolicenie (`dev/zdjecia/przygotuj_wejscie.py`, potem `ujednolic_zdjecia.py`): kadr 4:5, tło #F1EFEC, flakon na 74% wysokości, podstawa na 88%. Flakon kopiowany bez zmian; tło i cień przenoszone jako mapa cieniowania (źródło podzielone przez model tła), więc cień zostaje miękki, a tło wychodzi równe. PNG z przezroczystością (Xerjoff, Tom Ford, Montale, Crivelli, Azzaro) wklejane po kanale alfa. Z dwóch zdjęć (Bois Pacifique, 1 Million) usunięta plakietka nagrody Fragrance Foundation. Pliki: `site/img/produkty/{id}-400|800.webp`, adres w arkuszu: `/img/produkty/{id}-800.webp`.
 
+## Hero na telefonie
+
+Na telefonie hero pokazuje prawe 70% zdjęcia (atomizery Nicci) w powiększeniu, więc zwykły plik 800 albo 1200 px był rozciągany 2,5 raza i wychodził rozmyty. Osobny kadr z pliku właściciela `refs/hero-czysty.webp`, przygotowany skryptem `dev/grafiki/hero_telefon.py`:
+
+| Plik | Rozmiar | Obróbka | Dla kogo |
+|---|---|---|---|
+| `hero-m-1000.webp` | 1000 × 797, 60 KB | zmniejszenie, lekkie wyostrzenie | małe ekrany 2× |
+| `hero-m-1400.webp` | 1400 × 1116, 100 KB | piksele źródła, wyostrzenie (unsharp mask 1,0 / 55%) | ekrany 2× |
+| `hero-m-2100.webp` | 2100 × 1674, 138 KB | EDSR ×2 (lokalnie, OpenCV dnn_superres), zmniejszenie, delikatne wyostrzenie | ekrany 3× |
+
+Przeglądarka wybiera plik z `sizes` zależnego od wysokości ekranu, bo od niej zależy wysokość kadru. Każdy telefon pobiera jeden plik. Na iPhonie (390 px, 3×) kadr jest powiększany 1,03 raza zamiast 2,56. Cienka jasna obwódka przy flakonie Louis Vuitton jest w oryginale, wyostrzanie jej nie dodało.
+
 ## Grafika Open Graph
 
 `site/img/og.jpg`, 1200×630, 100 KB: kadr z `refs/hero-czysty.webp`, złote logo wektorowe i linia „Oryginalne perfumy w odlewkach 5, 10 i 20 ml” (do przejścia przez humanizer w etapie 8). Budowa: `node dev/grafiki/zbuduj_og.js`.

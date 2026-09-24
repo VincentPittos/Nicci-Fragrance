@@ -21,7 +21,8 @@
 <link rel="apple-touch-icon" href="/img/marka/apple-touch-icon.png">
 <link rel="preload" href="/fonts/cormorant-garamond-normal-latin-2fed1d.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jost-normal-latin-35841f.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/img/hero/hero-1200.webp" imagesrcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" media="(max-width: 47.99rem)" imagesrcset="/img/hero/hero-m-1000.webp 1000w, /img/hero/hero-m-1400.webp 1400w, /img/hero/hero-m-2100.webp 2100w" imagesizes="(max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 48rem)" href="/img/hero/hero-1200.webp" imagesrcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
@@ -67,10 +68,14 @@
 <!-- 1. HERO -->
 <section class="hero theme-dark" aria-labelledby="hero-t">
   <div class="hero__media" data-parallax>
-    <img src="/img/hero/hero-1200.webp"
-      srcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w"
-      sizes="100vw" width="2000" height="1116" fetchpriority="high"
-      alt="Flakony perfum niszowych i złote atomizery Nicci na kamiennej płycie, obok kwiat magnolii">
+    <picture>
+      <!-- telefon: prawe 70% zdjęcia (atomizery Nicci), wyostrzone; 2100 px z EDSR x2 dla ekranów 3x (dev/grafiki/hero_telefon.py) -->
+      <source media="(max-width: 47.99rem)" srcset="/img/hero/hero-m-1000.webp 1000w, /img/hero/hero-m-1400.webp 1400w, /img/hero/hero-m-2100.webp 2100w" sizes="(max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" width="1400" height="1116">
+      <img src="/img/hero/hero-1200.webp"
+        srcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w"
+        sizes="100vw" width="2000" height="1116" fetchpriority="high"
+        alt="Flakony perfum niszowych i złote atomizery Nicci na kamiennej płycie, obok kwiat magnolii">
+    </picture>
   </div>
   <div class="hero__inner">
     <div class="hero__copy">

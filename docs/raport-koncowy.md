@@ -171,7 +171,7 @@ Serwer pomiarowy odtwarza Cloudflare Pages: HTTP/2, kompresja Brotli, cache obra
 
 | Strona | Urządzenie | Wydajność | Dostępność | Dobre praktyki | SEO | LCP | TBT | CLS | Waga |
 |---|---|---|---|---|---|---|---|---|---|
-| `/` | telefon | 96 | 100 | 100 | 92 | 2,6 s | 40 ms | 0 | 307 KB |
+| `/` | telefon | 91 do 94 | 100 | 100 | 92 | 2,8 do 3,0 s | 30 do 150 ms | 0 | 378 KB |
 | `/quiz` | telefon | 100 | 100 | 100 | 92 | 1,4 s | 0 ms | 0 | 115 KB |
 | `/zamowienie` | telefon | 99 | 100 | 100 | 66 | 2,0 s | 0 ms | 0 | 200 KB |
 | `/regulamin` | telefon | 99 | 100 | 100 | 66 | 2,0 s | 20 ms | 0 | 166 KB |
@@ -180,7 +180,7 @@ Serwer pomiarowy odtwarza Cloudflare Pages: HTTP/2, kompresja Brotli, cache obra
 
 SEO 92: canonical jest dziś względny, bo nie znamy domeny. `dev/ustaw_domene.py` wpisze adres bezwzględny. SEO 66 na zamówieniu i regulaminie to zamierzony `noindex`.
 
-Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09). Strona główna przed optymalizacją miała 91 punktów (LCP 2,7 s, TBT 160 ms). Zmiany: grupy katalogu poza ekranem nie są układane (`content-visibility: auto` z wysokością szacowaną z liczby kart, trafność ±5%), obraz hero bez `decoding="async"`, wariant 300 px kadru z sekcji 2. Pliki CSS i JS zostały osobne: ich łączenie wymagałoby kroku budowania, którego prompt nie chce, a po tych zmianach wynik 97 go nie uzasadnia. Łączenia nie mierzyliśmy.
+Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); telefon po wdrożeniu wariantu C z ostrym kadrem (trzy przebiegi). Ostry kadr waży 100 KB zamiast 29 KB, dlatego LCP na telefonie wzrósł z 2,6 do około 2,9 s w teście z dławieniem łącza. Strona główna przed optymalizacją miała 91 punktów (LCP 2,7 s, TBT 160 ms). Zmiany: grupy katalogu poza ekranem nie są układane (`content-visibility: auto` z wysokością szacowaną z liczby kart, trafność ±5%), obraz hero bez `decoding="async"`, wariant 300 px kadru z sekcji 2. Pliki CSS i JS zostały osobne: ich łączenie wymagałoby kroku budowania, którego prompt nie chce, a po tych zmianach wynik 97 go nie uzasadnia. Łączenia nie mierzyliśmy.
 
 ### Testy ścieżki zamówienia
 

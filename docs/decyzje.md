@@ -85,6 +85,7 @@
 |---|---|---|---|
 | 43 | Hero według makiety właściciela | Nagłówek w dwóch liniach: „Zapach z najwyższej półki” i pod nim większa (×1,28 na telefonie, ×1,36 na komputerze), złota kursywa „Za ułamek ceny”, podciągnięta pod pierwszą linię. Opis z makiety w całości, z drugą częścią o quizie. Bez nadtytułu i bez notki „5 pytań, około minuty”, bo opis mówi to samo. Od 80rem tekst przy lewej krawędzi, a jego wymiary i przyciski są w vw, więc kompozycja ze zdjęciem jest ta sama od 1280 do 2560 px (sprawdzone pomiarem kolizji z flakonami i magnolią). Pasek nagłówka na pełną szerokość, żeby logo stało w linii z tekstem hero. Fonty i przyciski zostają z systemu wizualnego. | makieta właściciela |
 | 44 | Wyprzedane karty | Zamiast przezroczystości tekst w kolorze drugorzędnym (kontrast AA), przyciemnione tylko zdjęcia i miniatury; niedostępny zestaw ma przerywaną ramkę. | audyt axe na 1920 px |
+| 45 | Hero na telefonie, wariant C | Nagłówek na górze, opis na zdjęciu z lekkim cieniem (każda linia co najmniej 7,3:1), atomizery Nicci w całości pod opisem, przyciski na kamieniu u dołu, wszystko na pierwszym ekranie. Osobny, wyostrzony kadr prawych 70% zdjęcia w trzech szerokościach (1000, 1400 i 2100 px z EDSR ×2) i `sizes` zależne od wysokości ekranu. Paralaksa na telefonie wyłączona, żeby zdjęcie nie zbliżało atomizerów do przycisków. | akceptacja właściciela, prośba o ostrzejsze zdjęcie |
 
 ## Otwarte
 

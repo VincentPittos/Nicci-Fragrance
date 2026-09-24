@@ -127,8 +127,47 @@ body { background: var(--bg-dark); }
   mask-image: linear-gradient(180deg, transparent 0, #000 22%);
 }
 
+.hero__media picture { display: contents; }
+
 @media (min-width: 40rem) {
   .hero__cta { display: flex; flex-wrap: wrap; }
+}
+
+/* Telefon (wariant C zatwierdzony przez właściciela): nagłówek, pod nim opis na zdjęciu z lekkim cieniem,
+   atomizery Nicci w całości pod opisem, przyciski na kamieniu u dołu kadru. Kadr to prawe 70% zdjęcia
+   (hero-m-*.webp, 1400 × 1116). Górne 31,7% kadru to ściana, dolne 23,8% kamień i piasek: z tych proporcji
+   wynikają ujemne marginesy zdjęcia i przycisków. Środek atomizerów leży na 59% szerokości kadru. */
+@media (max-width: 47.99rem) {
+  .hero {
+    /* wysokość kadru: atomizery i przyciski na 1. ekranie. Szerokość kadru to 1,2545 × --hb; przy zmianie wzoru
+       popraw też sizes kadru hero-m w index.html (obraz i preload), bo zależy od wysokości ekranu. */
+    --hb: clamp(24rem, calc((100svh - 36.5rem) * 2.2), 38rem);
+    padding-top: calc(4.25rem + var(--n-space-5));
+    padding-bottom: var(--n-space-5);
+  }
+  .hero__inner, .hero__copy { display: contents; }
+  .hero__title, .hero__lead, .hero__cta { position: relative; z-index: 1; padding-inline: var(--gutter); }
+  .hero__title { order: 1; }
+  .hero__lead { order: 2; margin-top: var(--n-space-4); }
+  .hero__title-1, .hero__lead { text-shadow: 0 1px 2px rgb(4 4 4 / 0.6), 0 2px 18px rgb(4 4 4 / 0.55); }
+  /* kursywa ma tekst z gradientem: text-shadow przykryłby go, więc cień przez filtr */
+  .hero__title-2 { filter: drop-shadow(0 2px 10px rgb(4 4 4 / 0.6)); }
+  .hero__media { order: 3; height: var(--hb); margin-top: calc(var(--hb) * -0.317 + 0.75rem); overflow: hidden; }
+  .hero__media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* środek atomizerów na środku ekranu, ale bez pustego pasa przy krawędzi na szerszych telefonach */
+    object-position: min(0px, max(calc(100vw - var(--hb) * 1.2545), calc(50vw - var(--hb) * 0.74))) 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 88%, transparent 100%);
+  }
+  /* lekki cień pod opisem: przyciemnia ścianę nad flakonami i kończy się na czubku atomizera */
+  .hero__media::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgb(4 4 4 / 0.75) 0%, rgb(4 4 4 / 0.62) 22%, rgb(4 4 4 / 0.55) 29%, rgb(4 4 4 / 0) 32.5%, rgb(4 4 4 / 0) 74%, rgb(4 4 4 / 0.45) 100%);
+  }
+  .hero__cta { order: 4; margin-top: calc(var(--hb) * -0.238 + 0.75rem); }
+  .hero__cta .btn--outline { background: rgb(4 4 4 / 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 }
 
 /* tablet i mały laptop: tekst wyżej, pod nim zdjęcie w całości */
