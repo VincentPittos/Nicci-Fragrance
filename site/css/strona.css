@@ -296,8 +296,10 @@ body { background: var(--bg-dark); }
    Punkty krzywej leżą w tych samych miejscach strony, przesunięte o --hz-o (początek krzywej względem górnej krawędzi
    danego tła), więc na styku elementów kolor i tempo zmiany są identyczne. Żaden element nie zachodzi na inny: Safari
    na iPhonie rysowało sekcję 2 nad zachodzącym na nią pasem i w miejscu styku powstawał próg jasności.
-   Krzywa smootherstep (6t^5 - 15t^4 + 10t^3): zmiana rusza i staje z zerowym nachyleniem i zerową krzywizną. Mieszanie
-   w oklab, 24 odcinki, złote światło (do 9% złota) rośnie i gaśnie razem z postępem zmiany.
+   Krzywa smootherstep (6t^5 - 15t^4 + 10t^3): zmiana rusza i staje z zerowym nachyleniem i zerową krzywizną. Kolory
+   policzone w oklab z grafitu #272727 (--n-graphite), kremu #F3EADF (--n-cream-100) i złota #D5A865 (--n-gold), 24 odcinki,
+   złote światło (do 9% złota) rośnie i gaśnie razem z postępem zmiany. Wpisane jako gotowe kolory, bez color-mix, żeby
+   przejście wyglądało tak samo w każdej przeglądarce, także w starszym Safari na iPhonie (color-mix od iOS 16.2).
    Długość krzywej wyznacza kontrast tekstu: dół dopisku pod przyciskiem stoi na 18% krzywej (tło ma 4% kremu, kontrast
    dopisku 4,8:1), nadtytuł „Rodziny zapachowe” na 80% (tło 94% kremu, kontrast 4,9:1). Odstęp między nimi to 62% krzywej. */
 :root {
@@ -311,31 +313,31 @@ body { background: var(--bg-dark); }
 @media (min-width: 64rem) { :root { --hz-up: 10.75rem; --hz-h: 16rem; --hz-down: 10.375rem; } }
 .nf-how, .horizon, .light-page {
   --hz-curve: linear-gradient(180deg,
-    var(--bg-graphite) var(--hz-o),
-    color-mix(in oklab, var(--accent) 0.02%, color-mix(in oklab, var(--bg-light) 0.07%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.0417),
-    color-mix(in oklab, var(--accent) 0.18%, color-mix(in oklab, var(--bg-light) 0.51%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.0833),
-    color-mix(in oklab, var(--accent) 0.57%, color-mix(in oklab, var(--bg-light) 1.61%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.1250),
-    color-mix(in oklab, var(--accent) 1.23%, color-mix(in oklab, var(--bg-light) 3.55%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.1667),
-    color-mix(in oklab, var(--accent) 2.17%, color-mix(in oklab, var(--bg-light) 6.45%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.2083),
-    color-mix(in oklab, var(--accent) 3.34%, color-mix(in oklab, var(--bg-light) 10.35%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.2500),
-    color-mix(in oklab, var(--accent) 4.65%, color-mix(in oklab, var(--bg-light) 15.22%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.2917),
-    color-mix(in oklab, var(--accent) 5.97%, color-mix(in oklab, var(--bg-light) 20.99%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.3333),
-    color-mix(in oklab, var(--accent) 7.18%, color-mix(in oklab, var(--bg-light) 27.52%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.3750),
-    color-mix(in oklab, var(--accent) 8.15%, color-mix(in oklab, var(--bg-light) 34.66%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.4167),
-    color-mix(in oklab, var(--accent) 8.78%, color-mix(in oklab, var(--bg-light) 42.22%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.4583),
-    color-mix(in oklab, var(--accent) 9%, color-mix(in oklab, var(--bg-light) 50%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.5000),
-    color-mix(in oklab, var(--accent) 8.78%, color-mix(in oklab, var(--bg-light) 57.78%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.5417),
-    color-mix(in oklab, var(--accent) 8.15%, color-mix(in oklab, var(--bg-light) 65.34%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.5833),
-    color-mix(in oklab, var(--accent) 7.18%, color-mix(in oklab, var(--bg-light) 72.48%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.6250),
-    color-mix(in oklab, var(--accent) 5.97%, color-mix(in oklab, var(--bg-light) 79.01%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.6667),
-    color-mix(in oklab, var(--accent) 4.65%, color-mix(in oklab, var(--bg-light) 84.78%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.7083),
-    color-mix(in oklab, var(--accent) 3.34%, color-mix(in oklab, var(--bg-light) 89.65%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.7500),
-    color-mix(in oklab, var(--accent) 2.17%, color-mix(in oklab, var(--bg-light) 93.55%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.7917),
-    color-mix(in oklab, var(--accent) 1.23%, color-mix(in oklab, var(--bg-light) 96.45%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.8333),
-    color-mix(in oklab, var(--accent) 0.57%, color-mix(in oklab, var(--bg-light) 98.39%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.8750),
-    color-mix(in oklab, var(--accent) 0.18%, color-mix(in oklab, var(--bg-light) 99.49%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.9167),
-    color-mix(in oklab, var(--accent) 0.02%, color-mix(in oklab, var(--bg-light) 99.93%, var(--bg-graphite))) calc(var(--hz-o) + var(--hz-r) * 0.9583),
-    var(--bg-light) calc(var(--hz-o) + var(--hz-r)));
+    #272727 var(--hz-o),
+    #272727 calc(var(--hz-o) + var(--hz-r) * 0.0417),
+    #282828 calc(var(--hz-o) + var(--hz-r) * 0.0833),
+    #2B2A2A calc(var(--hz-o) + var(--hz-r) * 0.1250),
+    #2F2E2D calc(var(--hz-o) + var(--hz-r) * 0.1667),
+    #353432 calc(var(--hz-o) + var(--hz-r) * 0.2083),
+    #3E3C39 calc(var(--hz-o) + var(--hz-r) * 0.2500),
+    #484541 calc(var(--hz-o) + var(--hz-r) * 0.2917),
+    #54504B calc(var(--hz-o) + var(--hz-r) * 0.3333),
+    #615C56 calc(var(--hz-o) + var(--hz-r) * 0.3750),
+    #6F6962 calc(var(--hz-o) + var(--hz-r) * 0.4167),
+    #7E776E calc(var(--hz-o) + var(--hz-r) * 0.4583),
+    #8D857B calc(var(--hz-o) + var(--hz-r) * 0.5000),
+    #9B9389 calc(var(--hz-o) + var(--hz-r) * 0.5417),
+    #AAA196 calc(var(--hz-o) + var(--hz-r) * 0.5833),
+    #B8AFA3 calc(var(--hz-o) + var(--hz-r) * 0.6250),
+    #C5BCB0 calc(var(--hz-o) + var(--hz-r) * 0.6667),
+    #D1C8BC calc(var(--hz-o) + var(--hz-r) * 0.7083),
+    #DBD2C7 calc(var(--hz-o) + var(--hz-r) * 0.7500),
+    #E4DBCF calc(var(--hz-o) + var(--hz-r) * 0.7917),
+    #EBE2D6 calc(var(--hz-o) + var(--hz-r) * 0.8333),
+    #EFE6DB calc(var(--hz-o) + var(--hz-r) * 0.8750),
+    #F2E9DE calc(var(--hz-o) + var(--hz-r) * 0.9167),
+    #F3EADF calc(var(--hz-o) + var(--hz-r) * 0.9583),
+    #F3EADF calc(var(--hz-o) + var(--hz-r)));
 }
 /* Pas i część jasna zachodzą na poprzedni element o 1 px (ta sama krzywa, ten sam kolor w tym miejscu): przy skali
    ekranu 125% brzegi elementów wypadają w połowie piksela i bez zakładki w wierszu styku prześwitywało czarne tło strony. */
@@ -362,18 +364,18 @@ body { background: var(--bg-dark); }
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
   mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
 }
-/* Poświata w środku pasa gaśnie po krzywej i kończy się w 3/4 promienia, czyli wewnątrz pasa: nic jej nie ucina.
+/* Poświata (--n-gold-soft #E9D2AF) w środku pasa gaśnie po krzywej i kończy się w 3/4 promienia, czyli wewnątrz pasa: nic jej nie ucina.
    Na komputerze jaśnieje z przewijaniem (--p ze strona-glowna.js), na ekranach dotykowych stoi (--p: 0.6). */
 .horizon__glow {
   position: absolute; left: 50%; top: 50%;
   width: min(90rem, 160vw); height: 100%;
   transform: translate(-50%, -50%);
   background: radial-gradient(50% 50% at 50% 50%,
-    color-mix(in srgb, var(--accent-soft) 26%, transparent) 0%,
-    color-mix(in srgb, var(--accent-soft) 24.5%, transparent) 15%,
-    color-mix(in srgb, var(--accent-soft) 17.8%, transparent) 30%,
-    color-mix(in srgb, var(--accent-soft) 8.2%, transparent) 45%,
-    color-mix(in srgb, var(--accent-soft) 1.5%, transparent) 60%,
+    rgba(233, 210, 175, 0.26) 0%,
+    rgba(233, 210, 175, 0.245) 15%,
+    rgba(233, 210, 175, 0.178) 30%,
+    rgba(233, 210, 175, 0.082) 45%,
+    rgba(233, 210, 175, 0.015) 60%,
     transparent 75%);
   opacity: calc(0.35 + 0.4 * var(--p));
   pointer-events: none;
