@@ -323,7 +323,8 @@ button.set-card__item { cursor: pointer; }
 @media (min-width: 64rem) { .guarantee-list { gap: var(--n-space-6) var(--n-space-8); } }
 
 /* ---------- FAQ ---------- */
-.faq__list { max-width: 52rem; }
+/* lista na całą szerokość kontenera, z tymi samymi marginesami co gwarancje */
+.faq__list { max-width: none; }
 .faq__item { border-bottom: var(--n-hairline) solid var(--border-hairline); }
 .faq__item:first-child { border-top: var(--n-hairline) solid var(--accent); }
 .faq__q {
@@ -341,7 +342,8 @@ button.set-card__item { cursor: pointer; }
 }
 .faq__icon::after { transform: translate(-50%, -50%) rotate(90deg); }
 .faq__item[open] .faq__icon::after { transform: translate(-50%, -50%) rotate(0deg); }
-.faq__a { padding: 0 0 var(--n-space-5); max-width: 40em; color: var(--text); }
+/* odpowiedź szersza niż wcześniej (40em), ale do ok. 90 znaków w linii, żeby dało się ją wygodnie czytać */
+.faq__a { padding: 0 0 var(--n-space-5); max-width: 46em; color: var(--text); }
 .faq__a p + p { margin-top: var(--n-space-3); }
 .faq__more { margin-top: var(--n-space-5); font-size: var(--n-size-small); color: var(--text-muted); }
 @media (min-width: 64rem) { .faq__q { font-size: 1.625rem; } }
