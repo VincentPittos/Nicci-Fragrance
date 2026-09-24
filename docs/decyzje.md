@@ -87,11 +87,27 @@
 | 44 | Wyprzedane karty | Zamiast przezroczystości tekst w kolorze drugorzędnym (kontrast AA), przyciemnione tylko zdjęcia i miniatury; niedostępny zestaw ma przerywaną ramkę. | audyt axe na 1920 px |
 | 45 | Hero na telefonie, wariant C | Nagłówek na górze, opis na zdjęciu z lekkim cieniem (każda linia co najmniej 7,3:1), atomizery Nicci w całości pod opisem, przyciski na kamieniu u dołu, wszystko na pierwszym ekranie. Osobny, wyostrzony kadr prawych 70% zdjęcia w trzech szerokościach (1000, 1400 i 2100 px z EDSR ×2) i `sizes` zależne od wysokości ekranu. Paralaksa na telefonie wyłączona, żeby zdjęcie nie zbliżało atomizerów do przycisków. | akceptacja właściciela, prośba o ostrzejsze zdjęcie |
 
+## 24.09.2026, odpowiedzi właściciela z listy przed publikacją
+
+| # | Temat | Decyzja | Skąd |
+|---|---|---|---|
+| 46 | Sprzedawca i kontakt | Nicci Fragrance, działalność nierejestrowana, bez NIP. Kontakt: `kontakt@niccifragrance.pl` (skrzynka ruszy po zakupie domeny) i Instagram `nicci_fragrance`. Domena `niccifragrance.pl` wpisana skryptem `dev/ustaw_domene.py` (canonical, `og:url`, `og:image`, sitemap, robots) i w `CONFIG.SITE_URL`. Imię, nazwisko i adres w regulaminie i polityce prywatności czekają na teksty od prawnika. | właściciel |
+| 47 | Wysyłka | Tylko Polska. Paczkomat InPost, kurier InPost, DPD albo DHL. Nadanie zwykle w ciągu 1 dnia roboczego od zaksięgowania wpłaty, do 5 dni roboczych, gdy zapach trzeba sprowadzić, najpóźniej 7 dni roboczych („realizacja do 7” odczytana jako dni robocze). Wpłaty sprawdzane rano i wieczorem. | właściciel |
+| 48 | Przewoźnik w arkuszu | Nowa kolumna `przewoznik` w Zamowienia z listą InPost, DPD, DHL. Paczkomat to zawsze InPost. Mail „w drodze” podaje przewoźnika i jego link śledzenia; bez przewoźnika przy kurierze mail czeka, a w `uwagi` pojawia się prośba o wybór. Adres śledzenia DHL do sprawdzenia przy pierwszej paczce. | wniosek z odpowiedzi 10 |
+| 49 | Gwarancje i FAQ | Flakony od sprawdzonych dostawców, perfumerii i hurtowni. Atomizer: szklany flakonik w plastikowej oprawie z etykietą z nazwą zapachu. Wymiana pełnej odlewki na zapach z tej samej półki cenowej tylko po wspólnym doborze na Instagramie (quiz się nie liczy). Odlewek nie przyjmujemy z powrotem: do oceny prawnika wobec prawa odstąpienia, przy tekście zostaje `{TODO}`. Wpłata po terminie: zamówienie realizujemy. Zdjęcia flakonu przed wysyłką nie obiecujemy, bo właściciel woli tego unikać. | właściciel |
+| 50 | Zdjęcia 14 flakonów | Z folderu „Nicci Fragrance” na Dysku, przez `dev/zdjecia/zdjecia_wlasciciela.py` (zdjęcia z krótszym bokiem poniżej 1000 px powiększone EDSR, jasne tło źródła wyczyszczone do bieli albo przezroczystości, bez tego na karcie zostawał prostokąt wokół flakonu) i `ujednolic_zdjecia.py` (tło #F1EFEC zamiast przezroczystości i bieli, zgodnie z resztą katalogu). Kolejność „najpierw zapachy ze zdjęciem” (decyzja 26) zostaje, dopóki p52 nie ma zdjęcia. p52 Sauvage Parfum pominięty: przysłany plik to Sauvage Eau de Parfum, inne stężenie. | właściciel |
+| 51 | Nagłówek | Przycisk „Wybierz swój zapach” (do `/quiz`, z zachowaniem `src`) w nagłówku od 80rem, jak w makiecie, na stronie głównej, w regulaminie, polityce prywatności i 404. Nie ma go w zamówieniu, potwierdzeniu i wyniku quizu, żeby nie odciągał od bieżącego kroku. Na węższych ekranach quiz jest w menu i w hero. Przyciski zostają prostokątne z systemu wizualnego. | właściciel |
+| 52 | Kursywa hero | Carattere (SIL OFL, podzbiór z polskimi znakami, 21 KB, hostowany lokalnie) zamiast pochylonego Cormoranta. Rozmiar ×1,38 na telefonie i ×1,47 od 80rem: szerokość drugiej linii to 0,76 pierwszej, jak w makiecie. Druga linia podciągnięta o 0,34 em, odstępy w hero 1,6vw, więc przyciski nie wchodzą na magnolię od 1280 px. | właściciel, pomiar makiety |
+| 53 | Oferta | „Dla niej” w quizie zostaje z zapachami unisex; damskie flakony dojdą z rozwojem oferty. Zdjęcia producentów przy 49 zapachach zostają. | właściciel |
+| 54 | Nazwa marki | „Nicci Fragrance” wszędzie, także w `refs/README.md` i szablonach Instagrama (linki poprawione na `/quiz?src=...`). Wyjątek bez zmian: komentarz w nagłówku `nicci-api.js` i pliki briefu. | właściciel |
+
 ## Otwarte
 
-* Weryfikacja `dev/dane/do-weryfikacji.csv` (133 wiersze dla 65 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.
+* Weryfikacja `dev/dane/do-weryfikacji.csv` (119 wierszy dla 61 pozycji), w tym profil wszystkich zapachów i rodziny z członem spoza listy.
 * `ml_dostepne` dla wszystkich aktywnych pozycji: puste w 62 z 64, bez tego backend uzna je za niedostępne. Pełna lista braków: `docs/raport-koncowy.md`.
 * Opisy zestawów dla klienta i rodziny zestawów (bez rodziny quiz nie zaproponuje zestawu).
-* Wartości w `CONFIG` Apps Script: e-mail, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
-* Zdjęcia 15 produktów (LV 5, MFK 2, Dior 4, Versace 1, YSL 2, Hermès 1): własne albo materiały prasowe. Lista w `docs/03-plan-grafik.md`.
+* Wartości w `CONFIG` Apps Script: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy, próg darmowej dostawy.
+* Regulamin i polityka prywatności od prawnika, w tym dane sprzedawcy i ocena zasad zwrotu.
+* Zdjęcie p52 Dior Sauvage Parfum (przysłane było Eau de Parfum) i lepsze zdjęcie p51 Dior Homme Cologne (źródło 640 × 335 px).
+* Skrzynka `kontakt@niccifragrance.pl` musi działać przed startem: adres jest w stopce, regulaminie, polityce i mailach.
 * Prawa do packshotów producentów: to materiały marek. Na dłuższą metę bezpieczniejsze są własne zdjęcia flakonów i atomizerów Nicci (rekomendacja z promptu).

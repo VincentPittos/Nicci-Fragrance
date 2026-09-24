@@ -23,7 +23,8 @@ zjeść jego cieniowanie.
 
 Użycie:
     python3 dev/zdjecia/ujednolic_zdjecia.py <katalog_wejściowy> [--tlo F1EFEC] [--wysokosc 0.74]
-Wynik obok: dev/zdjecia/raport.csv z wymiarami, tłem źródła i ostrzeżeniami (np. ciemne tło, flakon ucięty).
+Wynik obok: dev/zdjecia/raport.csv z wymiarami, tłem źródła i ostrzeżeniami (np. ciemne tło, flakon ucięty);
+wiersze z kolejnych przebiegów się łączą.
 """
 import argparse
 import csv
@@ -179,10 +180,17 @@ def main():
         info, warn = process(os.path.join(args.src, name), target, args.wysokosc, opt.get('tol', args.tol), opt.get('cien', False))
         rows.append(dict(info or {'id': name}, ostrzezenia='; '.join(warn)))
         print(name, 'OK' if not warn else ' / '.join(warn))
-    with open(os.path.join(os.path.dirname(__file__), 'raport.csv'), 'w', newline='', encoding='utf-8') as f:
+    # raport łączy przebiegi (zdjęcia producentów i zdjęcia właściciela): nowy wiersz zastępuje stary o tym samym id
+    report = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'raport.csv')
+    merged = {}
+    if os.path.exists(report):
+        with open(report, newline='', encoding='utf-8') as f:
+            merged = {r['id']: r for r in csv.DictReader(f)}
+    merged.update({r['id']: r for r in rows})
+    with open(report, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=['id', 'zrodlo_px', 'tlo_zrodla', 'ostrzezenia'])
         w.writeheader()
-        w.writerows(rows)
+        w.writerows(merged[k] for k in sorted(merged))
 
 
 if __name__ == '__main__':

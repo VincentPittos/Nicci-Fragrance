@@ -4,13 +4,15 @@ Stan na 23.09.2026, gałąź `claude/serene-cray-umqpzo`. Strona jest kompletna 
 
 ## 0. Najpierw to: blokady startu
 
+Aktualizacja 24.09.2026: odpowiedzi właściciela z `docs/lista-przed-publikacja.md` są wpisane (decyzje 46 do 54). Zostały te blokady:
+
 | # | Co | Dlaczego blokuje | Kto |
 |---|---|---|---|
 | 1 | `ml_dostepne` w arkuszu: puste w 62 z 64 aktywnych produktów | Backend traktuje pusty stan jak zero, więc na produkcji prawie cały katalog pokaże się jako wyprzedany. W podglądzie stan zastępczy 100 ml ukrywa ten problem. | właściciel |
-| 2 | `CONFIG` w `apps-script/Code.gs`: e-mail, BLIK, konto, odbiorca, dane sprzedawcy, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). | właściciel |
-| 3 | `API_URL` i `IG_HANDLE` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. | właściciel po wdrożeniu Apps Script |
-| 4 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. | właściciel i prawnik |
-| 5 | Dane sprzedawcy w stopce (7 stron) i w mailach (`SELLER_INFO`) | Wymóg informacyjny sklepu internetowego. | właściciel |
+| 2 | `CONFIG` w `apps-script/Code.gs`: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane. | właściciel |
+| 3 | `API_URL` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | właściciel po wdrożeniu Apps Script |
+| 4 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Prawnik musi też ocenić zasadę „odlewek nie przyjmujemy z powrotem” wobec prawa odstąpienia. | właściciel i prawnik |
+| 5 | Dane sprzedawcy | Stopka i maile mają „Nicci Fragrance, działalność nierejestrowana” i `kontakt@niccifragrance.pl`. Imię, nazwisko i adres w dokumentach czekają na prawnika. Skrzynka ruszy po zakupie domeny i musi działać przed startem. | właściciel |
 
 ## 1. Lista `{TODO}` i `UZUPELNIJ`, od kogo potrzebne są dane
 
@@ -21,45 +23,34 @@ Każdy `{TODO}` na stronie ma przerywaną ramkę (`[data-todo]`), więc widać g
 | Plik i miejsce | Pole | Uwagi |
 |---|---|---|
 | `site/nicci-api.js:17` | `API_URL` | adres wdrożenia Apps Script kończący się na `/exec` |
-| `site/nicci-api.js:18` | `IG_HANDLE` | nazwa konta bez @ |
-| `apps-script/Code.gs`, `CONFIG` | `OWNER_EMAIL`, `IG_HANDLE`, `SITE_URL`, `BLIK_PHONE`, `BANK_ACCOUNT`, `RECIPIENT`, `SELLER_INFO` | wszystkie mają dziś `UZUPELNIJ`; `diagnostyka` w Apps Script wypisze brakujące |
+| `apps-script/Code.gs`, `CONFIG` | `OWNER_EMAIL`, `BLIK_PHONE`, `BANK_ACCOUNT`, `RECIPIENT` | mają dziś `UZUPELNIJ`; `diagnostyka` w Apps Script wypisze brakujące |
 | `apps-script/Code.gs`, `CONFIG.SHIPPING` | `paczkomat`, `kurier` | dziś `null`; bez nich zamówienie nie przejdzie |
 | `apps-script/Code.gs`, `CONFIG.FREE_SHIPPING_FROM` | próg darmowej dostawy w zł | dziś `0`, czyli wyłączony; pasek „brakuje X zł do darmowej dostawy” pojawi się po ustawieniu |
+| `apps-script/Code.gs`, `CONFIG.TRACKING_URLS` | linki śledzenia InPost, DPD, DHL | automatycznie odpowiedział tylko DPD; sprawdzić każdy na pierwszej przesyłce |
 
-### Treści na stronie (właściciel)
+### Treści na stronie (właściciel z prawnikiem)
 
 | Miejsce | Czego brakuje |
 |---|---|
-| `index.html:105` pasek zaufania, `index.html:311` FAQ | realna liczba dni do wysyłki |
-| `index.html:296` gwarancje, `regulamin.html:83` | w ciągu ilu dni roboczych od wpłaty nadajecie paczkę |
-| `index.html:286`, `index.html:307` | skąd pochodzą flakony; czy na prośbę pokazujecie zdjęcie flakonu przed wysyłką |
-| `index.html:291` | co się dzieje, gdy zapach nie pasuje (zgodnie z regulaminem) |
-| `index.html:308` | materiał atomizera i czy ma etykietę z nazwą zapachu |
-| `index.html:310`, `regulamin.html:78` | jak często sprawdzacie wpłaty (np. rano i wieczorem) |
-| `index.html:312`, `regulamin.html:79` | wpłata po terminie: realizacja przy dostępności czy zwrot, w ile dni |
-| `index.html:313` | czy można zwrócić odlewkę |
-| `index.html:314` | jak długo zapach utrzymuje się w odlewce |
-| `index.html:279`, `index.html:281` | potwierdzenie sekcji gwarancji z regulaminem |
-| stopka: `index.html:350`, `wynik`, `zamowienie`, `potwierdzenie`, `regulamin`, `prywatnosc`, `404` | imię i nazwisko albo firma, adres kontaktowy, e-mail |
+| `index.html:285` gwarancje | potwierdzenie zgodności z regulaminem od prawnika |
+| `index.html:319` FAQ „Czy mogę zwrócić odlewkę?” | ocena zasady właściciela wobec prawa odstąpienia (art. 38 ustawy o prawach konsumenta) |
 
 ### Dokumenty prawne (właściciel z prawnikiem)
 
 | Miejsce | Czego brakuje |
 |---|---|
-| `regulamin.html:65`, `prywatnosc.html:65` | sprzedawca i administrator danych: nazwa, adres, NIP jeśli jest, e-mail |
-| `regulamin.html:69` | sformułowanie i status sprzedaży odlewek |
-| `regulamin.html:74` | moment zawarcia umowy: złożenie zamówienia czy zaksięgowanie wpłaty |
-| `regulamin.html:83` | kraje dostawy |
-| `regulamin.html:87` | prawo odstąpienia, w tym czy wyłączenie z art. 38 ustawy o prawach konsumenta dotyczy odlewek; formularz odstąpienia |
-| `regulamin.html:91` | reklamacje: jak zgłosić, termin odpowiedzi, zwrot pieniędzy |
-| `regulamin.html:99` | prawo właściwe, pozasądowe rozwiązywanie sporów, data wejścia w życie |
-| `prywatnosc.html:73` | podstawy prawne: rejestr wpłat (obowiązek prawny), źródło wejścia i quiz (uzasadniony interes) |
-| `prywatnosc.html:77` | umowy powierzenia, przekazywanie danych poza EOG |
-| `prywatnosc.html:81` | okresy przechowywania |
-| `prywatnosc.html:85` | kontakt w sprawach danych |
-| `prywatnosc.html:89` | aktualizacja, jeśli dojdzie analityka albo piksel reklamowy |
+| `regulamin.html:66`, `prywatnosc.html:66` | imię i nazwisko oraz adres sprzedawcy i administratora danych |
+| `regulamin.html:70` | sformułowanie i status sprzedaży odlewek |
+| `regulamin.html:75` | moment zawarcia umowy: złożenie zamówienia czy zaksięgowanie wpłaty |
+| `regulamin.html:88` | prawo odstąpienia, formularz odstąpienia; zasady właściciela są wpisane w TODO do oceny |
+| `regulamin.html:92` | reklamacje: jak zgłosić, termin odpowiedzi, zwrot pieniędzy |
+| `regulamin.html:100` | prawo właściwe, pozasądowe rozwiązywanie sporów, data wejścia w życie |
+| `prywatnosc.html:74` | podstawy prawne: rejestr wpłat (obowiązek prawny), źródło wejścia i quiz (uzasadniony interes) |
+| `prywatnosc.html:78` | umowy powierzenia, przekazywanie danych poza EOG |
+| `prywatnosc.html:82` | okresy przechowywania |
+| `prywatnosc.html:90` | aktualizacja, jeśli dojdzie analityka albo piksel reklamowy |
 
-Po zatwierdzeniu dokumentów usuń z nich `<meta name="robots" content="noindex">` i uruchom `python3 dev/ustaw_domene.py` jeszcze raz, żeby trafiły do mapy strony.
+Po zatwierdzeniu dokumentów usuń z nich `<meta name="robots" content="noindex">` i uruchom `python3 dev/ustaw_domene.py https://niccifragrance.pl` jeszcze raz, żeby trafiły do mapy strony.
 
 ## 2. OpenArt: zużycie i kadry
 
@@ -75,7 +66,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-49 z 64 aktywnych produktów ma zdjęcie. Źródło: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
+63 z 64 aktywnych produktów ma zdjęcie: 49 ze stron producentów (tabela niżej) i 14 od właściciela (akapit pod tabelą). Źródło tych 49: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -131,7 +122,7 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p70 | Azzaro | Forever Wanted Elixir | https://www.azzaro.com/en/fragrances/azzaro-forever-wanted-elixir/eau-de-parfum |  |
 | p71 | Azzaro | The Most Wanted Parfum | https://www.azzaro.com/en/fragrances/azzaro-the-most-wanted/parfum |  |
 
-**Bez zdjęcia (15), strony odpowiadają 403 albo ekranem Cloudflare:** p01 do p05 Louis Vuitton, p42 i p43 Maison Francis Kurkdjian, p51 do p54 Dior, p55 Versace, p63 i p64 YSL, p65 Hermès. Karty pokazują kadr zastępczy z inicjałami marki. Własne zdjęcie wystarczy wrzucić do `dev/zdjecia/zrodla/` i przepuścić przez skrypty z `docs/03-plan-grafik.md`.
+**Zdjęcia od właściciela (24.09.2026):** 14 z 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51, p53 do p55, p63 do p65), ma zdjęcie z folderu „Nicci Fragrance” na Dysku właściciela. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`. Brakuje p52 Dior Sauvage Parfum (przysłany plik przedstawia Sauvage Eau de Parfum), karta pokazuje kadr zastępczy z inicjałem marki. p51 ma słabe źródło (640 × 335 px).
 
 ## 4. Wyniki audytu
 
@@ -202,7 +193,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Stanów:** `ml_dostepne` puste w 62 produktach (patrz blokada 1). Wypełnione tylko p34 i p37, oba 0 ml.
 
-**Zdjęć:** 15 produktów, lista w punkcie 3.
+**Zdjęć:** p52 Dior Sauvage Parfum (punkt 3).
 
 **Cen:** strona pokazuje tylko pojemności z ceną, więc te warianty są ukryte. p34 i p37 nie mają żadnej ceny i mają 0 ml, więc są wyprzedane (widać je po wyłączeniu filtra „Tylko dostępne”). Produkt ze stanem, ale bez żadnej ceny, backend teraz pomija, a diagnostyka zgłasza go jako błąd.
 
@@ -216,15 +207,15 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Zestawów:** żaden z 6 aktywnych nie ma opisu dla klienta (arkusz ma tylko opis dla doradcy). Rodzinę ma tylko z04, więc quiz nie proponuje zestawu z innych rodzin. z04 jest niedostępny, bo zawiera p34 (0 ml); z07 zawiera p60, który jest nieaktywny.
 
-**Pola do weryfikacji:** `dev/dane/do-weryfikacji.csv`, 133 wiersze dla 65 pozycji (najwięcej: rodzina 28, zdjęcie 19, sezon 19, nuty i osiągi 17). Okazja p01 w źródle to liczba 11, więc w imporcie jest pusta.
+**Pola do weryfikacji:** `dev/dane/do-weryfikacji.csv`, 119 wierszy dla 61 pozycji (najwięcej: rodzina 28, sezon 19, nuty i osiągi 17, podobne 10; stan na 24.09.2026, po dodaniu zdjęć właściciela). Okazja p01 w źródle to liczba 11, więc w imporcie jest pusta.
 
 **Profil:** w arkuszu są tylko zapachy męskie (25) i unisex (39). Odpowiedź „Dla niej” w quizie pokazuje zapachy unisex.
 
 ## 6. Wdrożenie na Cloudflare Pages
 
 1. **Apps Script:** kroki z `refs/README.md`, punkt „1. Arkusz i backend”. W `CONFIG` wpisz `SITE_URL` (adres strony bez ukośnika na końcu). Po wdrożeniu skopiuj adres kończący się na `/exec` i sprawdź `ADRES/exec?action=catalog`.
-2. **Strona:** w `site/nicci-api.js` wpisz `API_URL` (linia 17, adres `/exec`) i `IG_HANDLE` (linia 18, bez @). Nic więcej w tym pliku się nie zmienia.
-3. **Domena:** `python3 dev/ustaw_domene.py https://twoja-domena.pl`. Skrypt wpisze adres bezwzględny w canonical, `og:url` i `og:image`, zbuduje `site/sitemap.xml` i dopisze linię Sitemap do `site/robots.txt`. Można go uruchomić ponownie po zmianie domeny.
+2. **Strona:** w `site/nicci-api.js` wpisz `API_URL` (linia 17, adres `/exec`). `IG_HANDLE` (linia 18) jest już wpisany. Nic więcej w tym pliku się nie zmienia.
+3. **Domena:** zrobione dla `niccifragrance.pl` (`python3 dev/ustaw_domene.py https://niccifragrance.pl`). Skrypt wpisuje adres bezwzględny w canonical, `og:url` i `og:image`, zbuduje `site/sitemap.xml` i dopisze linię Sitemap do `site/robots.txt`. Można go uruchomić ponownie po zmianie domeny.
 4. **Cloudflare Pages:** Workers & Pages, Create, Pages, połącz repozytorium z GitHuba. Framework preset: None. Build command: puste. Build output directory: `site`. Gałąź produkcyjna: ta, do której trafi ten kod. Alternatywnie Direct Upload folderu `site`.
 5. **Własna domena:** w projekcie Pages, Custom domains. Potem, jeśli adres się zmienił, popraw `CONFIG.SITE_URL` w Apps Script i wdróż nową wersję.
 6. **Nagłówki:** `site/_headers` ustawia politykę CSP (skrypty tylko z własnej domeny, zapytania do `script.google.com` i `script.googleusercontent.com`), cache fontów na rok i zdjęć na tydzień. Jeśli włączysz Cloudflare Web Analytics albo inny skrypt zewnętrzny, dopisz jego domenę do CSP, inaczej przeglądarka go zablokuje.

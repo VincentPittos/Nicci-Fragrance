@@ -46,7 +46,7 @@
    360,
    "",
    "p46, p45, p06, p03",
-   "",
+   "/img/produkty/p01-800.webp",
    1,
    ""
   ],
@@ -71,7 +71,7 @@
    360,
    "",
    "p03, p21, p07",
-   "",
+   "/img/produkty/p02-800.webp",
    2,
    "Wakacje, plaża, miasto latem, sport, casual"
   ],
@@ -96,7 +96,7 @@
    360,
    "",
    "p02, p08, p21",
-   "",
+   "/img/produkty/p03-800.webp",
    3,
    "Wakacje, weekend, casual, spotkania w dzień"
   ],
@@ -121,7 +121,7 @@
    400,
    "",
    "p05, p32, p19, p17",
-   "",
+   "/img/produkty/p04-800.webp",
    4,
    "Kolacja, wyjście, impreza, ważne spotkanie, garnitur"
   ],
@@ -146,7 +146,7 @@
    400,
    "",
    "p04, p19, p17",
-   "",
+   "/img/produkty/p05-800.webp",
    5,
    "Wyjście, klub, bardzo eleganckie spotkanie, randka wieczorem"
   ],
@@ -1071,7 +1071,7 @@
    520,
    "",
    "p10, p35, p70",
-   "",
+   "/img/produkty/p42-800.webp",
    42,
    "Kolacja, randka, elegancki wieczór"
   ],
@@ -1096,7 +1096,7 @@
    520,
    "",
    "p42, p40, p08",
-   "",
+   "/img/produkty/p43-800.webp",
    43,
    "Wyjście, randka, event, prezent"
   ],
@@ -1296,7 +1296,7 @@
    130,
    "",
    "p14, p06, p62",
-   "",
+   "/img/produkty/p51-800.webp",
    51,
    "Biuro, upały, codzienność, sport"
   ],
@@ -1346,7 +1346,7 @@
    300,
    "",
    "p54, p52, p11, p70",
-   "",
+   "/img/produkty/p53-800.webp",
    53,
    "Wyjście, klub, randka, event"
   ],
@@ -1371,7 +1371,7 @@
    400,
    "",
    "p53, p38, p05, p41",
-   "",
+   "/img/produkty/p54-800.webp",
    54,
    "Wyjście, event, okazje specjalne"
   ],
@@ -1396,7 +1396,7 @@
    130,
    "",
    "p08, p09",
-   "",
+   "/img/produkty/p55-800.webp",
    55,
    "Wyjście, klub, randka"
   ],
@@ -1596,7 +1596,7 @@
    170,
    "",
    "p44, p52, p10",
-   "",
+   "/img/produkty/p63-800.webp",
    63,
    "Biuro, biznes, codzienność, wieczorne wyjścia"
   ],
@@ -1621,7 +1621,7 @@
    170,
    "",
    "p63, p33, p52",
-   "",
+   "/img/produkty/p64-800.webp",
    64,
    "Biuro, randka, spotkania, ślub"
   ],
@@ -1646,7 +1646,7 @@
    160,
    "",
    "p44, p11, p45",
-   "",
+   "/img/produkty/p65-800.webp",
    65,
    "Biuro, biznes, spotkania, codzienność"
   ],
