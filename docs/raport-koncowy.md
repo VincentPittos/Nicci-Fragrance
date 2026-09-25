@@ -176,8 +176,9 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 29/29 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js` |
+| `node dev/testy_backendu.js` | 31/31 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js` |
 | `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
+| `node dev/testy_wstrzymanie.js` | 10/10 | sprzedaż wstrzymana: katalog działa, koszyk bez przejścia do zamówienia, formularz wyłączony, backend odrzuca zamówienie bez zapisu, brak ofert w danych strukturalnych |
 
 Test 1: katalog z `?action=catalog`; zapisany w przeglądarce katalog starszy niż 2 minuty odświeża się w tle, więc zmiana ceny dociera na stronę w czasie cache backendu (5 minut). Próba kontrolna potwierdza, że test umie wykryć starą cenę.
 Test 2: zamówienie BLIK z `?src=`, wiersz ze statusem NOWE i źródłem, dane BLIK do kopiowania, dostępność spada o zarezerwowane 10 ml (z 40 na 30 ml, backend oznacza niski stan, więc karta pokaże „Zostało 30 ml tego zapachu”).

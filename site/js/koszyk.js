@@ -51,14 +51,15 @@
   }
 
   function footHtml(sum) {
-    var blocked = sum.lines.some(function (l) { return !l.available; });
+    var closed = !A.salesOpen(catalog);
+    var blocked = closed || sum.lines.some(function (l) { return !l.available; });
     var ship = catalog.shipping || {};
     var cheapest = Math.min.apply(null, Object.keys(ship).map(function (k) { return ship[k]; }).filter(function (v) { return v > 0; }).concat([Infinity]));
     return freeShipping(sum) +
       '<div class="cart-total"><span>Razem za zapachy</span><b class="num" data-subtotal>' + U.price(sum.subtotal) + '</b></div>' +
       '<p class="cart-note">' + (sum.toFreeShipping === 0 ? 'Dostawa gratis.' : isFinite(cheapest) ? 'Dostawa od ' + U.price(cheapest) + ', wybierzesz ją w następnym kroku.' : 'Dostawę wybierzesz w następnym kroku.') + '</p>' +
-      '<a class="btn btn--primary btn--block" href="' + A.url('/zamowienie') + '"' + (blocked ? ' aria-disabled="true" data-blocked' : '') + '>Przejdź do zamówienia</a>' +
-      '<p class="cart-note cart-note--calm">' + (blocked ? 'Najpierw usuń pozycję, której zabrakło.' : 'Teraz nic nie płacisz. Po złożeniu zamówienia trzymamy zapachy przez 24 godziny.') + '</p>';
+      '<a class="btn btn--primary btn--block" href="' + A.url('/zamowienie') + '"' + (blocked ? ' aria-disabled="true" data-blocked' : '') + '>' + (closed ? 'Zamówienia ruszą wkrótce' : 'Przejdź do zamówienia') + '</a>' +
+      '<p class="cart-note cart-note--calm">' + (closed ? 'Jeszcze nie przyjmujemy zamówień. Koszyk zostaje zapisany w tej przeglądarce.' : blocked ? 'Najpierw usuń pozycję, której zabrakło.' : 'Teraz nic nie płacisz. Po złożeniu zamówienia trzymamy zapachy przez 24 godziny.') + '</p>';
   }
 
   function emptyHtml() {

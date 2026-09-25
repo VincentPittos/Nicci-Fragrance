@@ -4,7 +4,9 @@
  * Sprawdzamy pole po opuszczeniu (blur), a po pierwszej próbie wysłania także w trakcie poprawiania.
  * Błędy przy polach i jedno podsumowanie u góry. Przycisk zablokowany na czas wysyłki.
  * Odpowiedzi: ok → /potwierdzenie, validation → pola z res.fields, out_of_stock → lista braków
- * z podobnymi i odświeżony katalog, reszta → res.message z nicci-api.js.
+ * z podobnymi i odświeżony katalog, sprzedaz_wstrzymana → komunikat jak przy wstrzymanej sprzedaży,
+ * reszta → res.message z nicci-api.js.
+ * Sprzedaż wstrzymana (katalog bez sprzedaz: true): komunikat nad formularzem, pola i przycisk wyłączone.
  */
 (function () {
   'use strict';
@@ -174,7 +176,13 @@
   }
 
   // ---------- podsumowanie ----------
+  // podsumowanie, a po nim stan sprzedaży (wyłącza pola i przycisk także po odświeżeniu katalogu)
   function renderSummary() {
+    drawSummary();
+    if (catalog) applySales();
+  }
+
+  function drawSummary() {
     if (!catalog) return;
     var m = method();
     var sum = N.cart.summary(catalog, m || null);
@@ -223,6 +231,21 @@
     });
   }
 
+  // ---------- sprzedaż wstrzymana ----------
+  var CLOSED_HTML = '<h2 class="oa__title">Zamówienia ruszą wkrótce</h2>' +
+    '<p>Jeszcze nie przyjmujemy zamówień. Koszyk zostaje zapisany w tej przeglądarce, więc wrócisz do niego, gdy ruszymy. Do tego czasu możesz przeglądać zapachy i zrobić quiz.</p>';
+  var closedShown = false;
+  function applySales() {
+    var closed = !A.salesOpen(catalog);
+    form.querySelectorAll('fieldset').forEach(function (f) { f.disabled = closed; });
+    if (closed) {
+      submit.disabled = true;
+      if (!closedShown) { alertBox.innerHTML = CLOSED_HTML; alertBox.hidden = false; alertBox.classList.add('order-alert--info'); closedShown = true; }
+    } else if (closedShown) {
+      alertBox.innerHTML = ''; alertBox.hidden = true; alertBox.classList.remove('order-alert--info'); closedShown = false;
+    }
+  }
+
   // ---------- wysyłka ----------
   function payload() {
     return {
@@ -243,6 +266,7 @@
   }
 
   function showAlert(html) {
+    alertBox.classList.remove('order-alert--info');
     alertBox.innerHTML = html;
     alertBox.hidden = !html;
     if (html) { alertBox.setAttribute('tabindex', '-1'); alertBox.focus(); }
@@ -284,6 +308,14 @@
       }
       if (res.error === 'out_of_stock') {
         showAlert(shortagesHtml(res.shortages || []));
+        A.dropCatalog();
+        A.catalog(true).then(function (c) { catalog = c; renderSummary(); }, function () {});
+        return;
+      }
+      if (res.error === 'sprzedaz_wstrzymana') {
+        showAlert(CLOSED_HTML);
+        alertBox.classList.add('order-alert--info');
+        closedShown = true;
         A.dropCatalog();
         A.catalog(true).then(function (c) { catalog = c; renderSummary(); }, function () {});
         return;

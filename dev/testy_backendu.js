@@ -388,6 +388,35 @@ test('nicci-api.js: katalog, filtry, grupowanie, quiz i koszyk działają na dan
   assert.equal(Nicci.cart.count(), 3);
 });
 
+// ---------- sprzedaż wstrzymana (zakładka Sklep) ----------
+test('sprzedaż: katalog ma sprzedaz true tylko przy jawnym TAK, domyślnie wstrzymana', () => {
+  assert.equal(be.buildCatalog_(productRows, setRows, {}, Object.assign({}, cfg, { SPRZEDAZ: true }), NOW).sprzedaz, true);
+  assert.equal(be.buildCatalog_(productRows, setRows, {}, Object.assign({}, cfg, { SPRZEDAZ: false }), NOW).sprzedaz, false);
+  assert.equal(be.buildCatalog_(productRows, setRows, {}, be.CONFIG, NOW).sprzedaz, false, 'CONFIG bez SPRZEDAZ: wstrzymana');
+});
+
+test('sprzedaż: atrapa backendu odrzuca zamówienie przy NICCI_SPRZEDAZ=NIE, bez zapisu', () => {
+  const os = require('os'), fs = require('fs'), path = require('path');
+  const plik = path.join(os.tmpdir(), 'nicci-sprzedaz-' + process.pid + '.json');
+  const prev = { s: process.env.NICCI_SPRZEDAZ, z: process.env.NICCI_ZAMOWIENIA };
+  try {
+    process.env.NICCI_ZAMOWIENIA = plik;
+    process.env.NICCI_SPRZEDAZ = 'NIE';
+    delete require.cache[require.resolve('./atrapa_backendu')];
+    const zamknieta = require('./atrapa_backendu').createBackend();
+    assert.equal(zamknieta.catalog(NOW).data.sprzedaz, false);
+    deq(zamknieta.createOrder(validBody(), NOW), { ok: false, error: 'sprzedaz_wstrzymana' });
+    assert.ok(!fs.existsSync(plik), 'nic nie zapisano');
+    process.env.NICCI_SPRZEDAZ = 'TAK';
+    const otwarta = require('./atrapa_backendu').createBackend();
+    assert.equal(otwarta.catalog(NOW).data.sprzedaz, true);
+  } finally {
+    if (prev.s === undefined) delete process.env.NICCI_SPRZEDAZ; else process.env.NICCI_SPRZEDAZ = prev.s;
+    if (prev.z === undefined) delete process.env.NICCI_ZAMOWIENIA; else process.env.NICCI_ZAMOWIENIA = prev.z;
+    try { fs.unlinkSync(plik); } catch (e) { /* nie powstał */ }
+  }
+});
+
 (async () => {
   for (const [name, fn] of tests) {
     try { await fn(); passed++; console.log('ok   ' + name); } catch (e) { console.log('FAIL ' + name + '\n     ' + e.message); process.exitCode = 1; }

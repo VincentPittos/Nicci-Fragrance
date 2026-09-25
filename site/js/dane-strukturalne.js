@@ -4,7 +4,8 @@
  *   FAQPage: pytania i odpowiedzi czytane z sekcji FAQ na stronie. Pytanie z choćby jednym znacznikiem {TODO}
  *   nie trafia do danych (wycięcie TODO ze środka zdania zmienia jego sens). Po uzupełnieniu odpowiedzi
  *   przez właściciela pytanie wchodzi do danych samo, a dane zawsze zgadzają się z treścią strony.
- *   ItemList z Product: produkty z katalogu z ofertami dla każdej pojemności (cena w PLN i dostępność).
+ *   ItemList z Product: produkty z katalogu z ofertami dla każdej pojemności (cena w PLN i dostępność),
+ *   tylko gdy sprzedaż jest włączona (zakładka Sklep w arkuszu).
  *   Bez ocen i gwiazdek: nie mamy recenzji, więc nie ma aggregateRating ani review.
  * Adresy bezwzględne z location.origin, więc działają na każdej domenie bez zmian w kodzie.
  */
@@ -63,6 +64,8 @@
   }
 
   function products(catalog) {
+    // sprzedaż wstrzymana: bez listy produktów z cenami i dostępnością, żeby wyszukiwarka nie pokazywała ofert
+    if (!A.salesOpen(catalog)) { var old = document.getElementById('ld-produkty'); if (old) old.remove(); return; }
     var list = (catalog.products || []).map(function (p, i) {
       var url = origin + '/?produkt=' + encodeURIComponent(p.id);
       var item = {

@@ -104,6 +104,9 @@
 .oa__list li { font-size: 0.9375rem; }
 .oa__alt { display: block; margin-top: 0.2rem; font-size: var(--n-size-small); color: var(--text-muted); }
 .oa__alt .link { min-height: auto; }
+/* sprzedaż wstrzymana: informacja, nie błąd (złota linia zamiast czerwonej), wyłączone pola przygaszone */
+.order-alert--info { border-color: var(--border-gold); }
+.order-form fieldset:disabled { opacity: 0.5; }
 
 /* ---------- podsumowanie zamówienia ---------- */
 .os__list { display: grid; }

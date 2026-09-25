@@ -14,6 +14,7 @@ Wszystkie kwoty w API są w **groszach**. W arkuszu są w złotych.
   bon: { kwota: 5000, prog: 19900 },    // CONFIG.BON, tylko do podglądu rabatu w podsumowaniu zamówienia
   shipping: { paczkomat: 1499, kurier: 1999 },
   igHandle: 'nicci_fragrance',
+  sprzedaz: false,                      // true tylko przy TAK w zakładce Sklep; strona bez true nie przyjmuje zamówień
   updated: '2026-09-23T12:00:00.000Z'
 }}
 ```
@@ -91,6 +92,7 @@ Ciało wysyła `Nicci.createOrder(payload)` jako `text/plain` (bez preflight COR
 | `invalid_item` | | pozycja albo wariant zniknęły z oferty |
 | `rate_limited` | | drugie zamówienie z tego samego e-maila w ciągu minuty |
 | `busy` | | blokada zajęta albo przekroczony limit zamówień na godzinę |
+| `sprzedaz_wstrzymana` | | w zakładce Sklep jest `sprzedaz: NIE` (albo zakładki brak); sprawdzane przy każdym zamówieniu, bez cache |
 | `server_error` | | honeypot, błąd konfiguracji, nieoczekiwany błąd (szczegóły tylko w zakładce Log) |
 
 `network` nadaje sam moduł, gdy żądanie nie dojdzie. Komunikat dla klienta jest w `res.message`.

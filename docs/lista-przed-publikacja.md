@@ -91,6 +91,7 @@ Po uzupełnieniu uruchom `diagnostyka` w Apps Script, wypisze to, co jeszcze si�
 ## Po wdrożeniu, razem
 
 1. ~~Wpiszę `API_URL` w `nicci-api.js` i wypchnę zmiany.~~ Zrobione 25.09.2026.
+1. Sprzedaż jest wstrzymana (zakładka Sklep w arkuszu, `sprzedaz: NIE`) do czasu uregulowania sklepu z prawnikiem i księgowym. Po ich akceptacji regulaminu, polityki prywatności i danych sprzedawcy: zmień na TAK, potem próbne zamówienie.
 2. Ty składasz prawdziwe zamówienie BLIK na własny e-mail i przechodzisz testy 1 do 9 z `refs/README.md`.
 3. Przy pierwszej paczce każdego przewoźnika sprawdź, czy link śledzenia w mailu otwiera właściwą przesyłkę. Z mojego środowiska odpowiedziała tylko strona DPD; InPost odrzuca automatyczne zapytania, a DHL nie odpowiadał. Adresy są w `CONFIG.TRACKING_URLS`.
 4. Po zatwierdzeniu dokumentów zdejmuję `noindex` z regulaminu i polityki prywatności.

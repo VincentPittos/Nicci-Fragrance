@@ -39,12 +39,14 @@ function readSheetJson() {
   return JSON.parse(fs.readFileSync(path.join(ROOT, 'dev', 'dane', 'arkusz.json'), 'utf8'));
 }
 
-/** Konfiguracja deweloperska: przykładowe koszty dostawy, żeby mock dało się przeklikać. */
+/** Konfiguracja deweloperska: przykładowe koszty dostawy, żeby mock dało się przeklikać. Sprzedaż włączona
+ *  (w arkuszu decyduje zakładka Sklep); NICCI_SPRZEDAZ=NIE pokazuje stronę ze wstrzymaną sprzedażą. */
 function devConfig(base) {
   return Object.assign({}, base, {
     IG_HANDLE: 'UZUPELNIJ',
     SHIPPING: { paczkomat: 14.99, kurier: 19.99 },
-    FREE_SHIPPING_FROM: 200
+    FREE_SHIPPING_FROM: 200,
+    SPRZEDAZ: process.env.NICCI_SPRZEDAZ !== 'NIE'
   });
 }
 

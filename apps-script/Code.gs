@@ -4,9 +4,12 @@
  *
  * Kontrakt z modułem strony (site/nicci-api.js), szczegóły w docs/kontrakt-api.md:
  *   GET  ?action=catalog
- *        → {ok:true, data:{products, sets, freeShippingFrom, shipping, igHandle, updated}}
+ *        → {ok:true, data:{products, sets, freeShippingFrom, shipping, igHandle, sprzedaz, updated}}
  *   POST {action:'createOrder', customer, delivery, payment, consents, note, website, items, src, quiz}
  *        → {ok:true, numer, ...}  albo  {ok:false, error, fields?, shortages?}
+ *
+ * Sprzedaż włącza i wyłącza zakładka Sklep w arkuszu (wiersz sprzedaz: TAK albo NIE). Przy NIE strona pokazuje
+ * katalog i quiz, ale nie przyjmuje zamówień, a createOrder_ odrzuca każde zamówienie (sprzedaz_wstrzymana).
  *
  * Ceny w arkuszu są w złotych, w API w groszach.
  *
@@ -59,8 +62,13 @@ const CONFIG = {
 // ============ 2. STAŁE ============
 const SHEET = {
   PRODUKTY: 'Produkty', ZESTAWY: 'Zestawy', ZAMOWIENIA: 'Zamowienia',
-  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy', BONY: 'Bony'
+  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy', BONY: 'Bony', SKLEP: 'Sklep'
 };
+
+// Zakładka Sklep: przełączniki dla właściciela. Pusty arkusz dostaje je z setup().
+const SKLEP_USTAWIENIA = [
+  ['sprzedaz', 'NIE', 'TAK: sklep przyjmuje zamówienia. NIE: strona pokazuje katalog i quiz, zamówienia są wstrzymane. Zmiana działa na stronie w ciągu kilku minut.']
+];
 
 const STATUS = {
   NOWE: 'NOWE', OPLACONE: 'OPŁACONE', WYSLANE: 'WYSŁANE', ANULOWANE: 'ANULOWANE', WYGASLE: 'WYGASŁE'
@@ -95,7 +103,8 @@ const HEADERS = {
   // kwota i prog puste = wartości z CONFIG.BON; wazny_do puste = bez terminu; wykorzystany_w wypełnia system
   Bony: ['kod', 'kwota', 'prog', 'wazny_do', 'wystawiony', 'powod', 'email', 'wykorzystany_w'],
   Log: ['czas', 'poziom', 'zdarzenie', 'szczegoly'],
-  Statusy: ['status', 'znaczenie']
+  Statusy: ['status', 'znaczenie'],
+  Sklep: ['ustawienie', 'wartosc', 'opis']
 };
 
 // Kolumny techniczne ukrywane przez setup(). Właściciel ich nie edytuje.
@@ -317,6 +326,8 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
     shipping: { paczkomat: toGrosze_(cfg.SHIPPING.paczkomat), kurier: toGrosze_(cfg.SHIPPING.kurier) },
     bon: { kwota: toGrosze_(cfg.BON.KWOTA) || 0, prog: toGrosze_(cfg.BON.PROG) || 0 },
     igHandle: str_(cfg.IG_HANDLE),
+    // tylko jawne TAK z zakładki Sklep otwiera sprzedaż; strona bez tego pola też jej nie otwiera
+    sprzedaz: cfg.SPRZEDAZ === true,
     updated: (now || new Date()).toISOString()
   };
 }
@@ -861,6 +872,8 @@ function createOrder_(body) {
     log_('WARN', 'honeypot', 'Wypełnione ukryte pole, zamówienie odrzucone.');
     return { ok: false, error: 'server_error' };
   }
+  // sprawdzane przy każdym zamówieniu, bez cache: NIE w zakładce Sklep działa od razu
+  if (!salesOpen_()) return { ok: false, error: 'sprzedaz_wstrzymana' };
   const v = validateOrder_(body, CONFIG);
   if (!v.ok) return { ok: false, error: 'validation', fields: v.fields };
   const data = v.data;
@@ -1070,7 +1083,7 @@ function getCatalogCached_() {
     }
   }
   const catalog = buildCatalog_(readTable_(SHEET.PRODUKTY), readTable_(SHEET.ZESTAWY),
-    reservedMl_(readTable_(SHEET.ZAMOWIENIA), new Date()), CONFIG, new Date());
+    reservedMl_(readTable_(SHEET.ZAMOWIENIA), new Date()), Object.assign({}, CONFIG, { SPRZEDAZ: salesOpen_() }), new Date());
   const str = JSON.stringify(catalog);
   const size = 40000;
   const chunks = {};
@@ -1085,6 +1098,15 @@ function invalidateCatalog_() {
   CacheService.getScriptCache().remove('catalog_n');
 }
 
+/** Wiersz sprzedaz w zakładce Sklep. Tylko TAK włącza sprzedaż; brak zakładki albo wiersza to NIE. */
+function salesOpen_() {
+  const sh = ss_().getSheetByName(SHEET.SKLEP);
+  if (!sh || sh.getLastRow() < 2) return false;
+  const rows = sh.getRange(2, 1, sh.getLastRow() - 1, 2).getValues();
+  const row = rows.filter(function (r) { return str_(r[0]).toLowerCase() === 'sprzedaz'; })[0];
+  return !!row && str_(row[1]).toUpperCase() === 'TAK';
+}
+
 // ============ 7. TRIGGERY ============
 
 /** Instalowany trigger onEdit (tworzy go setup). Działa też przy edycji z aplikacji Arkusze na telefonie. */
@@ -1092,7 +1114,7 @@ function handleEdit(e) {
   if (!e || !e.range) return;
   const sh = e.range.getSheet();
   const name = sh.getName();
-  if (name === SHEET.PRODUKTY || name === SHEET.ZESTAWY) { invalidateCatalog_(); return; }
+  if (name === SHEET.PRODUKTY || name === SHEET.ZESTAWY || name === SHEET.SKLEP) { invalidateCatalog_(); return; }
   if (name !== SHEET.ZAMOWIENIA) return;
   const H = headerMap_(sh);
   const c0 = e.range.getColumn(), c1 = c0 + e.range.getNumColumns() - 1;
@@ -1283,6 +1305,14 @@ function setup() {
   const st = ss.getSheetByName(SHEET.STATUSY);
   if (st.getLastRow() < 2) st.getRange(2, 1, STATUS_OPIS.length, 2).setValues(STATUS_OPIS);
 
+  // Sklep: brakujące przełączniki z wartością domyślną (sprzedaz: NIE), istniejących wartości nie zmieniamy
+  const sk = ss.getSheetByName(SHEET.SKLEP);
+  const obecne = sk.getLastRow() > 1 ? sk.getRange(2, 1, sk.getLastRow() - 1, 1).getValues().map(function (r) { return str_(r[0]).toLowerCase(); }) : [];
+  SKLEP_USTAWIENIA.forEach(function (u) { if (obecne.indexOf(u[0]) === -1) sk.appendRow(u); });
+  const takNie = SpreadsheetApp.newDataValidation().requireValueInList(['TAK', 'NIE'], true).setAllowInvalid(false).build();
+  sk.getRange(2, 2, sk.getLastRow() - 1, 1).setDataValidation(takNie);
+  sk.setColumnWidth(3, 520);
+
   const zam = ss.getSheetByName(SHEET.ZAMOWIENIA);
   const H = headerMap_(zam);
   const rule = SpreadsheetApp.newDataValidation()
@@ -1337,6 +1367,7 @@ function diagnostyka() {
   wyniki.forEach(function (w) { log_(w[0], 'diagnostyka', w[1]); });
   let quota = '?';
   try { quota = MailApp.getRemainingDailyQuota(); } catch (e) { /* brak uprawnień przy pierwszym uruchomieniu */ }
+  log_('INFO', 'diagnostyka', 'Sprzedaż: ' + (salesOpen_() ? 'włączona (Sklep, sprzedaz: TAK).' : 'wstrzymana (Sklep, sprzedaz: NIE), strona nie przyjmuje zamówień.'));
   log_('INFO', 'diagnostyka', 'Pozostały dzienny limit maili: ' + quota + '. Błędów: '
     + wyniki.filter(function (w) { return w[0] === 'ERROR'; }).length + ', ostrzeżeń: '
     + wyniki.filter(function (w) { return w[0] === 'WARN'; }).length + '.');

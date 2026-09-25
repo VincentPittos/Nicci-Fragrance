@@ -118,6 +118,9 @@
     return fetchFresh(false);
   }
   function onCatalog(fn) { listeners.push(fn); }
+  // Sprzedaż otwiera tylko jawne sprzedaz: true z backendu (zakładka Sklep w arkuszu, wiersz sprzedaz: TAK).
+  // Katalog bez tego pola (starsza wersja Code.gs) też oznacza wstrzymaną sprzedaż.
+  function salesOpen(c) { return !!c && c.sprzedaz === true; }
   function dropCatalog() { memory = null; ss('remove', CAT_KEY); }
 
   // ---------- liczebniki ----------
@@ -195,7 +198,7 @@
 
   window.NicciApp = {
     src: src, url: url, decorate: decorateAll, catalog: catalog, onCatalog: onCatalog, dropCatalog: dropCatalog,
-    plural: plural, params: params, isDev: isDev, igHandle: igHandle,
+    plural: plural, params: params, isDev: isDev, igHandle: igHandle, salesOpen: salesOpen,
     screenH: function () { return screenH || window.innerHeight; }
   };
 

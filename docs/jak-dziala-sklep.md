@@ -30,6 +30,10 @@ Nicci robi w arkuszu tylko trzy rzeczy: zmienia status na OPŁACONE, wpisuje num
 
 **5. Jeśli paczka nie wyjdzie w 7 dni roboczych od wpłaty,** system sam wysyła klientowi bon na 50 zł (ważny 90 dni, działa przy zapachach za co najmniej 199 zł), a Nicciemu powiadomienie. Dlatego numer przesyłki trzeba wpisać od razu po nadaniu.
 
+## Włączanie i wstrzymywanie sprzedaży
+
+W arkuszu jest zakładka **Sklep** z wierszem `sprzedaz`. Wartość **NIE** (tak jest teraz, do czasu uregulowania sklepu z prawnikiem i księgowym): strona pokazuje katalog, zestawy i quiz, klient może złożyć koszyk, ale zamiast przejścia do zamówienia widzi „Zamówienia ruszą wkrótce”, a skrypt odrzuca każde zamówienie. Wartość **TAK**: sklep przyjmuje zamówienia. Zmiana w arkuszu działa od razu dla zamówień, a strona pokazuje nowy stan w ciągu kilku minut. Tym samym przełącznikiem możesz później wstrzymać sprzedaż, np. na urlop.
+
 ## Sytuacje szczególne
 
 - **Zapach się skończył:** wpisz 0 w kolumnie `ml_dostepne`. Na stronie pokaże się „Wyprzedane”. Puste pole oznacza, że zapach jest w sprzedaży bez limitu.

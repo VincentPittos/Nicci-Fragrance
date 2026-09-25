@@ -20,6 +20,7 @@ node dev/zbuduj_mock.js               # dev/dane/arkusz.json → dev/catalog.moc
 node dev/testy_backendu.js            # testy backendu i zgodności z nicci-api.js
 python3 dev/serwer.py                 # podgląd na http://127.0.0.1:8766 z atrapą backendu (dev/atrapa_backendu.js)
 node dev/testy_readme.js              # testy 1, 2, 3 i 7 z refs/README.md w przeglądarce (Playwright)
+node dev/testy_wstrzymanie.js         # sprzedaż wstrzymana (zakładka Sklep: NIE): koszyk, formularz, backend
 python3 dev/ustaw_domene.py https://twoja-domena.pl   # canonical, og:url, sitemap.xml i robots.txt po ustaleniu domeny
 ```
 

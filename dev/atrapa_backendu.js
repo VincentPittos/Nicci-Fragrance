@@ -4,6 +4,7 @@
 //   echo '{"method":"GET","query":"action=catalog"}' | node dev/atrapa_backendu.js
 //   echo '{"method":"POST","body":"{...}"}' | node dev/atrapa_backendu.js
 // Zmienne: NICCI_STAN="p06=5,p07=0" nadpisuje ml_dostepne (test braków), NICCI_ZAMOWIENIA=plik.json,
+// NICCI_SPRZEDAZ=NIE wstrzymuje sprzedaż jak NIE w zakładce Sklep arkusza,
 // NICCI_BONY='[{"kod":"...","kwota":50,"prog":199,"wazny_do":"2099-12-31"}]' zamiast bonów testowych niżej.
 // Dane przykładowe (BLIK, konto, odbiorca) są wyłącznie do podglądu i nie trafiają do Code.gs.
 'use strict';
@@ -50,6 +51,7 @@ function createBackend() {
 
   function createOrder(body, now) {
     if (String(body.website || '') !== '') return { ok: false, error: 'server_error' };
+    if (!cfg.SPRZEDAZ) return { ok: false, error: 'sprzedaz_wstrzymana' };
     const v = be.validateOrder_(body, cfg);
     if (!v.ok) return { ok: false, error: 'validation', fields: Array.from(v.fields) };
     const d = v.data;
