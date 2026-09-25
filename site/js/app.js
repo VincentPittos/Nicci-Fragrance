@@ -65,14 +65,16 @@
     if (a) decorate(a);
   }, true);
 
-  // ---------- podgląd ----------
-  // Dopóki API_URL w nicci-api.js nie jest uzupełnione, zapytania do niego idą do atrapy backendu na
-  // lokalnym serwerze (dev/serwer.py → dev/atrapa_backendu.js, te same funkcje co Code.gs). Na hostingu
-  // (Netlify) atrapy nie ma: katalog przychodzi ze statycznego site/podglad/katalog.json (node dev/zbuduj_mock.js),
-  // a zamówienie dostaje odpowiedź „podglad” i nie idzie dalej. Z prawdziwym API_URL ten fragment nic nie robi.
-  if (/UZUPELNIJ/.test(N.CONFIG.API_URL) && window.fetch) {
+  // ---------- podgląd i atrapa ----------
+  // Na lokalnym serwerze (localhost, 127.0.0.1) zapytania do API zawsze idą do atrapy backendu (dev/serwer.py →
+  // dev/atrapa_backendu.js, te same funkcje co Code.gs), także przy prawdziwym API_URL: testy i próby na komputerze
+  // nie tworzą prawdziwych zamówień ani maili. Na hostingu bez uzupełnionego API_URL katalog przychodzi ze statycznego
+  // site/podglad/katalog.json (node dev/zbuduj_mock.js), a zamówienie dostaje odpowiedź „podglad” i nie idzie dalej.
+  // Na hostingu z prawdziwym API_URL ten fragment nic nie robi.
+  var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var preview = /UZUPELNIJ/.test(N.CONFIG.API_URL);
+  if ((local || preview) && window.fetch) {
     var realFetch = window.fetch.bind(window);
-    var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     window.fetch = function (input, init) {
       var u = typeof input === 'string' ? input : input && input.url;
       if (!u || u.indexOf(N.CONFIG.API_URL) !== 0) return realFetch(input, init);
@@ -87,7 +89,7 @@
   var listeners = [];
   var inflight = null;
 
-  function isDev() { return /UZUPELNIJ/.test(N.CONFIG.API_URL); }
+  function isDev() { return local || preview; }
 
   function fetchFresh(force) {
     if (inflight && !force) return inflight;

@@ -6,9 +6,10 @@ Lokalny podgląd strony tak, jak poda ją Netlify (i Cloudflare Pages, ten sam u
 
 Różnice wobec zwykłego http.server:
   * ładne adresy jak na Pages: /quiz → quiz.html, /wynik?x=1 → wynik.html
-  * /__dev/api: atrapa backendu (dev/atrapa_backendu.js) na funkcjach z apps-script/Code.gs. Strona
-    kieruje tu zapytania tylko wtedy, gdy API_URL w nicci-api.js ma wartość UZUPELNIJ, więc na produkcji
-    ta ścieżka nie istnieje. Zamówienia z podglądu trafiają do dev/zamowienia-dev.json (poza gitem).
+  * /__dev/api: atrapa backendu (dev/atrapa_backendu.js) na funkcjach z apps-script/Code.gs. Strona otwarta
+    z localhost albo 127.0.0.1 zawsze kieruje tu zapytania API (site/js/app.js), także przy prawdziwym API_URL,
+    więc testy nie tworzą prawdziwych zamówień ani maili; na produkcji ta ścieżka nie istnieje. Zamówienia
+    z atrapy trafiają do dev/zamowienia-dev.json (poza gitem).
   * /__dev/catalog.mock.json: statyczny mock katalogu (zapas, gdy Node nie jest dostępny).
   * nieistniejący adres: 404.html ze statusem 404, tak jak na Pages.
 """
