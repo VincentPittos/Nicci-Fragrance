@@ -14,7 +14,7 @@
 
   // ============ KONFIGURACJA ============
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/UZUPELNIJ/exec',
+    API_URL: 'https://script.google.com/macros/s/AKfycbyi_gHjUGDhww3FT5b-9Jl9l1fK901U84IOSo7HBU75BEKvdYO_xJpXltNoa_6M6FRPTw/exec',
     IG_HANDLE: 'nicci_fragrance',
     CART_KEY: 'nicci_cart_v1',
     ORDER_KEY: 'nicci_last_order_v1',
