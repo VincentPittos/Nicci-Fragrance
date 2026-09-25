@@ -9,7 +9,7 @@ Aktualizacja 24.09.2026: odpowiedzi właściciela z `docs/lista-przed-publikacja
 | # | Co | Dlaczego blokuje | Kto |
 |---|---|---|---|
 | 1 | `CONFIG` w `apps-script/Code.gs`: e-mail właściciela, BLIK, konto, odbiorca, koszty dostawy | Bez tego nie ma danych do płatności w mailu i na stronie potwierdzenia, a zamówienie kończy się błędem `server_error` (brak kosztu dostawy). `SELLER_INFO`, `IG_HANDLE` i `SITE_URL` są już wpisane. | właściciel |
-| 2 | `API_URL` w `site/nicci-api.js` | Bez adresu `/exec` strona nie pobierze katalogu. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | właściciel po wdrożeniu Apps Script |
+| 2 | `API_URL` w `site/nicci-api.js` | Zrobione 25.09.2026: adres wdrożenia Apps Script z konta `kontakt@niccifragrance.pl`. `IG_HANDLE` jest wpisany (`nicci_fragrance`). | zrobione |
 | 3 | Regulamin i polityka prywatności | Szkielety z `{TODO}`, oznaczone „nie publikować w tej postaci”, na razie z `noindex`. Zasady zwrotu są już zgodne z ustawą o prawach konsumenta (decyzja 67), prawnik sprawdza punkt 6 regulaminu i dopisuje formularz odstąpienia. | właściciel i prawnik |
 | 4 | Dane sprzedawcy | Stopka i maile mają „Nicci Fragrance” i `kontakt@niccifragrance.pl` (bez dopisku o działalności nierejestrowanej, decyzja 63). Imię, nazwisko i adres w dokumentach czekają na prawnika. Skrzynka ruszy po zakupie domeny i musi działać przed startem. | właściciel |
 
@@ -222,7 +222,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 8. **Podgląd przed podłączeniem arkusza:** dopóki `API_URL` ma `UZUPELNIJ`, strona na Netlify czyta katalog ze statycznego `site/podglad/katalog.json` (budowanego przez `node dev/zbuduj_mock.js` z pliku importu i `CONFIG` z `Code.gs`, więc koszt dostawy to „do ustalenia”), a złożenie zamówienia kończy się komunikatem „To podgląd sklepu”. Na localhost zapytania idą jak dotąd do atrapy backendu. Po wpisaniu `API_URL` plik jest nieużywany.
 9. **Po wdrożeniu:** przejdź wszystkie 9 testów z `refs/README.md`, w tym prawdziwe zamówienie BLIK na własny e-mail.
 
-Praca lokalna: `python3 dev/serwer.py` (podgląd na http://127.0.0.1:8766 z atrapą backendu, dopóki `API_URL` ma `UZUPELNIJ`), `node dev/testy_backendu.js`, `node dev/testy_readme.js`.
+Praca lokalna: `python3 dev/serwer.py` (podgląd na http://127.0.0.1:8766, zawsze z atrapą backendu, także przy prawdziwym `API_URL`), `node dev/testy_backendu.js`, `node dev/testy_readme.js`.
 
 ## 7. Co jeszcze zmieniło się w etapie 9
 

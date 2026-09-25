@@ -23,7 +23,7 @@ node dev/testy_readme.js              # testy 1, 2, 3 i 7 z refs/README.md w prz
 python3 dev/ustaw_domene.py https://twoja-domena.pl   # canonical, og:url, sitemap.xml i robots.txt po ustaleniu domeny
 ```
 
-Dopóki `API_URL` w `nicci-api.js` ma `UZUPELNIJ`, strona na hostingu pokazuje katalog z `site/podglad/katalog.json` i nie przyjmuje zamówień (komunikat „To podgląd sklepu”). Po zmianie danych w arkuszu odśwież ten plik przez `node dev/zbuduj_mock.js`. Po wpisaniu `API_URL` plik jest nieużywany.
+Od 25.09.2026 `API_URL` w `nicci-api.js` wskazuje wdrożenie Apps Script na koncie `kontakt@niccifragrance.pl`: katalog przychodzi z arkusza, zamówienia trafiają do zakładki Zamowienia. Na localhost i 127.0.0.1 zapytania API zawsze idą do atrapy backendu (`dev/serwer.py`), więc testy nie tworzą prawdziwych zamówień. `site/podglad/katalog.json` jest używany tylko wtedy, gdy `API_URL` wróci do `UZUPELNIJ` (strona pokazuje wtedy podgląd bez przyjmowania zamówień).
 
 `refs/prywatne/` jest poza gitem, bo repozytorium jest publiczne, a arkusz źródłowy zawiera wewnętrzne notatki doradcy. Wrzuć tam plik `Nicci_Fragrance_Katalog_Produktow.xlsx`, żeby odtworzyć konwersję.
 
