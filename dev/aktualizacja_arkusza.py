@@ -35,6 +35,27 @@ def tekst(v):
     return str(v).strip()
 
 
+def dane_js(dane):
+    """Dane w krótkich liniach (jeden wiersz arkusza na linię). Jedna linia z całością miała ok. 80 tys. znaków i przy
+    kopiowaniu z podglądu pliku wklejał się tylko jej kawałek."""
+    j = lambda v: json.dumps(v, ensure_ascii=False, separators=(',', ':'))
+    out = ['{']
+    for zi, (zakladka, d) in enumerate(dane.items()):
+        out.append(' ' + j(zakladka) + ': {')
+        out.append('  "kolumny": ' + j(d['kolumny']) + ',')
+        out.append('  "wiersze": [')
+        out += ['   ' + j(w) + (',' if i < len(d['wiersze']) - 1 else '') for i, w in enumerate(d['wiersze'])]
+        out.append('  ],')
+        out.append('  "historia": {')
+        hist = list(d['historia'].items())
+        out += ['   ' + j(k) + ': ' + j(v) + (',' if i < len(hist) - 1 else '') for i, (k, v) in enumerate(hist)]
+        out.append('  },')
+        out.append('  "chronione": ' + j(d['chronione']))
+        out.append(' }' + (',' if zi < len(dane) - 1 else ''))
+    out.append('}')
+    return '\n'.join(out)
+
+
 def main():
     teraz = json.load(open(os.path.join(ROOT, PLIK), encoding='utf-8'))
     rewizje = subprocess.check_output(['git', 'log', '--format=%h', '--', PLIK], cwd=ROOT, text=True).split()
@@ -152,7 +173,7 @@ function aktualizujZakladke_2026_10_(ss, nazwa, D) {
     ', zmienione komórki ' + (Object.keys(pola).map(function (k) { return k + ' ' + pola[k]; }).join(', ') || '0') +
     (pominiete.length ? '; zostawione Twoje wpisy: ' + pominiete.join(', ') : '') + '.';
 }
-""" % json.dumps(dane, ensure_ascii=False, separators=(',', ':'))
+""" % dane_js(dane)
     out = os.path.join(ROOT, 'apps-script', 'Aktualizacja_2026_10.gs')
     open(out, 'w', encoding='utf-8').write(js)
     for z in dane:
