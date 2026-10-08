@@ -90,11 +90,15 @@ const SEZONY = ['wiosna', 'lato', 'jesień', 'zima'];
 const POJEMNOSCI = [5, 10, 20];
 // Klimaty z pytania 2 quizu (site/js/dobor.js). Kolumna klimat: jeden do trzech, pierwszy jest główny.
 const KLIMATY = ['cytrusowy', 'aromatyczny', 'drzewny', 'slodki', 'orientalny', 'kwiatowy'];
+// Kolumna odbior (tylko zapachy unisex): męski albo damski, gdy większość osób odbiera zapach wyraźnie w jedną stronę.
+// Quiz przy „Dla niej” pomija zapachy unisex odbierane jako męskie, przy „Dla niego” odbierane jako damskie.
+const ODBIOR = ['męski', 'damski'];
 
 const HEADERS = {
   Produkty: ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca', 'nuty_bazy',
     'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc', 'cena_5', 'cena_10', 'cena_20',
-    'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja', 'bestseller', 'klimat', 'renoma'],
+    'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja', 'bestseller', 'klimat', 'renoma',
+    'nowosc', 'odbior'],
   Zestawy: ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad'],
   Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'oplacone', 'imie_nazwisko', 'email', 'telefon',
     'instagram', 'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
@@ -129,6 +133,15 @@ function norm_(s) {
 function isYes_(v) {
   const t = norm_(v);
   return v === true || t === 'tak' || t === 'true' || t === '1';
+}
+
+/** męski, damski albo '' (bez ogonka też: meski). Inna wartość wraca bez zmian, żeby diagnostyka mogła ją pokazać. */
+function odbior_(v) {
+  const t = str_(v).toLowerCase();
+  if (!t) return '';
+  if (t === 'meski' || t === 'męski') return 'męski';
+  if (t === 'damski') return 'damski';
+  return t;
 }
 
 /** Liczba z komórki: 12, "12", "12,5". Puste albo nieliczbowe → null. */
@@ -210,6 +223,8 @@ function productFromRow_(r) {
     bestseller: isYes_(r.bestseller),
     klimat: splitList_(r.klimat).map(function (x) { return x.toLowerCase().replace('ł', 'l'); }),
     renoma: (function (n) { return n >= 1 && n <= 3 ? Math.round(n) : null; })(toNumber_(r.renoma)),
+    nowosc: isYes_(r.nowosc),
+    odbior: odbior_(r.odbior),
     _row: r._row
   };
 }
@@ -298,7 +313,8 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
       malo: malo, zostalo: malo ? Math.floor(f) : null,
       podobne: p.podobne.filter(function (id) { return byId[id] && isListed_(byId[id]) && id !== p.id; }),
       zdjecie: p.zdjecie, kolejnosc: p.kolejnosc,
-      bestseller: p.bestseller, klimat: p.klimat.filter(function (k) { return KLIMATY.indexOf(k) !== -1; }), renoma: p.renoma
+      bestseller: p.bestseller, klimat: p.klimat.filter(function (k) { return KLIMATY.indexOf(k) !== -1; }), renoma: p.renoma,
+      nowosc: p.nowosc, odbior: p.profil === 'unisex' && ODBIOR.indexOf(p.odbior) !== -1 ? p.odbior : ''
     };
   }).sort(function (a, b) { return a.kolejnosc - b.kolejnosc || a.marka.localeCompare(b.marka, 'pl'); });
 
@@ -1414,6 +1430,8 @@ function diagnoza_(productRows, setRows, cfg) {
     if (!p.opis) W(label + ': brak opisu');
     p.klimat.forEach(function (k) { if (KLIMATY.indexOf(k) === -1) W(label + ': klimat „' + k + '” spoza listy (' + KLIMATY.join(', ') + ')'); });
     if (!p.klimat.length) W(label + ': klimat nie jest uzupełniony (quiz weźmie go z rodziny)');
+    if (p.odbior && ODBIOR.indexOf(p.odbior) === -1) W(label + ': odbior „' + p.odbior + '” spoza listy (męski, damski albo puste)');
+    if (ODBIOR.indexOf(p.odbior) !== -1 && p.profil !== 'unisex') W(label + ': odbior działa tylko przy profilu unisex');
     if (!p.zdjecie) W(label + ': brak zdjęcia');
   });
   if (bezStanu) out.push(['INFO', bezStanu + ' aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu i bez etykiety „Zostało X ml”. Gdy zapach się skończy, wpisz 0.']);

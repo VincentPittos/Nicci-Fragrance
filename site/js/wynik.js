@@ -88,7 +88,8 @@
       '<button type="button" class="rc__media" data-open aria-haspopup="dialog" aria-label="' + esc('Szczegóły: ' + p.marka + ' ' + p.nazwa) + '">' +
         C.media(p, { sizes: top ? '(min-width: 64rem) 30rem, 100vw' : '(min-width: 64rem) 16rem, 50vw' }) + '</button>' +
       '<div class="rc__body">' +
-        (p.bestseller ? '<p class="rc__best">Bestseller</p>' : '') +
+        (p.nowosc || p.bestseller ? '<p class="rc__flags">' + (p.nowosc ? '<span class="rc__new">Nowość</span>' : '') +
+          (p.bestseller ? '<span class="rc__best">Bestseller</span>' : '') + '</p>' : '') +
         '<p class="rc__brand">' + esc(p.marka) + '</p>' +
         '<h2 class="rc__name" id="rc-' + esc(p.id) + '">' + esc(p.nazwa) + '</h2>' +
         '<p class="rc__why">' + esc(why(p)) + '</p>' +

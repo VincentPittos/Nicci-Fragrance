@@ -17,7 +17,7 @@ Strona sprzedażowa odlewek oryginalnych perfum (5, 10, 20 ml) i zestawów odkry
 ```bash
 python3 dev/konwersja_arkusza.py      # arkusz z refs/prywatne → dev/dane (wymaga openpyxl)
 node dev/zbuduj_mock.js               # dev/dane/arkusz.json → dev/catalog.mock.json i site/podglad/katalog.json przez Code.gs
-python3 dev/aktualizacja_arkusza.py   # dev/dane/arkusz.json → apps-script/Aktualizacja_2026_10.gs (nowe wiersze dla arkusza właściciela)
+python3 dev/aktualizacja_arkusza.py   # dev/dane/arkusz.json → apps-script/Aktualizacja_2026_10.gs (aktualizacja arkusza właściciela, jego wpisy zostają)
 node dev/testy_backendu.js            # testy backendu, zgodności z nicci-api.js, doboru w quizie i aktualizacji arkusza
 python3 dev/serwer.py                 # podgląd na http://127.0.0.1:8766 z atrapą backendu (dev/atrapa_backendu.js)
 node dev/testy_readme.js              # testy 1, 2, 3 i 7 z refs/README.md w przeglądarce (Playwright)

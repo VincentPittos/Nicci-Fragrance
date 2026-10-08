@@ -363,6 +363,14 @@
   text-transform: uppercase;
 }
 .card__flag--best { background: var(--accent); color: var(--n-black); } /* złoto z czarnym tekstem 9,39:1 */
+/* nowość (premiera w tym roku, decyzja 76): jasna etykieta ze złotą ramką, inna niż bestseller i „Wyprzedane” */
+.card__flag--new { background: var(--n-cream-50); color: var(--n-gold-700); box-shadow: inset 0 0 0 1px var(--n-gold); } /* 6,1:1 */
+.card__flags {
+  position: absolute;
+  top: var(--n-space-3); left: var(--n-space-3);
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--n-space-1);
+}
+.card__flags .card__flag { position: static; }
 .card__body {
   display: flex;
   flex-direction: column;

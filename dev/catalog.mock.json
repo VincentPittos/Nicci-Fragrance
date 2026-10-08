@@ -70,7 +70,9 @@
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p02",
@@ -137,7 +139,8 @@
     "podobne": [
      "p03",
      "p21",
-     "p07"
+     "p07",
+     "p84"
     ],
     "zdjecie": "/img/produkty/p02-800.webp",
     "kolejnosc": 2,
@@ -145,7 +148,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p03",
@@ -213,7 +218,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p04",
@@ -277,6 +284,7 @@
     "zostalo": null,
     "podobne": [
      "p05",
+     "p72",
      "p32",
      "p19",
      "p17"
@@ -288,7 +296,9 @@
      "orientalny",
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p05",
@@ -359,7 +369,9 @@
      "orientalny",
      "kwiatowy"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p06",
@@ -432,7 +444,9 @@
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p07",
@@ -506,7 +520,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p08",
@@ -570,9 +586,8 @@
     "podobne": [
      "p40",
      "p43",
-     "p22",
-     "p46",
-     "p45"
+     "p48",
+     "p46"
     ],
     "zdjecie": "/img/produkty/p08-800.webp",
     "kolejnosc": 8,
@@ -581,7 +596,9 @@
      "cytrusowy",
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p09",
@@ -642,9 +659,9 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p90",
      "p01",
      "p10",
-     "p27",
      "p33"
     ],
     "zdjecie": "/img/produkty/p09-800.webp",
@@ -654,7 +671,9 @@
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p10",
@@ -715,6 +734,7 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p89",
      "p35",
      "p28",
      "p09"
@@ -726,7 +746,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p11",
@@ -791,11 +813,7 @@
     ],
     "malo": false,
     "zostalo": null,
-    "podobne": [
-     "p12",
-     "p22",
-     "p52"
-    ],
+    "podobne": [],
     "zdjecie": "/img/produkty/p11-800.webp",
     "kolejnosc": 11,
     "bestseller": true,
@@ -803,7 +821,9 @@
      "cytrusowy",
      "drzewny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p12",
@@ -877,7 +897,9 @@
      "cytrusowy",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p14",
@@ -945,7 +967,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p15",
@@ -1016,7 +1040,9 @@
      "cytrusowy",
      "orientalny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p16",
@@ -1079,9 +1105,9 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
-     "p09",
+     "p85",
      "p31",
-     "p100",
+     "p43",
      "p64"
     ],
     "zdjecie": "/img/produkty/p16-800.webp",
@@ -1091,7 +1117,9 @@
      "kwiatowy",
      "drzewny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p17",
@@ -1179,7 +1207,9 @@
      "orientalny",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p19",
@@ -1252,7 +1282,9 @@
      "orientalny",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p20",
@@ -1324,7 +1356,9 @@
      "aromatyczny",
      "orientalny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p21",
@@ -1390,7 +1424,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p22",
@@ -1460,7 +1496,9 @@
      "cytrusowy",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p23",
@@ -1529,7 +1567,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p24",
@@ -1594,7 +1634,9 @@
     "klimat": [
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p25",
@@ -1661,7 +1703,9 @@
      "aromatyczny",
      "orientalny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p27",
@@ -1723,7 +1767,9 @@
      "slodki",
      "kwiatowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p28",
@@ -1788,7 +1834,9 @@
      "orientalny",
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p29",
@@ -1855,7 +1903,9 @@
     "klimat": [
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p30",
@@ -1920,7 +1970,9 @@
      "orientalny",
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p31",
@@ -1987,7 +2039,9 @@
      "aromatyczny",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p32",
@@ -2050,7 +2104,9 @@
     "klimat": [
      "drzewny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p33",
@@ -2119,7 +2175,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p34",
@@ -2176,7 +2234,9 @@
      "slodki",
      "cytrusowy"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p35",
@@ -2246,7 +2306,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p36",
@@ -2312,7 +2374,9 @@
      "drzewny",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p37",
@@ -2366,7 +2430,9 @@
      "drzewny",
      "orientalny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p38",
@@ -2439,7 +2505,9 @@
      "drzewny",
      "orientalny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p39",
@@ -2506,7 +2574,9 @@
     "klimat": [
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p40",
@@ -2576,7 +2646,9 @@
      "cytrusowy",
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p41",
@@ -2650,7 +2722,9 @@
      "orientalny",
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p42",
@@ -2718,7 +2792,9 @@
      "orientalny",
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p43",
@@ -2788,7 +2864,9 @@
      "slodki",
      "orientalny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p44",
@@ -2846,6 +2924,7 @@
     "podobne": [
      "p73",
      "p39",
+     "p85",
      "p65"
     ],
     "zdjecie": "/img/produkty/p44-800.webp",
@@ -2855,7 +2934,9 @@
      "drzewny",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p45",
@@ -2915,7 +2996,9 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p85",
      "p01",
+     "p06",
      "p09",
      "p46"
     ],
@@ -2926,7 +3009,9 @@
      "cytrusowy",
      "drzewny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p46",
@@ -2982,8 +3067,10 @@
     "zostalo": null,
     "podobne": [
      "p01",
+     "p06",
+     "p85",
      "p45",
-     "p09"
+     "p21"
     ],
     "zdjecie": "/img/produkty/p46-800.webp",
     "kolejnosc": 46,
@@ -2991,7 +3078,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p47",
@@ -3053,8 +3142,10 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p94",
+     "p91",
      "p07",
-     "p23",
+     "p84",
      "p02"
     ],
     "zdjecie": "/img/produkty/p47-800.webp",
@@ -3064,7 +3155,9 @@
      "cytrusowy",
      "kwiatowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p48",
@@ -3130,7 +3223,9 @@
      "cytrusowy",
      "kwiatowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p49",
@@ -3189,7 +3284,7 @@
     "podobne": [
      "p39",
      "p41",
-     "p20"
+     "p96"
     ],
     "zdjecie": "/img/produkty/p49-800.webp",
     "kolejnosc": 49,
@@ -3198,7 +3293,9 @@
      "orientalny",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p50",
@@ -3257,7 +3354,9 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
-     "p49",
+     "p53",
+     "p52",
+     "p12",
      "p33"
     ],
     "zdjecie": "/img/produkty/p50-800.webp",
@@ -3267,7 +3366,9 @@
      "aromatyczny",
      "cytrusowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p51",
@@ -3318,6 +3419,7 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p21",
      "p14",
      "p06",
      "p62"
@@ -3328,7 +3430,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p52",
@@ -3381,8 +3485,9 @@
     "zostalo": null,
     "podobne": [
      "p53",
+     "p50",
      "p54",
-     "p11"
+     "p12"
     ],
     "zdjecie": "/img/produkty/p52-800.webp",
     "kolejnosc": 52,
@@ -3391,7 +3496,9 @@
      "aromatyczny",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p53",
@@ -3449,8 +3556,8 @@
     "podobne": [
      "p54",
      "p52",
-     "p11",
-     "p70"
+     "p12",
+     "p50"
     ],
     "zdjecie": "/img/produkty/p53-800.webp",
     "kolejnosc": 53,
@@ -3459,7 +3566,9 @@
      "aromatyczny",
      "drzewny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p54",
@@ -3519,7 +3628,8 @@
      "p53",
      "p38",
      "p05",
-     "p41"
+     "p41",
+     "p59"
     ],
     "zdjecie": "/img/produkty/p54-800.webp",
     "kolejnosc": 54,
@@ -3528,7 +3638,9 @@
      "drzewny",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": true,
+    "odbior": ""
    },
    {
     "id": "p55",
@@ -3593,7 +3705,9 @@
      "aromatyczny",
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p56",
@@ -3655,14 +3769,16 @@
      "p21",
      "p62"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p56-800.webp",
     "kolejnosc": 56,
     "bestseller": false,
     "klimat": [
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p59",
@@ -3725,7 +3841,9 @@
      "aromatyczny",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p61",
@@ -3783,7 +3901,9 @@
     "klimat": [
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p62",
@@ -3845,7 +3965,9 @@
      "cytrusowy",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p63",
@@ -3903,9 +4025,9 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
-     "p44",
      "p52",
-     "p10"
+     "p10",
+     "p64"
     ],
     "zdjecie": "/img/produkty/p63-800.webp",
     "kolejnosc": 63,
@@ -3914,7 +4036,9 @@
      "aromatyczny",
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p64",
@@ -3969,7 +4093,8 @@
     "podobne": [
      "p63",
      "p33",
-     "p52"
+     "p52",
+     "p85"
     ],
     "zdjecie": "/img/produkty/p64-800.webp",
     "kolejnosc": 64,
@@ -3978,7 +4103,9 @@
      "kwiatowy",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p65",
@@ -4034,7 +4161,8 @@
     "zostalo": null,
     "podobne": [
      "p44",
-     "p11",
+     "p85",
+     "p12",
      "p45"
     ],
     "zdjecie": "/img/produkty/p65-800.webp",
@@ -4044,7 +4172,9 @@
      "drzewny",
      "cytrusowy"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p66",
@@ -4102,7 +4232,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p67",
@@ -4153,6 +4285,7 @@
     "zostalo": null,
     "podobne": [
      "p14",
+     "p85",
      "p46"
     ],
     "zdjecie": "/img/produkty/p67-800.webp",
@@ -4161,7 +4294,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p68",
@@ -4221,7 +4356,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p69",
@@ -4283,7 +4420,9 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p70",
@@ -4346,7 +4485,9 @@
      "slodki",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p71",
@@ -4409,7 +4550,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p72",
@@ -4417,7 +4560,7 @@
     "nazwa": "Cuirs",
     "rodzina": "skórzana",
     "profil": "unisex",
-    "opis": "Otulające przyprawy okryte gładką skórą. Słodkawy z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni w roku. Idealne wprowadzenie w zapachy skórzane.",
+    "opis": "Otulające przyprawy okryte gładką skórą. Słodkawy z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni roku. Idealne wprowadzenie w zapachy skórzane oraz niszowe.",
     "nuty": {
      "glowy": [
       "Szafran",
@@ -4472,6 +4615,7 @@
     "podobne": [
      "p32",
      "p04",
+     "p96",
      "p33",
      "p49"
     ],
@@ -4482,7 +4626,9 @@
      "drzewny",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "męski"
    },
    {
     "id": "p73",
@@ -4546,14 +4692,16 @@
      "p44",
      "p43"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p73-800.webp",
     "kolejnosc": 73,
     "bestseller": false,
     "klimat": [
      "cytrusowy",
      "kwiatowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p74",
@@ -4621,7 +4769,9 @@
      "kwiatowy",
      "orientalny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p75",
@@ -4683,6 +4833,7 @@
     "zostalo": null,
     "podobne": [
      "p89",
+     "p90",
      "p52",
      "p10",
      "p71"
@@ -4694,7 +4845,9 @@
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p76",
@@ -4765,7 +4918,9 @@
      "slodki",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p77",
@@ -4835,7 +4990,9 @@
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p78",
@@ -4909,7 +5066,9 @@
      "kwiatowy",
      "orientalny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p79",
@@ -4981,7 +5140,9 @@
      "slodki",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p80",
@@ -5047,7 +5208,9 @@
      "kwiatowy",
      "drzewny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p81",
@@ -5113,7 +5276,9 @@
     "klimat": [
      "slodki"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": true,
+    "odbior": "damski"
    },
    {
     "id": "p82",
@@ -5121,7 +5286,7 @@
     "nazwa": "Kashmir",
     "rodzina": "drzewna",
     "profil": "unisex",
-    "opis": "Zapach jak ciepły szal narzucony na ramiona pod koniec października. Korzenny i cytrusowy początek, miękkie kwiatowe serce, a na końcu gęste, żywiczne drewno z kadzidłem. Nosi się go cały dzień bez dopsiknięć. Ślad w powietrzu jest wyczuwalny i nikogo nie przytłacza. Ormonde Jayne to marka, której w Polsce praktycznie nie widać, więc ryzyko spotkania kogoś w tym samym zapachu jest bliskie zeru. Świetnie pachnie na kobiecie jak i na mężczyźnie.",
+    "opis": "Zapach jak ciepły szal narzucony na ramiona pod koniec października. Korzenny i cytrusowy początek, miękkie kwiatowe serce, a na końcu gęste, żywiczne drewno z kadzidłem. Nosi się go cały dzień bez dopsikiwania. Ślad w powietrzu jest wyczuwalny i nikogo nie przytłacza. Ormonde Jayne to marka, której w Polsce praktycznie nie widać, więc ryzyko spotkania kogoś w tym samym zapachu jest bliskie zeru. Świetnie pachnie na kobiecie jak i na mężczyźnie.",
     "nuty": {
      "glowy": [
       "Bergamotka",
@@ -5193,7 +5358,9 @@
      "drzewny",
      "orientalny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p83",
@@ -5201,7 +5368,7 @@
     "nazwa": "Oud Satin Mood",
     "rodzina": "kwiatowa",
     "profil": "unisex",
-    "opis": "Róża i wanilia na ciemnym drewnie, tak gładko, że słowo satin w nazwie nie jest przesadą. Od pierwszej sekundy jest ciepło, bez żadnej surowej fazy, a fiołek dorzuca odrobinę pudru. Zapach układa się wokół ciebie aurą, więc nikomu nie przeszkodzi w restauracji.",
+    "opis": "Róża i wanilia na ciemnym drewnie, tak gładko, że słowo satin w nazwie nie jest przesadą. Od pierwszej sekundy jest ciepło, bez żadnej surowej fazy, a fiołek dorzuca odrobinę pudru. Zapach układa się wokół ciebie aurą, więc nikomu nie przeszkodzi w restauracji, a ponadto zaciekawi otoczenie niezależnie od tego, kto go użyje.",
     "nuty": {
      "glowy": [
       "Fiołek"
@@ -5259,7 +5426,9 @@
      "orientalny",
      "kwiatowy"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p84",
@@ -5267,7 +5436,7 @@
     "nazwa": "Wūlóng Chá",
     "rodzina": "cytrusowa",
     "profil": "unisex",
-    "opis": "Cytrusy z herbatą oolong, czyli świeżość, która nie wyparowuje po godzinie. Pachnie jak zimna herbata z cytryną pita w upał, czysto i bez grama słodyczy. Cała sztuczka siedzi w tym, jak mocno jest skoncentrowany: dostajesz lekkie odczucie przy trwałości, jakiej letnie zapachy zwykle nie mają. Jeśli męczy cię to, że twoje świeże perfumy giną po dwóch godzinach, to jest rozwiązanie.",
+    "opis": "Cytrusy z herbatą oolong, czyli świeżość, która nie wyparuje po godzinie. Pachnie jak zimna herbata z cytryną pita w upał, czysto i bez grama słodyczy. Cała sztuczka siedzi w tym, jak mocno jest skoncentrowany: dostajesz ciekawy niuans przy trwałości, jakiego letnie zapachy zwykle nie mają. Jeśli męczy cię to, że twoje świeże perfumy giną po dwóch godzinach, mamy na to rozwiązanie.",
     "nuty": {
      "glowy": [
       "Bergamotka",
@@ -5324,15 +5493,17 @@
     "klimat": [
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p85",
     "marka": "Sospiro",
     "nazwa": "Basso",
     "rodzina": "drzewna",
-    "profil": "unisex",
-    "opis": "Grejpfrut, cytryna i zieleń na wejściu, a pod nimi ciemne, pieprzne drewno oraz delikatna słodycz dla równowagi. Brzmi poważnie i trochę surowo, jak dobrze skrojony garnitur w kolorze węgla, dlatego dobrze wypada przy ludziach starszych od ciebie. Bardziej złożona i wzmocniona wersja klasyka od Hermesa.",
+    "profil": "męski",
+    "opis": "Grejpfrut, cytryna i zieleń na wejściu, a pod nimi eleganckie, pieprzne drewno oraz delikatna słodycz dla równowagi. Brzmi poważnie i trochę surowo, jak dobrze skrojony garnitur w kolorze węgla, dlatego dobrze wypada przy ludziach starszych od ciebie. Uniwersalne pachnidło na cały rok dla mężczyzny z klasą. Bardziej rozbudowana i wzmocniona wersja klasyka od Hermesa.",
     "nuty": {
      "glowy": [
       "Grejpfrut",
@@ -5399,7 +5570,9 @@
      "drzewny",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p86",
@@ -5473,7 +5646,9 @@
      "kwiatowy",
      "slodki"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p87",
@@ -5543,7 +5718,9 @@
      "kwiatowy",
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p88",
@@ -5551,7 +5728,7 @@
     "nazwa": "Oud Voyager",
     "rodzina": "drzewna",
     "profil": "damski",
-    "opis": "Oud podany kwiatowo, co na rynku zdarza się rzadko. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno z dymem. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera jest z tego roku, więc nikt wokół go nie zna, pytania o nazwę przychodzą szybko, a na chłodne miesiące wystarczą dwa psiknięcia w dzień.",
+    "opis": "Oud podany kwiatowo, co na rynku zdarza się rzadko. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno z dymem. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera była we wrześniu 2025 roku, więc nikt wokół go nie zna, a pytania o nazwę przychodzą szybko.",
     "nuty": {
      "glowy": [
       "Absolut geranium",
@@ -5611,7 +5788,9 @@
      "orientalny",
      "kwiatowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p89",
@@ -5672,13 +5851,15 @@
      "p35",
      "p24"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p89-800.webp",
     "kolejnosc": 89,
     "bestseller": false,
     "klimat": [
      "slodki"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p90",
@@ -5686,7 +5867,7 @@
     "nazwa": "Angels' Share On The Rocks",
     "rodzina": "gourmand",
     "profil": "unisex",
-    "opis": "Ten sam koniak, tylko polany czymś zimnym. Gorzka pomarańcza i bergamotka kładą na ciepłym rdzeniu chłodną, musującą warstwę, dzięki czemu całość jest lżejsza i mniej słodka od oryginału. Trzyma około sześciu do siedmiu godzin, czyli zauważalnie krócej. Jeśli kupujesz pierwszy flakon z tej linii, weź klasyczny Angels' Share. Ten bierz wtedy, gdy masz już oryginał i chcesz wersję na cieplejsze dni.",
+    "opis": "Ten sam koniak, tylko polany czymś zimnym. Gorzka pomarańcza i bergamotka kładą na ciepłym rdzeniu chłodną, musującą warstwę, dzięki czemu całość jest lżejsza i mniej słodka od oryginału. Trzyma około sześciu do siedmiu godzin. Jeśli kupujesz pierwszy flakon z tej linii, weź klasyczny Angels' Share. Ten bierz wtedy, gdy znasz oryginał i chcesz wersję na cieplejsze dni.",
     "nuty": {
      "glowy": [
       "Akord On The Rocks (bergamotka, grejpfrut, aldehydy)",
@@ -5738,14 +5919,16 @@
      "p89",
      "p09"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p90-800.webp",
     "kolejnosc": 90,
     "bestseller": false,
     "klimat": [
      "slodki",
      "cytrusowy"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p91",
@@ -5804,14 +5987,16 @@
      "p23",
      "p97"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p91-800.webp",
     "kolejnosc": 91,
     "bestseller": false,
     "klimat": [
      "kwiatowy",
      "aromatyczny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p92",
@@ -5873,14 +6058,16 @@
      "p83",
      "p73"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p92-800.webp",
     "kolejnosc": 92,
     "bestseller": false,
     "klimat": [
      "kwiatowy",
      "slodki"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p93",
@@ -5941,13 +6128,15 @@
      "p86",
      "p92"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p93-800.webp",
     "kolejnosc": 93,
     "bestseller": false,
     "klimat": [
      "kwiatowy"
     ],
-    "renoma": 3
+    "renoma": 3,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p94",
@@ -5955,7 +6144,7 @@
     "nazwa": "Sparkling Royal",
     "rodzina": "świeża",
     "profil": "damski",
-    "opis": "Kir Royal przełożony na zapach: czarna porzeczka z różą, a nad tym mięta i cytryna, które robią efekt bąbelków. Lekki i elegancki, nosi się go od brunchu po wieczorne wyjście. Kilian podaje ponad pięć godzin trwałości, co przy takiej konstrukcji jest wartością uczciwą, ale nie licz na chmurę w pomieszczeniu. Premiera z sierpnia, więc swoją popularność dopiero zyskuje. Idealny dla kobiet z klasą.",
+    "opis": "Kir Royal przełożony na zapach: czarna porzeczka z różą, a nad tym mięta i cytryna, które robią efekt bąbelków. Lekki i elegancki, nosi się go od brunchu po wieczorne wyjście. Kilian podaje ponad pięć godzin trwałości, co przy takiej konstrukcji jest uczciwą wartością. Premiera z sierpnia, więc swoją popularność dopiero zyskuje. Zapach idealny dla kobiety z klasą.",
     "nuty": {
      "glowy": [
       "Mięta",
@@ -6007,14 +6196,16 @@
      "p91",
      "p07"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p94-800.webp",
     "kolejnosc": 94,
     "bestseller": false,
     "klimat": [
      "kwiatowy",
      "cytrusowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": true,
+    "odbior": ""
    },
    {
     "id": "p95",
@@ -6022,7 +6213,7 @@
     "nazwa": "Shine Despite Everything",
     "rodzina": "drzewna",
     "profil": "unisex",
-    "opis": "Karmel i irys na dymnym kadzidle, czyli słodycz, która nie przypomina deseru. Początek jest korzenny i trochę ostry, lecz szybko robi się pudrowo i ciepło z mocnymi akcentami wanilii i drewna. Parfum Intense trzyma dziewięć do dziesięciu godzin, a na ubraniu zostaje po kilka dni. Dobry wybór na formalny zimowy wieczór dla kogoś, kto chce orientalnego pazura i jednocześnie boi się oudu. Świetnie sprawdzi się dla kobiety jak i dla mężczyzny.",
+    "opis": "Karmel i irys na dymnym kadzidle ze sporą dozą wanilii, czyli słodycz, która nie przypomina deseru. Początek jest korzenny i trochę ostry, lecz szybko robi się pudrowo i ciepło z mocnymi akcentami kremowości drewna. Parfum Intense trzyma dziewięć do dziesięciu godzin, a na ubraniu zostaje po kilka dni. Dobry wybór na formalny zimowy wieczór dla kogoś, kto chce orientalnego pazura i jednocześnie boi się oudu. Świetnie sprawdzi się dla kobiety jak i dla mężczyzny.",
     "nuty": {
      "glowy": [
       "Kadzidło somalijskie",
@@ -6085,7 +6276,9 @@
      "orientalny",
      "slodki"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p96",
@@ -6093,7 +6286,7 @@
     "nazwa": "Oud Save the King",
     "rodzina": "orientalna",
     "profil": "męski",
-    "opis": "Herbata Earl Grey z bergamotką spotyka zamsz i subtelny oud. Efekt jest zaskakująco kulturalny, bo oud jest tu lekki i wygładzony, przez co zapach brzmi jak angielski klub, a nie arabski bazar. Trzyma bardzo długo oraz potrafi wypełnić pomieszczenie. Dobre wejście w oud dla kogoś, kto boi się przesady, zwłaszcza do garnituru.",
+    "opis": "Gorycz herbaty Earl Grey spotyka zamsz i subtelny oud. Efekt jest zaskakująco kulturalny, bo oud jest tu lekki i wygładzony, przez co zapach brzmi jak angielski klub, a nie arabski bazar. Trzyma bardzo długo oraz potrafi wypełnić pomieszczenie. Dobre wejście w oud dla kogoś, kto boi się przesady, zwłaszcza do garnituru.",
     "nuty": {
      "glowy": [
       "Akord bergamotki Earl Grey (herbata, bergamotka)"
@@ -6151,7 +6344,9 @@
      "orientalny",
      "drzewny"
     ],
-    "renoma": 2
+    "renoma": 2,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p97",
@@ -6159,7 +6354,7 @@
     "nazwa": "Mint & Tonic",
     "rodzina": "cytrusowa",
     "profil": "unisex",
-    "opis": "Mięta z limonką i grejpfrutem, czyli zapach zimnego drinka w upalny dzień. Lekki, zielony, bez grama słodyczy i bez ciężaru. Trzyma trzy do pięciu godzin i to cała prawda o nim, więc traktuj go jako zapach do odświeżania w ciągu dnia. Na lato i na biuro, kiedy chcesz pachnieć czysto i nic ponad to.",
+    "opis": "Mięta z limonką i grejpfrutem, czyli zapach zimnego drinka w upalny dzień. Lekki, zielony, bez grama słodyczy i bez ciężaru. Nie jest on demonem trwałości, więc traktuj go jako zapach do odświeżania w ciągu dnia. Na lato i na biuro, kiedy chcesz pachnieć czysto i nic ponad to.",
     "nuty": {
      "glowy": [
       "Limonka",
@@ -6220,7 +6415,9 @@
      "cytrusowy",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p98",
@@ -6228,7 +6425,7 @@
     "nazwa": "Wet Cherry Liquor",
     "rodzina": "gourmand",
     "profil": "unisex",
-    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co wielu uważa za dojrzalszą wersję Lost Cherry: mniej cukierka, więcej wytrawności i wyraźne drewno na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny.",
+    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co wielu uważa za dojrzalszą wersję Lost Cherry: wyraźniejsze parametry, mniej cukierka, więcej wytrawności i wyraźne drewno na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny.",
     "nuty": {
      "glowy": [
       "Wiśnia",
@@ -6290,7 +6487,9 @@
      "slodki",
      "cytrusowy"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": "damski"
    },
    {
     "id": "p99",
@@ -6298,7 +6497,7 @@
     "nazwa": "Soir d'Orient",
     "rodzina": "drzewna",
     "profil": "damski",
-    "opis": "Szafran, róża i kadzidło, czyli klasyczny orientalny układ zrobiony przez francuski dom kosmetyczny. Otwarcie wypełnia pomieszczenie i brzmi bardzo drogo, a po dwóch godzinach zapach robi się intymny i zostaje blisko skóry. To zapach do eleganckiej garsonki i na wieczory zaplanowane z góry, nie na obiad w mieście. Chłodne miesiące i wieczór, dla kogoś, kto chce brzmieć dostojnie.",
+    "opis": "Szafran, róża i kadzidło, czyli klasyczny orientalny układ zrobiony przez francuski dom kosmetyczny. Otwarcie wypełnia pomieszczenie i brzmi bardzo drogo, a po dwóch godzinach zapach robi się intymny i zostaje blisko skóry. To zapach do eleganckiej garsonki i na wieczory zaplanowane z góry. Na chłodne miesiące i wieczór, dla kogoś, kto chce brzmieć dostojnie.",
     "nuty": {
      "glowy": [
       "Cytryna włoska",
@@ -6354,14 +6553,16 @@
      "p83",
      "p93"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p99-800.webp",
     "kolejnosc": 99,
     "bestseller": false,
     "klimat": [
      "orientalny",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    },
    {
     "id": "p100",
@@ -6428,14 +6629,16 @@
      "p31",
      "p80"
     ],
-    "zdjecie": "",
+    "zdjecie": "/img/produkty/p100-800.webp",
     "kolejnosc": 100,
     "bestseller": false,
     "klimat": [
      "slodki",
      "aromatyczny"
     ],
-    "renoma": 1
+    "renoma": 1,
+    "nowosc": false,
+    "odbior": ""
    }
   ],
   "sets": [

@@ -463,6 +463,33 @@ test('quiz: bestseller przy podobnym dopasowaniu wyżej; zestaw tylko pasujący'
   assert.equal(bez.partial, false);
 });
 
+test('quiz: „Dla niej” bez zapachów odbieranych jako męskie, „Dla niego” bez damskich; damskie wyżej', () => {
+  const D = loadDobor();
+  const cat = JSON.parse(JSON.stringify(be.buildCatalog_(productRows, setRows, {}, cfg, NOW)));
+  assert.equal(cat.products.find((p) => p.id === 'p05').odbior, 'męski', 'Ombre Nomade odbierany jako męski');
+  assert.equal(cat.products.find((p) => p.id === 'p86').odbior, '', 'odbior tylko przy unisex');
+  let sprawdzone = 0;
+  ['damski', 'meski'].forEach((profil) => {
+    ['cytrusowy', 'aromatyczny', 'drzewny', 'slodki', 'orientalny', 'kwiatowy'].forEach((k) => {
+      ['dzień', 'wieczór', 'uniwersalna'].forEach((pora) => {
+        ['cieplo', 'chlodno', 'caly'].forEach((sezon) => {
+          [1, 2, 3].forEach((intensywnosc) => {
+            const r = D.recommend(cat, { profil, klimat: [k], pora, sezon, intensywnosc });
+            const przeciwny = profil === 'damski' ? 'meski' : 'damski';
+            assert.ok(r.top.every((p) => D.lean(p) !== przeciwny), profil + ' ' + k + ' ' + pora + ' ' + sezon + ' ' + intensywnosc + ': ' + r.top.map((p) => p.nazwa));
+            sprawdzone++;
+          });
+        });
+      });
+    });
+  });
+  assert.equal(sprawdzone, 324);
+  // przypadek z rozmowy z właścicielem: „Dla niej” bez Ombre Nomade i Ombré Leather
+  const ona = D.recommend(cat, { profil: 'damski', klimat: ['orientalny', 'drzewny'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
+  assert.ok(!ona.top.some((p) => p.id === 'p05' || p.id === 'p32'), ona.top.map((p) => p.nazwa).join(', '));
+  assert.ok(ona.top.some((p) => p.profil === 'damski'), 'co najmniej jeden zapach damski');
+});
+
 // ---------- jednorazowa aktualizacja arkusza właściciela (apps-script/Aktualizacja_2026_10.gs) ----------
 /** Atrapa arkusza Google: siatka wartości z getRange/getValues/setValues/appendRow jak w Apps Script. */
 function fakeSpreadsheet(tables) {
@@ -493,66 +520,63 @@ function fakeSpreadsheet(tables) {
   };
 }
 
-test('aktualizacja arkusza 2026-10: dopisuje nowe zapachy, uzupełnia puste komórki, nie rusza zmian właściciela', () => {
+test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej aktualizacji wychodzi ten sam arkusz', () => {
   const fs = require('fs');
   const path = require('path');
   const vm = require('vm');
+  const { execSync } = require('child_process');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
     fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Aktualizacja_2026_10.gs'), 'utf8');
-  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
-  vm.createContext(ctx);
-  vm.runInContext(code + '\n;this.D = AKTUALIZACJA_2026_10; this.SHEET = SHEET;', ctx, { filename: 'Aktualizacja_2026_10.gs' });
-  const D = JSON.parse(JSON.stringify(ctx.D));
+  const git = (rev) => JSON.parse(execSync('git show ' + rev + ':dev/dane/arkusz.json', { cwd: path.join(__dirname, '..') }).toString());
+  const oczekiwane = JSON.parse(JSON.stringify(be.tableToObjects_(sheet.Produkty)));
 
-  // arkusz właściciela sprzed października: stare kolumny, Lp. do 71, p56 bez nazwy, stare podobne, Lost Cherry w zestawie
-  const head = sheet.Produkty[0];
-  const stare = head.slice(0, head.indexOf('bestseller'));
-  const przed = [stare].concat(sheet.Produkty.slice(1).filter((r) => Number(r[0].slice(1)) <= 71).map((r) => {
-    const o = Object.fromEntries(head.map((h, i) => [h, r[i]]));
-    if (o.id === 'p56') Object.assign(o, { aktywny: 'NIE', marka: '', nazwa: '', opis: '' });
-    if (D.podobne[o.id]) o.podobne = D.podobne[o.id][0];
-    if (o.id === 'p03') o.cena_10 = 999; // zmiana właściciela: zostaje
-    if (o.id === 'p42') o.podobne = 'p01, p02'; // ręczna zmiana: zostaje
-    return stare.map((h) => o[h]);
-  }));
-  const zestawy = sheet.Zestawy.map((r) => r.map((v) => (typeof v === 'string' ? v.replace('p98:', 'p34:') : v)));
-  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: przed, [ctx.SHEET.ZESTAWY]: zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
-  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+  // dce7735: arkusz właściciela z importu (wrzesień, 71 pozycji); 4f18f5e: po poprzedniej wersji aktualizacji (100)
+  ['dce7735', '4f18f5e'].forEach((rev) => {
+    const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+    vm.createContext(ctx);
+    vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Aktualizacja_2026_10.gs' });
+    const przed = git(rev);
+    const head = przed.Produkty[0];
+    const c = (n) => head.indexOf(n);
+    const wiersz = (id) => przed.Produkty.find((r) => r[0] === id);
+    wiersz('p03')[c('cena_10')] = 999;                 // zmiana właściciela: zostaje
+    wiersz('p42')[c('podobne')] = 'p01, p02';          // ręczna lista podobnych: zostaje
+    wiersz('p21')[c('ml_dostepne')] = 35;              // stan prowadzony przez właściciela: zostaje
+    if (c('klimat') !== -1) wiersz('p05')[c('klimat')] = 'drzewny'; // własny klimat (po poprzedniej aktualizacji)
+    const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: przed.Produkty, [ctx.SHEET.ZESTAWY]: przed.Zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+    ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
 
-  const opis = vm.runInContext('aktualizacja_2026_10()', ctx);
-  assert.match(opis, /Dodane zapachy: 29, uzupełnione puste wiersze: 1/);
-  assert.match(opis, /zmienione podobne: 3 \(pominięte, bo zmienione ręcznie: p42\)/);
-  assert.match(opis, /zmienione zestawy: 1\./);
+    const opis = vm.runInContext('aktualizacja_2026_10()', ctx);
+    assert.match(opis, rev === 'dce7735' ? /Produkty: dopisane 29, uzupełnione puste wiersze 1/ : /Produkty: dopisane 0, uzupełnione puste wiersze 0/, rev);
+    assert.match(opis, /zostawione Twoje wpisy: [^.]*p03\.cena_10/, rev);
+    assert.match(opis, /p42\.podobne/, rev);
+    assert.doesNotMatch(opis, /ml_dostepne/, rev);
 
-  const po = be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid);
-  const oczekiwane = be.tableToObjects_(sheet.Produkty);
-  assert.equal(po.length, 100);
-  const byId = Object.fromEntries(JSON.parse(JSON.stringify(po)).map((p) => [p.id, p]));
-  JSON.parse(JSON.stringify(oczekiwane)).forEach((e) => {
-    const wyj = { p03: ['cena_10'], p42: ['podobne'] }[e.id] || [];
-    Object.keys(e).forEach((k) => { if (wyj.indexOf(k) === -1) assert.deepEqual(byId[e.id][k], e[k], e.id + '.' + k); });
+    const byId = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
+    assert.equal(Object.keys(byId).length, 100, rev);
+    const wlasne = { p03: ['cena_10'], p42: ['podobne'], p21: ['ml_dostepne'], p05: c('klimat') !== -1 ? ['klimat'] : [] };
+    oczekiwane.forEach((e) => {
+      Object.keys(e).forEach((k) => { if ((wlasne[e.id] || []).indexOf(k) === -1) assert.deepEqual(byId[e.id][k], e[k], rev + ' ' + e.id + '.' + k); });
+    });
+    assert.equal(byId.p03.cena_10, 999);
+    assert.equal(byId.p42.podobne, 'p01, p02');
+    assert.equal(byId.p21.ml_dostepne, 35);
+    const z04 = ss.sheets[ctx.SHEET.ZESTAWY].grid.find((r) => r[0] === 'z04').join('|');
+    assert.ok(/p98:5/.test(z04) && !/p34:/.test(z04), rev + ' Sweet & Spicy z Wet Cherry Liquor');
+
+    // drugie uruchomienie niczego nie zmienia
+    const drugi = vm.runInContext('aktualizacja_2026_10()', ctx);
+    assert.match(drugi, /Produkty: dopisane 0, uzupełnione puste wiersze 0, zmienione komórki 0/, rev);
+    assert.match(drugi, /Zestawy: dopisane 0, uzupełnione puste wiersze 0, zmienione komórki 0/, rev);
+
+    // katalog z zaktualizowanego arkusza: bestsellery, nowości i odbiór na miejscu
+    const cat = be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ss.sheets[ctx.SHEET.PRODUKTY].grid, 100)), be.tableToObjects_(ss.sheets[ctx.SHEET.ZESTAWY].grid), {}, cfg, NOW);
+    assert.equal(cat.products.length, 94, rev);
+    assert.equal(cat.products.filter((p) => p.bestseller).length, 12, rev);
+    deq(cat.products.filter((p) => p.nowosc).map((p) => p.id).sort(), ['p54', 'p81', 'p94'], rev);
+    assert.equal(cat.products.find((p) => p.id === 'p32').odbior, 'męski', rev);
+    assert.ok(cat.sets.find((z) => z.id === 'z04').available, rev + ' Sweet & Spicy dostępny');
   });
-  assert.equal(byId.p03.cena_10, 999);
-  assert.equal(byId.p42.podobne, 'p01, p02');
-  assert.ok(ss.sheets[ctx.SHEET.ZESTAWY].grid.some((r) => r[0] === 'z04' && /p98:5/.test(r.join('|')) && !/p34:/.test(r.join('|'))));
-
-  // drugie uruchomienie niczego nie dubluje; wypełniona komórka zostaje, wyczyszczona wraca
-  const g = ss.sheets[ctx.SHEET.PRODUKTY].grid;
-  const col = (n) => g[0].indexOf(n);
-  const row = (id) => g.find((r) => r[0] === id);
-  row('p05')[col('klimat')] = 'kwiatowy';
-  row('p06')[col('renoma')] = '';
-  const drugi = vm.runInContext('aktualizacja_2026_10()', ctx);
-  assert.match(drugi, /Dodane zapachy: 0, uzupełnione puste wiersze: 0, uzupełnione komórki bestseller\/klimat\/renoma: 1, zmienione podobne: 0/);
-  assert.equal(g.length, 101);
-  assert.equal(row('p05')[col('klimat')], 'kwiatowy');
-  assert.equal(row('p06')[col('renoma')], byId.p06.renoma);
-
-  // katalog z zaktualizowanego arkusza: nowe zapachy z klimatem, bestsellery oznaczone
-  const cat = be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ss.sheets[ctx.SHEET.PRODUKTY].grid, 100)), be.tableToObjects_(ss.sheets[ctx.SHEET.ZESTAWY].grid), {}, cfg, NOW);
-  assert.equal(cat.products.length, 94);
-  assert.equal(cat.products.filter((p) => p.bestseller).length, 12);
-  assert.ok(cat.sets.find((z) => z.id === 'z04').available, 'Sweet & Spicy dostępny');
 });
 
 (async () => {

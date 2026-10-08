@@ -29,6 +29,10 @@ MIN_SIDE = 1000
 JASNE = 250          # tło JPG: piksele jaśniejsze od tego progu, połączone z krawędzią, stają się czystą bielą
 # PNG, w których wokół flakonu zostały nieprzezroczyste białe resztki tła (p64: pola obok nakrętki)
 RESZTKI_BIELI = {'p64': 245}
+# Biały flakon, który w źródle dotyka górnej i dolnej krawędzi (p93): biały margines (część wysokości) i niższa
+# czułość w ujednolic_zdjecia.py (ustawienia.json), inaczej tło wokół flakonu zostaje jako biały prostokąt.
+MARGINES = {'p93': 0.12}
+USTAWIENIA = {'p93': {'tol': 10}}
 
 # id: plik od właściciela. Większość z folderu na Dysku; p51 i p52 przysłane później w rozmowie („(czat)” w nazwie):
 # pierwszy plik p52 z Dysku przedstawiał Sauvage Eau de Parfum, a pierwsze p51 miało tylko 640 × 335 px.
@@ -48,6 +52,17 @@ PLIKI = {
     'p63': 'ysl y parfum.webp',
     'p64': 'yves-saint-laurent-myslf-le-parfum-tester-100ml.png',
     'p65': "Hermès Terre d'Hermès Eau Intense Vétiver.webp",
+    # październik 2026 (folder „Zdjęcia strona” na Dysku, 8.10): zapachy, których strony marek blokują pobieranie
+    'p56': 'images.jpg',
+    'p73': 'NEW_NOTES_Akigala_Mandarino_Extrait_de_Parfum_50ml.webp',
+    'p89': 'o.62615.jpg',
+    'p90': 'o.113083.jpg',
+    'p91': 'roses.jpg',
+    'p92': '3700550218210-WOMAN-IN-GOLD.png',
+    'p93': 'o.15924.jpg',
+    'p94': '440X440-SQ-180736221110357437251771581.png',
+    'p99': 'sisley-soir-d-orient.jpg',
+    'p100': 'vanilla-black-pepper_bohoboco_2.png',
 }
 
 
@@ -108,6 +123,11 @@ def main():
             im = edsr_x2(im)
             steps += 1
         im = czyste_tlo(im, pid)
+        if pid in MARGINES:
+            pad = int(im.size[1] * MARGINES[pid])
+            tlo = Image.new(im.mode, (im.size[0] + 2 * pad, im.size[1] + 2 * pad), (255, 255, 255, 0) if im.mode == 'RGBA' else (255, 255, 255))
+            tlo.paste(im, (pad, pad))
+            im = tlo
         for old in ('.jpg', '.png'):  # wcześniejsze przebiegi mogły zapisać JPG
             if os.path.exists(os.path.join(OUT, pid + old)):
                 os.remove(os.path.join(OUT, pid + old))
@@ -115,6 +135,9 @@ def main():
         rows.append({'id': pid, 'plik_od_wlasciciela': name, 'rozmiar_zrodla': '%dx%d' % size0,
                      'powiekszenie': 'EDSR x%d' % (2 ** steps) if steps else ''})
         print(pid, name, size0, '->', im.size, ('EDSR x%d' % (2 ** steps)) if steps else '')
+    import json
+    with open(os.path.join(OUT, 'ustawienia.json'), 'w', encoding='utf-8') as f:
+        json.dump(USTAWIENIA, f)
     report = os.path.join(HERE, 'zrodla-wlasciciel.csv')
     merged = {}
     if only and os.path.exists(report):

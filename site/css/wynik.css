@@ -102,9 +102,11 @@
   .rc:not(.rc--top) .card__cta-rest { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 }
 
-/* bestseller (październik 2026): jak etykieta na karcie katalogu, złoto z czarnym tekstem */
-.rc__best {
-  justify-self: start; width: fit-content; padding: 0.25rem 0.55rem;
+/* bestseller i nowość (październik 2026): jak etykiety na karcie katalogu */
+.rc__flags { justify-self: start; display: flex; flex-wrap: wrap; gap: var(--n-space-2); }
+.rc__best, .rc__new {
+  width: fit-content; padding: 0.25rem 0.55rem;
   background: var(--accent); color: var(--n-black);
   font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
 }
+.rc__new { background: var(--n-cream-50); color: var(--n-gold-700); box-shadow: inset 0 0 0 1px var(--n-gold); }

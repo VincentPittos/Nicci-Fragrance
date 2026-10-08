@@ -2,7 +2,7 @@
 
 Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 58). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Bon 50 zł za opóźnienie działa według Twoich zasad (90 dni, próg 199 zł za same zapachy): wystawia się sam i klient wpisuje go w polu „Kod bonu”. Zostało to, co poniżej.
 
-Aktualizacja 8.10.2026: 30 nowych zapachów, bestsellery i nowy quiz. Do zrobienia po Twojej stronie: zdjęcia 12 zapachów (punkt E), aktualizacja arkusza ze skryptem (punkt G2) i sprawdzenie danych nowych zapachów (część 3, punkty 10 do 13).
+Aktualizacja 8.10.2026, wieczór: Twoje nowe opisy są na stronie, ceny p95 do p100 zostają jak w Twoim cenniku, trzy zapachy z premierą w 2026 mają etykietę „Nowość”, a quiz „Dla niej” nie pokazuje już zapachów odbieranych jako męskie. Do zrobienia po Twojej stronie: dwa brakujące zdjęcia i większe Roses On Ice (punkt E), aktualizacja arkusza ze skryptem (punkt G2) i sprawdzenie danych nowych zapachów (część 3, punkty 10 do 14).
 
 * **Część 1: wyślij mi.** Materiały i potwierdzenia, które wpiszę na stronę.
 * **Część 2: wpisujesz sam.** Dane do płatności i e-mail wpisujesz bezpośrednio w Apps Script. Repozytorium jest publiczne, więc te dane nie powinny w nim leżeć.
@@ -26,9 +26,9 @@ Najlepiej gotowe teksty od prawnika. Szkielety są pod `/regulamin` i `/prywatno
 
 Obie strony mają dziś `noindex` i dopisek „nie publikować w tej postaci”. Po wstawieniu zatwierdzonych tekstów zdejmę jedno i drugie.
 
-### E. Zdjęcia: 12 nowych zapachów bez zdjęcia
+### E. Zdjęcia: brakują dwa
 
-64 zapachy sprzed października mają zdjęcie (15 Twoich, reszta ze stron producentów). Z 30 nowych zapachów (8.10.2026) zdjęcie ze strony producenta ma 18. Strony tych marek blokują pobieranie, więc tych 12 potrzebuje Twojego zdjęcia: p56 Versace Eros Energy, p73 New Notes Akigala Mandarino, p83 MFK Oud Satin Mood, p89 do p94 Kilian (Angels' Share, Angels' Share On The Rocks, Roses On Ice, Woman in Gold, Good Girl Gone Bad, Sparkling Royal), p98 Bohoboco Wet Cherry Liquor, p99 Sisley Soir d'Orient, p100 Bohoboco Vanilla Black Pepper. Do tego czasu karta pokazuje kadr zastępczy, a zapach stoi na końcu swojej grupy w katalogu. Przezroczyste i białe tła dostają ten sam jasny, ciepły kolor co pozostałe karty (#F1EFEC).
+Z 10 zdjęć z folderu „Zdjęcia strona” (8.10) wszystkie są na stronie: Eros Energy, Akigala Mandarino, sześć Kilianów (Angels' Share, On The Rocks, Roses On Ice, Woman in Gold, Good Girl Gone Bad, Sparkling Royal), Soir d'Orient i Vanilla Black Pepper. Zdjęcie ma teraz 92 z 94 aktywnych zapachów. Brakuje tylko p83 MFK Oud Satin Mood i p98 Bohoboco Wet Cherry Liquor; do czasu Twoich zdjęć mają kadr zastępczy. Roses On Ice ma tylko 225 × 225 px, więc mimo powiększenia jest na karcie miękkie. Jeśli znajdziesz większe (co najmniej 1000 px), podmienię je.
 
 Przy kolejnych zdjęciach najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tło może być przezroczyste albo jasne, resztę ujednolicę.
 
@@ -55,9 +55,11 @@ Pełna kolejność razem z domeną i pocztą: `docs/uruchomienie-domeny-i-poczty
 4. Wdróż jako aplikację internetową (Wykonaj jako: Ja, dostęp: Każdy).
 5. **Wyślij mi tylko adres kończący się na `/exec`.** Ten adres i tak jest widoczny w przeglądarce każdego klienta, więc może trafić do repozytorium.
 
-### G2. ★ Aktualizacja z października 2026 (nowe zapachy, bestsellery, quiz)
+### G2. ★ Aktualizacja z października 2026 (nowe zapachy, bestsellery, nowości, quiz)
 
-Nowa strona czyta trzy nowe kolumny (`bestseller`, `klimat`, `renoma`), a w arkuszu brakuje 30 nowych zapachów. Bez tej aktualizacji strona działa, ale bez nowych zapachów i bez etykiet „Bestseller”.
+Jeśli już wkleiłeś poprzednią wersję plików i uruchomiłeś aktualizację, zrób to jeszcze raz z nowymi plikami: skrypt sam rozpozna, co już jest, i zmieni tylko to, co trzeba.
+
+Nowa strona czyta pięć nowych kolumn (`bestseller`, `klimat`, `renoma`, `nowosc`, `odbior`), a w arkuszu brakuje 30 nowych zapachów i Twoich nowych opisów. Bez tej aktualizacji strona działa, ale bez nowych zapachów i bez etykiet „Bestseller”.
 
 1. W Apps Script przy arkuszu zastąp całą treść `Code.gs` nowym plikiem i wpisz z powrotem swoje wartości w `CONFIG` (BLIK, konto, odbiorca, dostawa).
 2. Dodaj plik (plus przy „Pliki”, Skrypt) o nazwie `Aktualizacja_2026_10` i wklej do niego `apps-script/Aktualizacja_2026_10.gs`.
@@ -94,10 +96,11 @@ Dopóki nie wpiszę adresu `/exec` z punktu G, strona działa jako podgląd: kat
 7. Zestaw z07 zawiera p60, który jest nieaktywny, więc zestaw jest niedostępny. Aktywować p60 czy zmienić skład?
 8. Plik do weryfikacji: dev/dane/do-weryfikacji.csv, 118 wierszy dla 60 pozycji; najwięcej dotyczy rodziny (28), sezonu (19), nut i osiągów (17) oraz podobnych zapachów (10). Każdy wiersz ma powód. Popraw w arkuszu albo odeślij mi decyzje.
 9. zdjecie_url: jeśli arkusz powstaje z pliku importu, adresy wszystkich zdjęć już w nim są. Jeśli zakładkę Produkty wypełniłeś wcześniej inaczej, wpisz dla p01 do p05, p42, p43 i p51 do p55, p63, p64 i p65 adres /img/produkty/ID-800.webp (np. /img/produkty/p43-800.webp).
-10. Ceny p95 do p100 (Atkinsons, Bohoboco, Sisley): w arkuszu doradcy są identyczne z cenami Kiliana (140, 200 i 370 zł), co wygląda na skopiowane. Sprawdź je przed startem sprzedaży.
-11. Nowe zapachy: profil (męski, damski, unisex) i renoma to nasza propozycja (lista w decyzji 75, docs/decyzje.md). Damskie: Velvet Orchid, Black Orchid, Oud Voyager, Roses On Ice, Woman in Gold, Good Girl Gone Bad, Sparkling Royal, Soir d'Orient. Męskie: Eros Energy, Layton, Pegasus Exclusif, Sedley, Oud Save the King. Reszta unisex. Zmień w kolumnie profil, jeśli w Twojej ofercie ma być inaczej.
+10. Ceny p95 do p100 zostają jak w Twoim cenniku (potwierdzone 8.10).
+11. Nowe zapachy: profil (męski, damski, unisex), renoma i odbiór to nasza propozycja (decyzje 75 i 76 w docs/decyzje.md). Damskie: Velvet Orchid, Black Orchid, Oud Voyager, Roses On Ice, Woman in Gold, Good Girl Gone Bad, Sparkling Royal, Soir d'Orient. Męskie: Eros Energy, Layton, Pegasus Exclusif, Sedley, Oud Save the King, a od 8.10 także Sospiro Basso (Twój nowy opis: „dla mężczyzny z klasą”). Reszta unisex. Zmień w kolumnie profil albo odbior, jeśli w Twojej ofercie ma być inaczej.
 12. Sweet & Spicy Set: Lost Cherry (niedostępny) zastąpiony przez Wet Cherry Liquor, żeby zestaw był dostępny. Cena zestawu bez zmian (480 zł).
 13. Winter Discovery Set (z07) nadal jest niedostępny przez p60 Bottled Absolu (punkt 7).
+14. Do potwierdzenia po Twoich zmianach z 8.10: w wierszu Lp. 56 komórka z nazwą jest pusta, a reszta wiersza (opis, ceny, status) została, więc na stronie zostawiliśmy „Eros Energy”. Jeśli chcesz go wycofać, ustaw status Niedostępny. Przy Lp. 11 Aventus kolumna podobnych jest pusta, więc w szczegółach Aventusa nie ma podobnych zapachów. Przy Oud Voyager zmieniliśmy zdanie „Premiera jest z tego roku” na „Premiera była we wrześniu 2025 roku”, bo zapach jest w sklepach od września 2025.
 ```
 
 Po uzupełnieniu uruchom `diagnostyka` w Apps Script, wypisze to, co jeszcze się nie zgadza.

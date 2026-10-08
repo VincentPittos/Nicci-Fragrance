@@ -36,7 +36,7 @@ OUT = os.path.join(ROOT, 'dev', 'dane')
 KOLUMNY_PRODUKTY = ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca',
                     'nuty_bazy', 'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc',
                     'cena_5', 'cena_10', 'cena_20', 'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc',
-                    'okazja', 'bestseller', 'klimat', 'renoma']
+                    'okazja', 'bestseller', 'klimat', 'renoma', 'nowosc', 'odbior']
 KOLUMNY_ZESTAWY = ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad']
 KOLUMNY_WERYFIKACJA = ['id', 'pozycja', 'pole', 'w_zrodle', 'w_imporcie', 'powod']
 
@@ -84,7 +84,9 @@ MESKIE_LP = {1, 4, 11, 12, 14, 16, 19, 33, 51, 52, 53, 54, 55, 56, 57, 58, 59, 6
              66, 67, 68, 69, 70, 71,
              # październik 2026: Parfums de Marly w swoim sklepie oznacza Layton, Pegasus Exclusif i Sedley jako
              # „Masculine Fragrance”; Oud Save the King z opisu w arkuszu („zwłaszcza do garnituru”)
-             75, 76, 77, 96}
+             75, 76, 77, 96,
+             # Sospiro Basso: od 8.10 opis w arkuszu mówi „dla mężczyzny z klasą”
+             85}
 # Damskie (październik 2026): Velvet Orchid i Black Orchid oznaczone przez Tom Forda jako „womens fragrance”;
 # Oud Voyager tak samo i opis w arkuszu („uniwersalne pachnidło dla kobiet”); Roses On Ice, Woman in Gold,
 # Good Girl Gone Bad, Sparkling Royal i Soir d'Orient według opisów w arkuszu (wprost o kobietach).
@@ -136,19 +138,45 @@ RENOMA = {lp: 3 for lp in (1, 5, 6, 8, 10, 11, 16, 19, 25, 29, 32, 34, 35, 37, 4
                            87, 89, 93)}
 RENOMA.update({lp: 1 for lp in (13, 26, 46, 47, 48, 49, 50, 56, 73, 80, 81, 82, 85, 88, 92, 94, 95, 97, 98, 99, 100)})
 
+# Nowości: premiera w 2026 roku (sprawdzone 8.10.2026 w notatkach arkusza i w źródłach sieciowych, decyzja 76).
+# Dior Sauvage Extrait: lipiec i sierpień 2026 (Francis Kurkdjian, oud); Essential Parfums Ambre Latte: 2026
+# (Jordi Fernández); Kilian Sparkling Royal: kolekcja The Cocktails, w sprzedaży od 1 września 2026.
+# Nie są nowościami (premiera 2025): Oud Voyager (wrzesień 2025), Angels' Share On The Rocks (sierpień 2025),
+# Velvet Iris, Boss Bottled Beyond EDP i Bottled Bold Citrus.
+NOWOSCI = {54, 81, 94}
+
+# Odbiór zapachów unisex (propozycja do weryfikacji właściciela): „męski” albo „damski”, gdy większość osób odbiera
+# zapach wyraźnie w jedną stronę (skóra, tytoń, oud, kadzidło, dym, wetyweria i pieprz w roli głównej albo owoce,
+# kwiaty, puder i deserowa słodycz). Quiz przy „Dla niej” pomija zapachy odbierane jako męskie i podaje wyżej
+# damskie, a przy „Dla niego” odwrotnie. Brak w tabeli: zapach naprawdę dla każdego.
+ODBIOR = {lp: 'męski' for lp in (5, 9, 10, 15, 17, 20, 22, 25, 28, 30, 31, 32, 35, 36, 37, 38, 44, 49, 72)}
+ODBIOR.update({lp: 'damski' for lp in (27, 34, 40, 48, 73, 74, 78, 80, 81, 83, 98)})
+
+# Nazwy, które zniknęły z arkusza przez pomyłkę. p56: 8.10 komórka z nazwą jest pusta, a reszta wiersza bez zmian
+# (status „Dostępny”, opis, ceny), tego samego dnia właściciel wgrał zdjęcie Eros Energy. Do potwierdzenia.
+NAZWY_UZUPELNIONE = {56: 'Eros Energy'}
+
 # ---------- poprawki opisów (październik 2026) ----------
-# Tylko oczywiste literówki i myślnik, którego nie używamy w tekstach marki. Każda poprawka trafia do weryfikacji.
+# Tylko oczywiste literówki, brakujące spacje i przecinki oraz myślnik, którego nie używamy w tekstach marki.
+# Trzeci element krotki: inny powód niż literówka. Każda poprawka trafia do weryfikacji.
+# Ceny p95 do p100 (takie same jak Kiliana) właściciel potwierdził 8.10.2026: to jego cennik.
 KOREKTY_OPISU = {
     73: [('słońcu, a tle mineralne', 'słońcu, a w tle mineralne')],
     75: [('z któymi', 'z którymi')],
     81: [('wokół Ciebie', 'wokół ciebie')],
-    88: [('śweitnie', 'świetnie')],
+    83: [('niezależnie od tego kto', 'niezależnie od tego, kto')],
+    84: [('cikawy niuans', 'ciekawy niuans')],
+    88: [('śweitnie', 'świetnie'),
+         ('Premiera jest z tego roku', 'Premiera była we wrześniu 2025 roku',
+          'nieaktualna informacja: Oud Voyager jest w sklepach od września 2025, nie z 2026')],
+    90: [('gdyznasz', 'gdy znasz')],
     91: [('wieczorem zaś - piękny alkoholowy akcent', 'wieczorem zaś piękny, alkoholowy akcent')],
     93: [('Zpach uniwersalny lecz', 'Zapach uniwersalny, lecz')],
+    94: [('zyskuje.Zapach', 'zyskuje. Zapach')],
+    95: [('akcentami  kremowości', 'akcentami kremowości')],
+    96: [('Earl Greyspotyka', 'Earl Grey spotyka')],
     99: [('elegankiej', 'eleganckiej')],
 }
-# Ceny do sprawdzenia: w źródle identyczne z cenami Kiliana (5 ml 140 zł, 10 ml 200 zł, 20 ml 370 zł).
-CENY_DO_SPRAWDZENIA = {95, 96, 97, 98, 99, 100}
 
 
 # ---------- sezon i pora ----------
@@ -211,7 +239,10 @@ def mapuj_ceny(tekst):
 # ---------- nazwy -> id ----------
 ALIASY = {'renaissance': 7, 'torino 21': 6, 'otlands': 17, 'reflection': 16, 'nouvau monde': 4,
           'saffrano absolu': 49, 'y le parfum': 63, "terre d'hermes": 65, 'one milion': 68,
-          'the most wanted': 71, 'sine despite everything': 95, 'myslf prafum': 64}
+          'the most wanted': 71, 'sine despite everything': 95, 'myslf prafum': 64,
+          # 8.10.2026: nowe wpisy w kolumnie podobne
+          'aurora sicilliana': 48, 'casa di caprii': 46, 'sparkling royale': 94, 'woolong cha': 84,
+          'aventus absolu': 12, 'baccarat rouge': 43}
 
 
 def indeks_nazw(produkty):
@@ -232,7 +263,7 @@ def rozpoznaj_nazwy(tekst, idx):
     znalezione, nierozp, aliasy = [], [], []
     for czesc in re.split(r'[;,]', str(tekst or '')):
         t = ' ' + norm(czesc) + ' '
-        if not t.strip():
+        if not re.search(r'\w', t):  # pusty fragment albo sama interpunkcja („,]”)
             continue
         trafione = False
         for klucz in sorted(idx, key=len, reverse=True):
@@ -279,6 +310,9 @@ def main():
             'podobne': kol(r, 'Podobne produkty z naszej oferty'), 'ceny': kol(r, 'Pojemności i ceny'),
             'pewnosc': str(kol(r, 'Pewność danych') or ''), 'uwagi': str(kol(r, 'Uwagi / do weryfikacji') or ''),
         })
+        if not zrodlo[-1]['nazwa'] and zrodlo[-1]['lp'] in NAZWY_UZUPELNIONE:
+            zrodlo[-1]['nazwa'] = NAZWY_UZUPELNIONE[zrodlo[-1]['lp']]
+            zrodlo[-1]['uzupelniona_nazwa'] = True
 
     idx = indeks_nazw(zrodlo)
     produkty, weryf = [], []
@@ -298,10 +332,13 @@ def main():
         p['kolejnosc'] = s['lp']
         p['nuty_glowy'], p['nuty_serca'], p['nuty_bazy'] = s['glowy'], s['serca'], s['bazy']
         p['opis'] = s['opis'].strip()
-        for stare, nowe in KOREKTY_OPISU.get(s['lp'], []):
+        for stare, nowe, *powod in KOREKTY_OPISU.get(s['lp'], []):
             if stare in p['opis']:
                 p['opis'] = p['opis'].replace(stare, nowe)
-                flag(s, 'opis', stare, nowe, 'poprawiona literówka albo myślnik (zasady tekstów marki)')
+                flag(s, 'opis', stare, nowe, powod[0] if powod else 'poprawiona literówka albo myślnik (zasady tekstów marki)')
+        if s.get('uzupelniona_nazwa'):
+            flag(s, 'nazwa', '', s['nazwa'], 'komórka z nazwą pusta od 8.10.2026, reszta wiersza bez zmian; '
+                 'nazwa uzupełniona, potwierdzić albo ustawić status Niedostępny')
 
         # aktywny
         niedostepny = norm(s['status']).startswith('niedostepny')
@@ -342,6 +379,8 @@ def main():
         p['bestseller'] = 'TAK' if s['lp'] in BESTSELLERY else ''
         p['klimat'] = KLIMAT.get(s['lp'], '')
         p['renoma'] = RENOMA.get(s['lp'], 2) if s['nazwa'] else ''
+        p['nowosc'] = 'TAK' if s['lp'] in NOWOSCI else ''
+        p['odbior'] = ODBIOR.get(s['lp'], '') if p['profil'] == 'unisex' else ''
         assert all(k.strip() in KLIMATY for k in p['klimat'].split(',') if k.strip()), (s['lp'], p['klimat'])
         if s['nazwa'] and not p['klimat']:
             flag(s, 'klimat', '', '', 'brak klimatu do quizu; quiz weźmie go z rodziny')
@@ -381,9 +420,6 @@ def main():
             p[f'cena_{ml}'] = ceny.get(ml, '')
         for f in flagi:
             flag(s, 'ceny', s['ceny'], ' | '.join(f'{k} ml {v} zł' for k, v in ceny.items()), f)
-        if s['lp'] in CENY_DO_SPRAWDZENIA:
-            flag(s, 'ceny', s['ceny'], ' | '.join(f'{k} ml {v} zł' for k, v in ceny.items()),
-                 'ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży')
         if not ceny and not niedostepny:
             flag(s, 'ceny', s['ceny'], '', 'brak cen')
         statystyka['warianty_' + '/'.join(str(k) for k in sorted(ceny)) if ceny else 'warianty_brak'] += 1

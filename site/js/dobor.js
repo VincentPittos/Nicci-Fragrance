@@ -8,7 +8,9 @@
  * zapisujemy pod tym samym kluczem co moduł (nicci_quiz_v1), żeby trafiały do zamówienia.
  *
  * Jak liczymy dopasowanie:
- *   profil       filtr: „Dla niego” to zapachy męskie i unisex, „Dla niej” damskie i unisex; dopasowany profil +1,5
+ *   profil       filtr: „Dla niego” to zapachy męskie i unisex, „Dla niej” damskie i unisex. Zapachy unisex z kolumną
+ *                odbior (męski albo damski) przy przeciwnym profilu odpadają, o ile zostaną co najmniej trzy pasujące
+ *                klimatem; inaczej wracają na koniec (-3). Ten sam profil +3, unisex odbierany w tę stronę +2
  *   klimat       kolumna klimat z arkusza (pierwszy klimat główny): trafienie w główny +7, w dodatkowy +4,
  *                oba wybrane klimaty naraz +2; zapachy bez trafienia biorą udział tylko wtedy, gdy trafiających jest za mało
  *   pora         ta sama +2, któraś uniwersalna +1, przeciwna -1
@@ -80,6 +82,20 @@
     return true;
   }
 
+  // strona, w którą zapach jest odbierany: profil męski albo damski, a przy unisex kolumna odbior
+  function lean(p) {
+    var pr = norm(p.profil);
+    if (pr === 'meski' || pr === 'damski') return pr;
+    var o = norm(p.odbior);
+    return o === 'meski' || o === 'damski' ? o : '';
+  }
+
+  // zapach odbierany przeciwnie do wybranego profilu („Dla niej” i unisex z męskim odbiorem)
+  function opposite(p, profil) {
+    var l = lean(p);
+    return (profil === 'damski' && l === 'meski') || (profil === 'meski' && l === 'damski');
+  }
+
   function available(p) { return (p.variants || []).some(function (v) { return v.available; }); }
 
   function score(p, a, chosen) {
@@ -102,8 +118,13 @@
     var d = Math.abs((p.intensywnosc || 2) - Number(a.intensywnosc || 2));
     var moc = d === 0 ? 2 : d === 1 ? 0.5 : -1.5;
 
-    var pr = norm(p.profil);
-    var g = (a.profil === 'meski' && pr === 'meski') || (a.profil === 'damski' && pr === 'damski') ? 1.5 : 0;
+    var pr = norm(p.profil), l = lean(p);
+    var g = 0;
+    if (a.profil === 'meski' || a.profil === 'damski') {
+      if (pr === a.profil) g = 3;
+      else if (l === a.profil) g = 2;
+      else if (l) g = -3;
+    }
 
     var q = (p.bestseller ? 2 : 0) + ((p.renoma || 2) - 2);
     var primary = chosen.indexOf(tags[0]) !== -1 ? 1 : 0;
@@ -147,7 +168,7 @@
       if (!s.available || !s.sklad || !s.sklad.length) return;
       var comps = s.sklad.map(function (c) { return scoredById[c.id]; });
       if (comps.some(function (x) { return !x; })) return;
-      var fit = comps.filter(function (x) { return allowed(x.p, a.profil); }).length / comps.length;
+      var fit = comps.filter(function (x) { return allowed(x.p, a.profil) && !opposite(x.p, a.profil); }).length / comps.length;
       if (fit < 0.8) return;
       var hits = comps.reduce(function (t, x) { return t + x.fit; }, 0);
       if (!partial && hits < 2.5) return;
@@ -166,6 +187,8 @@
     var byId = {};
     scored.forEach(function (x) { byId[x.p.id] = x; });
     var candidates = scored.filter(function (x) { return allowed(x.p, answers.profil); }).sort(better);
+    var strict = candidates.filter(function (x) { return !opposite(x.p, answers.profil); });
+    if (strict.filter(function (x) { return x.hits > 0; }).length >= n) candidates = strict;
     var matching = candidates.filter(function (x) { return x.hits > 0; });
     var partial = !matching.length;
     var pool = matching.length >= n ? matching : matching.concat(candidates.filter(function (x) { return x.hits === 0; }));
@@ -180,5 +203,5 @@
     };
   }
 
-  window.NicciDobor = { questions: QUESTIONS, recommend: recommend, klimaty: klimaty };
+  window.NicciDobor = { questions: QUESTIONS, recommend: recommend, klimaty: klimaty, lean: lean };
 })();

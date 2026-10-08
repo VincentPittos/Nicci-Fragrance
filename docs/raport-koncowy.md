@@ -65,7 +65,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-Zdjęcie ma 82 z 94 aktywnych produktów: 67 ze stron producentów (tabela niżej, w tym 18 nowych zapachów z 8.10.2026) i 15 od właściciela (akapit pod tabelą). 12 nowych zapachów czeka na zdjęcie od właściciela, bo strony ich marek blokują pobieranie (punkt 5). Źródło tych 67: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
+Zdjęcie ma 92 z 94 aktywnych produktów: 67 ze stron producentów (tabela niżej, w tym 18 nowych zapachów z 8.10.2026) i 25 od właściciela (akapity pod tabelą). Bez zdjęcia: p83 i p98 (punkt 5). Źródło tych 67: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -141,6 +141,8 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 
 **Zdjęcia od właściciela (24.09.2026):** wszystkie 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51 do p55, p63 do p65), ma zdjęcie od właściciela: 13 z folderu „Nicci Fragrance” na Dysku, p51 i p52 z plików przysłanych w rozmowie. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`.
 
+**Zdjęcia od właściciela (8.10.2026):** 10 nowych zapachów, których strony marek blokują pobieranie: p56, p73, p89 do p94, p99 i p100, z folderu „Zdjęcia strona” na Dysku. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. p91 Roses On Ice ma źródło 225 × 225 px (EDSR ×4), więc na karcie jest miękkie.
+
 ## 4. Wyniki audytu
 
 ### Kontrast (WCAG 2.2, tokeny z `site/css/tokens.css`)
@@ -194,7 +196,7 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 34/34 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js`, wstrzymana sprzedaż; od 8.10 także dobór w quizie (`site/js/dobor.js`) i jednorazowa aktualizacja arkusza właściciela na atrapie arkusza |
+| `node dev/testy_backendu.js` | 35/35 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js`, wstrzymana sprzedaż; od 8.10 także dobór w quizie (`site/js/dobor.js`, w tym 324 kombinacje „Dla niej” i „Dla niego” bez zapachów odbieranych przeciwnie) i jednorazowa aktualizacja arkusza właściciela z dwóch stanów wyjściowych na atrapie arkusza |
 | `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
 | `node dev/testy_wstrzymanie.js` | 10/10 | sprzedaż wstrzymana: katalog działa, koszyk bez przejścia do zamówienia, formularz wyłączony, backend odrzuca zamówienie bez zapisu, brak ofert w danych strukturalnych |
 
@@ -211,7 +213,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Stanów:** `ml_dostepne` puste w 92 produktach. Od 24.09 to nie blokada: puste pole znaczy sprzedaż bez limitu (decyzja 58). Wypełnione tylko p34 i p37, oba 0 ml, więc są wyprzedane.
 
-**Zdjęć:** 12 nowych zapachów z 8.10.2026: p56, p73, p83, p89 do p94, p98 do p100 (strony marek blokują pobieranie; lista nazw w `docs/lista-przed-publikacja.md`, punkt E). Na karcie mają kadr zastępczy.
+**Zdjęć:** p83 Maison Francis Kurkdjian Oud Satin Mood i p98 Bohoboco Wet Cherry Liquor (strony marek blokują pobieranie, właściciel jeszcze ich nie przysłał). Na karcie mają kadr zastępczy.
 
 **Cen:** strona pokazuje tylko pojemności z ceną, więc te warianty są ukryte. p34 i p37 nie mają żadnej ceny i mają 0 ml, więc są wyprzedane (widać je po wyłączeniu filtra „Tylko dostępne”). Produkt ze stanem, ale bez żadnej ceny, backend teraz pomija, a diagnostyka zgłasza go jako błąd.
 

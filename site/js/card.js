@@ -95,7 +95,10 @@
     h.push(mediaHtml(p, opts));
     h.push('</button>');
     if (soldOut) h.push('<span class="card__flag">Wyprzedane</span>');
-    else if (p.bestseller) h.push('<span class="card__flag card__flag--best">Bestseller</span>');
+    else if (p.bestseller || p.nowosc) {
+      h.push('<span class="card__flags">' + (p.nowosc ? '<span class="card__flag card__flag--new">Nowość</span>' : '') +
+        (p.bestseller ? '<span class="card__flag card__flag--best">Bestseller</span>' : '') + '</span>');
+    }
     h.push('</div><div class="card__body">');
 
     var hl = opts.hl || 3; // poziom nagłówka: w katalogu pod nagłówkiem grupy to h4

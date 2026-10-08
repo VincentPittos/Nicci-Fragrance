@@ -8,6 +8,8 @@ p06,Xerjoff Torino21,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po p
 p07,Xerjoff Renaissance (XJ 1861),sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
 p08,Xerjoff Erba Pura,rodzina,Owocowo-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p08,Xerjoff Erba Pura,sezon,"Cały rok, najlepiej wiosna i lato","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p08,Xerjoff Erba Pura,podobne,Nous Tous Aurora Sicilliana -> aurora sicilliana,,dopasowano po poprawce literówki albo skrótu nazwy
+p08,Xerjoff Erba Pura,podobne,Nous Tous Casa di Caprii -> casa di caprii,,dopasowano po poprawce literówki albo skrótu nazwy
 p09,Xerjoff Uden,sezon,"Jesień, zima, wczesna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
 p09,Xerjoff Uden,pora,"Wieczór, chłodny dzień",uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
 p11,Creed Aventus,rodzina,Owocowo-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
@@ -21,7 +23,7 @@ p14,Creed Silver Mountain Water,podobne,Xerjoff Renaissance -> renaissance,,dopa
 p15,Amouage Search,sezon,"Wiosna, jesień (uniwersalny)","wiosna, jesień",uproszczono do listy pór roku
 p15,Amouage Search,ceny,5 ml – 120 zł | 10 ml – 220 zł | 20 ml – 400 zł (promocja),5 ml 120 zł | 10 ml 220 zł | 20 ml 400 zł,"cena oznaczona jako promocja; API nie ma pola na starą cenę, pokażemy ją jako zwykłą"
 p16,Amouage Reflection Man,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, jesień, zima",uproszczono do listy pór roku
-p16,Amouage Reflection Man,podobne,MFK Baccarat Rouge,,nazwa nie pasuje do żadnej pozycji katalogu
+p16,Amouage Reflection Man,podobne,MFK Baccarat Rouge -> baccarat rouge,,dopasowano po poprawce literówki albo skrótu nazwy
 p18,Amouage Interlude Black Iris,aktywny,pewność danych: niska,NIE,instrukcja arkusza: nie publikować bez weryfikacji piramidy nut
 p18,Amouage Interlude Black Iris,rodzina,Irysowo-kadzidlana,kwiatowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p18,Amouage Interlude Black Iris,ml_dostepne,NIEDOSTĘPNY,0,niedostępny w źródle; karta pokaże „Wyprzedane” i podobne
@@ -50,13 +52,18 @@ p41,Maison Crivelli Oud Maracujá,rodzina,Owocowo-agarowa,słodka,"pierwszy czł
 p41,Maison Crivelli Oud Maracujá,sezon,"Jesień, zima, chłodna wiosna","wiosna, jesień, zima",uproszczono do listy pór roku
 p43,Maison Francis Kurkdjian Baccarat Rouge 540,sezon,"Cały rok, najlepiej jesień i zima","wiosna, lato, jesień, zima",uproszczono do listy pór roku
 p43,Maison Francis Kurkdjian Baccarat Rouge 540,pora,Wieczór (działa też w dzień),uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
+p47,Nous Tous Secco di Como,podobne,Kilian Sparkling Royale -> sparkling royale,,dopasowano po poprawce literówki albo skrótu nazwy
 p47,Nous Tous Secco di Como,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
+p47,Nous Tous Secco di Como,podobne,Nishane Woolong Cha -> woolong cha,,dopasowano po poprawce literówki albo skrótu nazwy
 p48,Nous Tous Aurora Siciliana,rodzina,Owocowo-kwiatowa,kwiatowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p50,Nous Tous Milano 3AM,rodzina,korzenna,orientalna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p50,Nous Tous Milano 3AM,sezon,"Cały rok, najlepiej chłodne wieczory","wiosna, lato, jesień, zima",uproszczono do listy pór roku
+p50,Nous Tous Milano 3AM,podobne,Creed Aventus Absolu -> aventus absolu,,dopasowano po poprawce literówki albo skrótu nazwy
+p52,Dior Sauvage Parfum,podobne,Creed Aventus Absolu -> aventus absolu,,dopasowano po poprawce literówki albo skrótu nazwy
 p53,Dior Sauvage Elixir,rodzina,Korzenno-ambrowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
+p53,Dior Sauvage Elixir,podobne,Creed Aventus Absolu -> aventus absolu,,dopasowano po poprawce literówki albo skrótu nazwy
 p55,Versace Eros Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
-p56,Versace Eros Energy,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p56,Versace Eros Energy,nazwa,,Eros Energy,"komórka z nazwą pusta od 8.10.2026, reszta wiersza bez zmian; nazwa uzupełniona, potwierdzić albo ustawić status Niedostępny"
 p57,Versace,"marka, nazwa",,,brak marki i nazwy; pozycja wyłączona do czasu uzupełnienia
 p57,Versace,rodzina,Korzenno-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p57,Versace,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
@@ -73,6 +80,7 @@ p63,YSL Y Parfum,sezon,"Cały rok, najlepiej wiosna i jesień","wiosna, lato, je
 p64,YSL MYSLF Parfum,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p65,Hermès Terre d'Hermès Eau Intense Vétiver,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p65,Hermès Terre d'Hermès Eau Intense Vétiver,sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
+p65,Hermès Terre d'Hermès Eau Intense Vétiver,podobne,Creed Aventus Absolu -> aventus absolu,,dopasowano po poprawce literówki albo skrótu nazwy
 p66,Rabanne Black XS,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p66,Rabanne Black XS,rodzina,Korzenno-cytrusowa,cytrusowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p68,Rabanne One Million,rodzina,Korzenno-słodka,słodka,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
@@ -84,7 +92,6 @@ p72,Carner Barcelona Cuirs,nuty / opis,pewność danych: Do weryfikacji,bez zmia
 p73,New Notes Akigala Mandarino,opis,"słońcu, a tle mineralne","słońcu, a w tle mineralne",poprawiona literówka albo myślnik (zasady tekstów marki)
 p73,New Notes Akigala Mandarino,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p73,New Notes Akigala Mandarino,rodzina,Owocowo-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
-p73,New Notes Akigala Mandarino,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p75,Parfums de Marly Layton,opis,z któymi,z którymi,poprawiona literówka albo myślnik (zasady tekstów marki)
 p75,Parfums de Marly Layton,rodzina,Fougère ambrowo-owocowa,ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
 p76,Parfums de Marly Pegasus Exclusif,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
@@ -96,39 +103,31 @@ p80,Essential Parfums Velvet Iris,rodzina,Zielono-drzewna z irysem,drzewna,"pier
 p81,Essential Parfums Ambre Latte,opis,wokół Ciebie,wokół ciebie,poprawiona literówka albo myślnik (zasady tekstów marki)
 p81,Essential Parfums Ambre Latte,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p82,Ormonde Jayne Kashmir,podobne,Atkinsons Sine Despite Everything -> sine despite everything,,dopasowano po poprawce literówki albo skrótu nazwy
+p83,Maison Francis Kurkdjian Oud Satin Mood,opis,niezależnie od tego kto,"niezależnie od tego, kto",poprawiona literówka albo myślnik (zasady tekstów marki)
 p83,Maison Francis Kurkdjian Oud Satin Mood,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p84,Nishane Wūlóng Chá,opis,cikawy niuans,ciekawy niuans,poprawiona literówka albo myślnik (zasady tekstów marki)
 p84,Nishane Wūlóng Chá,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
 p85,Sospiro Basso,sezon,"Wiosna, lato, wczesna jesień","wiosna, lato, jesień",uproszczono do listy pór roku
 p85,Sospiro Basso,podobne,Terre d'Hermes -> terre d'hermes,,dopasowano po poprawce literówki albo skrótu nazwy
-p88,Tom Ford Oud Voyager,opis,śweitnie,świetnie,poprawiona literówka albo myślnik (zasady tekstów marki)
+p88,Tom Ford Oud Voyager,opis,Premiera jest z tego roku,Premiera była we wrześniu 2025 roku,"nieaktualna informacja: Oud Voyager jest w sklepach od września 2025, nie z 2026"
 p88,Tom Ford Oud Voyager,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p88,Tom Ford Oud Voyager,pora,Wieczór (w dzień przy lekkiej aplikacji),uniwersalna,"uproszczono do: dzień, wieczór, uniwersalna"
-p89,Kilian Angels' Share,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
-p90,Kilian Angels' Share On The Rocks,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p90,Kilian Angels' Share On The Rocks,opis,gdyznasz,gdy znasz,poprawiona literówka albo myślnik (zasady tekstów marki)
 p91,Kilian Roses On Ice,opis,wieczorem zaś - piękny alkoholowy akcent,"wieczorem zaś piękny, alkoholowy akcent",poprawiona literówka albo myślnik (zasady tekstów marki)
-p91,Kilian Roses On Ice,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
-p92,Kilian Woman in Gold,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p93,Kilian Good girl gone Bad,opis,Zpach uniwersalny lecz,"Zapach uniwersalny, lecz",poprawiona literówka albo myślnik (zasady tekstów marki)
-p93,Kilian Good girl gone Bad,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
+p94,Kilian Sparkling Royal,opis,zyskuje.Zapach,zyskuje. Zapach,poprawiona literówka albo myślnik (zasady tekstów marki)
 p94,Kilian Sparkling Royal,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p94,Kilian Sparkling Royal,podobne,Xerjoff Renaissance -> renaissance,,dopasowano po poprawce literówki albo skrótu nazwy
-p94,Kilian Sparkling Royal,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
-p95,Atkinsons Shine Despite Everything,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
-p96,Atkinsons Oud Save the King,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
+p95,Atkinsons Shine Despite Everything,opis,akcentami  kremowości,akcentami kremowości,poprawiona literówka albo myślnik (zasady tekstów marki)
+p96,Atkinsons Oud Save the King,opis,Earl Greyspotyka,Earl Grey spotyka,poprawiona literówka albo myślnik (zasady tekstów marki)
 p97,Atkinsons Mint & Tonic,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
-p97,Atkinsons Mint & Tonic,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
 p98,Bohoboco Wet Cherry Liquor,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p98,Bohoboco Wet Cherry Liquor,rodzina,"Owocowo-gourmand, w bazie drzewno-waniliowa",gourmand,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
-p98,Bohoboco Wet Cherry Liquor,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
 p98,Bohoboco Wet Cherry Liquor,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p99,Sisley Soir d'Orient,opis,elegankiej,eleganckiej,poprawiona literówka albo myślnik (zasady tekstów marki)
 p99,Sisley Soir d'Orient,rodzina,Przyprawowo-drzewna,drzewna,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
-p99,Sisley Soir d'Orient,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
-p99,Sisley Soir d'Orient,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 p100,Bohoboco Vanilla Black Pepper,nuty / osiągi,pewność danych: średnia,bez zmian,instrukcja arkusza: zweryfikować przed publikacją
 p100,Bohoboco Vanilla Black Pepper,rodzina,"Korzenno-waniliowa, ambrowa",ambrowa,"pierwszy człon spoza 12 rodzin kanonicznych, propozycja"
-p100,Bohoboco Vanilla Black Pepper,ceny,5ml - 140zł | 10ml - 200zł | 20ml - 370zł,5 ml 140 zł | 10 ml 200 zł | 20 ml 370 zł,ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży
-p100,Bohoboco Vanilla Black Pepper,zdjecie_url,,,"brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe"
 z01,LV DISCOVERY SET,rodzina,,,brak rodziny: quiz nie zaproponuje tego zestawu
 z01,LV DISCOVERY SET,opis,,,źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania
 z02,XERJOFF DISCOVERY SET,sklad,"5 × 5 ml (do ustalenia skład, sugerowane: Torino21, Renaissance, Erba Pura, Uden, Naxos)","p06:5, p07:5, p08:5, p09:5, p10:5","skład „do ustalenia”; wpisano propozycję ze źródła, zestaw wyłączony"

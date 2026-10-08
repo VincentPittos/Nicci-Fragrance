@@ -36,11 +36,13 @@ W arkuszu jest zakładka **Sklep** z wierszem `sprzedaz`. Wartość **NIE** (tak
 
 ## Bestsellery i quiz
 
-Trzy kolumny w zakładce Produkty sterują etykietą „Bestseller” i doborem w quizie:
+Pięć kolumn w zakładce Produkty steruje etykietami „Bestseller” i „Nowość” oraz doborem w quizie:
 
 - **`bestseller`:** wpisz TAK, a zapach dostanie etykietę „Bestseller” na karcie, w szczegółach i w wyniku quizu, stanie na początku swojej grupy w katalogu i będzie częściej polecany w quizie. Puste pole: zwykły zapach.
 - **`klimat`:** do trzech słów po przecinku z listy: cytrusowy, aromatyczny, drzewny, slodki, orientalny, kwiatowy. Pierwsze słowo to główny charakter zapachu i liczy się w quizie najmocniej, np. `kwiatowy, slodki` dla Velvet Orchid. Puste pole: quiz zgadnie klimat z kolumny `rodzina`, ale mniej trafnie.
 - **`renoma`:** 3 dla zapachów najbardziej znanych i najlepiej ocenianych, 2 dla dobrze znanych, 1 dla niszowych i mniej znanych. Przy podobnym dopasowaniu quiz poleci najpierw zapach z wyższą renomą. Obecne wartości to nasza propozycja, możesz je zmienić.
+- **`nowosc`:** wpisz TAK przy zapachu z premierą w tym roku. Dostanie etykietę „Nowość” w tych samych miejscach co bestseller. Na początku nowego roku usuń TAK przy zeszłorocznych premierach.
+- **`odbior`:** tylko przy zapachach unisex. Wpisz męski, gdy większość osób odbiera zapach jako męski (np. Ombre Nomade, Ombré Leather), albo damski, gdy jako damski (np. Lost Cherry, Kirke). Quiz przy „Dla niej” nie pokaże zapachów z odbiorem męskim, a przy „Dla niego” z damskim. Puste pole: zapach naprawdę dla każdego. Obecne wartości to nasza propozycja.
 
 Quiz pokazuje zestaw tylko wtedy, gdy co najmniej połowa jego zapachów pasuje do wybranych klimatów i do profilu („Dla niego”, „Dla niej”), więc nowy zestaw nie potrzebuje żadnej dodatkowej kolumny. Zmiany w arkuszu widać na stronie w ciągu kilku minut. Po większych zmianach uruchom `diagnostyka`, wypisze literówki w kolumnie `klimat`.
 

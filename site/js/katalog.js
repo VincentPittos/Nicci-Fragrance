@@ -164,9 +164,9 @@
     });
     if (state.profil) list = list.filter(function (p) { return p.profil === state.profil; });
     // zapachy ze zdjęciem na początku grupy (do czasu zdjęć wszystkich flakonów), potem kolejność z arkusza
-    // w grupie: najpierw zapachy ze zdjęciem, wśród nich bestsellery, potem kolejność z arkusza
+    // w grupie: najpierw zapachy ze zdjęciem, wśród nich bestsellery i nowości, potem kolejność z arkusza
     return list.sort(function (a, b) {
-      return Number(!a.zdjecie) - Number(!b.zdjecie) || Number(!!b.bestseller) - Number(!!a.bestseller) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
+      return Number(!a.zdjecie) - Number(!b.zdjecie) || Number(!!(b.bestseller || b.nowosc)) - Number(!!(a.bestseller || a.nowosc)) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
     });
   }
 

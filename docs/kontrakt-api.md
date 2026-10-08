@@ -44,6 +44,8 @@ Katalog jest w cache 5 minut. Nowe zamówienie, zmiana statusu i każda edycja z
 | `bestseller` | bool | `TAK` w kolumnie `bestseller`; etykieta na karcie i w quizie, wyżej w grupie katalogu |
 | `klimat` | string[] | z: `cytrusowy`, `aromatyczny`, `drzewny`, `slodki`, `orientalny`, `kwiatowy`; pierwszy to klimat główny; inne wartości pomijane (diagnostyka ostrzega); pusta lista: quiz bierze klimat z `rodzina` |
 | `renoma` | 1, 2, 3 albo null | rozpoznawalność i oceny zapachu, tylko dla quizu (null liczy się jak 2) |
+| `nowosc` | bool | `TAK` w kolumnie `nowosc` (premiera w tym roku); etykieta „Nowość” na karcie, w szczegółach i w quizie |
+| `odbior` | `męski`, `damski` albo `''` | tylko przy profilu `unisex`: strona, w którą zapach jest zwykle odbierany; quiz przy „Dla niej” pomija `męski`, przy „Dla niego” `damski` |
 
 Produkt wyprzedany: `variants` bez `available: true` albo pusta lista.
 
