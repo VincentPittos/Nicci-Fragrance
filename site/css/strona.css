@@ -96,8 +96,9 @@ body { background: var(--bg-dark); }
 }
 .hero__inner { position: relative; z-index: 1; padding-inline: var(--gutter); }
 .hero__copy { display: grid; gap: var(--n-space-4); max-width: 36rem; }
-/* Nagłówek w dwóch liniach: „Zapach z najwyższej półki” i pod nim większa, złota kursywa „Za ułamek ceny”,
-   podciągnięta pod pierwszą linię. Rozmiar obu linii wynika z --t1. */
+/* Nagłówek w dwóch liniach: „Zapach z najwyższej półki” i pod nim większa, złota kursywa „Za ułamek ceny”.
+   Zawijas „Z” i wydłużenia liter nie wchodzą na ogonki „p”, „j” i „y” z pierwszej linii (decyzja 79).
+   Rozmiar obu linii wynika z --t1. */
 .hero__title {
   --t1: var(--n-size-display);
   display: grid;
@@ -106,7 +107,7 @@ body { background: var(--bg-dark); }
 .hero__title-1 { font-size: var(--t1); line-height: 1.02; letter-spacing: -0.022em; }
 .hero__title-2 {
   font-family: 'Carattere', var(--font-display);
-  font-size: calc(var(--t1) * 1.38);
+  font-size: calc(var(--t1) * 1.3);
   font-style: normal; /* krój jest kursywą sam w sobie; bez sztucznego pochylenia */
   font-weight: 400;
   line-height: 1;
@@ -114,7 +115,7 @@ body { background: var(--bg-dark); }
   color: var(--accent);
   /* zapas na zawijas „Z”, wydłużenia liter i ogonek „y”, żeby gradient ich nie ucinał; marginesy go znoszą */
   padding: 0.08em 0.06em 0.16em 0.1em;
-  margin: -0.18em 0 -0.16em -0.1em;
+  margin: 0 0 -0.16em -0.1em;
   text-wrap: nowrap;
 }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -202,24 +203,42 @@ body { background: var(--bg-dark); }
    Tak samo tablet w poziomie od 64rem: w układzie piętrowym flakony wypadały poza pierwszy ekran.
    Węższe ekrany w poziomie (telefon obrócony) nie mają dość pustej ściany na tekst i zostają przy układzie piętrowym. */
 @media (min-width: 80rem), (min-width: 64rem) and (orientation: landscape) {
+  /* Hero ma wysokość ekranu, ale nie więcej niż zdjęcie na całą szerokość (2000 × 1116), i nie mniej niż tekst. */
   .hero {
     display: block;
     padding: 0;
-    aspect-ratio: 2000 / 1116;
+    min-height: min(var(--screen-h), 55.8vw);
   }
-  .hero__media { position: absolute; inset: 0; margin: 0; z-index: -1; }
-  .hero__media img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; -webkit-mask-image: none; mask-image: none; }
+  .hero__media { position: absolute; inset: 0; margin: 0; z-index: -1; container-type: size; }
+  /* Zdjęcie oddalone (decyzja 79): 86% szerokości hero, na niskim ekranie mniej, tak żeby kamień i magnolia
+     mieściły się nad dolną krawędzią, a nad zdjęciem zostawał pasek nagłówka. Stoi w prawym dolnym rogu,
+     a lewa i górna krawędź przechodzą w czerń tła. 48cqw = 86% × 1116 / 2000 szerokości hero. */
+  .hero__media img {
+    position: absolute; right: 0; bottom: 0;
+    width: auto; height: 86%;
+    height: min(48cqw, 100cqh - 5.25rem);
+    object-fit: contain; object-position: 100% 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%), linear-gradient(180deg, transparent, #000 18%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent, #000 16%), linear-gradient(180deg, transparent, #000 18%);
+    mask-composite: intersect;
+  }
+  /* cień pod paskiem nagłówka: menu i przycisk quizu nie stoją na jasnej ścianie */
+  .hero::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 12rem; z-index: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgb(4 4 4 / 0.72) 0, rgb(4 4 4 / 0.55) 5.25rem, rgb(4 4 4 / 0) 100%);
+  }
   /* Układ jak w makiecie właściciela: tekst przy lewej krawędzi, na ciemnej ścianie nad magnolią i obok flakonów.
      Wymiary tekstu w vw, bo zdjęcie skaluje się z szerokością: kompozycja jest taka sama na 1280 i na 2560 px. */
   .hero__inner {
     max-width: none;
-    height: 100%;
     display: flex; align-items: flex-start;
     padding-top: max(6.25rem, 8vw);
+    padding-bottom: 3vw;
   }
   .hero__copy { max-width: none; gap: 1.45vw; }
   .hero__title { --t1: 5.3vw; }
-  .hero__title-2 { font-size: calc(var(--t1) * 1.47); margin-top: -0.19em; }
+  .hero__title-2 { font-size: calc(var(--t1) * 1.36); margin-top: 0.06em; }
   .hero__lead { font-size: max(1.0625rem, 1.3vw); max-width: 37vw; }
   .hero__cta { flex-wrap: nowrap; gap: 1vw; margin-top: 0.4vw; }
   /* przyciski też w vw: przy stałym rozmiarze na 1280 px wchodziłyby na flakony i magnolię */
