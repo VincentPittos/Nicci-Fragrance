@@ -82,11 +82,18 @@
     return true;
   }
 
+  // Odbiór z arkusza z października 2026 (dev/konwersja_arkusza.py, ODBIOR). Działa tylko wtedy, gdy katalog nie ma jeszcze
+  // pola odbior (arkusz sklepu sprzed aktualizacji_2026_10); potem rozstrzyga wyłącznie kolumna odbior w arkuszu.
+  var ODBIOR_DOMYSLNY = {};
+  ['p05', 'p09', 'p10', 'p15', 'p17', 'p20', 'p22', 'p25', 'p28', 'p30', 'p31', 'p32', 'p35', 'p36', 'p37', 'p38', 'p44', 'p49', 'p72'].forEach(function (id) { ODBIOR_DOMYSLNY[id] = 'meski'; });
+  ['p27', 'p34', 'p40', 'p48', 'p73', 'p74', 'p78', 'p80', 'p81', 'p83', 'p98'].forEach(function (id) { ODBIOR_DOMYSLNY[id] = 'damski'; });
+  var odbiorZArkusza = true;
+
   // strona, w którą zapach jest odbierany: profil męski albo damski, a przy unisex kolumna odbior
   function lean(p) {
     var pr = norm(p.profil);
     if (pr === 'meski' || pr === 'damski') return pr;
-    var o = norm(p.odbior);
+    var o = odbiorZArkusza ? norm(p.odbior) : (ODBIOR_DOMYSLNY[p.id] || '');
     return o === 'meski' || o === 'damski' ? o : '';
   }
 
@@ -182,6 +189,7 @@
 
   function recommend(catalog, answers, n) {
     n = n || 3;
+    odbiorZArkusza = (catalog.products || []).some(function (p) { return 'odbior' in p; });
     var chosen = chosenKlimaty(answers);
     var scored = (catalog.products || []).filter(available).map(function (p) { return score(p, answers, chosen); });
     var byId = {};

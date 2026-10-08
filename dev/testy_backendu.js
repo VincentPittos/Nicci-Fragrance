@@ -488,6 +488,11 @@ test('quiz: „Dla niej” bez zapachów odbieranych jako męskie, „Dla niego�
   const ona = D.recommend(cat, { profil: 'damski', klimat: ['orientalny', 'drzewny'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
   assert.ok(!ona.top.some((p) => p.id === 'p05' || p.id === 'p32'), ona.top.map((p) => p.nazwa).join(', '));
   assert.ok(ona.top.some((p) => p.profil === 'damski'), 'co najmniej jeden zapach damski');
+  // katalog z arkusza sprzed aktualizacji (bez pola odbior): quiz bierze odbiór domyślny
+  const stary = JSON.parse(JSON.stringify(cat));
+  stary.products.forEach((p) => { delete p.odbior; });
+  const onaStary = D.recommend(stary, { profil: 'damski', klimat: ['orientalny', 'drzewny'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
+  deq(onaStary.top.map((p) => p.id), JSON.parse(JSON.stringify(ona.top.map((p) => p.id))), 'ten sam wynik bez pola odbior');
 });
 
 // ---------- jednorazowa aktualizacja arkusza właściciela (apps-script/Aktualizacja_2026_10.gs) ----------
