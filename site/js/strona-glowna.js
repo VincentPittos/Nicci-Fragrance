@@ -93,7 +93,9 @@
     var notes = familyNotes(g.items, 5);
     return '<div class="families__slide" data-slide>' +
       '<div class="families__media"><picture>' +
+        '<source media="(min-width: 64rem)" type="image/avif" srcset="/img/rodziny/' + slug + '-45-640.avif 640w, /img/rodziny/' + slug + '-45-1280.avif 1280w" sizes="(min-width: 80rem) 38rem, 48vw">' +
         '<source media="(min-width: 64rem)" srcset="/img/rodziny/' + slug + '-45-640.webp 640w, /img/rodziny/' + slug + '-45-1280.webp 1280w" sizes="(min-width: 80rem) 38rem, 48vw">' +
+        '<source type="image/avif" srcset="/img/rodziny/' + slug + '-43-800.avif 800w, /img/rodziny/' + slug + '-43-1200.avif 1200w" sizes="(min-width: 48rem) 80vw, 86vw">' +
         '<img src="/img/rodziny/' + slug + '-43-800.webp" srcset="/img/rodziny/' + slug + '-43-800.webp 800w, /img/rodziny/' + slug + '-43-1200.webp 1200w"' +
         ' sizes="(min-width: 48rem) 80vw, 86vw" width="800" height="600" alt="" loading="lazy" decoding="async" draggable="false">' +
       '</picture></div>' +

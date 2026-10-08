@@ -238,4 +238,7 @@
 
   // ---------- start ----------
   go(Math.min(state.step || 0, Q.length - 1), 1);
+  // katalog pobieramy już teraz, w tle: zanim padnie ostatnia odpowiedź, leży w pamięci sesji i wynik nie czeka
+  // na arkusz (pierwsze pobranie z Apps Script trwa zwykle 1 do 3 s)
+  A.catalog().then(null, function () {});
 })();

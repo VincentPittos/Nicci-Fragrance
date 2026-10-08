@@ -4,8 +4,8 @@ Kadr hero na telefon: prawe 70% zdjęcia (atomizery Nicci), wyostrzony, w trzech
 
   python3 dev/grafiki/hero_telefon.py [źródło=refs/hero-czysty.webp]
 
-Wynik: site/img/hero/hero-m-1000.webp, hero-m-1400.webp (piksele źródła) i hero-m-2100.webp (EDSR x2,
-potem zmniejszenie do 2100 px) dla ekranów 3x. Na telefonie kadr ma ok. 720 px szerokości CSS, więc ekran 3x
+Wynik: site/img/hero/hero-m-1000, hero-m-1400 (piksele źródła) i hero-m-2100 (EDSR x2, potem zmniejszenie
+do 2100 px) dla ekranów 3x, każdy w WebP i AVIF (dev/grafiki/zapis.py). Na telefonie kadr ma ok. 720 px szerokości CSS, więc ekran 3x
 potrzebuje ok. 2150 px, a źródło ma w tym miejscu tylko 1400.
 
 Wymaga opencv-contrib-python-headless (moduł dnn_superres), pillow i numpy, najlepiej w osobnym venv:
@@ -24,6 +24,8 @@ import urllib.request
 import cv2
 import numpy as np
 from PIL import Image, ImageFilter
+
+from zapis import zapisz
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'refs', 'hero-czysty.webp')
@@ -58,9 +60,9 @@ def edsr_x2(bgr):
 
 
 def save(im, name):
-    path = os.path.join(OUT, name)
-    im.save(path, 'WEBP', quality=QUALITY, method=6)
-    print(name, im.size, os.path.getsize(path) // 1024, 'KB')
+    base = os.path.join(OUT, name.rsplit('.', 1)[0])
+    zapisz(im, base, webp=dict(quality=QUALITY))
+    print(name, im.size, os.path.getsize(base + '.webp') // 1024, 'KB WebP,', os.path.getsize(base + '.avif') // 1024, 'KB AVIF')
 
 
 def main():

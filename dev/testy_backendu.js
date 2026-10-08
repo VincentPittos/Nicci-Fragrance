@@ -584,14 +584,24 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
   });
 });
 
-test('zdjęcia: lista w app.js zgadza się z plikami, puste zdjecie z arkusza dostaje plik ze strony', () => {
+test('zdjęcia: lista w app.js zgadza się z plikami (AVIF i WebP, 400/600/800), puste zdjecie z arkusza dostaje plik ze strony', () => {
   const fs = require('fs'), path = require('path');
   const site = path.join(__dirname, '..', 'site');
   const src = fs.readFileSync(path.join(site, 'js', 'app.js'), 'utf8');
   const lista = src.match(/var ZDJECIA = '([^']*)'/)[1].split(' ').map((n) => 'p' + n);
   const pliki = fs.readdirSync(path.join(site, 'img', 'produkty')).filter((f) => /^p\d+-800\.webp$/.test(f)).map((f) => f.split('-')[0]);
   deq(lista.slice().sort(), pliki.slice().sort());
-  lista.forEach((id) => assert.ok(fs.existsSync(path.join(site, 'img', 'produkty', id + '-400.webp')), id + '-400.webp'));
+  // każdy rozmiar z srcset w card.js, w AVIF i WebP
+  lista.forEach((id) => [400, 600, 800].forEach((w) => ['webp', 'avif'].forEach((ext) =>
+    assert.ok(fs.existsSync(path.join(site, 'img', 'produkty', id + '-' + w + '.' + ext)), id + '-' + w + '.' + ext))));
+  // pliki /img/... wskazane w index.html (hero, sekcja 2) i kadry rodzin z strona-glowna.js istnieją w obu formatach
+  const html = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
+  const wskazane = [...new Set(html.match(/\/img\/[\w/.-]+\.(webp|avif)/g))];
+  wskazane.forEach((u) => assert.ok(fs.existsSync(path.join(site, u)), u));
+  assert.ok(wskazane.some((u) => /hero-m-2100\.avif$/.test(u)) && wskazane.some((u) => /odlewanie-1200\.avif$/.test(u)), 'AVIF w index.html');
+  ['ambrowa', 'aromatyczna', 'cytrusowa', 'drzewna', 'gourmand', 'kwiatowa', 'orientalna', 'skorzana', 'slodka', 'swieza'].forEach((r) =>
+    ['45-640', '45-1280', '43-800', '43-1200'].forEach((v) => ['webp', 'avif'].forEach((ext) =>
+      assert.ok(fs.existsSync(path.join(site, 'img', 'rodziny', r + '-' + v + '.' + ext)), r + '-' + v + '.' + ext))));
   // każdy aktywny zapach z arkusza ma plik, więc pusta komórka zdjecie_url nie zostawia kadru zastępczego
   const cat = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
   const bez = cat.products.filter((p) => lista.indexOf(p.id) === -1).map((p) => p.id);

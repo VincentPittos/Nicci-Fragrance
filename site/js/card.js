@@ -16,14 +16,16 @@
   var MAX = 5;
   var uid = 0;
 
-  var SIZES = '(min-width: 90rem) 22vw, (min-width: 64rem) 26vw, (min-width: 40rem) 45vw, 48vw';
+  // szerokość karty w katalogu (pomiar 8.10.2026): od 74rem do 336 px, od 64rem ok. 33vw, węziej ok. 44vw
+  var SIZES = '(min-width: 74rem) 21rem, (min-width: 64rem) 33vw, 45vw';
 
   function initials(brand) {
     var w = String(brand || '').trim().split(/\s+/);
     return (w[0] ? w[0].charAt(0) : '') + (w.length > 1 && w[1].length > 2 ? w[1].charAt(0) : '');
   }
 
-  /** Zdjęcie produktu z pliku 800 px i wersją 400 px w srcset; bez zdjęcia kadr zastępczy. */
+  /** Zdjęcie produktu: plik ze strony (/img/produkty/pNN-800.webp) w 400, 600 i 800 px, AVIF z zapasem WebP;
+   *  inny adres z arkusza jako zwykły obraz; bez zdjęcia kadr zastępczy. */
   function mediaHtml(p, opts) {
     var src = opts.img || p.zdjecie;
     if (!src) {
@@ -31,10 +33,13 @@
       return '<span class="card__ph" aria-hidden="true"><span class="card__ph-mark" data-t="' + U.esc(initials(p.marka)) + '"></span>' +
         '<span class="card__ph-brand" data-t="' + U.esc(p.marka) + '"></span></span>';
     }
-    var pair = /-800\.webp$/.test(src);
-    var small = pair ? src.replace(/-800\.webp$/, '-400.webp') : src;
-    return '<img src="' + U.esc(small) + '"' + (pair ? ' srcset="' + U.esc(small) + ' 400w, ' + U.esc(src) + ' 800w" sizes="' + (opts.sizes || SIZES) + '"' : '') +
-      ' alt="" width="' + (opts.imgW || 800) + '" height="' + (opts.imgH || 1000) + '" loading="lazy" decoding="async">';
+    var attrs = ' alt="" width="' + (opts.imgW || 800) + '" height="' + (opts.imgH || 1000) + '" loading="lazy" decoding="async">';
+    if (!/^\/img\/produkty\/p\d+-800\.webp$/.test(src)) return '<img src="' + U.esc(src) + '"' + attrs;
+    var base = src.replace(/-800\.webp$/, '');
+    var sizes = opts.sizes || SIZES;
+    var set = function (ext) { return [400, 600, 800].map(function (w) { return base + '-' + w + '.' + ext + ' ' + w + 'w'; }).join(', '); };
+    return '<picture class="pic"><source type="image/avif" srcset="' + U.esc(set('avif')) + '" sizes="' + sizes + '">' +
+      '<img src="' + U.esc(base + '-400.webp') + '" srcset="' + U.esc(set('webp')) + '" sizes="' + sizes + '"' + attrs + '</picture>';
   }
 
   /** Kluczowe nuty z miniaturą: kolejność z przebiegu zapachu, ta sama miniatura tylko raz. */

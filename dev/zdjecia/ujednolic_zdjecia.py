@@ -3,8 +3,8 @@
 Ujednolicenie zdjęć flakonów do siatki katalogu.
 
 Wejście: katalog z plikami nazwanymi id produktu (p01.jpg, p07.png, p12.webp...), zdjęcia na jednolitym tle
-(jasnym albo ciemnym) lub PNG z przezroczystością. Wyjście: site/img/produkty/{id}-400.webp i {id}-800.webp
-w proporcji 4:5, z tym samym tłem, flakonem tej samej wysokości i tak samo posadzonym w kadrze. Bez tego
+(jasnym albo ciemnym) lub PNG z przezroczystością. Wyjście: site/img/produkty/{id}-400, -600 i -800 w AVIF i WebP
+(dev/grafiki/zapis.py) w proporcji 4:5, z tym samym tłem, flakonem tej samej wysokości i tak samo posadzonym w kadrze. Bez tego
 siatka rozjeżdża się wizualnie.
 
 Tło źródła modelujemy gładką powierzchnią dopasowaną do pasków brzegowych (łapie gradient i winietę),
@@ -22,7 +22,9 @@ cień go nie zmniejszał ani nie przesuwał. Tylko tam, gdzie trzeba: przy biał
 zjeść jego cieniowanie.
 
 Użycie:
-    python3 dev/zdjecia/ujednolic_zdjecia.py <katalog_wejściowy> [--tlo F1EFEC] [--wysokosc 0.74]
+    python3 dev/zdjecia/ujednolic_zdjecia.py <katalog_wejściowy> [--tlo F1EFEC] [--wysokosc 0.74] [--tylko p06,p07]
+--tylko przetwarza wybrane id (np. bez zdjęć producenta zastąpionych zdjęciem od właściciela, które dalej leżą
+w dev/zdjecia/zrodla/wybrane).
 Wynik obok: dev/zdjecia/raport.csv z wymiarami, tłem źródła i ostrzeżeniami (np. ciemne tło, flakon ucięty);
 wiersze z kolejnych przebiegów się łączą.
 """
@@ -37,8 +39,13 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(ROOT, 'dev', 'grafiki'))
+from zapis import zapisz  # noqa: E402
+
 OUT = os.path.join(ROOT, 'site', 'img', 'produkty')
-SIZES = (400, 800)  # szerokość; wysokość = 1,25 × szerokość (4:5)
+# szerokość; wysokość = 1,25 × szerokość (4:5). 600 dla telefonów 3x (karta ok. 170 px) i laptopów 1,25x,
+# które przy samych 400 i 800 brały 800.
+SIZES = (400, 600, 800)
 
 
 def background_model(a):
@@ -121,7 +128,7 @@ def process(path, target_bg, height_ratio, tol, shadow=False):
     h, w = alpha.shape
     box = box_of(alpha)
     if not box:
-        return None, ['nie znaleziono flakonu']
+        return None, ['nie znaleziono flakonu'], None
     x0, y0, x1, y1 = box
     if x0 <= 1 or y0 <= 1 or x1 >= w - 1 or y1 >= h - 1:
         warn.append('obiekt dotyka krawędzi źródła, flakon może być ucięty')
@@ -156,10 +163,13 @@ def process(path, target_bg, height_ratio, tol, shadow=False):
     canvas.paste(region, (ox, oy))
 
     pid = os.path.splitext(os.path.basename(path))[0]
-    os.makedirs(OUT, exist_ok=True)
+    return {'id': pid, 'zrodlo_px': f'{w}x{h}', 'tlo_zrodla': bg_txt}, warn, canvas
+
+
+def save_sizes(canvas, pid, out=OUT):
+    os.makedirs(out, exist_ok=True)
     for size in SIZES:
-        canvas.resize((size, int(size * 1.25)), Image.LANCZOS).save(os.path.join(OUT, f'{pid}-{size}.webp'), 'WEBP', quality=82, method=6)
-    return {'id': pid, 'zrodlo_px': f'{w}x{h}', 'tlo_zrodla': bg_txt}, warn
+        zapisz(canvas.resize((size, int(size * 1.25)), Image.LANCZOS), os.path.join(out, f'{pid}-{size}'))
 
 
 def main():
@@ -168,7 +178,9 @@ def main():
     ap.add_argument('--tlo', default='F1EFEC', help='kolor tła docelowego, hex bez #')
     ap.add_argument('--wysokosc', type=float, default=0.74, help='wysokość flakonu jako część wysokości kadru')
     ap.add_argument('--tol', type=int, default=18, help='czułość wykrywania obiektu względem tła')
+    ap.add_argument('--tylko', default='', help='lista id po przecinku; bez niej wszystkie pliki z katalogu')
     args = ap.parse_args()
+    tylko = {x.strip() for x in args.tylko.split(',') if x.strip()}
     target = tuple(int(args.tlo[i:i + 2], 16) for i in (0, 2, 4))
     cfg_path = os.path.join(args.src, 'ustawienia.json')
     cfg = json.load(open(cfg_path, encoding='utf-8')) if os.path.exists(cfg_path) else {}
@@ -176,8 +188,12 @@ def main():
     for name in sorted(os.listdir(args.src)):
         if not name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
             continue
+        if tylko and os.path.splitext(name)[0] not in tylko:
+            continue
         opt = cfg.get(os.path.splitext(name)[0], {})
-        info, warn = process(os.path.join(args.src, name), target, args.wysokosc, opt.get('tol', args.tol), opt.get('cien', False))
+        info, warn, canvas = process(os.path.join(args.src, name), target, args.wysokosc, opt.get('tol', args.tol), opt.get('cien', False))
+        if canvas is not None:
+            save_sizes(canvas, info['id'])
         rows.append(dict(info or {'id': name}, ostrzezenia='; '.join(warn)))
         print(name, 'OK' if not warn else ' / '.join(warn))
     # raport łączy przebiegi (zdjęcia producentów i zdjęcia właściciela): nowy wiersz zastępuje stary o tym samym id

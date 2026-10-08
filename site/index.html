@@ -23,8 +23,12 @@
 <link rel="preload" href="/fonts/cormorant-garamond-normal-latin-2fed1d.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jost-normal-latin-35841f.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/carattere-pl-8362cd.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" media="(max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait)" imagesrcset="/img/hero/hero-m-1000.webp 1000w, /img/hero/hero-m-1400.webp 1400w, /img/hero/hero-m-2100.webp 2100w" imagesizes="(min-width: 48rem) 100vw, (max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" fetchpriority="high">
-<link rel="preload" as="image" media="(min-width: 48rem) and (orientation: landscape), (min-width: 80rem)" href="/img/hero/hero-1200.webp" imagesrcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w" imagesizes="100vw" fetchpriority="high">
+<!-- hero w AVIF (przeglądarki bez AVIF pomijają preload i biorą WebP z <picture>) -->
+<link rel="preload" as="image" type="image/avif" media="(max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait)" imagesrcset="/img/hero/hero-m-1000.avif 1000w, /img/hero/hero-m-1400.avif 1400w, /img/hero/hero-m-2100.avif 2100w" imagesizes="(min-width: 48rem) 100vw, (max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(min-width: 48rem) and (orientation: landscape), (min-width: 80rem)" imagesrcset="/img/hero/hero-800.avif 800w, /img/hero/hero-1200.avif 1200w, /img/hero/hero-1600.avif 1600w, /img/hero/hero-2000.avif 2000w" imagesizes="100vw" fetchpriority="high">
+<!-- katalog z arkusza (Apps Script): połączenie zestawiane od razu, zanim skrypty o nie poproszą -->
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
@@ -73,7 +77,9 @@
   <div class="hero__media" data-parallax>
     <picture>
       <!-- telefon: prawe 70% zdjęcia (atomizery Nicci), wyostrzone; 2100 px z EDSR x2 dla ekranów 3x (dev/grafiki/hero_telefon.py) -->
+      <source media="(max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait)" type="image/avif" srcset="/img/hero/hero-m-1000.avif 1000w, /img/hero/hero-m-1400.avif 1400w, /img/hero/hero-m-2100.avif 2100w" sizes="(min-width: 48rem) 100vw, (max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" width="1400" height="1116">
       <source media="(max-width: 47.99rem), (max-width: 79.99rem) and (orientation: portrait)" srcset="/img/hero/hero-m-1000.webp 1000w, /img/hero/hero-m-1400.webp 1400w, /img/hero/hero-m-2100.webp 2100w" sizes="(min-width: 48rem) 100vw, (max-height: 760px) 490px, (max-height: 800px) 560px, (max-height: 850px) 720px, 765px" width="1400" height="1116">
+      <source type="image/avif" srcset="/img/hero/hero-800.avif 800w, /img/hero/hero-1200.avif 1200w, /img/hero/hero-1600.avif 1600w, /img/hero/hero-2000.avif 2000w" sizes="100vw" width="2000" height="1116">
       <img src="/img/hero/hero-1200.webp"
         srcset="/img/hero/hero-800.webp 800w, /img/hero/hero-1200.webp 1200w, /img/hero/hero-1600.webp 1600w, /img/hero/hero-2000.webp 2000w"
         sizes="100vw" width="2000" height="1116" fetchpriority="high"
@@ -184,7 +190,7 @@
     <!-- 3. ODLEWANIE -->
     <li class="nf-step">
       <div class="nf-card nf-card--photo" data-card="photo">
-        <div class="nf-photo"><img src="/img/sekcja2/odlewanie-600.webp" srcset="/img/sekcja2/odlewanie-300.webp 300w, /img/sekcja2/odlewanie-600.webp 600w, /img/sekcja2/odlewanie-1200.webp 1200w" sizes="(max-width: 40rem) 78vw, 280px" alt="Odlewanie perfum z oryginalnego flakonu pipetą do złotego atomizera" width="600" height="800" loading="lazy" decoding="async"></div>
+        <div class="nf-photo"><picture class="pic"><source type="image/avif" srcset="/img/sekcja2/odlewanie-300.avif 300w, /img/sekcja2/odlewanie-600.avif 600w, /img/sekcja2/odlewanie-1200.avif 1200w" sizes="(max-width: 40rem) 78vw, 280px"><img src="/img/sekcja2/odlewanie-600.webp" srcset="/img/sekcja2/odlewanie-300.webp 300w, /img/sekcja2/odlewanie-600.webp 600w, /img/sekcja2/odlewanie-1200.webp 1200w" sizes="(max-width: 40rem) 78vw, 280px" alt="Odlewanie perfum z oryginalnego flakonu pipetą do złotego atomizera" width="600" height="800" loading="lazy" decoding="async"></picture></div>
         <div class="nf-card__top"><strong>Prosto z flakonu</strong><span>ręcznie</span></div>
         <div class="nf-badge" aria-hidden="true"><b data-ml>10 ml</b><small>odlewka</small></div>
         <p class="nf-photo__cap"><i>Oryginał</i><br>w złotym atomizerze, który zmieścisz w kieszeni</p>

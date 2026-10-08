@@ -102,7 +102,7 @@ Słownik `site/js/nuty.js` przypisuje nutę do miniatury po rdzeniu słowa (np. 
 
 **Zdjęcia od właściciela (24.09.2026, 15 z 15):** folder „Nicci Fragrance” na Dysku, a p51 i p52 z plików przysłanych w rozmowie („(czat)” w nazwie). `dev/zdjecia/zdjecia_wlasciciela.py` przypisuje pliki do id, zdjęcia z krótszym bokiem poniżej 1000 px powiększa EDSR ×2 (p42, p52, p64 i p65 raz, p04 i p54 dwa razy), usuwa kanał alfa bez przezroczystości, a jasne tło połączone z krawędzią zamienia na czystą biel (w p64 białe resztki przy nakrętce na przezroczystość). Szum tła (254 zamiast 255) trafiał do mapy cieniowania i zostawiał na karcie jaśniejszy prostokąt wokół flakonu. Pliki pośrednie są w PNG, bez stratnej kompresji. Potem `ujednolic_zdjecia.py dev/zdjecia/zrodla/wlasciciel`, z tym samym tłem #F1EFEC co reszta katalogu (przezroczyste tło też dostaje ten kolor zamiast białego, żeby siatka była równa). Nazwy plików i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. Pierwsze pliki p51 (640 × 335 px) i p52 (Sauvage Eau de Parfum zamiast Parfum) zastąpiły zdjęcia z rozmowy. Z listą id skrypt przetwarza tylko te zdjęcia, np. `zdjecia_wlasciciela.py <katalog> p51 p52`.
 
-Ujednolicenie (`dev/zdjecia/przygotuj_wejscie.py`, potem `ujednolic_zdjecia.py`): kadr 4:5, tło #F1EFEC, flakon na 74% wysokości, podstawa na 88%. Flakon kopiowany bez zmian; tło i cień przenoszone jako mapa cieniowania (źródło podzielone przez model tła), więc cień zostaje miękki, a tło wychodzi równe. PNG z przezroczystością (Xerjoff, Tom Ford, Montale, Crivelli, Azzaro) wklejane po kanale alfa. Z dwóch zdjęć (Bois Pacifique, 1 Million) usunięta plakietka nagrody Fragrance Foundation. Pliki: `site/img/produkty/{id}-400|800.webp`, adres w arkuszu: `/img/produkty/{id}-800.webp`.
+Ujednolicenie (`dev/zdjecia/przygotuj_wejscie.py`, potem `ujednolic_zdjecia.py`): kadr 4:5, tło #F1EFEC, flakon na 74% wysokości, podstawa na 88%. Flakon kopiowany bez zmian; tło i cień przenoszone jako mapa cieniowania (źródło podzielone przez model tła), więc cień zostaje miękki, a tło wychodzi równe. PNG z przezroczystością (Xerjoff, Tom Ford, Montale, Crivelli, Azzaro) wklejane po kanale alfa. Z dwóch zdjęć (Bois Pacifique, 1 Million) usunięta plakietka nagrody Fragrance Foundation. Pliki: `site/img/produkty/{id}-400|600|800` w AVIF i WebP, adres w arkuszu: `/img/produkty/{id}-800.webp` (strona sama dobiera rozmiar i format).
 
 ## Hero na telefonie
 
@@ -115,6 +115,12 @@ Na telefonie hero pokazuje prawe 70% zdjęcia (atomizery Nicci) w powiększeniu,
 | `hero-m-2100.webp` | 2100 × 1674, 138 KB | EDSR ×2 (lokalnie, OpenCV dnn_superres), zmniejszenie, delikatne wyostrzenie | ekrany 3× |
 
 Przeglądarka wybiera plik z `sizes` zależnego od wysokości ekranu, bo od niej zależy wysokość kadru. Każdy telefon pobiera jeden plik. Na iPhonie (390 px, 3×) kadr jest powiększany 1,03 raza zamiast 2,56. Cienka jasna obwódka przy flakonie Louis Vuitton jest w oryginale, wyostrzanie jej nie dodało.
+
+## Formaty i rozmiary (październik 2026)
+
+Każda grafika strony poza miniaturami nut ma wersję AVIF obok WebP. Strona podaje obie przez `<picture>` i `<source type="image/avif">`, więc przeglądarka bez AVIF (np. iPhone z iOS 15) bierze WebP. Zapis w obu formatach: `dev/grafiki/zapis.py` (WebP q82 albo jak dotąd q80, AVIF q60). Jakość AVIF dobrana skryptem `dev/grafiki/kalibracja_avif.py`: najniższa, przy której SSIM do bezstratnego wzorca nie jest niższy niż w WebP q82; przy tej samej jakości AVIF waży ok. 70% WebP (produkty 72%, kadry rodzin 68%, hero 70%). Zdjęcia produktów, kadry rodzin i hero powstają ze źródeł tymi samymi skryptami co wcześniej (WebP wychodzą identyczne co do bajtu), odlewanie w sekcji 2 z obecnych plików WebP (`dev/grafiki/avif_grafik.py`). Miniatury nut zostają w WebP: przy 256 px AVIF oszczędza ok. 20%, czyli ok. 1 KB na plik.
+
+Zdjęcia produktów mają trzeci rozmiar, 600 px. `sizes` w `site/js/card.js` odpowiada zmierzonej szerokości karty (od 74rem do 336 px, od 64rem ok. 33vw, węziej ok. 44vw): wcześniej zakładał 22vw na szerokich ekranach (422 px przy 1920), więc komputer pobierał wersję 800 zamiast 400.
 
 ## Grafika Open Graph
 

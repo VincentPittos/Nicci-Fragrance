@@ -346,6 +346,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 .card__media-btn:focus-visible { outline-offset: -4px; }
+/* <picture> wokół zdjęcia produktu (AVIF z zapasem WebP) nie tworzy własnego pudełka: obraz układa się jak dotąd */
+.pic { display: contents; }
 .card__media img {
   width: 100%; height: 100%;
   object-fit: cover;
