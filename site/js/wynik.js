@@ -1,9 +1,9 @@
 /**
  * NICCI: ekran wyniku quizu (/wynik).
- * Rekomendacja wyłącznie z Nicci.quiz.recommend na odpowiedziach z sessionStorage.
+ * Rekomendacja z NicciDobor.recommend (site/js/dobor.js) na odpowiedziach z sessionStorage.
  * Nagłówek i uzasadnienia składamy z wybranych odpowiedzi i realnych pól produktu (rodzina, pora,
- * intensywność, nuty), bez wymyślania cech. Dopasowanie częściowe: żadna z trzech nie należy do rodzin
- * z odpowiedzi; wtedy mówimy to wprost i wysuwamy zestaw odkrywców.
+ * intensywność, nuty), bez wymyślania cech. Dopasowanie częściowe: żaden zapach w katalogu nie trafia w wybrane
+ * klimaty; wtedy mówimy to wprost. Zestaw pokazujemy tylko wtedy, gdy dobór znalazł pasujący (bez zestawu „na zapas”).
  */
 (function () {
   'use strict';
@@ -15,8 +15,9 @@
 
   var state = null;
   try { state = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) { state = null; }
+  var D = window.NicciDobor;
   var answers = state && state.answers;
-  var complete = answers && N.quiz.questions.every(function (q) {
+  var complete = answers && D.questions.every(function (q) {
     var v = answers[q.id];
     return q.multi ? v && v.length : v !== undefined && v !== '';
   });
@@ -25,7 +26,10 @@
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
 
   // ---------- linia podsumowania z odpowiedzi ----------
-  var KLIMAT = { swiezy: 'świeże', drzewny: 'drzewne', slodki: 'otulające', kwiatowy: 'kwiatowe' };
+  var KLIMAT = {
+    cytrusowy: 'cytrusowe i owocowe', aromatyczny: 'aromatyczne i korzenne', drzewny: 'drzewne', slodki: 'otulające',
+    orientalny: 'orientalne', kwiatowy: 'kwiatowe', swiezy: 'cytrusowe i owocowe'
+  };
   var PORA = { 'dzień': 'na co dzień', 'wieczór': 'wieczorowe', uniwersalna: 'na każdą okazję' };
   var SEZON = { cieplo: 'na ciepłe miesiące', chlodno: 'na chłodne miesiące', caly: 'na cały rok' };
   var MOC = { 1: 'blisko skóry', 2: 'wyczuwalne', 3: 'zostawiające ślad' };
@@ -84,6 +88,7 @@
       '<button type="button" class="rc__media" data-open aria-haspopup="dialog" aria-label="' + esc('Szczegóły: ' + p.marka + ' ' + p.nazwa) + '">' +
         C.media(p, { sizes: top ? '(min-width: 64rem) 30rem, 100vw' : '(min-width: 64rem) 16rem, 50vw' }) + '</button>' +
       '<div class="rc__body">' +
+        (p.bestseller ? '<p class="rc__best">Bestseller</p>' : '') +
         '<p class="rc__brand">' + esc(p.marka) + '</p>' +
         '<h2 class="rc__name" id="rc-' + esc(p.id) + '">' + esc(p.nazwa) + '</h2>' +
         '<p class="rc__why">' + esc(why(p)) + '</p>' +
@@ -112,7 +117,7 @@
   }
 
   function render(catalog) {
-    var rec = N.quiz.recommend(catalog, answers, 3);
+    var rec = D.recommend(catalog, answers, 3);
     var top = rec.top;
     if (!top.length) {
       root.innerHTML = '<div class="result__empty"><h1 class="result__title">Na razie nic nie pasuje</h1>' +
@@ -120,9 +125,8 @@
         '<p><a class="btn btn--primary" href="' + A.url('/#katalog') + '">Zobacz katalog</a></p></div>';
       return;
     }
-    var fams = rec.rodziny || [];
-    var partial = !top.some(function (p) { return fams.indexOf(norm(p.rodzina)) !== -1; });
-    var set = rec.set || (partial ? (catalog.sets || []).filter(function (s) { return s.available; })[0] || null : null);
+    var partial = rec.partial;
+    var set = rec.set;
     var family = top[0].rodzina;
     var sum = top.reduce(function (t, p) { var v = defaultVariant(p); return t + (v ? v.price : 0); }, 0);
 

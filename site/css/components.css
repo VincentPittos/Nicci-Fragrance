@@ -362,6 +362,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+.card__flag--best { background: var(--accent); color: var(--n-black); } /* złoto z czarnym tekstem 9,39:1 */
 .card__body {
   display: flex;
   flex-direction: column;

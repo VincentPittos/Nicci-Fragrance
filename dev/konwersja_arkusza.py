@@ -36,7 +36,7 @@ OUT = os.path.join(ROOT, 'dev', 'dane')
 KOLUMNY_PRODUKTY = ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca',
                     'nuty_bazy', 'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc',
                     'cena_5', 'cena_10', 'cena_20', 'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc',
-                    'okazja']
+                    'okazja', 'bestseller', 'klimat', 'renoma']
 KOLUMNY_ZESTAWY = ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad']
 KOLUMNY_WERYFIKACJA = ['id', 'pozycja', 'pole', 'w_zrodle', 'w_imporcie', 'powod']
 
@@ -81,11 +81,74 @@ def mapuj_rodzine(tekst):
 # Arkusz nie ma kolumny profilu. Propozycja z ogólnej wiedzy o tym, jak producent
 # pozycjonuje linię (seria męska albo niszowa bez podziału). Cała kolumna do weryfikacji.
 MESKIE_LP = {1, 4, 11, 12, 14, 16, 19, 33, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
-             66, 67, 68, 69, 70, 71}
+             66, 67, 68, 69, 70, 71,
+             # październik 2026: Parfums de Marly w swoim sklepie oznacza Layton, Pegasus Exclusif i Sedley jako
+             # „Masculine Fragrance”; Oud Save the King z opisu w arkuszu („zwłaszcza do garnituru”)
+             75, 76, 77, 96}
+# Damskie (październik 2026): Velvet Orchid i Black Orchid oznaczone przez Tom Forda jako „womens fragrance”;
+# Oud Voyager tak samo i opis w arkuszu („uniwersalne pachnidło dla kobiet”); Roses On Ice, Woman in Gold,
+# Good Girl Gone Bad, Sparkling Royal i Soir d'Orient według opisów w arkuszu (wprost o kobietach).
+DAMSKIE_LP = {86, 87, 88, 91, 92, 93, 94, 99}
 
 
 def profil_dla(lp):
+    if lp in DAMSKIE_LP:
+        return 'damski'
     return 'męski' if lp in MESKIE_LP else 'unisex'
+
+
+# ---------- quiz: klimaty, bestsellery, renoma ----------
+# Klimaty to odpowiedzi z pytania 2 quizu (site/js/dobor.js). Pierwszy klimat jest główny. Przypisane ręcznie
+# z rodziny opisowej i piramidy nut każdego zapachu w arkuszu, bo sama rodzina kanoniczna bywa myląca
+# (np. Erba Pura: „Owocowo-ambrowa” → cytrusowo-owocowy, a nie słodki).
+KLIMATY = ['cytrusowy', 'aromatyczny', 'drzewny', 'slodki', 'orientalny', 'kwiatowy']
+KLIMAT = {
+    1: 'cytrusowy, aromatyczny', 2: 'cytrusowy', 3: 'cytrusowy', 4: 'orientalny, slodki', 5: 'orientalny, kwiatowy',
+    6: 'cytrusowy, aromatyczny', 7: 'cytrusowy', 8: 'cytrusowy, slodki', 9: 'cytrusowy, aromatyczny',
+    10: 'slodki, aromatyczny', 11: 'cytrusowy, drzewny', 12: 'cytrusowy, drzewny', 13: 'cytrusowy, slodki',
+    14: 'cytrusowy', 15: 'cytrusowy, orientalny', 16: 'kwiatowy, drzewny', 17: 'orientalny, aromatyczny',
+    18: 'orientalny, kwiatowy', 19: 'orientalny, aromatyczny', 20: 'aromatyczny, orientalny', 21: 'cytrusowy',
+    22: 'cytrusowy, drzewny', 23: 'cytrusowy', 24: 'slodki', 25: 'aromatyczny, orientalny', 26: 'slodki',
+    27: 'slodki, kwiatowy', 28: 'orientalny, slodki', 29: 'slodki', 30: 'orientalny, slodki',
+    31: 'aromatyczny, drzewny', 32: 'drzewny', 33: 'slodki, aromatyczny', 34: 'slodki, cytrusowy',
+    35: 'slodki, aromatyczny', 36: 'drzewny, aromatyczny', 37: 'drzewny, orientalny', 38: 'drzewny, orientalny',
+    39: 'drzewny', 40: 'cytrusowy, slodki', 41: 'orientalny, cytrusowy', 42: 'orientalny, slodki',
+    43: 'slodki, orientalny', 44: 'drzewny, aromatyczny', 45: 'cytrusowy, drzewny', 46: 'cytrusowy',
+    47: 'cytrusowy, kwiatowy', 48: 'cytrusowy, kwiatowy', 49: 'orientalny, aromatyczny', 50: 'aromatyczny, cytrusowy',
+    51: 'cytrusowy', 52: 'aromatyczny, drzewny', 53: 'aromatyczny, drzewny', 54: 'drzewny, aromatyczny',
+    55: 'aromatyczny, slodki', 56: 'cytrusowy, aromatyczny', 59: 'aromatyczny, drzewny', 60: 'orientalny, slodki',
+    61: 'drzewny', 62: 'cytrusowy, drzewny', 63: 'aromatyczny, cytrusowy', 64: 'kwiatowy, drzewny',
+    65: 'drzewny, cytrusowy', 66: 'slodki, aromatyczny', 67: 'cytrusowy', 68: 'slodki, aromatyczny', 69: 'cytrusowy',
+    70: 'slodki, drzewny', 71: 'slodki, aromatyczny', 72: 'drzewny, aromatyczny', 73: 'cytrusowy, kwiatowy',
+    74: 'kwiatowy, orientalny', 75: 'slodki, aromatyczny', 76: 'slodki, drzewny', 77: 'cytrusowy, aromatyczny',
+    78: 'kwiatowy, orientalny', 79: 'slodki, drzewny', 80: 'kwiatowy, drzewny', 81: 'slodki',
+    82: 'drzewny, orientalny', 83: 'orientalny, kwiatowy', 84: 'cytrusowy', 85: 'drzewny, aromatyczny',
+    86: 'kwiatowy, slodki', 87: 'orientalny, kwiatowy, slodki', 88: 'orientalny, kwiatowy', 89: 'slodki',
+    90: 'slodki, cytrusowy', 91: 'kwiatowy, aromatyczny', 92: 'kwiatowy, slodki', 93: 'kwiatowy',
+    94: 'kwiatowy, cytrusowy', 95: 'orientalny, slodki', 96: 'orientalny, drzewny', 97: 'cytrusowy, aromatyczny',
+    98: 'slodki, cytrusowy', 99: 'orientalny, aromatyczny', 100: 'slodki, aromatyczny',
+}
+# Bestsellery wskazane przez właściciela (październik 2026).
+BESTSELLERY = {43, 1, 10, 53, 44, 5, 35, 11, 45, 29, 8, 40}
+# Renoma 1 do 3: jak znany i ceniony jest zapach (propozycja z ogólnej wiedzy o rynku, do weryfikacji
+# właściciela). Quiz przy podobnym dopasowaniu podaje najpierw wyższą renomę. Brak w tabeli = 2.
+RENOMA = {lp: 3 for lp in (1, 5, 6, 8, 10, 11, 16, 19, 25, 29, 32, 34, 35, 37, 40, 42, 43, 44, 45, 53, 65, 75, 83,
+                           87, 89, 93)}
+RENOMA.update({lp: 1 for lp in (13, 26, 46, 47, 48, 49, 50, 56, 73, 80, 81, 82, 85, 88, 92, 94, 95, 97, 98, 99, 100)})
+
+# ---------- poprawki opisów (październik 2026) ----------
+# Tylko oczywiste literówki i myślnik, którego nie używamy w tekstach marki. Każda poprawka trafia do weryfikacji.
+KOREKTY_OPISU = {
+    73: [('słońcu, a tle mineralne', 'słońcu, a w tle mineralne')],
+    75: [('z któymi', 'z którymi')],
+    81: [('wokół Ciebie', 'wokół ciebie')],
+    88: [('śweitnie', 'świetnie')],
+    91: [('wieczorem zaś - piękny alkoholowy akcent', 'wieczorem zaś piękny, alkoholowy akcent')],
+    93: [('Zpach uniwersalny lecz', 'Zapach uniwersalny, lecz')],
+    99: [('elegankiej', 'eleganckiej')],
+}
+# Ceny do sprawdzenia: w źródle identyczne z cenami Kiliana (5 ml 140 zł, 10 ml 200 zł, 20 ml 370 zł).
+CENY_DO_SPRAWDZENIA = {95, 96, 97, 98, 99, 100}
 
 
 # ---------- sezon i pora ----------
@@ -148,7 +211,7 @@ def mapuj_ceny(tekst):
 # ---------- nazwy -> id ----------
 ALIASY = {'renaissance': 7, 'torino 21': 6, 'otlands': 17, 'reflection': 16, 'nouvau monde': 4,
           'saffrano absolu': 49, 'y le parfum': 63, "terre d'hermes": 65, 'one milion': 68,
-          'the most wanted': 71}
+          'the most wanted': 71, 'sine despite everything': 95, 'myslf prafum': 64}
 
 
 def indeks_nazw(produkty):
@@ -234,7 +297,11 @@ def main():
         p['marka'], p['nazwa'] = s['marka'], s['nazwa']
         p['kolejnosc'] = s['lp']
         p['nuty_glowy'], p['nuty_serca'], p['nuty_bazy'] = s['glowy'], s['serca'], s['bazy']
-        p['opis'] = s['opis']
+        p['opis'] = s['opis'].strip()
+        for stare, nowe in KOREKTY_OPISU.get(s['lp'], []):
+            if stare in p['opis']:
+                p['opis'] = p['opis'].replace(stare, nowe)
+                flag(s, 'opis', stare, nowe, 'poprawiona literówka albo myślnik (zasady tekstów marki)')
 
         # aktywny
         niedostepny = norm(s['status']).startswith('niedostepny')
@@ -252,6 +319,11 @@ def main():
         elif 'Średnia' in s['pewnosc']:
             flag(s, 'nuty / osiągi', 'pewność danych: średnia', 'bez zmian',
                  'instrukcja arkusza: zweryfikować przed publikacją')
+        elif s['nazwa'] and (not s['pewnosc'] or 'weryfik' in norm(s['pewnosc'])):
+            flag(s, 'nuty / opis', 'pewność danych: ' + (s['pewnosc'] or 'brak'), 'bez zmian',
+                 'w źródle bez potwierdzenia nut i opisu; zweryfikować przed publikacją')
+        if s['lp'] == 78:
+            flag(s, 'nazwa', s['nazwa'], s['nazwa'], 'potwierdzić u dostawcy wariant: Guidance albo droższy Guidance 46 (inna kompozycja)')
         p['aktywny'] = aktywny
         statystyka['aktywny_' + aktywny] += 1
 
@@ -265,6 +337,14 @@ def main():
 
         # profil
         p['profil'] = profil_dla(s['lp'])
+
+        # quiz i wyróżnienia
+        p['bestseller'] = 'TAK' if s['lp'] in BESTSELLERY else ''
+        p['klimat'] = KLIMAT.get(s['lp'], '')
+        p['renoma'] = RENOMA.get(s['lp'], 2) if s['nazwa'] else ''
+        assert all(k.strip() in KLIMATY for k in p['klimat'].split(',') if k.strip()), (s['lp'], p['klimat'])
+        if s['nazwa'] and not p['klimat']:
+            flag(s, 'klimat', '', '', 'brak klimatu do quizu; quiz weźmie go z rodziny')
 
         # sezon, pora
         sezon, upr = mapuj_sezon(s['sezon'])
@@ -301,6 +381,9 @@ def main():
             p[f'cena_{ml}'] = ceny.get(ml, '')
         for f in flagi:
             flag(s, 'ceny', s['ceny'], ' | '.join(f'{k} ml {v} zł' for k, v in ceny.items()), f)
+        if s['lp'] in CENY_DO_SPRAWDZENIA:
+            flag(s, 'ceny', s['ceny'], ' | '.join(f'{k} ml {v} zł' for k, v in ceny.items()),
+                 'ceny identyczne z Kilianem (140/200/370 zł); sprawdzić przed włączeniem sprzedaży')
         if not ceny and not niedostepny:
             flag(s, 'ceny', s['ceny'], '', 'brak cen')
         statystyka['warianty_' + '/'.join(str(k) for k in sorted(ceny)) if ceny else 'warianty_brak'] += 1
@@ -332,6 +415,10 @@ def main():
     zrows = list(wz.iter_rows(values_only=True))
     zestawy = []
     ZESTAW_RODZINA = {'SWEET & SPICY SET': 'gourmand'}
+    # Zamiany składników (lp → lp). Właściciel (październik 2026): Sweet & Spicy Set ma być dostępny, a Lost Cherry
+    # jest w źródle niedostępny i bez cen; zastępuje go Bohoboco Wet Cherry Liquor („dojrzalsza wersja Lost Cherry”
+    # w opisie arkusza).
+    ZESTAW_ZAMIANY = {'SWEET & SPICY SET': {34: 98}}
     nr = 0
     for r in zrows[3:]:
         if not r or not r[0]:
@@ -354,6 +441,11 @@ def main():
             zflag('cena', cena, z['cena'], 'cena zapisana jako tekst')
         tekst_skladu = sklad_txt.split('sugerowane:')[-1]
         lps, nierozp, aliasy = rozpoznaj_nazwy(tekst_skladu.replace('(', ',').replace(')', ','), idx)
+        for stary, nowy in ZESTAW_ZAMIANY.get(nazwa.upper(), {}).items():
+            if stary in lps:
+                lps[lps.index(stary)] = nowy
+                weryf.append(OrderedDict(id=f'z{nr:02d}', pozycja=nazwa, pole='sklad', w_zrodle=pid(stary), w_imporcie=pid(nowy),
+                                         powod='zamiana na prośbę właściciela: zestaw ma być dostępny, a składnik ze źródła jest niedostępny'))
         nierozp = [n for n in nierozp if n and not re.fullmatch(r'\s*\d*\s*[x×]?\s*\d*\s*ml\s*', n, re.I)
                    and 'do ustalenia' not in n]
         z['sklad'] = ', '.join(f'{pid(x)}:5' for x in lps)

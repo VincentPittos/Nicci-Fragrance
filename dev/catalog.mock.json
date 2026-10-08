@@ -64,7 +64,13 @@
      "p03"
     ],
     "zdjecie": "/img/produkty/p01-800.webp",
-    "kolejnosc": 1
+    "kolejnosc": 1,
+    "bestseller": true,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p02",
@@ -134,7 +140,12 @@
      "p07"
     ],
     "zdjecie": "/img/produkty/p02-800.webp",
-    "kolejnosc": 2
+    "kolejnosc": 2,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p03",
@@ -197,7 +208,12 @@
      "p21"
     ],
     "zdjecie": "/img/produkty/p03-800.webp",
-    "kolejnosc": 3
+    "kolejnosc": 3,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p04",
@@ -266,7 +282,13 @@
      "p17"
     ],
     "zdjecie": "/img/produkty/p04-800.webp",
-    "kolejnosc": 4
+    "kolejnosc": 4,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "slodki"
+    ],
+    "renoma": 2
    },
    {
     "id": "p05",
@@ -331,7 +353,13 @@
      "p17"
     ],
     "zdjecie": "/img/produkty/p05-800.webp",
-    "kolejnosc": 5
+    "kolejnosc": 5,
+    "bestseller": true,
+    "klimat": [
+     "orientalny",
+     "kwiatowy"
+    ],
+    "renoma": 3
    },
    {
     "id": "p06",
@@ -398,7 +426,13 @@
      "p01"
     ],
     "zdjecie": "/img/produkty/p06-800.webp",
-    "kolejnosc": 6
+    "kolejnosc": 6,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p07",
@@ -467,7 +501,12 @@
      "p14"
     ],
     "zdjecie": "/img/produkty/p07-800.webp",
-    "kolejnosc": 7
+    "kolejnosc": 7,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p08",
@@ -536,7 +575,13 @@
      "p45"
     ],
     "zdjecie": "/img/produkty/p08-800.webp",
-    "kolejnosc": 8
+    "kolejnosc": 8,
+    "bestseller": true,
+    "klimat": [
+     "cytrusowy",
+     "slodki"
+    ],
+    "renoma": 3
    },
    {
     "id": "p09",
@@ -603,7 +648,13 @@
      "p33"
     ],
     "zdjecie": "/img/produkty/p09-800.webp",
-    "kolejnosc": 9
+    "kolejnosc": 9,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p10",
@@ -669,7 +720,13 @@
      "p09"
     ],
     "zdjecie": "/img/produkty/p10-800.webp",
-    "kolejnosc": 10
+    "kolejnosc": 10,
+    "bestseller": true,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p11",
@@ -740,7 +797,13 @@
      "p52"
     ],
     "zdjecie": "/img/produkty/p11-800.webp",
-    "kolejnosc": 11
+    "kolejnosc": 11,
+    "bestseller": true,
+    "klimat": [
+     "cytrusowy",
+     "drzewny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p12",
@@ -808,7 +871,13 @@
      "p22"
     ],
     "zdjecie": "/img/produkty/p12-800.webp",
-    "kolejnosc": 12
+    "kolejnosc": 12,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p14",
@@ -871,7 +940,12 @@
      "p21"
     ],
     "zdjecie": "/img/produkty/p14-800.webp",
-    "kolejnosc": 14
+    "kolejnosc": 14,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p15",
@@ -936,7 +1010,13 @@
      "p36"
     ],
     "zdjecie": "/img/produkty/p15-800.webp",
-    "kolejnosc": 15
+    "kolejnosc": 15,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "orientalny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p16",
@@ -1000,10 +1080,18 @@
     "zostalo": null,
     "podobne": [
      "p09",
-     "p15"
+     "p31",
+     "p100",
+     "p64"
     ],
     "zdjecie": "/img/produkty/p16-800.webp",
-    "kolejnosc": 16
+    "kolejnosc": 16,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "drzewny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p17",
@@ -1085,7 +1173,13 @@
      "p38"
     ],
     "zdjecie": "/img/produkty/p17-800.webp",
-    "kolejnosc": 17
+    "kolejnosc": 17,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p19",
@@ -1152,7 +1246,13 @@
      "p38"
     ],
     "zdjecie": "/img/produkty/p19-800.webp",
-    "kolejnosc": 19
+    "kolejnosc": 19,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p20",
@@ -1218,7 +1318,13 @@
      "p49"
     ],
     "zdjecie": "/img/produkty/p20-800.webp",
-    "kolejnosc": 20
+    "kolejnosc": 20,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "orientalny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p21",
@@ -1279,7 +1385,12 @@
      "p62"
     ],
     "zdjecie": "/img/produkty/p21-800.webp",
-    "kolejnosc": 21
+    "kolejnosc": 21,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p22",
@@ -1343,7 +1454,13 @@
      "p44"
     ],
     "zdjecie": "/img/produkty/p22-800.webp",
-    "kolejnosc": 22
+    "kolejnosc": 22,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p23",
@@ -1407,7 +1524,12 @@
      "p47"
     ],
     "zdjecie": "/img/produkty/p23-800.webp",
-    "kolejnosc": 23
+    "kolejnosc": 23,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p24",
@@ -1467,7 +1589,12 @@
      "p70"
     ],
     "zdjecie": "/img/produkty/p24-800.webp",
-    "kolejnosc": 24
+    "kolejnosc": 24,
+    "bestseller": false,
+    "klimat": [
+     "slodki"
+    ],
+    "renoma": 2
    },
    {
     "id": "p25",
@@ -1528,7 +1655,13 @@
      "p28"
     ],
     "zdjecie": "/img/produkty/p25-800.webp",
-    "kolejnosc": 25
+    "kolejnosc": 25,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "orientalny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p27",
@@ -1584,7 +1717,13 @@
      "p24"
     ],
     "zdjecie": "/img/produkty/p27-800.webp",
-    "kolejnosc": 27
+    "kolejnosc": 27,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "kwiatowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p28",
@@ -1643,7 +1782,13 @@
      "p04"
     ],
     "zdjecie": "/img/produkty/p28-800.webp",
-    "kolejnosc": 28
+    "kolejnosc": 28,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "slodki"
+    ],
+    "renoma": 2
    },
    {
     "id": "p29",
@@ -1705,7 +1850,12 @@
      "p10"
     ],
     "zdjecie": "/img/produkty/p29-800.webp",
-    "kolejnosc": 29
+    "kolejnosc": 29,
+    "bestseller": true,
+    "klimat": [
+     "slodki"
+    ],
+    "renoma": 3
    },
    {
     "id": "p30",
@@ -1764,7 +1914,13 @@
      "p25"
     ],
     "zdjecie": "/img/produkty/p30-800.webp",
-    "kolejnosc": 30
+    "kolejnosc": 30,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "slodki"
+    ],
+    "renoma": 2
    },
    {
     "id": "p31",
@@ -1825,7 +1981,13 @@
      "p36"
     ],
     "zdjecie": "/img/produkty/p31-800.webp",
-    "kolejnosc": 31
+    "kolejnosc": 31,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p32",
@@ -1883,7 +2045,12 @@
      "p25"
     ],
     "zdjecie": "/img/produkty/p32-800.webp",
-    "kolejnosc": 32
+    "kolejnosc": 32,
+    "bestseller": false,
+    "klimat": [
+     "drzewny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p33",
@@ -1946,7 +2113,13 @@
      "p64"
     ],
     "zdjecie": "/img/produkty/p33-800.webp",
-    "kolejnosc": 33
+    "kolejnosc": 33,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p34",
@@ -1997,7 +2170,13 @@
      "p10"
     ],
     "zdjecie": "/img/produkty/p34-800.webp",
-    "kolejnosc": 34
+    "kolejnosc": 34,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "cytrusowy"
+    ],
+    "renoma": 3
    },
    {
     "id": "p35",
@@ -2061,7 +2240,13 @@
      "p04"
     ],
     "zdjecie": "/img/produkty/p35-800.webp",
-    "kolejnosc": 35
+    "kolejnosc": 35,
+    "bestseller": true,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p36",
@@ -2121,7 +2306,13 @@
      "p44"
     ],
     "zdjecie": "/img/produkty/p36-800.webp",
-    "kolejnosc": 36
+    "kolejnosc": 36,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p37",
@@ -2169,7 +2360,13 @@
      "p44"
     ],
     "zdjecie": "/img/produkty/p37-800.webp",
-    "kolejnosc": 37
+    "kolejnosc": 37,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "orientalny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p38",
@@ -2236,7 +2433,13 @@
      "p17"
     ],
     "zdjecie": "/img/produkty/p38-800.webp",
-    "kolejnosc": 38
+    "kolejnosc": 38,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "orientalny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p39",
@@ -2298,7 +2501,12 @@
      "p41"
     ],
     "zdjecie": "/img/produkty/p39-800.webp",
-    "kolejnosc": 39
+    "kolejnosc": 39,
+    "bestseller": false,
+    "klimat": [
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p40",
@@ -2362,7 +2570,13 @@
      "p28"
     ],
     "zdjecie": "/img/produkty/p40-800.webp",
-    "kolejnosc": 40
+    "kolejnosc": 40,
+    "bestseller": true,
+    "klimat": [
+     "cytrusowy",
+     "slodki"
+    ],
+    "renoma": 3
    },
    {
     "id": "p41",
@@ -2430,7 +2644,13 @@
      "p04"
     ],
     "zdjecie": "/img/produkty/p41-800.webp",
-    "kolejnosc": 41
+    "kolejnosc": 41,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p42",
@@ -2487,12 +2707,18 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p30",
      "p10",
-     "p35",
-     "p70"
+     "p35"
     ],
     "zdjecie": "/img/produkty/p42-800.webp",
-    "kolejnosc": 42
+    "kolejnosc": 42,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "slodki"
+    ],
+    "renoma": 3
    },
    {
     "id": "p43",
@@ -2551,12 +2777,18 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
-     "p42",
+     "p73",
      "p40",
      "p08"
     ],
     "zdjecie": "/img/produkty/p43-800.webp",
-    "kolejnosc": 43
+    "kolejnosc": 43,
+    "bestseller": true,
+    "klimat": [
+     "slodki",
+     "orientalny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p44",
@@ -2612,12 +2844,18 @@
     "malo": false,
     "zostalo": null,
     "podobne": [
+     "p73",
      "p39",
-     "p65",
-     "p49"
+     "p65"
     ],
     "zdjecie": "/img/produkty/p44-800.webp",
-    "kolejnosc": 44
+    "kolejnosc": 44,
+    "bestseller": true,
+    "klimat": [
+     "drzewny",
+     "aromatyczny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p45",
@@ -2682,7 +2920,13 @@
      "p46"
     ],
     "zdjecie": "/img/produkty/p45-800.webp",
-    "kolejnosc": 45
+    "kolejnosc": 45,
+    "bestseller": true,
+    "klimat": [
+     "cytrusowy",
+     "drzewny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p46",
@@ -2742,7 +2986,12 @@
      "p09"
     ],
     "zdjecie": "/img/produkty/p46-800.webp",
-    "kolejnosc": 46
+    "kolejnosc": 46,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 1
    },
    {
     "id": "p47",
@@ -2809,7 +3058,13 @@
      "p02"
     ],
     "zdjecie": "/img/produkty/p47-800.webp",
-    "kolejnosc": 47
+    "kolejnosc": 47,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "kwiatowy"
+    ],
+    "renoma": 1
    },
    {
     "id": "p48",
@@ -2869,7 +3124,13 @@
      "p08"
     ],
     "zdjecie": "/img/produkty/p48-800.webp",
-    "kolejnosc": 48
+    "kolejnosc": 48,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "kwiatowy"
+    ],
+    "renoma": 1
    },
    {
     "id": "p49",
@@ -2931,7 +3192,13 @@
      "p20"
     ],
     "zdjecie": "/img/produkty/p49-800.webp",
-    "kolejnosc": 49
+    "kolejnosc": 49,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "aromatyczny"
+    ],
+    "renoma": 1
    },
    {
     "id": "p50",
@@ -2994,7 +3261,13 @@
      "p33"
     ],
     "zdjecie": "/img/produkty/p50-800.webp",
-    "kolejnosc": 50
+    "kolejnosc": 50,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "cytrusowy"
+    ],
+    "renoma": 1
    },
    {
     "id": "p51",
@@ -3050,7 +3323,12 @@
      "p62"
     ],
     "zdjecie": "/img/produkty/p51-800.webp",
-    "kolejnosc": 51
+    "kolejnosc": 51,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p52",
@@ -3107,7 +3385,13 @@
      "p11"
     ],
     "zdjecie": "/img/produkty/p52-800.webp",
-    "kolejnosc": 52
+    "kolejnosc": 52,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p53",
@@ -3169,7 +3453,13 @@
      "p70"
     ],
     "zdjecie": "/img/produkty/p53-800.webp",
-    "kolejnosc": 53
+    "kolejnosc": 53,
+    "bestseller": true,
+    "klimat": [
+     "aromatyczny",
+     "drzewny"
+    ],
+    "renoma": 3
    },
    {
     "id": "p54",
@@ -3232,7 +3522,13 @@
      "p41"
     ],
     "zdjecie": "/img/produkty/p54-800.webp",
-    "kolejnosc": 54
+    "kolejnosc": 54,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p55",
@@ -3291,7 +3587,82 @@
      "p09"
     ],
     "zdjecie": "/img/produkty/p55-800.webp",
-    "kolejnosc": 55
+    "kolejnosc": 55,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "slodki"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p56",
+    "marka": "Versace",
+    "nazwa": "Eros Energy",
+    "rodzina": "cytrusowa",
+    "profil": "męski",
+    "opis": "Sześć różnych cytrusów naraz, czyli otwarcie tak jasne, że brzmi jak zimna woda z lodem w środku sierpnia. Prosty i energetyczny, bez niczego, co mogłoby komuś przeszkadzać. Dobry pierwszy zakup dla kogoś, kto boi się mocnych i słodkich zapachów. Trzeba go odświeżyć po kilku godzinach i to jedyne zastrzeżenie.",
+    "nuty": {
+     "glowy": [
+      "Krwista pomarańcza",
+      "grejpfrut",
+      "cytryna",
+      "limonka",
+      "mandarynka",
+      "bergamotka sycylijska"
+     ],
+     "serca": [
+      "Różowy pieprz",
+      "biała ambra",
+      "czarna porzeczka"
+     ],
+     "bazy": [
+      "Piżmo",
+      "paczula",
+      "dębowy mech"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 2.5,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Codzienność",
+     "sport",
+     "uczelnia",
+     "wakacje"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 7000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 13000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p12",
+     "p21",
+     "p62"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 56,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 1
    },
    {
     "id": "p59",
@@ -3348,7 +3719,13 @@
      "p38"
     ],
     "zdjecie": "/img/produkty/p59-800.webp",
-    "kolejnosc": 59
+    "kolejnosc": 59,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p61",
@@ -3401,7 +3778,12 @@
      "p70"
     ],
     "zdjecie": "/img/produkty/p61-800.webp",
-    "kolejnosc": 61
+    "kolejnosc": 61,
+    "bestseller": false,
+    "klimat": [
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p62",
@@ -3457,7 +3839,13 @@
      "p22"
     ],
     "zdjecie": "/img/produkty/p62-800.webp",
-    "kolejnosc": 62
+    "kolejnosc": 62,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p63",
@@ -3520,7 +3908,13 @@
      "p10"
     ],
     "zdjecie": "/img/produkty/p63-800.webp",
-    "kolejnosc": 63
+    "kolejnosc": 63,
+    "bestseller": false,
+    "klimat": [
+     "aromatyczny",
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p64",
@@ -3578,7 +3972,13 @@
      "p52"
     ],
     "zdjecie": "/img/produkty/p64-800.webp",
-    "kolejnosc": 64
+    "kolejnosc": 64,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p65",
@@ -3638,7 +4038,13 @@
      "p45"
     ],
     "zdjecie": "/img/produkty/p65-800.webp",
-    "kolejnosc": 65
+    "kolejnosc": 65,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "cytrusowy"
+    ],
+    "renoma": 3
    },
    {
     "id": "p66",
@@ -3690,7 +4096,13 @@
      "p63"
     ],
     "zdjecie": "/img/produkty/p66-800.webp",
-    "kolejnosc": 66
+    "kolejnosc": 66,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p67",
@@ -3744,7 +4156,12 @@
      "p46"
     ],
     "zdjecie": "/img/produkty/p67-800.webp",
-    "kolejnosc": 67
+    "kolejnosc": 67,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p68",
@@ -3798,7 +4215,13 @@
      "p59"
     ],
     "zdjecie": "/img/produkty/p68-800.webp",
-    "kolejnosc": 68
+    "kolejnosc": 68,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p69",
@@ -3855,7 +4278,12 @@
      "p06"
     ],
     "zdjecie": "/img/produkty/p69-800.webp",
-    "kolejnosc": 69
+    "kolejnosc": 69,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
    },
    {
     "id": "p70",
@@ -3912,7 +4340,13 @@
      "p61"
     ],
     "zdjecie": "/img/produkty/p70-800.webp",
-    "kolejnosc": 70
+    "kolejnosc": 70,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "drzewny"
+    ],
+    "renoma": 2
    },
    {
     "id": "p71",
@@ -3969,7 +4403,2039 @@
      "p59"
     ],
     "zdjecie": "/img/produkty/p71-800.webp",
-    "kolejnosc": 71
+    "kolejnosc": 71,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p72",
+    "marka": "Carner Barcelona",
+    "nazwa": "Cuirs",
+    "rodzina": "skórzana",
+    "profil": "unisex",
+    "opis": "Otulające przyprawy okryte gładką skórą. Słodkawy z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni w roku. Idealne wprowadzenie w zapachy skórzane.",
+    "nuty": {
+     "glowy": [
+      "Szafran",
+      "kminek"
+     ],
+     "serca": [
+      "Drewno sandałowe",
+      "gwajakowiec",
+      "paczula",
+      "cedr Virginia",
+      "fiołek"
+     ],
+     "bazy": [
+      "Oud",
+      "skóra",
+      "francuskie labdanum",
+      "fasola tonka",
+      "bursztyn",
+      "piżmo",
+      "cypriol",
+      "amyris"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "codzienność zimną porą"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 7000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 13000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p32",
+     "p04",
+     "p33",
+     "p49"
+    ],
+    "zdjecie": "/img/produkty/p72-800.webp",
+    "kolejnosc": 72,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "aromatyczny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p73",
+    "marka": "New Notes",
+    "nazwa": "Akigala Mandarino",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Mandarynka z maliną i marakują, podane tak soczyście, że pierwsze minuty pachną jak miska owoców postawiona na słońcu, a w tle mineralne akordy akigalawood oraz szafran. Potem robi się kwiatowo i miękko, a na dnie zostaje ciepłe, lekko pieprzne drewno. Tej marki nie zna w Polsce prawie nikt, więc pytania o nazwę przychodzą same.",
+    "nuty": {
+     "glowy": [
+      "Mandarynka",
+      "marakuja",
+      "malina",
+      "jabłko"
+     ],
+     "serca": [
+      "Frezja",
+      "jaśmin",
+      "konwalia"
+     ],
+     "bazy": [
+      "Akigalawood",
+      "ambra"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Uniwersalny: biuro",
+     "wyjście",
+     "codzienność premium"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 18000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 33000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p39",
+     "p44",
+     "p43"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 73,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "kwiatowy"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p74",
+    "marka": "Xerjoff",
+    "nazwa": "Opera",
+    "rodzina": "kwiatowa",
+    "profil": "unisex",
+    "opis": "Owocowy, różany start, który po kwadransie zamienia się w gładką skórę z przyprawą. Na końcu zostaje pudrowa wanilia na ciepłym drewnie. Trzyma ponad osiem godzin i wypełnia pomieszczenie, więc dwa psiknięcia to górna granica. Zapach na operę, kolację i każdą sytuację, do której zakładasz coś lepszego niż bluzę. Przez swoją kwiatowość częściej wybierany przez kobiety.",
+    "nuty": {
+     "glowy": [
+      "Kosz owoców",
+      "róża turecka"
+     ],
+     "serca": [
+      "Skóra",
+      "ambra",
+      "gałka muszkatołowa",
+      "ylang-ylang"
+     ],
+     "bazy": [
+      "Cedr wirginijski",
+      "wetyweria haitańska",
+      "piżmo",
+      "paczula",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Teatr",
+     "kolacja",
+     "okazje formalne"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 11000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 21000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p88",
+     "p83",
+     "p87",
+     "p04"
+    ],
+    "zdjecie": "/img/produkty/p74-800.webp",
+    "kolejnosc": 74,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "orientalny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p75",
+    "marka": "Parfums de Marly",
+    "nazwa": "Layton",
+    "rodzina": "ambrowa",
+    "profil": "męski",
+    "opis": "Flagowy zapach Parfums de Marly i jeden z tych, z którymi trudno się nie polubić. Soczyste jabłko z kardamonem na wejściu. Po godzinie słodka, kremowa wanilia z pralinami i dymnym drewnem. Trzyma od ośmiu do dziesięciu godzin, a na kurtce zostaje kilka dni. Jeśli szukasz zapachu, po którym ktoś się odwróci na jesiennej imprezie, to bardzo pewny wybór.",
+    "nuty": {
+     "glowy": [
+      "Jabłko",
+      "bergamotka",
+      "kardamon"
+     ],
+     "serca": [
+      "Lawenda",
+      "fiołek",
+      "geranium"
+     ],
+     "bazy": [
+      "Paczula",
+      "wanilia",
+      "drzewo gwajakowe",
+      "praliny"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "klub",
+     "codzienność zimą"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p89",
+     "p52",
+     "p10",
+     "p71"
+    ],
+    "zdjecie": "/img/produkty/p75-800.webp",
+    "kolejnosc": 75,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 3
+   },
+   {
+    "id": "p76",
+    "marka": "Parfums de Marly",
+    "nazwa": "Pegasus Exclusif",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Migdał z wanilią na ciepłym, lekko dymnym drewnie. Pachnie jak wnętrze drogiej cukierni, do której ktoś wstawił skórzane fotele: słodko, ale zdecydowanie dorośle. Wersja parfum, czyli gęsta, i przy jednym psiknięciu trzyma kilkanaście godzin. Dobra propozycja dla kogoś, kto lubi Laytona i chce czegoś mniej rozpoznawalnego.",
+    "nuty": {
+     "glowy": [
+      "Różowy pieprz",
+      "kardamon",
+      "migdał"
+     ],
+     "serca": [
+      "Lawenda",
+      "kwiat pomarańczy",
+      "geranium"
+     ],
+     "bazy": [
+      "Wanilia",
+      "ambroksan",
+      "oud",
+      "drzewo gwajakowe"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "wyjście",
+     "okazje formalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 13000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 24000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p75",
+     "p89",
+     "p95"
+    ],
+    "zdjecie": "/img/produkty/p76-800.webp",
+    "kolejnosc": 76,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "drzewny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p77",
+    "marka": "Parfums de Marly",
+    "nazwa": "Sedley",
+    "rodzina": "drzewna",
+    "profil": "męski",
+    "opis": "Mięta z cytrusami i mydlana czystość, czyli zapach dobrze prowadzonego barber shopu. Lekki i uporządkowany, nikomu nie przeszkodzi w małym pomieszczeniu, dlatego świetnie pracuje w biurze. Na ciepłe miesiące i na dni, w których masz spotkanie i chcesz po prostu dobrze wyglądać.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "mięta kędzierzawa",
+      "pomarańcza"
+     ],
+     "serca": [
+      "Geranium",
+      "lawandyna",
+      "sosna"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "ambroksan",
+      "białe piżma"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 2.5,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "spotkania w dzień"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 16000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p14",
+     "p06",
+     "p64"
+    ],
+    "zdjecie": "/img/produkty/p77-800.webp",
+    "kolejnosc": 77,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p78",
+    "marka": "Amouage",
+    "nazwa": "Guidance",
+    "rodzina": "kwiatowa",
+    "profil": "unisex",
+    "opis": "Gruszka z orzechem laskowym brzmi prawie deserowo, dopóki nie wejdzie kadzidło i nie zrobi z tego czegoś poważnego. Serce jest kwiatowe i korzenne, a koniec ciepły, żywiczny i waniliowy, z tych, które zostają na ubraniu kilka dni. Dwadzieścia pięć procent olejków oznacza jedno psiknięcie na cały dzień. Amouage dostał za ten zapach dwie europejskie nagrody w 2024 roku, co w perfumerii niszowej zdarza się rzadko.",
+    "nuty": {
+     "glowy": [
+      "Gruszka",
+      "kadzidło",
+      "orzech laskowy"
+     ],
+     "serca": [
+      "Szafran",
+      "róża",
+      "jaśmin sambac",
+      "osmanthus"
+     ],
+     "bazy": [
+      "Labdanum (cistus)",
+      "sandałowiec",
+      "akigalawood",
+      "ambra szara",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 5,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "event",
+     "okazje specjalne",
+     "codzienność premium"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 13000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 22000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p83",
+     "p42",
+     "p88"
+    ],
+    "zdjecie": "/img/produkty/p78-800.webp",
+    "kolejnosc": 78,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "orientalny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p79",
+    "marka": "Creed",
+    "nazwa": "Delphinus",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Creed sprzedaje to jako zapach drzewny. Ludzie, którzy go noszą, mówią o migdale i wanilii, i mają rację: jest tu gęsty, kremowy marcepan z pieprzem i pudrowym irysem. Trzyma powyżej ośmiu godzin, przy czym bardzo łatwo przesadzić, bo po dwóch psiknięciach ty przestajesz go czuć, a inni nie. Dla kogoś, kto lubi słodkie zapachy i chce mieć je w butelce z napisem Creed.",
+    "nuty": {
+     "glowy": [
+      "Pieprz czarny",
+      "kadzidło",
+      "migdał",
+      "pieprz różowy"
+     ],
+     "serca": [
+      "Heliotrop",
+      "orchidea",
+      "masło irysowe"
+     ],
+     "bazy": [
+      "Paczula",
+      "tonka",
+      "amberwood",
+      "akord skórzany",
+      "wanilia Bourbon z Madagaskaru"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "wyjście",
+     "okazje specjalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 13000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 23000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 40000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p76",
+     "p10"
+    ],
+    "zdjecie": "/img/produkty/p79-800.webp",
+    "kolejnosc": 79,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "drzewny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p80",
+    "marka": "Essential Parfums",
+    "nazwa": "Velvet Iris",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Irys wytrawny i cielesny, bez pudru i bez kwiatowej słodyczy. Zielony, lekko korzenny start przechodzi w zamsz, a kończy się suchym, kremowym drewnem. To zapach na bliski dystans, który pracuje w rozmowie i przy stole. Dla kogoś, kto ma już w szufladzie cytrusy i słodycze i chce czegoś, czego nikt nie rozpozna.",
+    "nuty": {
+     "glowy": [
+      "Esencja liścia kurkumy",
+      "różowy pieprz",
+      "liść buchu"
+     ],
+     "serca": [
+      "Konkret irysowy",
+      "galbanum",
+      "mastyks",
+      "akord zamszu Saffiano"
+     ],
+     "bazy": [
+      "Labdanum",
+      "kremowy akord drzewny",
+      "drzewo sandałowe"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Biuro",
+     "spotkania",
+     "codzienność premium"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p95",
+     "p35",
+     "p100"
+    ],
+    "zdjecie": "/img/produkty/p80-800.webp",
+    "kolejnosc": 80,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "drzewny"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p81",
+    "marka": "Essential Parfums",
+    "nazwa": "Ambre Latte",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Zimowe cappuccino: mleko migdałowe, karmel i prażona tonka, podane ciepło i leniwie. Pomysł jest prosty, a efekt działa dokładnie tam, gdzie powinien, czyli przy stole i w kołnierzu kurtki. Pod spodem siedzą drzewne molekuły, które trzymają słodycz w ryzach i rozciągają ją na wiele godzin. Premiera z tego roku, więc mogłeś nie doświadczyć tego wokół ciebie.",
+    "nuty": {
+     "glowy": [
+      "Akord mleka migdałowego",
+      "pianka mleczna",
+      "prażona fasolka tonka"
+     ],
+     "serca": [
+      "Karmel dulce de leche",
+      "wanilia",
+      "benzoina",
+      "białe piżmo"
+     ],
+     "bazy": [
+      "Ambrofix",
+      "Georgywood",
+      "Akigalawood",
+      "biały sandałowiec"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Randka",
+     "kawiarnia",
+     "chłodne wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 8000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 15000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p42",
+     "p27",
+     "p10"
+    ],
+    "zdjecie": "/img/produkty/p81-800.webp",
+    "kolejnosc": 81,
+    "bestseller": false,
+    "klimat": [
+     "slodki"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p82",
+    "marka": "Ormonde Jayne",
+    "nazwa": "Kashmir",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Zapach jak ciepły szal narzucony na ramiona pod koniec października. Korzenny i cytrusowy początek, miękkie kwiatowe serce, a na końcu gęste, żywiczne drewno z kadzidłem. Nosi się go cały dzień bez dopsiknięć. Ślad w powietrzu jest wyczuwalny i nikogo nie przytłacza. Ormonde Jayne to marka, której w Polsce praktycznie nie widać, więc ryzyko spotkania kogoś w tym samym zapachu jest bliskie zeru. Świetnie pachnie na kobiecie jak i na mężczyźnie.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "kardamon",
+      "nasiona kolendry",
+      "szafran",
+      "różowy pieprz"
+     ],
+     "serca": [
+      "Jaśmin",
+      "irys",
+      "róża",
+      "niebieski mak",
+      "jodła himalajska"
+     ],
+     "bazy": [
+      "Cedr himalajski (deodar)",
+      "sandałowiec",
+      "cashmeran",
+      "benzoina",
+      "wanilia",
+      "paczula",
+      "kadzidło",
+      "mirra",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Codzienność premium",
+     "kolacja",
+     "spotkania"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 10000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 17000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 31000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p20",
+     "p83",
+     "p95"
+    ],
+    "zdjecie": "/img/produkty/p82-800.webp",
+    "kolejnosc": 82,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "orientalny"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p83",
+    "marka": "Maison Francis Kurkdjian",
+    "nazwa": "Oud Satin Mood",
+    "rodzina": "kwiatowa",
+    "profil": "unisex",
+    "opis": "Róża i wanilia na ciemnym drewnie, tak gładko, że słowo satin w nazwie nie jest przesadą. Od pierwszej sekundy jest ciepło, bez żadnej surowej fazy, a fiołek dorzuca odrobinę pudru. Zapach układa się wokół ciebie aurą, więc nikomu nie przeszkodzi w restauracji.",
+    "nuty": {
+     "glowy": [
+      "Fiołek"
+     ],
+     "serca": [
+      "Oud",
+      "róża damasceńska"
+     ],
+     "bazy": [
+      "Akord waniliowo-ambrowy",
+      "benzoina"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4.5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "kolacja",
+     "elegancki wieczór"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 28000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 52000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p43",
+     "p30",
+     "p49"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 83,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "kwiatowy"
+    ],
+    "renoma": 3
+   },
+   {
+    "id": "p84",
+    "marka": "Nishane",
+    "nazwa": "Wūlóng Chá",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Cytrusy z herbatą oolong, czyli świeżość, która nie wyparowuje po godzinie. Pachnie jak zimna herbata z cytryną pita w upał, czysto i bez grama słodyczy. Cała sztuczka siedzi w tym, jak mocno jest skoncentrowany: dostajesz lekkie odczucie przy trwałości, jakiej letnie zapachy zwykle nie mają. Jeśli męczy cię to, że twoje świeże perfumy giną po dwóch godzinach, to jest rozwiązanie.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "pomarańcza",
+      "litsea cubeba",
+      "mandarynka"
+     ],
+     "serca": [
+      "Herbata oolong",
+      "gałka muszkatołowa"
+     ],
+     "bazy": [
+      "Piżmo",
+      "figa"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "upały",
+     "codzienność",
+     "wakacje"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 12000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 21000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p01",
+     "p14",
+     "p07",
+     "p97"
+    ],
+    "zdjecie": "/img/produkty/p84-800.webp",
+    "kolejnosc": 84,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p85",
+    "marka": "Sospiro",
+    "nazwa": "Basso",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Grejpfrut, cytryna i zieleń na wejściu, a pod nimi ciemne, pieprzne drewno oraz delikatna słodycz dla równowagi. Brzmi poważnie i trochę surowo, jak dobrze skrojony garnitur w kolorze węgla, dlatego dobrze wypada przy ludziach starszych od ciebie. Bardziej złożona i wzmocniona wersja klasyka od Hermesa.",
+    "nuty": {
+     "glowy": [
+      "Grejpfrut",
+      "głóg",
+      "galbanum"
+     ],
+     "serca": [
+      "Goździk",
+      "labdanum",
+      "nasiona selera",
+      "czarny i różowy pieprz",
+      "gałka muszkatołowa"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "wetyweria",
+      "drzewo gwajakowe",
+      "mech dębowy",
+      "cedr"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Biuro",
+     "spotkania biznesowe",
+     "wieczorne wyjścia"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 7000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 13000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 22000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p45",
+     "p65",
+     "p15"
+    ],
+    "zdjecie": "/img/produkty/p85-800.webp",
+    "kolejnosc": 85,
+    "bestseller": false,
+    "klimat": [
+     "drzewny",
+     "aromatyczny"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p86",
+    "marka": "Tom Ford",
+    "nazwa": "Velvet Orchid",
+    "rodzina": "kwiatowa",
+    "profil": "damski",
+    "opis": "Cieplejsza, bardziej miodowa siostra Black Orchid. Rumowo-cytrusowy start, gęsty bukiet kwiatów, a po kilku godzinach wanilia z zamszem. Trzyma osiem do dziesięciu godzin i wyraźnie go czuć, więc dwa psiknięcia to norma. Idealne na zimny wieczór, najczęściej wybierany przez kobiety.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka włoska",
+      "mandarynka",
+      "absolut rumowy",
+      "miód"
+     ],
+     "serca": [
+      "Orchidea",
+      "jaśmin absolut",
+      "kwiat pomarańczy",
+      "róża turecka",
+      "heliotrop",
+      "magnolia",
+      "narcyz"
+     ],
+     "bazy": [
+      "Balsam peruwiański",
+      "mirra",
+      "labdanum",
+      "sandałowiec",
+      "zamsz",
+      "wanilia",
+      "tonka"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "kolacja",
+     "okazje formalne"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 16000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p87",
+     "p83",
+     "p98"
+    ],
+    "zdjecie": "/img/produkty/p86-800.webp",
+    "kolejnosc": 86,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "slodki"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p87",
+    "marka": "Tom Ford",
+    "nazwa": "Black Orchid",
+    "rodzina": "ambrowa",
+    "profil": "damski",
+    "opis": "Od dwudziestu lat dzieli ludzi i od dwudziestu lat sprzedaje się świetnie. Ciemna śliwka, trufla i czekolada brzmią jak wnętrze bardzo drogiego i bardzo ciemnego klubu. Ludzie wiedzą, że wszedłeś do budynku, więc dwa psiknięcia są maksimum, a na tkaninie zapach zostaje nawet półtora dnia. Weź go, jeśli chcesz, żeby cię zapamiętali, i odpuść, jeśli zależy ci, żeby spodobać się wszystkim.",
+    "nuty": {
+     "glowy": [
+      "Czarna trufla",
+      "ylang-ylang",
+      "bergamotka",
+      "gorzka pomarańcza"
+     ],
+     "serca": [
+      "Czarna orchidea",
+      "czarna śliwka",
+      "absolut rumowy"
+     ],
+     "bazy": [
+      "Paczula",
+      "wanilia",
+      "meksykańska czekolada",
+      "kadzidło",
+      "sandałowiec",
+      "wetyweria"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 5,
+    "intensywnosc": 3,
+    "okazja": [
+     "Kolacja",
+     "drinki",
+     "teatr",
+     "wyjście (nie do biura)"
+    ],
+    "variants": [
+     {
+      "ml": 10,
+      "price": 9000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 16000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p86",
+     "p29"
+    ],
+    "zdjecie": "/img/produkty/p87-800.webp",
+    "kolejnosc": 87,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "kwiatowy",
+     "slodki"
+    ],
+    "renoma": 3
+   },
+   {
+    "id": "p88",
+    "marka": "Tom Ford",
+    "nazwa": "Oud Voyager",
+    "rodzina": "drzewna",
+    "profil": "damski",
+    "opis": "Oud podany kwiatowo, co na rynku zdarza się rzadko. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno z dymem. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera jest z tego roku, więc nikt wokół go nie zna, pytania o nazwę przychodzą szybko, a na chłodne miesiące wystarczą dwa psiknięcia w dzień.",
+    "nuty": {
+     "glowy": [
+      "Absolut geranium",
+      "czerwona piwonia"
+     ],
+     "serca": [
+      "Osmanthus",
+      "oud"
+     ],
+     "bazy": [
+      "Floral Oud Tri-Distillate",
+      "cypriol"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Wyjście",
+     "kolacja",
+     "okazje formalne"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 15000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 23000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 42000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p83",
+     "p42",
+     "p92"
+    ],
+    "zdjecie": "/img/produkty/p88-800.webp",
+    "kolejnosc": 88,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "kwiatowy"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p89",
+    "marka": "Kilian",
+    "nazwa": "Angels' Share",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "W butelce jest prawdziwa esencja koniaku i dlatego płyn ma kolor whisky. Pachnie jak kieliszek postawiony obok ciasta z cynamonem: alkoholowo, ciepło i słodko, bez przechodzenia w cukier. Trzyma od dziewięciu do trzynastu godzin, więc nawet dziesięć mililitrów wystarcza na długo. Na jesienne i zimowe wieczory, i na sytuacje, w których chcesz, żeby ktoś podszedł bliżej. Perfumy z duszą dla kogoś, kto chce się wyróżnić.",
+    "nuty": {
+     "glowy": [
+      "Esencja koniaku"
+     ],
+     "serca": [
+      "Esencja cynamonu",
+      "absolut tonki"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "praliny",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "klub",
+     "chłodne wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p10",
+     "p35",
+     "p24"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 89,
+    "bestseller": false,
+    "klimat": [
+     "slodki"
+    ],
+    "renoma": 3
+   },
+   {
+    "id": "p90",
+    "marka": "Kilian",
+    "nazwa": "Angels' Share On The Rocks",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Ten sam koniak, tylko polany czymś zimnym. Gorzka pomarańcza i bergamotka kładą na ciepłym rdzeniu chłodną, musującą warstwę, dzięki czemu całość jest lżejsza i mniej słodka od oryginału. Trzyma około sześciu do siedmiu godzin, czyli zauważalnie krócej. Jeśli kupujesz pierwszy flakon z tej linii, weź klasyczny Angels' Share. Ten bierz wtedy, gdy masz już oryginał i chcesz wersję na cieplejsze dni.",
+    "nuty": {
+     "glowy": [
+      "Akord On The Rocks (bergamotka, grejpfrut, aldehydy)",
+      "gorzka pomarańcza"
+     ],
+     "serca": [
+      "Koniak",
+      "cynamon",
+      "rezyna mirry"
+     ],
+     "bazy": [
+      "Absolut tonki",
+      "dąb"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3.5,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Codzienność",
+     "spotkania",
+     "cieplejsze wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p89",
+     "p09"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 90,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "cytrusowy"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p91",
+    "marka": "Kilian",
+    "nazwa": "Roses On Ice",
+    "rodzina": "świeża",
+    "profil": "damski",
+    "opis": "Gin z tonikiem przełożony na perfumy, z ogórkiem i jałowcem na pierwszym planie. Chłód naprawdę się tu czuje. Róża jest nowoczesna i wytrawna, więc nie przypomina ani kwiaciarni, ani cukierka. Lekki i casualowy, lepiej wypada w dzień, wieczorem zaś piękny, alkoholowy akcent może się gubić. Na wiosnę i lato, dla kobiety, która chce świeżości z pomysłem.",
+    "nuty": {
+     "glowy": [
+      "Ogórek"
+     ],
+     "serca": [
+      "Jagody jałowca",
+      "róża"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 3.5,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Codzienność",
+     "casual",
+     "upały"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p47",
+     "p23",
+     "p97"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 91,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "aromatyczny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p92",
+    "marka": "Kilian",
+    "nazwa": "Woman in Gold",
+    "rodzina": "kwiatowa",
+    "profil": "damski",
+    "opis": "Inspiracją jest złoty portret Klimta i to naprawdę się słyszy: cytrusowy błysk na wejściu, ciepła, prawie piankowa baza na końcu. Róża jest nowoczesna i czysta, a tonka dodaje ciepła, po którym ludzie podchodzą bliżej. Nada się to od biura po kolację i spokojnie wytrzymuje pełny dzień pracy. Przede wszystkim na wiosnę oraz jesień.",
+    "nuty": {
+     "glowy": [
+      "Bergamotka",
+      "różowy pieprz"
+     ],
+     "serca": [
+      "Róża",
+      "geranium"
+     ],
+     "bazy": [
+      "Tonka",
+      "akigalawood"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "kolacja",
+     "eleganckie wyjścia"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p93",
+     "p83",
+     "p73"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 92,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "slodki"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p93",
+    "marka": "Kilian",
+    "nazwa": "Good girl gone Bad",
+    "rodzina": "kwiatowa",
+    "profil": "damski",
+    "opis": "Bukiet białych kwiatów z morelowym rozbłyskiem osmanthusa, podany gęsto i bez skromności. Pachnie drogo w sposób, który ludzie wyczuwają natychmiast, nawet jeśli nie umieją nazwać ani jednej nuty. Trzyma osiem do dziesięciu godzin. Zapach uniwersalny, lecz wiosną i latem wypadniesz w nim najlepiej. Zapach jednoznacznie kobiecy.",
+    "nuty": {
+     "glowy": [
+      "Kwiat pomarańczy",
+      "absolut róży majowej"
+     ],
+     "serca": [
+      "Absolut osmanthusa",
+      "absolut tuberozy",
+      "jaśmin"
+     ],
+     "bazy": [
+      "Narcyz"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3,
+    "intensywnosc": 2,
+    "okazja": [
+     "Codzienność",
+     "spotkania",
+     "kolacja",
+     "prezent"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p86",
+     "p92"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 93,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy"
+    ],
+    "renoma": 3
+   },
+   {
+    "id": "p94",
+    "marka": "Kilian",
+    "nazwa": "Sparkling Royal",
+    "rodzina": "świeża",
+    "profil": "damski",
+    "opis": "Kir Royal przełożony na zapach: czarna porzeczka z różą, a nad tym mięta i cytryna, które robią efekt bąbelków. Lekki i elegancki, nosi się go od brunchu po wieczorne wyjście. Kilian podaje ponad pięć godzin trwałości, co przy takiej konstrukcji jest wartością uczciwą, ale nie licz na chmurę w pomieszczeniu. Premiera z sierpnia, więc swoją popularność dopiero zyskuje. Idealny dla kobiet z klasą.",
+    "nuty": {
+     "glowy": [
+      "Mięta",
+      "cytryna"
+     ],
+     "serca": [
+      "Róża",
+      "czarna porzeczka (akord Kir Royal)"
+     ],
+     "bazy": [
+      "Prażona fasolka tonka",
+      "delikatne piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 3.5,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
+    "okazja": [
+     "Brunch",
+     "spotkania w dzień",
+     "wieczorne celebracje"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p47",
+     "p91",
+     "p07"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 94,
+    "bestseller": false,
+    "klimat": [
+     "kwiatowy",
+     "cytrusowy"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p95",
+    "marka": "Atkinsons",
+    "nazwa": "Shine Despite Everything",
+    "rodzina": "drzewna",
+    "profil": "unisex",
+    "opis": "Karmel i irys na dymnym kadzidle, czyli słodycz, która nie przypomina deseru. Początek jest korzenny i trochę ostry, lecz szybko robi się pudrowo i ciepło z mocnymi akcentami wanilii i drewna. Parfum Intense trzyma dziewięć do dziesięciu godzin, a na ubraniu zostaje po kilka dni. Dobry wybór na formalny zimowy wieczór dla kogoś, kto chce orientalnego pazura i jednocześnie boi się oudu. Świetnie sprawdzi się dla kobiety jak i dla mężczyzny.",
+    "nuty": {
+     "glowy": [
+      "Kadzidło somalijskie",
+      "nasiona kurkumy",
+      "ziele angielskie"
+     ],
+     "serca": [
+      "Irys",
+      "karmel",
+      "Ambrofix",
+      "akord różany"
+     ],
+     "bazy": [
+      "Kumaryna",
+      "wanilia z Madagaskaru",
+      "Akigalawood"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Okazje formalne",
+     "kolacja",
+     "event"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p100",
+     "p78",
+     "p10"
+    ],
+    "zdjecie": "/img/produkty/p95-800.webp",
+    "kolejnosc": 95,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "slodki"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p96",
+    "marka": "Atkinsons",
+    "nazwa": "Oud Save the King",
+    "rodzina": "orientalna",
+    "profil": "męski",
+    "opis": "Herbata Earl Grey z bergamotką spotyka zamsz i subtelny oud. Efekt jest zaskakująco kulturalny, bo oud jest tu lekki i wygładzony, przez co zapach brzmi jak angielski klub, a nie arabski bazar. Trzyma bardzo długo oraz potrafi wypełnić pomieszczenie. Dobre wejście w oud dla kogoś, kto boi się przesady, zwłaszcza do garnituru.",
+    "nuty": {
+     "glowy": [
+      "Akord bergamotki Earl Grey (herbata, bergamotka)"
+     ],
+     "serca": [
+      "Irys",
+      "zamsz"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "akord oudowy (agar)"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4.5,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Garnitur",
+     "okazje formalne",
+     "kolacja"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p30",
+     "p16",
+     "p54"
+    ],
+    "zdjecie": "/img/produkty/p96-800.webp",
+    "kolejnosc": 96,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "drzewny"
+    ],
+    "renoma": 2
+   },
+   {
+    "id": "p97",
+    "marka": "Atkinsons",
+    "nazwa": "Mint & Tonic",
+    "rodzina": "cytrusowa",
+    "profil": "unisex",
+    "opis": "Mięta z limonką i grejpfrutem, czyli zapach zimnego drinka w upalny dzień. Lekki, zielony, bez grama słodyczy i bez ciężaru. Trzyma trzy do pięciu godzin i to cała prawda o nim, więc traktuj go jako zapach do odświeżania w ciągu dnia. Na lato i na biuro, kiedy chcesz pachnieć czysto i nic ponad to.",
+    "nuty": {
+     "glowy": [
+      "Limonka",
+      "grejpfrut",
+      "mięta",
+      "mandarynka"
+     ],
+     "serca": [
+      "Imbir",
+      "geranium"
+     ],
+     "bazy": [
+      "Cedr",
+      "wetyweria",
+      "piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato"
+    ],
+    "pora": "dzień",
+    "trwalosc": 2,
+    "projekcja": 2,
+    "intensywnosc": 1,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "upały"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p51",
+     "p84"
+    ],
+    "zdjecie": "/img/produkty/p97-800.webp",
+    "kolejnosc": 97,
+    "bestseller": false,
+    "klimat": [
+     "cytrusowy",
+     "aromatyczny"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p98",
+    "marka": "Bohoboco",
+    "nazwa": "Wet Cherry Liquor",
+    "rodzina": "gourmand",
+    "profil": "unisex",
+    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co wielu uważa za dojrzalszą wersję Lost Cherry: mniej cukierka, więcej wytrawności i wyraźne drewno na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny.",
+    "nuty": {
+     "glowy": [
+      "Wiśnia",
+      "nuty likierowe"
+     ],
+     "serca": [
+      "Syrop czereśniowy",
+      "truskawka",
+      "karmel",
+      "róża turecka"
+     ],
+     "bazy": [
+      "Sandałowiec",
+      "wetyweria",
+      "fasolka tonka",
+      "wanilia"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 4,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Randka",
+     "wyjście",
+     "chłodne wieczory"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p34",
+     "p27"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 98,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "cytrusowy"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p99",
+    "marka": "Sisley",
+    "nazwa": "Soir d'Orient",
+    "rodzina": "drzewna",
+    "profil": "damski",
+    "opis": "Szafran, róża i kadzidło, czyli klasyczny orientalny układ zrobiony przez francuski dom kosmetyczny. Otwarcie wypełnia pomieszczenie i brzmi bardzo drogo, a po dwóch godzinach zapach robi się intymny i zostaje blisko skóry. To zapach do eleganckiej garsonki i na wieczory zaplanowane z góry, nie na obiad w mieście. Chłodne miesiące i wieczór, dla kogoś, kto chce brzmieć dostojnie.",
+    "nuty": {
+     "glowy": [
+      "Cytryna włoska",
+      "galbanum irańskie"
+     ],
+     "serca": [
+      "Akord szafranowy",
+      "czarny pieprz z Madagaskaru",
+      "absolut róży tureckiej",
+      "geranium egipskie"
+     ],
+     "bazy": [
+      "Akord sandałowy",
+      "kadzidło somalijskie",
+      "paczula indonezyjska",
+      "nuty skórzane"
+     ]
+    },
+    "sezon": [
+     "jesień",
+     "zima"
+    ],
+    "pora": "wieczór",
+    "trwalosc": 3.5,
+    "projekcja": 4,
+    "intensywnosc": 3,
+    "okazja": [
+     "Okazje formalne",
+     "przyjęcia",
+     "wieczorne wyjścia"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p27",
+     "p83",
+     "p93"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 99,
+    "bestseller": false,
+    "klimat": [
+     "orientalny",
+     "aromatyczny"
+    ],
+    "renoma": 1
+   },
+   {
+    "id": "p100",
+    "marka": "Bohoboco",
+    "nazwa": "Vanilla Black Pepper",
+    "rodzina": "ambrowa",
+    "profil": "unisex",
+    "opis": "Wanilia dla kogoś, kto nie chce pachnieć deserem. Czarny pieprz i kadzidło zabierają jej słodycz, a kwiatowe serce robi z całości rzecz raczej elegancką. Zapach siedzi bardzo blisko skóry: w biurze ani w windzie nikomu nie przeszkodzi, ale trzeba podejść, żeby go wyczuć. Flagowiec polskiego Bohoboco i jeden z niewielu zapachów z tej listy, które naprawdę nosi się przez cały rok. Idealny dla kobiety jak i mężczyzny.",
+    "nuty": {
+     "glowy": [
+      "Kwiat pomarańczy",
+      "wierzbówka kiprzyca"
+     ],
+     "serca": [
+      "Heliotrop",
+      "kadzidło (olibanum)",
+      "róża",
+      "gałka muszkatołowa"
+     ],
+     "bazy": [
+      "Czarny pieprz",
+      "wanilia",
+      "cedr",
+      "białe piżmo"
+     ]
+    },
+    "sezon": [
+     "wiosna",
+     "lato",
+     "jesień",
+     "zima"
+    ],
+    "pora": "uniwersalna",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
+    "okazja": [
+     "Biuro",
+     "codzienność",
+     "kolacja"
+    ],
+    "variants": [
+     {
+      "ml": 5,
+      "price": 14000,
+      "available": true
+     },
+     {
+      "ml": 10,
+      "price": 20000,
+      "available": true
+     },
+     {
+      "ml": 20,
+      "price": 37000,
+      "available": true
+     }
+    ],
+    "malo": false,
+    "zostalo": null,
+    "podobne": [
+     "p95",
+     "p35",
+     "p31",
+     "p80"
+    ],
+    "zdjecie": "",
+    "kolejnosc": 100,
+    "bestseller": false,
+    "klimat": [
+     "slodki",
+     "aromatyczny"
+    ],
+    "renoma": 1
    }
   ],
   "sets": [
@@ -4071,7 +6537,7 @@
     "opis": "",
     "rodzina": "gourmand",
     "price": 48000,
-    "available": false,
+    "available": true,
     "sklad": [
      {
       "id": "p08",
@@ -4095,11 +6561,11 @@
       "available": true
      },
      {
-      "id": "p34",
-      "marka": "Tom Ford",
-      "nazwa": "Lost Cherry",
+      "id": "p98",
+      "marka": "Bohoboco",
+      "nazwa": "Wet Cherry Liquor",
       "ml": 5,
-      "available": false
+      "available": true
      },
      {
       "id": "p43",

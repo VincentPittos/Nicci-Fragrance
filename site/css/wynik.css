@@ -101,3 +101,10 @@
   .rc:not(.rc--top) .stepper { grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem; }
   .rc:not(.rc--top) .card__cta-rest { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 }
+
+/* bestseller (październik 2026): jak etykieta na karcie katalogu, złoto z czarnym tekstem */
+.rc__best {
+  justify-self: start; width: fit-content; padding: 0.25rem 0.55rem;
+  background: var(--accent); color: var(--n-black);
+  font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+}

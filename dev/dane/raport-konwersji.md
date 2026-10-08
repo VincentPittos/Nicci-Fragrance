@@ -2,21 +2,21 @@
 
 Wygenerowany przez `dev/konwersja_arkusza.py`. Wszystkie wartości oznaczone w zakładce „Do weryfikacji” są propozycją do akceptacji właściciela.
 
-Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 118.
+Produkty: 100 (aktywne: 94, wyłączone: 6). Zestawy: 7. Pozycji do weryfikacji: 151.
 
 ## Rodziny aktywnych produktów
 
 | Rodzina | Liczba |
 |---|---|
-| cytrusowa | 16 |
-| drzewna | 12 |
-| gourmand | 9 |
-| orientalna | 7 |
+| drzewna | 22 |
+| cytrusowa | 19 |
+| gourmand | 13 |
+| kwiatowa | 9 |
+| orientalna | 8 |
+| ambrowa | 7 |
+| świeża | 5 |
 | aromatyczna | 5 |
-| ambrowa | 4 |
-| skórzana | 3 |
-| świeża | 3 |
-| kwiatowa | 3 |
+| skórzana | 4 |
 | słodka | 2 |
 
 ## Mapowanie rodzin opisowych na kanoniczne
@@ -25,7 +25,10 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 |---|---|---|---|
 | Ambrowo-drzewna | ambrowa | tak | 1 |
 | Ambrowo-gourmand | ambrowa | tak | 1 |
+| Ambrowo-kwiatowa (ciemny gourmand) | ambrowa | tak | 1 |
+| Fougère ambrowo-owocowa | ambrowa | do weryfikacji | 1 |
 | Korzenno-ambrowa | ambrowa | do weryfikacji | 1 |
+| Korzenno-waniliowa, ambrowa | ambrowa | do weryfikacji | 1 |
 | Owocowo-ambrowa | ambrowa | do weryfikacji | 1 |
 | Aromatyczno-drzewna | aromatyczna | tak | 1 |
 | Aromatyczno-korzenna | aromatyczna | tak | 1 |
@@ -35,6 +38,7 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 | Cytrusowa | cytrusowa | tak | 1 |
 | Cytrusowo-ambrowa | cytrusowa | tak | 1 |
 | Cytrusowo-aromatyczna | cytrusowa | tak | 4 |
+| Cytrusowo-aromatyczna, świeża | cytrusowa | tak | 1 |
 | Cytrusowo-drzewna | cytrusowa | tak | 3 |
 | Cytrusowo-gourmand | cytrusowa | tak | 1 |
 | Cytrusowo-kadzidlana | cytrusowa | tak | 1 |
@@ -43,29 +47,48 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 | Cytrusowo-morska | cytrusowa | tak | 1 |
 | Cytrusowo-musująca | cytrusowa | tak | 1 |
 | Cytrusowo-owocowa | cytrusowa | tak | 1 |
+| Cytrusowo-zielona, herbaciana, piżmowa | cytrusowa | tak | 1 |
 | Korzenno-cytrusowa | cytrusowa | do weryfikacji | 1 |
 | cytrusowo-korzenna | cytrusowa | tak | 1 |
+| Drzewna z akcentem skórzanym i korzennym | drzewna | tak | 1 |
 | Drzewno-agarowa | drzewna | tak | 1 |
+| Drzewno-ambrowa (w odbiorze migdałowo-waniliowa) | drzewna | tak | 1 |
+| Drzewno-ambrowo-kwiatowa | drzewna | tak | 2 |
 | Drzewno-aromatyczna | drzewna | tak | 1 |
 | Drzewno-cytrusowa | drzewna | tak | 1 |
+| Drzewno-cytrusowo-aromatyczna | drzewna | tak | 1 |
 | Drzewno-gourmand | drzewna | tak | 1 |
 | Drzewno-korzenna | drzewna | tak | 1 |
+| Drzewno-korzenna, pudrowa | drzewna | tak | 1 |
+| Drzewno-kwiatowa | drzewna | tak | 1 |
 | Drzewno-skórzana | drzewna | tak | 1 |
 | Dymno-drzewna | drzewna | do weryfikacji | 1 |
 | Dymno-żywiczna | drzewna | do weryfikacji | 1 |
 | Korzenno-drzewna | drzewna | do weryfikacji | 3 |
-| Owocowo-drzewna | drzewna | do weryfikacji | 1 |
+| Owocowo-drzewna | drzewna | do weryfikacji | 2 |
+| Przyprawowo-drzewna | drzewna | do weryfikacji | 1 |
+| Zielono-drzewna z irysem | drzewna | do weryfikacji | 1 |
 | owocowo-drzewna | drzewna | do weryfikacji | 1 |
 | Gourmand | gourmand | tak | 4 |
+| Gourmand alkoholowy, cytrusowo-drzewny | gourmand | tak | 1 |
+| Gourmand alkoholowy, korzenno-drzewny | gourmand | tak | 1 |
+| Gourmand, bursztynowo-drzewna | gourmand | tak | 1 |
 | Gourmand-korzenna | gourmand | tak | 1 |
 | Korzenno-gourmand | gourmand | do weryfikacji | 3 |
+| Owocowo-gourmand, w bazie drzewno-waniliowa | gourmand | do weryfikacji | 1 |
 | gourmand | gourmand | tak | 2 |
 | Irysowo-kadzidlana | kwiatowa | do weryfikacji | 1 |
+| Kwiatowa, biało-kwiatowa z owocem | kwiatowa | tak | 1 |
+| Kwiatowa, pudrowo-ciepła | kwiatowa | tak | 1 |
+| Kwiatowo-ambrowa | kwiatowa | tak | 2 |
+| Kwiatowo-ambrowo-drzewna | kwiatowa | tak | 1 |
 | Kwiatowo-drzewna | kwiatowa | tak | 2 |
+| Kwiatowo-orientalna | kwiatowa | tak | 1 |
 | Owocowo-kwiatowa | kwiatowa | do weryfikacji | 1 |
 | Agarowo-różana | orientalna | do weryfikacji | 1 |
 | Korzenna | orientalna | do weryfikacji | 1 |
 | Orientalna | orientalna | tak | 1 |
+| Orientalna, drzewno-skórzana z herbatą | orientalna | tak | 1 |
 | Orientalna-gourmand | orientalna | tak | 1 |
 | Orientalno-agarowa | orientalna | tak | 1 |
 | Orientalno-żywiczna | orientalna | tak | 1 |
@@ -73,11 +96,14 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 | oreintalno-skórzana | orientalna | tak | 1 |
 | Skórzana | skórzana | tak | 1 |
 | Skórzano-agarowa | skórzana | tak | 1 |
+| Skórzano-korzenna | skórzana | tak | 1 |
 | skórzana | skórzana | tak | 1 |
 | Korzenno-słodka | słodka | do weryfikacji | 1 |
 | Owocowo-agarowa | słodka | do weryfikacji | 1 |
 | zielono-herbaciana | świeża | do weryfikacji | 1 |
 | Świeża | świeża | tak | 2 |
+| Świeża kwiatowo-owocowa | świeża | tak | 1 |
+| Świeża, aromatyczno-wodna | świeża | tak | 1 |
 
 ## Reguły
 
@@ -93,22 +119,21 @@ Produkty: 71 (aktywne: 64, wyłączone: 7). Zestawy: 7. Pozycji do weryfikacji: 
 
 | Pole | Pozycji |
 |---|---|
-| rodzina | 28 |
-| sezon | 19 |
-| nuty / osiągi | 17 |
-| podobne | 10 |
-| opis | 7 |
-| pora | 5 |
+| rodzina | 34 |
+| nuty / osiągi | 26 |
+| sezon | 18 |
+| zdjecie_url | 15 |
+| opis | 14 |
+| podobne | 12 |
+| ceny | 8 |
+| sklad | 6 |
 | ml_dostepne | 5 |
-| sklad | 5 |
-| zdjecie_url | 4 |
-| ceny | 3 |
+| pora | 3 |
 | aktywny | 3 |
-| marka, nazwa | 3 |
-| trwalosc | 3 |
-| projekcja | 3 |
+| nazwa | 2 |
+| marka, nazwa | 2 |
 | okazja | 1 |
-| nazwa | 1 |
+| nuty / opis | 1 |
 | cena | 1 |
 
 Szczegóły: `dev/dane/do-weryfikacji.csv` albo zakładka „Do weryfikacji” w `import-do-arkusza.xlsx`.

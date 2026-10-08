@@ -24,16 +24,19 @@ WYBOR = {pid: '0' for pid in (
     'p06 p07 p08 p09 p10 p11 p12 p14 p15 p16 p17 p19 p20 p21 p22 p23 p24 p25 p27 p28 p29 p30 p31 '
     'p32 p33 p34 p35 p36 p37 p38 p39 p40 p44 p45 p59 p61 p62 p66 p67 p68').split()}
 WYBOR.update({'p41': '1', 'p46': '2', 'p47': '2', 'p48': '2', 'p49': '2', 'p50': '2', 'p69': '1', 'p70': '1', 'p71': '2'})
+# październik 2026 (dev/zdjecia/pobierz_nowe.py): wszędzie ujęcie frontowe, wariant 0
+WYBOR.update({pid: '0' for pid in 'p72 p74 p75 p76 p77 p78 p79 p80 p81 p82 p84 p85 p86 p87 p88 p95 p96 p97'.split()})
 
 # id: (x0, y0, x1, y1) jako części szerokości i wysokości zdjęcia
 ODZNAKI = {
     'p36': (0.74, 0.0, 1.0, 0.20),   # Bois Pacifique: przezroczyste tło, plakietkę czyścimy do przezroczystości
     'p68': (0.70, 0.14, 1.0, 0.36),  # 1 Million: jasne tło, plakietkę zamalowujemy kolorem tła obok
+    'p88': (0.76, 0.0, 1.0, 0.26),   # Oud Voyager: okrągła naklejka w prawym górnym rogu, przezroczyste tło
 }
 
 
 # ustawienia dla ujednolic_zdjecia.py: miękki cień obok flakonu (Amouage na papierze, Rabanne, Sospiro, Crivelli)
-USTAWIENIA = {pid: {'cien': True} for pid in 'p15 p16 p17 p19 p20 p41 p45 p66 p67'.split()}
+USTAWIENIA = {pid: {'cien': True} for pid in 'p15 p16 p17 p19 p20 p41 p45 p66 p67 p78 p79 p85 p95 p96 p97'.split()}
 
 
 def main():

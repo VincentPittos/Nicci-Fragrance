@@ -7,7 +7,7 @@ Strona sprzedażowa odlewek oryginalnych perfum (5, 10, 20 ml) i zestawów odkry
 | Katalog | Zawartość |
 |---|---|
 | `site/` | Strona publikowana na Netlify (`netlify.toml` w katalogu głównym wskazuje `site/`). `nicci-api.js` to moduł integracji, zmienia się w nim tylko `API_URL` i `IG_HANDLE`. |
-| `apps-script/` | `Code.gs` i manifest. Wklejasz do projektu Apps Script przy arkuszu. |
+| `apps-script/` | `Code.gs` i manifest. Wklejasz do projektu Apps Script przy arkuszu. `Aktualizacja_2026_10.gs` to jednorazowa aktualizacja arkusza (nowe zapachy z października 2026). |
 | `dev/` | Konwersja arkusza, mock katalogu, testy backendu, podglądy etapów. Nie trafia na produkcję. |
 | `docs/` | Raporty etapów, kontrakt API, rejestr decyzji. |
 | `refs/` | Materiały wejściowe: prompt, architektura, referencje graficzne, artifact sekcji 2. |
@@ -17,7 +17,8 @@ Strona sprzedażowa odlewek oryginalnych perfum (5, 10, 20 ml) i zestawów odkry
 ```bash
 python3 dev/konwersja_arkusza.py      # arkusz z refs/prywatne → dev/dane (wymaga openpyxl)
 node dev/zbuduj_mock.js               # dev/dane/arkusz.json → dev/catalog.mock.json i site/podglad/katalog.json przez Code.gs
-node dev/testy_backendu.js            # testy backendu i zgodności z nicci-api.js
+python3 dev/aktualizacja_arkusza.py   # dev/dane/arkusz.json → apps-script/Aktualizacja_2026_10.gs (nowe wiersze dla arkusza właściciela)
+node dev/testy_backendu.js            # testy backendu, zgodności z nicci-api.js, doboru w quizie i aktualizacji arkusza
 python3 dev/serwer.py                 # podgląd na http://127.0.0.1:8766 z atrapą backendu (dev/atrapa_backendu.js)
 node dev/testy_readme.js              # testy 1, 2, 3 i 7 z refs/README.md w przeglądarce (Playwright)
 node dev/testy_wstrzymanie.js         # sprzedaż wstrzymana (zakładka Sklep: NIE): koszyk, formularz, backend

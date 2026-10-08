@@ -33,12 +33,17 @@ function validBody(over) {
 // ---------- katalog ----------
 test('katalog: tylko aktywne, ceny w groszach, warianty bez ceny ukryte', () => {
   const c = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
-  assert.equal(c.products.length, 64);
+  assert.equal(c.products.length, 94); // październik 2026: 64 + 30 nowych (Lp. 56 i 72 do 100)
   const p01 = c.products.find((p) => p.id === 'p01');
   deq(p01.variants.map((v) => [v.ml, v.price]), [[5, 11000], [10, 19000], [20, 36000]]);
   const p21 = c.products.find((p) => p.id === 'p21');
   deq(p21.variants.map((v) => v.ml), [10, 20]);
-  assert.ok(!c.products.some((p) => p.id === 'p56'), 'pozycja bez nazwy nie trafia do katalogu');
+  assert.ok(!c.products.some((p) => p.id === 'p57'), 'pozycja bez nazwy nie trafia do katalogu');
+  const p43 = c.products.find((p) => p.id === 'p43');
+  assert.equal(p43.bestseller, true, 'bestseller z kolumny bestseller');
+  deq(p43.klimat, ['slodki', 'orientalny']);
+  assert.equal(p43.renoma, 3);
+  assert.equal(c.products.find((p) => p.id === 'p86').profil, 'damski');
   deq(c.shipping, { paczkomat: 1499, kurier: 1999 });
   assert.equal(c.freeShippingFrom, 20000);
 });
@@ -85,10 +90,13 @@ test('zestawy: oszczędność tylko gdy są ceny wszystkich składników, brakuj
   assert.equal(lv.price, 55000);
   assert.equal(lv.cenaOsobno, 63000);
   assert.equal(lv.available, true);
+  // Sweet & Spicy: Lost Cherry (niedostępny, bez cen) zastąpiony Wet Cherry Liquor, zestaw dostępny (właściciel, październik 2026)
   const sweet = c.sets.find((s) => s.id === 'z04');
-  assert.equal(sweet.available, false);
-  deq(sweet.sklad.filter((x) => !x.available).map((x) => x.nazwa), ['Lost Cherry']);
-  assert.equal(sweet.cenaOsobno, null);
+  assert.equal(sweet.available, true);
+  deq(sweet.sklad.map((x) => x.id), ['p08', 'p24', 'p29', 'p98', 'p43']);
+  // zestaw z niedostępnym składnikiem: nazwany składnik i brak oszczędności
+  const bezCen = c.sets.find((s) => s.id === 'z07');
+  assert.equal(bezCen.available, false);
   const winter = c.sets.find((s) => s.id === 'z07');
   deq(winter.sklad.filter((x) => !x.available).map((x) => x.nazwa), ['Bottled Absolu']);
   assert.ok(!c.sets.some((s) => s.id === 'z02'), 'zestaw nieaktywny ukryty');
@@ -158,7 +166,7 @@ test('wycena: zestaw zużywa ml składników', () => {
 });
 
 test('wycena: nieznana pozycja albo wariant bez ceny to invalid_item', () => {
-  assert.equal(be.priceOrder_([{ type: 'decant', id: 'p99', ml: 5, qty: 1 }], 'paczkomat', productRows, setRows, {}, cfg).error, 'invalid_item');
+  assert.equal(be.priceOrder_([{ type: 'decant', id: 'p999', ml: 5, qty: 1 }], 'paczkomat', productRows, setRows, {}, cfg).error, 'invalid_item');
   assert.equal(be.priceOrder_([{ type: 'decant', id: 'p21', ml: 5, qty: 1 }], 'paczkomat', productRows, setRows, {}, cfg).error, 'invalid_item');
   assert.equal(be.priceOrder_([{ type: 'set', id: 'z02', qty: 1 }], 'paczkomat', productRows, setRows, {}, cfg).error, 'invalid_item');
 });
@@ -315,7 +323,7 @@ test('diagnostyka: wykrywa puste CONFIG i brak stanów w imporcie', () => {
   const d = be.diagnoza_(be.tableToObjects_(sheet.Produkty), setRows, be.CONFIG);
   const msgs = d.map((x) => x[1]).join('\n');
   assert.match(msgs, /CONFIG\.OWNER_EMAIL nie jest uzupełnione/);
-  assert.match(msgs, /62 aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu/);
+  assert.match(msgs, /92 aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu/);
   assert.ok(!d.some((x) => x[0] === 'ERROR' && /ml_dostepne/.test(x[1])), 'pusty stan to nie błąd');
 });
 
@@ -362,7 +370,7 @@ test('nicci-api.js: katalog, filtry, grupowanie, quiz i koszyk działają na dan
   const body = JSON.stringify({ ok: true, data: catalog });
   const { Nicci } = loadFrontApi(async () => ({ json: async () => JSON.parse(body) }));
   const cat = await Nicci.fetchCatalog();
-  assert.equal(cat.products.length, 64);
+  assert.equal(cat.products.length, 94);
 
   const drzewne = Nicci.filterProducts(cat.products, { rodzina: ['drzewna'], tylkoDostepne: true });
   assert.ok(drzewne.length > 0 && drzewne.every((p) => p.rodzina === 'drzewna'));
@@ -377,7 +385,7 @@ test('nicci-api.js: katalog, filtry, grupowanie, quiz i koszyk działają na dan
   assert.equal(rec.top.length, 3);
   assert.ok(rec.top.every((p) => ['drzewna', 'skórzana', 'szyprowa'].includes(p.rodzina)), 'dopasowanie rodziny działa');
   const slodki = Nicci.quiz.recommend(cat, { profil: 'unisex', klimat: ['slodki'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
-  assert.equal(slodki.set, null, 'Sweet & Spicy jest niedostępny, więc quiz go nie proponuje');
+  assert.equal(slodki.set && slodki.set.id, 'z04', 'Sweet & Spicy jest dostępny i ma rodzinę gourmand');
 
   Nicci.cart.addDecant('p01', 10);
   Nicci.cart.addDecant('p01', 10);
@@ -415,6 +423,136 @@ test('sprzedaż: atrapa backendu odrzuca zamówienie przy NICCI_SPRZEDAZ=NIE, be
     if (prev.z === undefined) delete process.env.NICCI_ZAMOWIENIA; else process.env.NICCI_ZAMOWIENIA = prev.z;
     try { fs.unlinkSync(plik); } catch (e) { /* nie powstał */ }
   }
+});
+
+// ---------- quiz: site/js/dobor.js (październik 2026) ----------
+function loadDobor() {
+  const ctx = { window: {}, localStorage: { setItem() {} }, console };
+  require('vm').createContext(ctx);
+  require('vm').runInContext(require('fs').readFileSync(require('path').join(__dirname, '..', 'site', 'js', 'dobor.js'), 'utf8'), ctx);
+  return ctx.window.NicciDobor;
+}
+
+test('quiz: profil filtruje, klimat główny wygrywa z dodatkowym, trójka bez dwóch wersji jednej linii', () => {
+  const D = loadDobor();
+  const cat = JSON.parse(JSON.stringify(be.buildCatalog_(productRows, setRows, {}, cfg, NOW)));
+  const ona = D.recommend(cat, { profil: 'damski', klimat: ['kwiatowy'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
+  assert.equal(ona.top.length, 3);
+  assert.ok(ona.top.every((p) => p.profil !== 'męski'), 'dla niej bez zapachów męskich');
+  assert.equal(D.klimaty(ona.top[0])[0], 'kwiatowy', 'pierwszy wynik ma kwiatowy jako klimat główny');
+  const on = D.recommend(cat, { profil: 'meski', klimat: ['aromatyczny'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
+  assert.ok(on.top.every((p) => p.profil !== 'damski'), 'dla niego bez zapachów damskich');
+  assert.ok(on.top.filter((p) => /sauvage/i.test(p.nazwa)).length <= 1, 'najwyżej jeden Sauvage');
+  assert.ok(on.top.every((p) => D.klimaty(p).includes('aromatyczny')));
+  // dwa klimaty: w trójce jest przedstawiciel każdego
+  const dwa = D.recommend(cat, { profil: 'unisex', klimat: ['cytrusowy', 'orientalny'], pora: 'uniwersalna', sezon: 'caly', intensywnosc: 2 });
+  ['cytrusowy', 'orientalny'].forEach((k) => assert.ok(dwa.top.some((p) => D.klimaty(p).includes(k)), 'brak klimatu ' + k));
+  // stara odpowiedź „swiezy” liczy się jak cytrusowy
+  const stary = D.recommend(cat, { profil: 'unisex', klimat: ['swiezy'], pora: 'dzień', sezon: 'cieplo', intensywnosc: 2 });
+  assert.ok(stary.top.every((p) => D.klimaty(p).includes('cytrusowy')));
+});
+
+test('quiz: bestseller przy podobnym dopasowaniu wyżej; zestaw tylko pasujący', () => {
+  const D = loadDobor();
+  const cat = JSON.parse(JSON.stringify(be.buildCatalog_(productRows, setRows, {}, cfg, NOW)));
+  const r = D.recommend(cat, { profil: 'meski', klimat: ['cytrusowy'], pora: 'dzień', sezon: 'cieplo', intensywnosc: 2 });
+  assert.ok(r.top[0].bestseller, 'pierwszy wynik to bestseller');
+  assert.ok(r.set && r.set.sklad.filter((x) => D.klimaty(cat.products.find((p) => p.id === x.id) || {}).includes('cytrusowy')).length >= 3);
+  const bez = D.recommend(cat, { profil: 'damski', klimat: ['orientalny', 'kwiatowy'], pora: 'wieczór', sezon: 'chlodno', intensywnosc: 3 });
+  assert.equal(bez.set, null, 'żaden dostępny zestaw nie jest orientalno-kwiatowy');
+  assert.equal(bez.partial, false);
+});
+
+// ---------- jednorazowa aktualizacja arkusza właściciela (apps-script/Aktualizacja_2026_10.gs) ----------
+/** Atrapa arkusza Google: siatka wartości z getRange/getValues/setValues/appendRow jak w Apps Script. */
+function fakeSpreadsheet(tables) {
+  const sheets = {};
+  const makeSheet = (grid) => {
+    const width = () => Math.max(0, ...grid.map((r) => r.length));
+    const cell = (r, c) => (grid[r] && grid[r][c] !== undefined ? grid[r][c] : '');
+    const put = (r, c, v) => { while (grid.length <= r) grid.push([]); while (grid[r].length < c) grid[r].push(''); grid[r][c] = v; };
+    return {
+      grid,
+      getLastRow: () => grid.length,
+      getLastColumn: width,
+      getRange: (r, c, nr, nc) => ({
+        getValues: () => Array.from({ length: nr || 1 }, (_, i) => Array.from({ length: nc || 1 }, (_, j) => cell(r - 1 + i, c - 1 + j))),
+        setValues: (vals) => vals.forEach((row, i) => row.forEach((v, j) => put(r - 1 + i, c - 1 + j, v))),
+        setValue: (v) => put(r - 1, c - 1, v),
+        setFontWeight: () => {}
+      }),
+      appendRow: (row) => { grid.push(row.slice()); },
+      setFrozenRows: () => {}
+    };
+  };
+  Object.keys(tables).forEach((k) => { sheets[k] = makeSheet(tables[k].map((r) => r.slice())); });
+  return {
+    sheets,
+    getSheetByName: (n) => sheets[n] || null,
+    insertSheet: (n) => (sheets[n] = makeSheet([]))
+  };
+}
+
+test('aktualizacja arkusza 2026-10: dopisuje nowe zapachy, uzupełnia puste komórki, nie rusza zmian właściciela', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const vm = require('vm');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Aktualizacja_2026_10.gs'), 'utf8');
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.D = AKTUALIZACJA_2026_10; this.SHEET = SHEET;', ctx, { filename: 'Aktualizacja_2026_10.gs' });
+  const D = JSON.parse(JSON.stringify(ctx.D));
+
+  // arkusz właściciela sprzed października: stare kolumny, Lp. do 71, p56 bez nazwy, stare podobne, Lost Cherry w zestawie
+  const head = sheet.Produkty[0];
+  const stare = head.slice(0, head.indexOf('bestseller'));
+  const przed = [stare].concat(sheet.Produkty.slice(1).filter((r) => Number(r[0].slice(1)) <= 71).map((r) => {
+    const o = Object.fromEntries(head.map((h, i) => [h, r[i]]));
+    if (o.id === 'p56') Object.assign(o, { aktywny: 'NIE', marka: '', nazwa: '', opis: '' });
+    if (D.podobne[o.id]) o.podobne = D.podobne[o.id][0];
+    if (o.id === 'p03') o.cena_10 = 999; // zmiana właściciela: zostaje
+    if (o.id === 'p42') o.podobne = 'p01, p02'; // ręczna zmiana: zostaje
+    return stare.map((h) => o[h]);
+  }));
+  const zestawy = sheet.Zestawy.map((r) => r.map((v) => (typeof v === 'string' ? v.replace('p98:', 'p34:') : v)));
+  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: przed, [ctx.SHEET.ZESTAWY]: zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+
+  const opis = vm.runInContext('aktualizacja_2026_10()', ctx);
+  assert.match(opis, /Dodane zapachy: 29, uzupełnione puste wiersze: 1/);
+  assert.match(opis, /zmienione podobne: 3 \(pominięte, bo zmienione ręcznie: p42\)/);
+  assert.match(opis, /zmienione zestawy: 1\./);
+
+  const po = be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid);
+  const oczekiwane = be.tableToObjects_(sheet.Produkty);
+  assert.equal(po.length, 100);
+  const byId = Object.fromEntries(JSON.parse(JSON.stringify(po)).map((p) => [p.id, p]));
+  JSON.parse(JSON.stringify(oczekiwane)).forEach((e) => {
+    const wyj = { p03: ['cena_10'], p42: ['podobne'] }[e.id] || [];
+    Object.keys(e).forEach((k) => { if (wyj.indexOf(k) === -1) assert.deepEqual(byId[e.id][k], e[k], e.id + '.' + k); });
+  });
+  assert.equal(byId.p03.cena_10, 999);
+  assert.equal(byId.p42.podobne, 'p01, p02');
+  assert.ok(ss.sheets[ctx.SHEET.ZESTAWY].grid.some((r) => r[0] === 'z04' && /p98:5/.test(r.join('|')) && !/p34:/.test(r.join('|'))));
+
+  // drugie uruchomienie niczego nie dubluje; wypełniona komórka zostaje, wyczyszczona wraca
+  const g = ss.sheets[ctx.SHEET.PRODUKTY].grid;
+  const col = (n) => g[0].indexOf(n);
+  const row = (id) => g.find((r) => r[0] === id);
+  row('p05')[col('klimat')] = 'kwiatowy';
+  row('p06')[col('renoma')] = '';
+  const drugi = vm.runInContext('aktualizacja_2026_10()', ctx);
+  assert.match(drugi, /Dodane zapachy: 0, uzupełnione puste wiersze: 0, uzupełnione komórki bestseller\/klimat\/renoma: 1, zmienione podobne: 0/);
+  assert.equal(g.length, 101);
+  assert.equal(row('p05')[col('klimat')], 'kwiatowy');
+  assert.equal(row('p06')[col('renoma')], byId.p06.renoma);
+
+  // katalog z zaktualizowanego arkusza: nowe zapachy z klimatem, bestsellery oznaczone
+  const cat = be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ss.sheets[ctx.SHEET.PRODUKTY].grid, 100)), be.tableToObjects_(ss.sheets[ctx.SHEET.ZESTAWY].grid), {}, cfg, NOW);
+  assert.equal(cat.products.length, 94);
+  assert.equal(cat.products.filter((p) => p.bestseller).length, 12);
+  assert.ok(cat.sets.find((z) => z.id === 'z04').available, 'Sweet & Spicy dostępny');
 });
 
 (async () => {

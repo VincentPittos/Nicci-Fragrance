@@ -65,7 +65,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-Wszystkie 64 aktywne produkty mają zdjęcie: 49 ze stron producentów (tabela niżej) i 15 od właściciela (akapit pod tabelą). Źródło tych 49: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
+Zdjęcie ma 82 z 94 aktywnych produktów: 67 ze stron producentów (tabela niżej, w tym 18 nowych zapachów z 8.10.2026) i 15 od właściciela (akapit pod tabelą). 12 nowych zapachów czeka na zdjęcie od właściciela, bo strony ich marek blokują pobieranie (punkt 5). Źródło tych 67: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -120,6 +120,24 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p69 | Azzaro | Chrome | https://www.azzaro.com/en/fragrances/azzaro-chrome/eau-de-parfum |  |
 | p70 | Azzaro | Forever Wanted Elixir | https://www.azzaro.com/en/fragrances/azzaro-forever-wanted-elixir/eau-de-parfum |  |
 | p71 | Azzaro | The Most Wanted Parfum | https://www.azzaro.com/en/fragrances/azzaro-the-most-wanted/parfum |  |
+| p72 | Carner Barcelona | Cuirs | https://carnerbarcelona.com/products/cuirs-perfume |  |
+| p74 | Xerjoff | Opera | https://www.xerjoff.com/en-us/products/opera-eau-de-parfum |  |
+| p75 | Parfums de Marly | Layton | https://parfums-de-marly.com/products/layton |  |
+| p76 | Parfums de Marly | Pegasus Exclusif | https://parfums-de-marly.com/products/pegasus-exclusif |  |
+| p77 | Parfums de Marly | Sedley | https://parfums-de-marly.com/products/sedley |  |
+| p78 | Amouage | Guidance | https://amouage.com/en-eu/products/100ml-guidance |  |
+| p79 | Creed | Delphinus | https://creedboutique.com/products/delphinus |  |
+| p80 | Essential Parfums | Velvet Iris | https://essentialparfums.com/products/velvet-iris-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
+| p81 | Essential Parfums | Ambre Latte | https://essentialparfums.com/products/ambre-latte-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
+| p82 | Ormonde Jayne | Kashmir | https://www.ormondejayne.com/products/kashmir |  |
+| p84 | Nishane | Wūlóng Chá | https://nishane.com/product/wulong-cha/ |  |
+| p85 | Sospiro | Basso | https://sospirointernational.com/products/basso |  |
+| p86 | Tom Ford | Velvet Orchid | https://www.tomfordbeauty.com/products/velvet-orchid-eau-de-parfum |  |
+| p87 | Tom Ford | Black Orchid | https://www.tomfordbeauty.com/products/black-orchid-eau-de-parfum |  |
+| p88 | Tom Ford | Oud Voyager | https://www.tomfordbeauty.com/products/oud-voyager-eau-de-parfum | usunięta plakietka nagrody |
+| p95 | Atkinsons | Shine Despite Everything | https://www.atkinsons1799.com/products/shine-despite-everything |  |
+| p96 | Atkinsons | Oud Save the King | https://www.atkinsons1799.com/products/oud-save-the-king |  |
+| p97 | Atkinsons | Mint & Tonic | https://www.atkinsons1799.com/products/mint-tonic |  |
 
 **Zdjęcia od właściciela (24.09.2026):** wszystkie 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51 do p55, p63 do p65), ma zdjęcie od właściciela: 13 z folderu „Nicci Fragrance” na Dysku, p51 i p52 z plików przysłanych w rozmowie. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`.
 
@@ -176,7 +194,7 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 31/31 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js` |
+| `node dev/testy_backendu.js` | 34/34 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js`, wstrzymana sprzedaż; od 8.10 także dobór w quizie (`site/js/dobor.js`) i jednorazowa aktualizacja arkusza właściciela na atrapie arkusza |
 | `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
 | `node dev/testy_wstrzymanie.js` | 10/10 | sprzedaż wstrzymana: katalog działa, koszyk bez przejścia do zamówienia, formularz wyłączony, backend odrzuca zamówienie bez zapisu, brak ofert w danych strukturalnych |
 
@@ -189,11 +207,11 @@ Czego nie da się sprawdzić lokalnie: wysyłki maili (test 2, 4, 5, 6), trigger
 
 ## 5. Produkty z brakującymi danymi w arkuszu
 
-Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnione we wszystkich 64 aktywnych produktach. Brakuje:
+Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnione we wszystkich 94 aktywnych produktach (od 8.10.2026 także klimat dla quizu). Brakuje:
 
-**Stanów:** `ml_dostepne` puste w 62 produktach. Od 24.09 to nie blokada: puste pole znaczy sprzedaż bez limitu (decyzja 58). Wypełnione tylko p34 i p37, oba 0 ml, więc są wyprzedane.
+**Stanów:** `ml_dostepne` puste w 92 produktach. Od 24.09 to nie blokada: puste pole znaczy sprzedaż bez limitu (decyzja 58). Wypełnione tylko p34 i p37, oba 0 ml, więc są wyprzedane.
 
-**Zdjęć:** brak braków, wszystkie 64 aktywne produkty mają zdjęcie (punkt 3).
+**Zdjęć:** 12 nowych zapachów z 8.10.2026: p56, p73, p83, p89 do p94, p98 do p100 (strony marek blokują pobieranie; lista nazw w `docs/lista-przed-publikacja.md`, punkt E). Na karcie mają kadr zastępczy.
 
 **Cen:** strona pokazuje tylko pojemności z ceną, więc te warianty są ukryte. p34 i p37 nie mają żadnej ceny i mają 0 ml, więc są wyprzedane (widać je po wyłączeniu filtra „Tylko dostępne”). Produkt ze stanem, ale bez żadnej ceny, backend teraz pomija, a diagnostyka zgłasza go jako błąd.
 
@@ -201,7 +219,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 |---|---|
 | 10 ml | p39 Marc-Antoine Barrois Ganymede |
 | 20 ml | p45 Sospiro Vibrato |
-| 5 ml | p12 Creed Absolu Aventus; p21 Mancera Lemon Line; p22 Mancera Cedrat Boise; p23 Mancera French Riviera; p24 Mancera Tonka Cola; p25 Mancera Red Tobacco; p27 Montale Intense Café; p28 Montale Arabians Tonka; p29 Montale Chocolate Greedy; p30 Montale Honey Aoud; p31 Montale Intense Pepper; p32 Tom Ford Ombré Leather; p33 Tom Ford Noir Extreme; p36 Tom Ford Bois Pacifique; p40 Tiziana Terenzi Kirke; p44 Essential Parfums Bois Impérial; p46 Nous Tous Casa di Capri; p47 Nous Tous Secco di Como; p48 Nous Tous Aurora Siciliana; p49 Nous Tous Safrano Absolu; p50 Nous Tous Milano 3AM; p51 Dior Homme Cologne; p52 Dior Sauvage Parfum; p53 Dior Sauvage Elixir; p55 Versace Eros Parfum; p59 Hugo Boss Bottled Elixir; p61 Hugo Boss Bottled Beyond; p62 Hugo Boss Bottled Bold Citrus; p63 YSL Y Parfum; p64 YSL MYSLF Parfum; p65 Hermès Terre d'Hermès Eau Intense Vétiver; p70 Azzaro Forever Wanted Elixir; p71 Azzaro The Most Wanted Parfum |
+| 5 ml | p12 Creed Absolu Aventus; p21 Mancera Lemon Line; p22 Mancera Cedrat Boise; p23 Mancera French Riviera; p24 Mancera Tonka Cola; p25 Mancera Red Tobacco; p27 Montale Intense Café; p28 Montale Arabians Tonka; p29 Montale Chocolate Greedy; p30 Montale Honey Aoud; p31 Montale Intense Pepper; p32 Tom Ford Ombré Leather; p33 Tom Ford Noir Extreme; p36 Tom Ford Bois Pacifique; p40 Tiziana Terenzi Kirke; p44 Essential Parfums Bois Impérial; p46 Nous Tous Casa di Capri; p47 Nous Tous Secco di Como; p48 Nous Tous Aurora Siciliana; p49 Nous Tous Safrano Absolu; p50 Nous Tous Milano 3AM; p51 Dior Homme Cologne; p52 Dior Sauvage Parfum; p53 Dior Sauvage Elixir; p55 Versace Eros Parfum; p59 Hugo Boss Bottled Elixir; p61 Hugo Boss Bottled Beyond; p62 Hugo Boss Bottled Bold Citrus; p63 YSL Y Parfum; p64 YSL MYSLF Parfum; p65 Hermès Terre d'Hermès Eau Intense Vétiver; p70 Azzaro Forever Wanted Elixir; p71 Azzaro The Most Wanted Parfum; nowe z 8.10: p56 Versace Eros Energy; p72 Carner Barcelona Cuirs; p74 Xerjoff Opera; p80 Essential Parfums Velvet Iris; p81 Essential Parfums Ambre Latte; p84 Nishane Wūlóng Chá; p86 Tom Ford Velvet Orchid; p87 Tom Ford Black Orchid |
 | 5 ml, 10 ml | p66 Rabanne Black XS; p67 Rabanne Invictus; p68 Rabanne One Million; p69 Azzaro Chrome |
 | 5 ml, 10 ml, 20 ml | p34 Tom Ford Lost Cherry; p37 Tom Ford Oud Wood |
 

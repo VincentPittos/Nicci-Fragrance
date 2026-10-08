@@ -95,6 +95,7 @@
     h.push(mediaHtml(p, opts));
     h.push('</button>');
     if (soldOut) h.push('<span class="card__flag">Wyprzedane</span>');
+    else if (p.bestseller) h.push('<span class="card__flag card__flag--best">Bestseller</span>');
     h.push('</div><div class="card__body">');
 
     var hl = opts.hl || 3; // poziom nagłówka: w katalogu pod nagłówkiem grupy to h4

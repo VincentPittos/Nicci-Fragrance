@@ -34,6 +34,16 @@ Nicci robi w arkuszu tylko trzy rzeczy: zmienia status na OPŁACONE, wpisuje num
 
 W arkuszu jest zakładka **Sklep** z wierszem `sprzedaz`. Wartość **NIE** (tak jest teraz, do czasu uregulowania sklepu z prawnikiem i księgowym): strona pokazuje katalog, zestawy i quiz, klient może złożyć koszyk, ale zamiast przejścia do zamówienia widzi „Zamówienia ruszą wkrótce”, a skrypt odrzuca każde zamówienie. Wartość **TAK**: sklep przyjmuje zamówienia. Zmiana w arkuszu działa od razu dla zamówień, a strona pokazuje nowy stan w ciągu kilku minut. Tym samym przełącznikiem możesz później wstrzymać sprzedaż, np. na urlop.
 
+## Bestsellery i quiz
+
+Trzy kolumny w zakładce Produkty sterują etykietą „Bestseller” i doborem w quizie:
+
+- **`bestseller`:** wpisz TAK, a zapach dostanie etykietę „Bestseller” na karcie, w szczegółach i w wyniku quizu, stanie na początku swojej grupy w katalogu i będzie częściej polecany w quizie. Puste pole: zwykły zapach.
+- **`klimat`:** do trzech słów po przecinku z listy: cytrusowy, aromatyczny, drzewny, slodki, orientalny, kwiatowy. Pierwsze słowo to główny charakter zapachu i liczy się w quizie najmocniej, np. `kwiatowy, slodki` dla Velvet Orchid. Puste pole: quiz zgadnie klimat z kolumny `rodzina`, ale mniej trafnie.
+- **`renoma`:** 3 dla zapachów najbardziej znanych i najlepiej ocenianych, 2 dla dobrze znanych, 1 dla niszowych i mniej znanych. Przy podobnym dopasowaniu quiz poleci najpierw zapach z wyższą renomą. Obecne wartości to nasza propozycja, możesz je zmienić.
+
+Quiz pokazuje zestaw tylko wtedy, gdy co najmniej połowa jego zapachów pasuje do wybranych klimatów i do profilu („Dla niego”, „Dla niej”), więc nowy zestaw nie potrzebuje żadnej dodatkowej kolumny. Zmiany w arkuszu widać na stronie w ciągu kilku minut. Po większych zmianach uruchom `diagnostyka`, wypisze literówki w kolumnie `klimat`.
+
 ## Sytuacje szczególne
 
 - **Zapach się skończył:** wpisz 0 w kolumnie `ml_dostepne`. Na stronie pokaże się „Wyprzedane”. Puste pole oznacza, że zapach jest w sprzedaży bez limitu.

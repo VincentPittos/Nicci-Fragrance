@@ -88,11 +88,13 @@ const PROFILE = ['męski', 'damski', 'unisex'];
 const PORY = ['dzień', 'wieczór', 'uniwersalna'];
 const SEZONY = ['wiosna', 'lato', 'jesień', 'zima'];
 const POJEMNOSCI = [5, 10, 20];
+// Klimaty z pytania 2 quizu (site/js/dobor.js). Kolumna klimat: jeden do trzech, pierwszy jest główny.
+const KLIMATY = ['cytrusowy', 'aromatyczny', 'drzewny', 'slodki', 'orientalny', 'kwiatowy'];
 
 const HEADERS = {
   Produkty: ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca', 'nuty_bazy',
     'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc', 'cena_5', 'cena_10', 'cena_20',
-    'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja'],
+    'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja', 'bestseller', 'klimat', 'renoma'],
   Zestawy: ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad'],
   Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'oplacone', 'imie_nazwisko', 'email', 'telefon',
     'instagram', 'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
@@ -205,6 +207,9 @@ function productFromRow_(r) {
     podobne: splitList_(r.podobne),
     zdjecie: str_(r.zdjecie_url),
     kolejnosc: toNumber_(r.kolejnosc) === null ? 9999 : toNumber_(r.kolejnosc),
+    bestseller: isYes_(r.bestseller),
+    klimat: splitList_(r.klimat).map(function (x) { return x.toLowerCase().replace('ł', 'l'); }),
+    renoma: (function (n) { return n >= 1 && n <= 3 ? Math.round(n) : null; })(toNumber_(r.renoma)),
     _row: r._row
   };
 }
@@ -292,7 +297,8 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
       intensywnosc: p.intensywnosc, okazja: p.okazja, variants: variants,
       malo: malo, zostalo: malo ? Math.floor(f) : null,
       podobne: p.podobne.filter(function (id) { return byId[id] && isListed_(byId[id]) && id !== p.id; }),
-      zdjecie: p.zdjecie, kolejnosc: p.kolejnosc
+      zdjecie: p.zdjecie, kolejnosc: p.kolejnosc,
+      bestseller: p.bestseller, klimat: p.klimat.filter(function (k) { return KLIMATY.indexOf(k) !== -1; }), renoma: p.renoma
     };
   }).sort(function (a, b) { return a.kolejnosc - b.kolejnosc || a.marka.localeCompare(b.marka, 'pl'); });
 
@@ -1406,6 +1412,8 @@ function diagnoza_(productRows, setRows, cfg) {
     else if (p.ml < 0) W(label + ': ml_dostepne poniżej zera (' + p.ml + ')');
     if (!hasPrice_(p) && !(p.ml !== null && p.ml <= 0)) E(label + ': nie ma żadnej ceny, strona go nie pokaże');
     if (!p.opis) W(label + ': brak opisu');
+    p.klimat.forEach(function (k) { if (KLIMATY.indexOf(k) === -1) W(label + ': klimat „' + k + '” spoza listy (' + KLIMATY.join(', ') + ')'); });
+    if (!p.klimat.length) W(label + ': klimat nie jest uzupełniony (quiz weźmie go z rodziny)');
     if (!p.zdjecie) W(label + ': brak zdjęcia');
   });
   if (bezStanu) out.push(['INFO', bezStanu + ' aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu i bez etykiety „Zostało X ml”. Gdy zapach się skończy, wpisz 0.']);

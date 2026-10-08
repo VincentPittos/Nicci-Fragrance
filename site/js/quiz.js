@@ -1,14 +1,15 @@
 /**
- * NICCI: quiz na osobnej podstronie. Pytania i ich kolejność wyłącznie z Nicci.quiz.questions.
+ * NICCI: quiz na osobnej podstronie. Pytania i ich kolejność z NicciDobor.questions (site/js/dobor.js).
  * Jedno pytanie na ekran, pasek postępu, kafle z ikoną, nazwą i jedną linią doprecyzowania.
  * Wybór pojedynczy przechodzi dalej sam po krótkiej pauzie, wielokrotny (klimat, do dwóch) czeka na „Dalej”.
- * Stan w sessionStorage (nicci_quiz_state): powrót z /wynik przywraca odpowiedzi i ostatni ekran.
+ * Stan w sessionStorage (nicci_quiz_state). Każde nowe wejście do quizu zaczyna od pustych odpowiedzi; zostają tylko
+ * po odświeżeniu strony i po powrocie przyciskiem „wstecz” z /wynik (wtedy ostatni ekran z zaznaczeniem).
  * ?rodzina=drzewna zaznacza klimat, do którego ta rodzina należy, i mówi o tym na pierwszym ekranie.
  */
 (function () {
   'use strict';
   var N = window.Nicci, A = window.NicciApp, M = window.NicciMotion, I = window.NicciIkony, R = window.NicciRodziny;
-  var Q = N.quiz.questions;
+  var Q = (window.NicciDobor || N.quiz).questions;
   var KEY = 'nicci_quiz_state';
   var AUTO_MS = 380;
 
@@ -16,8 +17,9 @@
   var META = {
     profil: { meski: ['q-meski', 'Męskie klasyki i zapachy dla każdego'], damski: ['q-damski', 'Kobiece i te dla każdego'], unisex: ['q-unisex', 'Pokażemy wszystko, co pasuje'] },
     klimat: {
-      swiezy: ['k-swiezy', 'Cytrusy, bergamotka, zioła'], drzewny: ['k-drzewny', 'Cedr, wetyweria, skóra'],
-      slodki: ['k-slodki', 'Wanilia, ambra, przyprawy'], kwiatowy: ['k-kwiatowy', 'Jaśmin, kwiat pomarańczy, irys']
+      cytrusowy: ['k-cytrusowy', 'Bergamotka, grejpfrut, soczyste owoce'], aromatyczny: ['k-aromatyczny', 'Przyprawy, zioła, pieprz'],
+      drzewny: ['k-drzewny', 'Cedr, wetyweria, skóra'], slodki: ['k-slodki', 'Wanilia, tonka, karmel'],
+      orientalny: ['k-orientalny', 'Oud, kadzidło, ambra'], kwiatowy: ['k-kwiatowy', 'Róża, jaśmin, irys']
     },
     pora: { 'dzień': ['dzien', 'Praca, uczelnia, spacer'], 'wieczór': ['wieczor', 'Kolacja, randka, koncert'], uniwersalna: ['uniwersalna', 'Jeden zapach na każdą okazję'] },
     sezon: { cieplo: ['lato', 'Wiosna i lato'], chlodno: ['zima', 'Jesień i zima'], caly: ['caly-rok', 'Bez względu na pogodę'] },
@@ -28,7 +30,12 @@
   function load() { try { return JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   function save() { try { sessionStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* tryb prywatny: quiz działa bez pamięci */ } }
 
-  var state = load() || { answers: {}, step: 0 };
+  // Nowe wypełnienie zaczyna od zera (właściciel: każde nowe podejście resetuje odpowiedzi). Zapisany stan bierzemy tylko
+  // przy odświeżeniu i przy powrocie „wstecz”, żeby nie zgubić odpowiedzi w trakcie i móc poprawić ostatnią po wyniku.
+  var nav = (window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {};
+  var keep = nav.type === 'reload' || nav.type === 'back_forward';
+  var state = (keep && load()) || { answers: {}, step: 0 };
+  if (!keep) save();
   if (state.done) { state.done = false; state.step = Q.length - 1; } // powrót z wyniku: ostatnie pytanie z zaznaczeniem
   var preset = null;
 
