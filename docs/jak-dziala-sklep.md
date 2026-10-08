@@ -44,6 +44,8 @@ Pięć kolumn w zakładce Produkty steruje etykietami „Bestseller” i „Nowo
 - **`nowosc`:** wpisz TAK przy zapachu z premierą w tym roku. Dostanie etykietę „Nowość” w tych samych miejscach co bestseller. Na początku nowego roku usuń TAK przy zeszłorocznych premierach.
 - **`odbior`:** tylko przy zapachach unisex. Wpisz męski, gdy większość osób odbiera zapach jako męski (np. Ombre Nomade, Ombré Leather), albo damski, gdy jako damski (np. Lost Cherry, Kirke). Quiz przy „Dla niej” nie pokaże zapachów z odbiorem męskim, a przy „Dla niego” z damskim. Puste pole: zapach naprawdę dla każdego. Obecne wartości to nasza propozycja.
 
+W katalogu nad zapachami są przyciski „Bestsellery” i „Nowości”, które pokazują tylko zapachy z TAK w tych kolumnach. Do postów na Instagramie możesz dawać gotowe linki: `https://niccifragrance.pl/?pokaz=bestsellery#katalog` i `https://niccifragrance.pl/?pokaz=nowosci#katalog`.
+
 Quiz pokazuje zestaw tylko wtedy, gdy co najmniej połowa jego zapachów pasuje do wybranych klimatów i do profilu („Dla niego”, „Dla niej”), więc nowy zestaw nie potrzebuje żadnej dodatkowej kolumny. Zmiany w arkuszu widać na stronie w ciągu kilku minut. Po większych zmianach uruchom `diagnostyka`, wypisze literówki w kolumnie `klimat`.
 
 ## Sytuacje szczególne

@@ -2,7 +2,7 @@
 
 Stan na 24.09.2026, po Twoich odpowiedziach. Odpowiedzi A, B, C, E i F są już na stronie, w mailach i w Apps Script (szczegóły w `docs/decyzje.md`, punkty 46 do 58). E-mail `kontakt@niccifragrance.pl` i termin 7 dni roboczych potwierdziłeś. Bon 50 zł za opóźnienie działa według Twoich zasad (90 dni, próg 199 zł za same zapachy): wystawia się sam i klient wpisuje go w polu „Kod bonu”. Zostało to, co poniżej.
 
-Aktualizacja 8.10.2026, wieczór: Twoje nowe opisy są na stronie, ceny p95 do p100 zostają jak w Twoim cenniku, trzy zapachy z premierą w 2026 mają etykietę „Nowość”, a quiz „Dla niej” nie pokazuje już zapachów odbieranych jako męskie. Do zrobienia po Twojej stronie: dwa brakujące zdjęcia i większe Roses On Ice (punkt E), aktualizacja arkusza ze skryptem (punkt G2) i sprawdzenie danych nowych zapachów (część 3, punkty 10 do 14).
+Aktualizacja 8.10.2026, wieczór: Twoje nowe opisy są na stronie, ceny p95 do p100 zostają jak w Twoim cenniku, trzy zapachy z premierą w 2026 mają etykietę „Nowość”, a quiz „Dla niej” nie pokazuje już zapachów odbieranych jako męskie. Arkusz ze skryptem zaktualizowany i wdrożony 8.10 wieczorem (punkt G2), strona pokazuje 94 zapachy. Zostało: większe zdjęcie Roses On Ice (punkt E) i sprawdzenie danych nowych zapachów (część 3, punkty 10 do 14).
 
 * **Część 1: wyślij mi.** Materiały i potwierdzenia, które wpiszę na stronę.
 * **Część 2: wpisujesz sam.** Dane do płatności i e-mail wpisujesz bezpośrednio w Apps Script. Repozytorium jest publiczne, więc te dane nie powinny w nim leżeć.
@@ -26,9 +26,9 @@ Najlepiej gotowe teksty od prawnika. Szkielety są pod `/regulamin` i `/prywatno
 
 Obie strony mają dziś `noindex` i dopisek „nie publikować w tej postaci”. Po wstawieniu zatwierdzonych tekstów zdejmę jedno i drugie.
 
-### E. Zdjęcia: brakują dwa
+### E. Zdjęcia: gotowe
 
-Z 10 zdjęć z folderu „Zdjęcia strona” (8.10) wszystkie są na stronie: Eros Energy, Akigala Mandarino, sześć Kilianów (Angels' Share, On The Rocks, Roses On Ice, Woman in Gold, Good Girl Gone Bad, Sparkling Royal), Soir d'Orient i Vanilla Black Pepper. Zdjęcie ma teraz 92 z 94 aktywnych zapachów. Brakuje tylko p83 MFK Oud Satin Mood i p98 Bohoboco Wet Cherry Liquor; do czasu Twoich zdjęć mają kadr zastępczy. Roses On Ice ma tylko 225 × 225 px, więc mimo powiększenia jest na karcie miękkie. Jeśli znajdziesz większe (co najmniej 1000 px), podmienię je.
+Zdjęcie ma każdy z 94 aktywnych zapachów. Z folderu „Zdjęcia strona” (8.10) weszło 13 zdjęć: Eros Energy, Akigala Mandarino, sześć Kilianów, Soir d'Orient, Vanilla Black Pepper, Oud Satin Mood, Wet Cherry Liquor i Ambre Latte (to ostatnie w miejsce zdjęcia ze strony producenta). Jedna prośba: Roses On Ice ma tylko 225 × 225 px, więc mimo powiększenia jest na karcie miękkie. Jeśli znajdziesz większe (co najmniej 1000 px), podmienię je.
 
 Przy kolejnych zdjęciach najlepiej: flakon od frontu, cały w kadrze, co najmniej 1500 px wysokości. Tło może być przezroczyste albo jasne, resztę ujednolicę.
 

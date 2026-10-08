@@ -13,13 +13,15 @@
   if (!root) return;
 
   var catalog = null;
-  var state = { by: 'rodzina', szukaj: '', rodzina: [], marka: [], pora: '', sezon: '', profil: '', tylkoDostepne: true };
+  var state = { by: 'rodzina', szukaj: '', rodzina: [], marka: [], pora: '', sezon: '', profil: '', wyrozn: '', tylkoDostepne: true };
   var drawer = null;
   var MARKI_NA_START = 8;
 
   var PORA = [['dzień', 'Na dzień'], ['wieczór', 'Na wieczór']];
   var SEZON = [['wiosna', 'Wiosna'], ['lato', 'Lato'], ['jesień', 'Jesień'], ['zima', 'Zima']];
   var PROFIL = { 'męski': 'Męski', 'damski': 'Damski', 'unisex': 'Unisex' };
+  // wyróżnione (październik 2026): pole w katalogu, etykieta, wartość ?pokaz= w adresie
+  var WYROZN = [['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']];
 
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
   function zapachy(n) { return n + ' ' + A.plural(n, ['zapach', 'zapachy', 'zapachów']); }
@@ -45,12 +47,15 @@
                 '<input id="cat-q" type="search" autocomplete="off" enterkeyhint="search" spellcheck="false" placeholder="np. wanilia, Xerjoff, Aventus" data-q>' +
               '</div>' +
             '</div>' +
-            '<div class="cat__switch" role="radiogroup" aria-label="Grupuj według" data-by>' +
-              '<button type="button" role="radio" data-by-value="rodzina">Rodziny zapachowe</button>' +
-              '<button type="button" role="radio" data-by-value="marka">Marki</button>' +
+            '<div class="cat__bar">' +
+              '<div class="cat__switch" role="radiogroup" aria-label="Grupuj według" data-by>' +
+                '<button type="button" role="radio" data-by-value="rodzina"><span class="cat__lbl-long">Rodziny zapachowe</span><span class="cat__lbl-short">Rodziny</span></button>' +
+                '<button type="button" role="radio" data-by-value="marka">Marki</button>' +
+              '</div>' +
+              '<button type="button" class="btn btn--outline cat__filters-btn" data-open-filters aria-haspopup="dialog">' +
+                I.svg('filtry', { size: 20 }) + '<span>Filtry</span><span class="cat__badge" data-filter-count></span></button>' +
             '</div>' +
-            '<button type="button" class="btn btn--outline cat__filters-btn" data-open-filters aria-haspopup="dialog">' +
-              I.svg('filtry', { size: 20 }) + '<span>Filtry</span><span class="cat__badge" data-filter-count></span></button>' +
+            quickButtons() +
           '</div>' +
           '<div class="cat__status">' +
             '<p class="cat__count" data-count role="status" aria-live="polite"></p>' +
@@ -60,6 +65,22 @@
         '</div>' +
       '</div>';
     root.querySelector('[data-side]').appendChild(filtersForm('side'));
+  }
+
+  // szybki wybór bestsellerów i nowości nad wynikami (widoczny także na telefonie, gdzie filtry są w szufladzie)
+  function wyroznione() {
+    return WYROZN.map(function (w) {
+      return [w[0], w[1], catalog.products.filter(function (p) { return p[w[0]]; }).length];
+    }).filter(function (w) { return w[2]; });
+  }
+
+  function quickButtons() {
+    var items = wyroznione();
+    if (!items.length) return '';
+    return '<div class="cat__quick" role="group" aria-label="Pokaż tylko">' + items.map(function (w) {
+      return '<button type="button" aria-pressed="false" data-wyrozn="' + w[0] + '"><span class="cat__dot cat__dot--' + w[0] + '" aria-hidden="true"></span>' +
+        esc(w[1]) + '<span class="cat__quick-n">' + w[2] + '</span></button>';
+    }).join('') + '</div>';
   }
 
   // ---------- formularz filtrów (ten sam w panelu bocznym i w szufladzie) ----------
@@ -107,8 +128,11 @@
     var pc = counts('profil');
     var profile = Object.keys(PROFIL).filter(function (k) { return pc[k]; }).map(function (k) { return [k, PROFIL[k]]; });
 
+    var wyr = wyroznione().map(function (w) { return [w[0], w[1] + ' (' + w[2] + ')']; });
+
     f.innerHTML =
       '<label class="toggle"><input type="checkbox" name="tylkoDostepne" role="switch"><span class="toggle__track" aria-hidden="true"></span><span>Tylko dostępne</span></label>' +
+      (wyr.length ? radioChips('wyrozn', 'Wyróżnione', wyr, 'Wszystkie') : '') +
       checkList('rodzina', 'Rodzina zapachowa', rodziny) +
       radioChips('pora', 'Pora dnia', PORA, 'Każda') +
       radioChips('sezon', 'Pora roku', SEZON, 'Każda') +
@@ -163,6 +187,7 @@
       tylkoDostepne: state.tylkoDostepne, szukaj: state.szukaj
     });
     if (state.profil) list = list.filter(function (p) { return p.profil === state.profil; });
+    if (state.wyrozn) list = list.filter(function (p) { return p[state.wyrozn]; });
     // zapachy ze zdjęciem na początku grupy (do czasu zdjęć wszystkich flakonów), potem kolejność z arkusza
     // w grupie: najpierw zapachy ze zdjęciem, wśród nich bestsellery i nowości, potem kolejność z arkusza
     return list.sort(function (a, b) {
@@ -176,6 +201,7 @@
     if (state.pora) out.push({ key: 'pora', value: state.pora, label: PORA.filter(function (x) { return x[0] === state.pora; })[0][1] });
     if (state.sezon) out.push({ key: 'sezon', value: state.sezon, label: U.cap(state.sezon) });
     if (state.profil) out.push({ key: 'profil', value: state.profil, label: PROFIL[state.profil] });
+    if (state.wyrozn) out.push({ key: 'wyrozn', value: state.wyrozn, label: WYROZN.filter(function (w) { return w[0] === state.wyrozn; })[0][1] });
     state.marka.forEach(function (v) { out.push({ key: 'marka', value: v, label: v }); });
     if (state.szukaj) out.push({ key: 'szukaj', value: state.szukaj, label: '„' + state.szukaj + '”' });
     if (!state.tylkoDostepne) out.push({ key: 'tylkoDostepne', value: '', label: 'Także wyprzedane' });
@@ -190,7 +216,7 @@
   }
 
   function clearAll() {
-    state.rodzina = []; state.marka = []; state.pora = ''; state.sezon = ''; state.profil = ''; state.szukaj = ''; state.tylkoDostepne = true;
+    state.rodzina = []; state.marka = []; state.pora = ''; state.sezon = ''; state.profil = ''; state.wyrozn = ''; state.szukaj = ''; state.tylkoDostepne = true;
     var q = root.querySelector('[data-q]');
     if (q) q.value = '';
   }
@@ -238,6 +264,7 @@
     root.querySelectorAll('[data-filter-count]').forEach(function (b) { b.textContent = n ? '(' + n + ')' : ''; });
     var fb = root.querySelector('[data-open-filters]');
     if (fb) fb.setAttribute('aria-label', 'Filtry' + (n ? ', aktywne: ' + n : ''));
+    root.querySelectorAll('[data-wyrozn]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.wyrozn === state.wyrozn)); });
     root.querySelectorAll('[data-by-value]').forEach(function (b) {
       b.setAttribute('aria-checked', String(b.dataset.byValue === state.by));
       b.tabIndex = b.dataset.byValue === state.by ? 0 : -1;
@@ -286,6 +313,8 @@
     root.addEventListener('click', function (e) {
       var by = e.target.closest('[data-by-value]');
       if (by) { state.by = by.dataset.byValue; update(); by.focus(); return; }
+      var wy = e.target.closest('[data-wyrozn]');
+      if (wy) { state.wyrozn = state.wyrozn === wy.dataset.wyrozn ? '' : wy.dataset.wyrozn; update(); wy.focus(); return; }
       var rm = e.target.closest('[data-remove]');
       if (rm) {
         var list = root.querySelectorAll('[data-remove]');
@@ -318,9 +347,12 @@
     });
   }
 
-  /** ?rodzina=skorzana (slug) albo nazwa, ?marka=Xerjoff */
+  /** ?rodzina=skorzana (slug) albo nazwa, ?marka=Xerjoff, ?pokaz=bestsellery albo nowosci */
   function presets() {
     var p = A.params || {};
+    var pokaz = norm(new URLSearchParams(location.search).get('pokaz'));
+    var w = WYROZN.filter(function (x) { return x[2] === pokaz || x[0] === pokaz; })[0];
+    if (w) state.wyrozn = w[0];
     if (p.rodzina) {
       var fams = Object.keys(counts('rodzina'));
       var hit = fams.filter(function (f) { return norm(f) === norm(p.rodzina) || window.NicciRodziny.slug(f) === p.rodzina; })[0];

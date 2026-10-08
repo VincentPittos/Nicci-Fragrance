@@ -65,7 +65,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-Zdjęcie ma 92 z 94 aktywnych produktów: 67 ze stron producentów (tabela niżej, w tym 18 nowych zapachów z 8.10.2026) i 25 od właściciela (akapity pod tabelą). Bez zdjęcia: p83 i p98 (punkt 5). Źródło tych 67: oficjalne strony i sklepy producentów. `robots.txt` każdej domeny był sprawdzony i przestrzegany, Fragrantiki nie pobieraliśmy, a zabezpieczeń przed botami (403, Cloudflare) nie obchodziliśmy. Pełne adresy obrazów: `dev/zdjecia/zrodla-wybrane.csv` (użyte) i `dev/zdjecia/zrodla.csv` (wszyscy kandydaci). Obróbka: tło #F1EFEC, kadr 4:5, flakon bez zmian (`dev/zdjecia/ujednolic_zdjecia.py`).
+Zdjęcie mają wszystkie 94 aktywne produkty: 66 ze stron producentów (tabela niżej, w tym 17 nowych zapachów z 8.10.2026) i 28 od właściciela (akapity pod tabelą).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -128,7 +128,6 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p78 | Amouage | Guidance | https://amouage.com/en-eu/products/100ml-guidance |  |
 | p79 | Creed | Delphinus | https://creedboutique.com/products/delphinus |  |
 | p80 | Essential Parfums | Velvet Iris | https://essentialparfums.com/products/velvet-iris-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
-| p81 | Essential Parfums | Ambre Latte | https://essentialparfums.com/products/ambre-latte-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
 | p82 | Ormonde Jayne | Kashmir | https://www.ormondejayne.com/products/kashmir |  |
 | p84 | Nishane | Wūlóng Chá | https://nishane.com/product/wulong-cha/ |  |
 | p85 | Sospiro | Basso | https://sospirointernational.com/products/basso |  |
@@ -141,7 +140,7 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 
 **Zdjęcia od właściciela (24.09.2026):** wszystkie 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51 do p55, p63 do p65), ma zdjęcie od właściciela: 13 z folderu „Nicci Fragrance” na Dysku, p51 i p52 z plików przysłanych w rozmowie. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`.
 
-**Zdjęcia od właściciela (8.10.2026):** 10 nowych zapachów, których strony marek blokują pobieranie: p56, p73, p89 do p94, p99 i p100, z folderu „Zdjęcia strona” na Dysku. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. p91 Roses On Ice ma źródło 225 × 225 px (EDSR ×4), więc na karcie jest miękkie.
+**Zdjęcia od właściciela (8.10.2026):** 10 nowych zapachów, których strony marek blokują pobieranie: p56, p73, p89 do p94, p99 i p100, z folderu „Zdjęcia strona” na Dysku. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. p91 Roses On Ice ma źródło 225 × 225 px (EDSR ×4), więc na karcie jest miękkie. Wieczorem tego samego dnia trzy kolejne: p83 Oud Satin Mood (554 × 554 px, EDSR ×2), p98 Wet Cherry Liquor (265 × 265 px, EDSR ×4, z marginesem, bo flakon dotykał krawędzi) i p81 Ambre Latte (800 × 800 px, EDSR ×2) w miejsce zdjęcia ze strony producenta.
 
 ## 4. Wyniki audytu
 
@@ -213,7 +212,7 @@ Opisy, nuty, sezon, pora, trwałość, projekcja i intensywność są uzupełnio
 
 **Stanów:** `ml_dostepne` puste w 92 produktach. Od 24.09 to nie blokada: puste pole znaczy sprzedaż bez limitu (decyzja 58). Wypełnione tylko p34 i p37, oba 0 ml, więc są wyprzedane.
 
-**Zdjęć:** p83 Maison Francis Kurkdjian Oud Satin Mood i p98 Bohoboco Wet Cherry Liquor (strony marek blokują pobieranie, właściciel jeszcze ich nie przysłał). Na karcie mają kadr zastępczy.
+**Zdjęć:** brak braków, wszystkie 94 aktywne produkty mają zdjęcie (punkt 3). Roses On Ice (p91) ma źródło 225 × 225 px i warto je wymienić na większe.
 
 **Cen:** strona pokazuje tylko pojemności z ceną, więc te warianty są ukryte. p34 i p37 nie mają żadnej ceny i mają 0 ml, więc są wyprzedane (widać je po wyłączeniu filtra „Tylko dostępne”). Produkt ze stanem, ale bez żadnej ceny, backend teraz pomija, a diagnostyka zgłasza go jako błąd.
 

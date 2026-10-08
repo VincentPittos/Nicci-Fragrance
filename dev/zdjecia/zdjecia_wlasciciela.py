@@ -29,9 +29,9 @@ MIN_SIDE = 1000
 JASNE = 250          # tło JPG: piksele jaśniejsze od tego progu, połączone z krawędzią, stają się czystą bielą
 # PNG, w których wokół flakonu zostały nieprzezroczyste białe resztki tła (p64: pola obok nakrętki)
 RESZTKI_BIELI = {'p64': 245}
-# Biały flakon, który w źródle dotyka górnej i dolnej krawędzi (p93): biały margines (część wysokości) i niższa
+# Flakon, który w źródle dotyka górnej i dolnej krawędzi (p93 biały na białym, p98): biały margines (część wysokości) i niższa
 # czułość w ujednolic_zdjecia.py (ustawienia.json), inaczej tło wokół flakonu zostaje jako biały prostokąt.
-MARGINES = {'p93': 0.12}
+MARGINES = {'p93': 0.12, 'p98': 0.12}
 USTAWIENIA = {'p93': {'tol': 10}}
 
 # id: plik od właściciela. Większość z folderu na Dysku; p51 i p52 przysłane później w rozmowie („(czat)” w nazwie):
@@ -63,6 +63,10 @@ PLIKI = {
     'p94': '440X440-SQ-180736221110357437251771581.png',
     'p99': 'sisley-soir-d-orient.jpg',
     'p100': 'vanilla-black-pepper_bohoboco_2.png',
+    # 8.10 wieczorem: dwa ostatnie brakujące i Ambre Latte od właściciela w miejsce zdjęcia ze strony producenta
+    'p81': 'ambre.jpg',
+    'p83': 'oud.jpg',
+    'p98': 'packshot_wet_cherry_liquor_2.png',
 }
 
 
