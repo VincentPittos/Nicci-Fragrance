@@ -65,7 +65,7 @@ Hero i grafika Open Graph powstały z materiału właściciela (`refs/hero-czyst
 
 ## 3. Źródła zdjęć produktów
 
-Zdjęcie mają wszystkie 94 aktywne produkty: 66 ze stron producentów (tabela niżej, w tym 17 nowych zapachów z 8.10.2026) i 28 od właściciela (akapity pod tabelą).
+Zdjęcie mają wszystkie 94 aktywne produkty: 64 ze stron producentów (tabela niżej, w tym 16 nowych zapachów z 8.10.2026) i 30 od właściciela (akapity pod tabelą).
 
 To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo zastąpić je własnymi zdjęciami flakonów i atomizerów Nicci.
 
@@ -104,7 +104,6 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p39 | Marc-Antoine Barrois | Ganymede | https://www.marcantoinebarrois.com/products/ganymede |  |
 | p40 | Tiziana Terenzi | Kirke | https://terenziboutique.us/products/engf |  |
 | p41 | Maison Crivelli | Oud Maracujá | https://maisoncrivelli.com/products/oud-maracuja |  |
-| p44 | Essential Parfums | Bois Impérial | https://essentialparfums.com/products/bois-imperial-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
 | p45 | Sospiro | Vibrato | https://sospirointernational.com/products/vibrato |  |
 | p46 | Nous Tous | Casa di Capri | https://nutu.store/products/nous-tous-casa-di-capri-elixir-de-parfum |  |
 | p47 | Nous Tous | Secco di Como | https://nutu.store/products/nous-tous-secco-di-como-elixir-de-parfum |  |
@@ -127,7 +126,6 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 | p77 | Parfums de Marly | Sedley | https://parfums-de-marly.com/products/sedley |  |
 | p78 | Amouage | Guidance | https://amouage.com/en-eu/products/100ml-guidance |  |
 | p79 | Creed | Delphinus | https://creedboutique.com/products/delphinus |  |
-| p80 | Essential Parfums | Velvet Iris | https://essentialparfums.com/products/velvet-iris-eau-de-parfum-vaporisateur-rechargeable-100-ml |  |
 | p82 | Ormonde Jayne | Kashmir | https://www.ormondejayne.com/products/kashmir |  |
 | p84 | Nishane | Wūlóng Chá | https://nishane.com/product/wulong-cha/ |  |
 | p85 | Sospiro | Basso | https://sospirointernational.com/products/basso |  |
@@ -140,7 +138,7 @@ To materiały marek. Przed startem warto potwierdzić prawo do ich użycia albo 
 
 **Zdjęcia od właściciela (24.09.2026):** wszystkie 15 produktów, których strony producentów blokują pobieranie (p01 do p05, p42, p43, p51 do p55, p63 do p65), ma zdjęcie od właściciela: 13 z folderu „Nicci Fragrance” na Dysku, p51 i p52 z plików przysłanych w rozmowie. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`, obróbka opisana w `docs/03-plan-grafik.md`.
 
-**Zdjęcia od właściciela (8.10.2026):** 10 nowych zapachów, których strony marek blokują pobieranie: p56, p73, p89 do p94, p99 i p100, z folderu „Zdjęcia strona” na Dysku. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. p91 Roses On Ice ma źródło 225 × 225 px (EDSR ×4), więc na karcie jest miękkie. Wieczorem tego samego dnia trzy kolejne: p83 Oud Satin Mood (554 × 554 px, EDSR ×2), p98 Wet Cherry Liquor (265 × 265 px, EDSR ×4, z marginesem, bo flakon dotykał krawędzi) i p81 Ambre Latte (800 × 800 px, EDSR ×2) w miejsce zdjęcia ze strony producenta.
+**Zdjęcia od właściciela (8.10.2026):** 10 nowych zapachów, których strony marek blokują pobieranie: p56, p73, p89 do p94, p99 i p100, z folderu „Zdjęcia strona” na Dysku. Pliki i rozmiary źródeł: `dev/zdjecia/zrodla-wlasciciel.csv`. p91 Roses On Ice ma źródło 225 × 225 px (EDSR ×4), więc na karcie jest miękkie. Wieczorem tego samego dnia trzy kolejne: p83 Oud Satin Mood (554 × 554 px, EDSR ×2), p98 Wet Cherry Liquor (265 × 265 px, EDSR ×4, z marginesem, bo flakon dotykał krawędzi) i p81 Ambre Latte (800 × 800 px, EDSR ×2) w miejsce zdjęcia ze strony producenta. Później p44 Bois Impérial (558 × 1172 px, EDSR ×2, z marginesem) i p80 Velvet Iris (1000 × 1000 px), ostrzejsze niż zdjęcia ze strony marki, na których etykieta była nieczytelna.
 
 ## 4. Wyniki audytu
 
@@ -195,7 +193,7 @@ Wiersze strony głównej zmierzone po przebudowie hero według makiety (24.09); 
 
 | Zestaw | Wynik | Co sprawdza |
 |---|---|---|
-| `node dev/testy_backendu.js` | 35/35 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js`, wstrzymana sprzedaż; od 8.10 także dobór w quizie (`site/js/dobor.js`, w tym 324 kombinacje „Dla niej” i „Dla niego” bez zapachów odbieranych przeciwnie) i jednorazowa aktualizacja arkusza właściciela z dwóch stanów wyjściowych na atrapie arkusza |
+| `node dev/testy_backendu.js` | 36/36 | katalog, rezerwacje, walidacja, wycena, braki stanu, numeracja, maile, przewoźnicy, bony i dni robocze, stan bez liczenia ml, odpowiedź zamówienia, zgodność z `nicci-api.js`, wstrzymana sprzedaż; od 8.10 także dobór w quizie (`site/js/dobor.js`, w tym 324 kombinacje „Dla niej” i „Dla niego” bez zapachów odbieranych przeciwnie) i jednorazowa aktualizacja arkusza właściciela z dwóch stanów wyjściowych na atrapie arkusza, a także lista zdjęć w `site/js/app.js` zgodna z plikami |
 | `node dev/testy_readme.js` | 22/22 | testy 1, 2, 3 i 7 z README na całej ścieżce: przeglądarka, formularz, atrapa backendu; od 24.09 także kod bonu (rabat, drugie użycie, próg, termin, nieznany kod) |
 | `node dev/testy_wstrzymanie.js` | 10/10 | sprzedaż wstrzymana: katalog działa, koszyk bez przejścia do zamówienia, formularz wyłączony, backend odrzuca zamówienie bez zapisu, brak ofert w danych strukturalnych |
 

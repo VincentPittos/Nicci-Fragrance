@@ -584,6 +584,24 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
   });
 });
 
+test('zdjęcia: lista w app.js zgadza się z plikami, puste zdjecie z arkusza dostaje plik ze strony', () => {
+  const fs = require('fs'), path = require('path');
+  const site = path.join(__dirname, '..', 'site');
+  const src = fs.readFileSync(path.join(site, 'js', 'app.js'), 'utf8');
+  const lista = src.match(/var ZDJECIA = '([^']*)'/)[1].split(' ').map((n) => 'p' + n);
+  const pliki = fs.readdirSync(path.join(site, 'img', 'produkty')).filter((f) => /^p\d+-800\.webp$/.test(f)).map((f) => f.split('-')[0]);
+  deq(lista.slice().sort(), pliki.slice().sort());
+  lista.forEach((id) => assert.ok(fs.existsSync(path.join(site, 'img', 'produkty', id + '-400.webp')), id + '-400.webp'));
+  // każdy aktywny zapach z arkusza ma plik, więc pusta komórka zdjecie_url nie zostawia kadru zastępczego
+  const cat = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
+  const bez = cat.products.filter((p) => lista.indexOf(p.id) === -1).map((p) => p.id);
+  deq(bez, []);
+  // ta sama funkcja co w przeglądarce: uzupełnia tylko puste pole
+  const withPhotos = new Function('ZDJECIA', 'return ' + src.match(/function withPhotos\(data\) \{[\s\S]*?\n  \}/)[0])(lista.map((id) => id.slice(1)));
+  const d = withPhotos({ products: [{ id: 'p83', zdjecie: '' }, { id: 'p98' }, { id: 'p44', zdjecie: '/img/inne.webp' }, { id: 'p999', zdjecie: '' }] });
+  deq(d.products.map((p) => p.zdjecie), ['/img/produkty/p83-800.webp', '/img/produkty/p98-800.webp', '/img/inne.webp', '']);
+});
+
 (async () => {
   for (const [name, fn] of tests) {
     try { await fn(); passed++; console.log('ok   ' + name); } catch (e) { console.log('FAIL ' + name + '\n     ' + e.message); process.exitCode = 1; }

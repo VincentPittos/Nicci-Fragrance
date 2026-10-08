@@ -95,12 +95,22 @@
     if (inflight && !force) return inflight;
     var p = N.fetchCatalog(force);
     inflight = p.then(function (data) {
-      memory = data;
+      memory = data = withPhotos(data);
       ss('set', CAT_KEY, JSON.stringify({ t: Date.now(), data: data }));
       inflight = null;
       return data;
     }, function (err) { inflight = null; throw err; });
     return inflight;
+  }
+
+  // Zapachy, których zdjęcie leży na stronie (site/img/produkty/pNN-800.webp). Gdy w arkuszu komórka zdjecie_url
+  // jest pusta, karta i szczegóły biorą ten plik zamiast kadru zastępczego. Listę pilnuje test w dev/testy_backendu.js.
+  var ZDJECIA = '01 02 03 04 05 06 07 08 09 10 11 12 14 15 16 17 19 20 21 22 23 24 25 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 59 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100'.split(' ');
+  function withPhotos(data) {
+    ((data && data.products) || []).forEach(function (p) {
+      if (!p.zdjecie && ZDJECIA.indexOf(String(p.id).slice(1)) !== -1) p.zdjecie = '/img/produkty/' + p.id + '-800.webp';
+    });
+    return data;
   }
 
   function catalog(force) {
@@ -109,7 +119,7 @@
     var saved = null;
     try { saved = JSON.parse(ss('get', CAT_KEY) || 'null'); } catch (e) { saved = null; }
     if (saved && saved.data) {
-      memory = saved.data;
+      memory = withPhotos(saved.data);
       if (Date.now() - saved.t > FRESH_MS) {
         fetchFresh(true).then(function (d) { listeners.forEach(function (fn) { fn(d); }); }, function () {});
       }
