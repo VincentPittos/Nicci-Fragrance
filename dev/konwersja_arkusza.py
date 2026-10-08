@@ -152,6 +152,15 @@ NOWOSCI = {54, 81, 94}
 ODBIOR = {lp: 'męski' for lp in (5, 9, 10, 15, 17, 20, 22, 25, 28, 30, 31, 32, 35, 36, 37, 38, 44, 49, 72)}
 ODBIOR.update({lp: 'damski' for lp in (27, 34, 40, 48, 73, 74, 78, 80, 81, 83, 98)})
 
+# Kolumna „Płeć (dla kogo)” w arkuszu Nicciego (od 8.10.2026, lista wyboru). Gdy komórka jest wypełniona, zastępuje
+# MESKIE_LP, DAMSKIE_LP i ODBIOR powyżej. Strona: „Dla niej” pokazuje damskie i unisex bez odbioru męskiego,
+# „Dla niego” odwrotnie (site/js/katalog.js, site/js/dobor.js).
+PLEC = {
+    'damski': ('damski', ''), 'męski': ('męski', ''),
+    'unisex (bardziej damski)': ('unisex', 'damski'), 'unisex (bardziej męski)': ('unisex', 'męski'),
+    'unisex (dla obu)': ('unisex', ''), 'unisex': ('unisex', ''),
+}
+
 # Nazwy, które zniknęły z arkusza przez pomyłkę. p56: 8.10 komórka z nazwą jest pusta, a reszta wiersza bez zmian
 # (status „Dostępny”, opis, ceny), tego samego dnia właściciel wgrał zdjęcie Eros Energy. Do potwierdzenia.
 NAZWY_UZUPELNIONE = {56: 'Eros Energy'}
@@ -309,6 +318,7 @@ def main():
             'trwalosc': kol(r, 'Trwałość 1-5'), 'projekcja': kol(r, 'Projekcja 1-5'),
             'podobne': kol(r, 'Podobne produkty z naszej oferty'), 'ceny': kol(r, 'Pojemności i ceny'),
             'pewnosc': str(kol(r, 'Pewność danych') or ''), 'uwagi': str(kol(r, 'Uwagi / do weryfikacji') or ''),
+            'plec': (kol(r, 'Płeć (dla kogo)') or '') if 'Płeć (dla kogo)' in H else '',
         })
         if not zrodlo[-1]['nazwa'] and zrodlo[-1]['lp'] in NAZWY_UZUPELNIONE:
             zrodlo[-1]['nazwa'] = NAZWY_UZUPELNIONE[zrodlo[-1]['lp']]
@@ -372,15 +382,19 @@ def main():
         if not pewne:
             flag(s, 'rodzina', opis_zr, rodz or '(brak)', 'pierwszy człon spoza 12 rodzin kanonicznych, propozycja')
 
-        # profil
-        p['profil'] = profil_dla(s['lp'])
+        # profil i odbiór: z kolumny „Płeć (dla kogo)”, jeśli Nicci ją wypełnił, inaczej z naszej propozycji
+        plec = str(s['plec']).strip().lower()
+        if plec and plec not in PLEC:
+            flag(s, 'profil', s['plec'], '', 'wartość spoza listy w kolumnie Płeć (dla kogo), wzięta nasza propozycja')
+            plec = ''
+        p['profil'] = PLEC[plec][0] if plec else profil_dla(s['lp'])
 
         # quiz i wyróżnienia
         p['bestseller'] = 'TAK' if s['lp'] in BESTSELLERY else ''
         p['klimat'] = KLIMAT.get(s['lp'], '')
         p['renoma'] = RENOMA.get(s['lp'], 2) if s['nazwa'] else ''
         p['nowosc'] = 'TAK' if s['lp'] in NOWOSCI else ''
-        p['odbior'] = ODBIOR.get(s['lp'], '') if p['profil'] == 'unisex' else ''
+        p['odbior'] = PLEC[plec][1] if plec else (ODBIOR.get(s['lp'], '') if p['profil'] == 'unisex' else '')
         assert all(k.strip() in KLIMATY for k in p['klimat'].split(',') if k.strip()), (s['lp'], p['klimat'])
         if s['nazwa'] and not p['klimat']:
             flag(s, 'klimat', '', '', 'brak klimatu do quizu; quiz weźmie go z rodziny')

@@ -19,7 +19,17 @@
 
   var PORA = [['dzień', 'Na dzień'], ['wieczór', 'Na wieczór']];
   var SEZON = [['wiosna', 'Wiosna'], ['lato', 'Lato'], ['jesień', 'Jesień'], ['zima', 'Zima']];
-  var PROFIL = { 'męski': 'Męski', 'damski': 'Damski', 'unisex': 'Unisex' };
+  var PROFIL = { 'damski': 'Dla niej', 'męski': 'Dla niego', 'unisex': 'Unisex' };
+  // „Dla niej” to zapachy damskie i unisex, które nie są odbierane jako męskie (odbior: damski albo pusty, czyli dla
+  // obu); „Dla niego” odwrotnie. Unisex pokazuje wszystkie unisex. Kolejność: najpierw profil wprost, potem unisex
+  // nastawiony w tę stronę, na końcu unisex dla obu.
+  function profilRank(p, profil) {
+    if (profil === 'unisex') return p.profil === 'unisex' ? 0 : -1;
+    if (p.profil === profil) return 0;
+    if (p.profil !== 'unisex') return -1;
+    if (!p.odbior) return 2;
+    return p.odbior === profil ? 1 : -1;
+  }
   // wyróżnione (październik 2026): pole w katalogu, etykieta, wartość ?pokaz= w adresie
   var WYROZN = [['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']];
 
@@ -125,8 +135,9 @@
     var rodziny = Object.keys(rc).sort(function (a, b) { return rc[b] - rc[a]; }).map(function (r) { return [r, U.cap(r), rc[r]]; });
     var mc = counts('marka');
     var marki = Object.keys(mc).sort(function (a, b) { return a.localeCompare(b, 'pl'); }).map(function (m) { return [m, m, mc[m]]; });
-    var pc = counts('profil');
-    var profile = Object.keys(PROFIL).filter(function (k) { return pc[k]; }).map(function (k) { return [k, PROFIL[k]]; });
+    var profile = Object.keys(PROFIL).filter(function (k) {
+      return catalog.products.some(function (p) { return profilRank(p, k) >= 0; });
+    }).map(function (k) { return [k, PROFIL[k]]; });
 
     var wyr = wyroznione().map(function (w) { return [w[0], w[1] + ' (' + w[2] + ')']; });
 
@@ -136,7 +147,7 @@
       checkList('rodzina', 'Rodzina zapachowa', rodziny) +
       radioChips('pora', 'Pora dnia', PORA, 'Każda') +
       radioChips('sezon', 'Pora roku', SEZON, 'Każda') +
-      (profile.length > 1 ? radioChips('profil', 'Profil', profile, 'Każdy') : '') +
+      (profile.length > 1 ? radioChips('profil', 'Dla kogo', profile, 'Wszystkie') : '') +
       checkList('marka', 'Marka', marki, MARKI_NA_START);
     // unikalne nazwy radia w każdym formularzu (panel i szuflada mogą istnieć naraz)
     f.querySelectorAll('input[type="radio"]').forEach(function (r) { r.name = r.name + '-' + formUid; r.dataset.key = r.name.split('-')[0]; });
@@ -186,12 +197,13 @@
       rodzina: state.rodzina, marka: state.marka, pora: state.pora, sezon: state.sezon,
       tylkoDostepne: state.tylkoDostepne, szukaj: state.szukaj
     });
-    if (state.profil) list = list.filter(function (p) { return p.profil === state.profil; });
+    var rank = function (p) { return state.profil ? profilRank(p, state.profil) : 0; };
+    if (state.profil) list = list.filter(function (p) { return rank(p) >= 0; });
     if (state.wyrozn) list = list.filter(function (p) { return p[state.wyrozn]; });
     // zapachy ze zdjęciem na początku grupy (do czasu zdjęć wszystkich flakonów), potem kolejność z arkusza
     // w grupie: najpierw zapachy ze zdjęciem, wśród nich bestsellery i nowości, potem kolejność z arkusza
     return list.sort(function (a, b) {
-      return Number(!a.zdjecie) - Number(!b.zdjecie) || Number(!!(b.bestseller || b.nowosc)) - Number(!!(a.bestseller || a.nowosc)) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
+      return Number(!a.zdjecie) - Number(!b.zdjecie) || rank(a) - rank(b) || Number(!!(b.bestseller || b.nowosc)) - Number(!!(a.bestseller || a.nowosc)) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
     });
   }
 
