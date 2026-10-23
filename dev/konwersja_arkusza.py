@@ -36,7 +36,7 @@ OUT = os.path.join(ROOT, 'dev', 'dane')
 KOLUMNY_PRODUKTY = ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca',
                     'nuty_bazy', 'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc',
                     'cena_5', 'cena_10', 'cena_20', 'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc',
-                    'okazja', 'bestseller', 'klimat', 'renoma', 'nowosc', 'odbior']
+                    'okazja', 'bestseller', 'klimat', 'renoma', 'nowosc', 'odbior', 'promocja', 'promocja_ml']
 KOLUMNY_ZESTAWY = ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad']
 KOLUMNY_WERYFIKACJA = ['id', 'pozycja', 'pole', 'w_zrodle', 'w_imporcie', 'powod']
 
@@ -160,6 +160,11 @@ PLEC = {
     'unisex (bardziej damski)': ('unisex', 'damski'), 'unisex (bardziej męski)': ('unisex', 'męski'),
     'unisex (dla obu)': ('unisex', ''), 'unisex': ('unisex', ''),
 }
+
+# Promocja (23.10.2026, właściciel): 10% na 10 i 20 ml, 5 ml bez zmian. Cenę liczy Apps Script (Code.gs,
+# productFromRow_), w arkuszu zostają zwykłe ceny. Lp.: Ombre Nomade, Erba Pura, Reflection Man, Chocolate Greedy,
+# Casa di Capri, Wet Cherry Liquor.
+PROMOCJE = {lp: (10, '10, 20') for lp in (5, 8, 16, 29, 46, 98)}
 
 # Nazwy, które zniknęły z arkusza przez pomyłkę. p56: 8.10 komórka z nazwą jest pusta, a reszta wiersza bez zmian
 # (status „Dostępny”, opis, ceny), tego samego dnia właściciel wgrał zdjęcie Eros Energy. Do potwierdzenia.
@@ -395,6 +400,7 @@ def main():
         p['renoma'] = RENOMA.get(s['lp'], 2) if s['nazwa'] else ''
         p['nowosc'] = 'TAK' if s['lp'] in NOWOSCI else ''
         p['odbior'] = PLEC[plec][1] if plec else (ODBIOR.get(s['lp'], '') if p['profil'] == 'unisex' else '')
+        p['promocja'], p['promocja_ml'] = PROMOCJE.get(s['lp'], ('', ''))
         assert all(k.strip() in KLIMATY for k in p['klimat'].split(',') if k.strip()), (s['lp'], p['klimat'])
         if s['nazwa'] and not p['klimat']:
             flag(s, 'klimat', '', '', 'brak klimatu do quizu; quiz weźmie go z rodziny')

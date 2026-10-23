@@ -113,7 +113,8 @@
     var photo = p.zdjecie ? C.media(p, { sizes: '(min-width: 48rem) 30rem, 100vw' }).replace(' loading="lazy"', '') : C.media(p, {});
     return '<div class="pd">' +
       '<div class="pd__media">' + photo + '</div>' +
-      '<div class="pd__head">' + (p.nowosc || p.bestseller ? '<p class="pd__flags">' +
+      '<div class="pd__head">' + (p.nowosc || p.bestseller || p.promocja ? '<p class="pd__flags">' +
+        (p.promocja ? '<span class="pd__promo">' + esc(C.promoLabel(p)) + '</span>' : '') +
         (p.nowosc ? '<span class="pd__new">Nowość</span>' : '') + (p.bestseller ? '<span class="pd__best">Bestseller</span>' : '') + '</p>' : '') + '<p class="pd__brand">' + esc(p.marka) + '</p><p class="pd__name">' + esc(p.nazwa) + '</p></div>' +
       (tags.length ? '<ul class="chips pd__chips" aria-label="Charakter zapachu">' + tags.map(function (t) { return '<li class="chip">' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
       (p.malo && p.zostalo ? '<p class="scarcity">Zostało ' + p.zostalo + '&nbsp;ml tego zapachu</p>' : '') +

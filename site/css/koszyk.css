@@ -16,6 +16,8 @@
 .cl__main { display: grid; gap: 0.2rem; min-width: 0; }
 .cl__name { font-family: var(--font-display); font-size: 1.125rem; line-height: 1.2; color: var(--text-strong); }
 .cl__opt { font-size: var(--n-size-small); color: var(--text-muted); }
+.cl__was { text-decoration-thickness: 1px; }
+.cl__promo { color: var(--danger); font-weight: 500; }
 .cl__warn { font-size: var(--n-size-small); font-weight: 500; color: var(--danger); }
 .cl[data-unavailable] .cl__name, .cl[data-unavailable] .cl__opt { text-decoration: line-through; }
 .cl__row { display: flex; align-items: center; justify-content: space-between; gap: var(--n-space-3); margin-top: var(--n-space-2); }

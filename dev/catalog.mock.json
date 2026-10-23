@@ -72,7 +72,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p02",
@@ -150,7 +151,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p03",
@@ -220,7 +222,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p04",
@@ -298,7 +301,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p05",
@@ -346,13 +350,15 @@
      },
      {
       "ml": 10,
-      "price": 23000,
-      "available": true
+      "price": 20700,
+      "available": true,
+      "wasPrice": 23000
      },
      {
       "ml": 20,
-      "price": 40000,
-      "available": true
+      "price": 36000,
+      "available": true,
+      "wasPrice": 40000
      }
     ],
     "malo": false,
@@ -371,7 +377,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 10
    },
    {
     "id": "p06",
@@ -446,7 +453,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p07",
@@ -522,7 +530,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p08",
@@ -572,13 +581,15 @@
      },
      {
       "ml": 10,
-      "price": 10000,
-      "available": true
+      "price": 9000,
+      "available": true,
+      "wasPrice": 10000
      },
      {
       "ml": 20,
-      "price": 19000,
-      "available": true
+      "price": 17100,
+      "available": true,
+      "wasPrice": 19000
      }
     ],
     "malo": false,
@@ -598,7 +609,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 10
    },
    {
     "id": "p09",
@@ -673,7 +685,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p10",
@@ -748,7 +761,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p11",
@@ -823,7 +837,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p12",
@@ -899,7 +914,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p14",
@@ -969,7 +985,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p15",
@@ -1042,7 +1059,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p16",
@@ -1093,13 +1111,15 @@
      },
      {
       "ml": 10,
-      "price": 20000,
-      "available": true
+      "price": 18000,
+      "available": true,
+      "wasPrice": 20000
      },
      {
       "ml": 20,
-      "price": 38000,
-      "available": true
+      "price": 34200,
+      "available": true,
+      "wasPrice": 38000
      }
     ],
     "malo": false,
@@ -1119,7 +1139,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 10
    },
    {
     "id": "p17",
@@ -1209,7 +1230,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p19",
@@ -1284,7 +1306,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p20",
@@ -1358,7 +1381,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p21",
@@ -1426,7 +1450,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p22",
@@ -1498,7 +1523,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p23",
@@ -1569,7 +1595,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p24",
@@ -1636,7 +1663,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p25",
@@ -1705,7 +1733,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p27",
@@ -1769,7 +1798,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p28",
@@ -1836,7 +1866,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p29",
@@ -1879,13 +1910,15 @@
     "variants": [
      {
       "ml": 10,
-      "price": 8000,
-      "available": true
+      "price": 7200,
+      "available": true,
+      "wasPrice": 8000
      },
      {
       "ml": 20,
-      "price": 14500,
-      "available": true
+      "price": 13000,
+      "available": true,
+      "wasPrice": 14500
      }
     ],
     "malo": false,
@@ -1905,7 +1938,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 10
    },
    {
     "id": "p30",
@@ -1972,7 +2006,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p31",
@@ -2041,7 +2076,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p32",
@@ -2106,7 +2142,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p33",
@@ -2177,7 +2214,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p34",
@@ -2236,7 +2274,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p35",
@@ -2308,7 +2347,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p36",
@@ -2376,7 +2416,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p37",
@@ -2432,7 +2473,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p38",
@@ -2507,7 +2549,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p39",
@@ -2576,7 +2619,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p40",
@@ -2648,7 +2692,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p41",
@@ -2724,7 +2769,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p42",
@@ -2794,7 +2840,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p43",
@@ -2866,7 +2913,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p44",
@@ -2936,7 +2984,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p45",
@@ -3011,7 +3060,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p46",
@@ -3054,13 +3104,15 @@
     "variants": [
      {
       "ml": 10,
-      "price": 12000,
-      "available": true
+      "price": 10800,
+      "available": true,
+      "wasPrice": 12000
      },
      {
       "ml": 20,
-      "price": 22000,
-      "available": true
+      "price": 19800,
+      "available": true,
+      "wasPrice": 22000
      }
     ],
     "malo": false,
@@ -3080,7 +3132,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 10
    },
    {
     "id": "p47",
@@ -3157,7 +3210,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p48",
@@ -3225,7 +3279,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p49",
@@ -3295,7 +3350,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p50",
@@ -3368,7 +3424,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p51",
@@ -3432,7 +3489,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p52",
@@ -3498,7 +3556,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p53",
@@ -3568,7 +3627,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p54",
@@ -3640,7 +3700,8 @@
     ],
     "renoma": 2,
     "nowosc": true,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p55",
@@ -3707,7 +3768,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p56",
@@ -3778,7 +3840,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p59",
@@ -3843,7 +3906,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p61",
@@ -3903,7 +3967,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p62",
@@ -3967,7 +4032,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p63",
@@ -4038,7 +4104,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p64",
@@ -4105,7 +4172,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p65",
@@ -4174,7 +4242,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p66",
@@ -4234,7 +4303,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p67",
@@ -4296,7 +4366,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p68",
@@ -4358,7 +4429,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p69",
@@ -4422,7 +4494,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p70",
@@ -4487,7 +4560,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p71",
@@ -4552,7 +4626,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p72",
@@ -4628,7 +4703,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "męski"
+    "odbior": "męski",
+    "promocja": 0
    },
    {
     "id": "p73",
@@ -4701,7 +4777,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p74",
@@ -4771,7 +4848,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p75",
@@ -4847,7 +4925,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p76",
@@ -4920,7 +4999,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p77",
@@ -4992,7 +5072,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p78",
@@ -5068,7 +5149,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p79",
@@ -5142,7 +5224,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p80",
@@ -5210,7 +5293,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p81",
@@ -5278,7 +5362,8 @@
     ],
     "renoma": 1,
     "nowosc": true,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p82",
@@ -5360,7 +5445,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p83",
@@ -5428,7 +5514,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 0
    },
    {
     "id": "p84",
@@ -5495,7 +5582,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p85",
@@ -5572,7 +5660,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p86",
@@ -5648,7 +5737,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p87",
@@ -5720,7 +5810,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p88",
@@ -5790,7 +5881,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p89",
@@ -5859,7 +5951,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p90",
@@ -5928,7 +6021,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p91",
@@ -5996,7 +6090,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p92",
@@ -6067,7 +6162,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p93",
@@ -6136,7 +6232,8 @@
     ],
     "renoma": 3,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p94",
@@ -6205,7 +6302,8 @@
     ],
     "renoma": 1,
     "nowosc": true,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p95",
@@ -6278,7 +6376,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p96",
@@ -6346,7 +6445,8 @@
     ],
     "renoma": 2,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p97",
@@ -6417,7 +6517,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p98",
@@ -6465,13 +6566,15 @@
      },
      {
       "ml": 10,
-      "price": 20000,
-      "available": true
+      "price": 18000,
+      "available": true,
+      "wasPrice": 20000
      },
      {
       "ml": 20,
-      "price": 37000,
-      "available": true
+      "price": 33300,
+      "available": true,
+      "wasPrice": 37000
      }
     ],
     "malo": false,
@@ -6489,7 +6592,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": "damski"
+    "odbior": "damski",
+    "promocja": 10
    },
    {
     "id": "p99",
@@ -6562,7 +6666,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    },
    {
     "id": "p100",
@@ -6638,7 +6743,8 @@
     ],
     "renoma": 1,
     "nowosc": false,
-    "odbior": ""
+    "odbior": "",
+    "promocja": 0
    }
   ],
   "sets": [

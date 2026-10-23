@@ -31,7 +31,7 @@
     return p.odbior === profil ? 1 : -1;
   }
   // wyróżnione (październik 2026): pole w katalogu, etykieta, wartość ?pokaz= w adresie
-  var WYROZN = [['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']];
+  var WYROZN = [['promocja', 'Promocje', 'promocje'], ['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']];
 
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
   function zapachy(n) { return n + ' ' + A.plural(n, ['zapach', 'zapachy', 'zapachów']); }
@@ -77,7 +77,7 @@
     root.querySelector('[data-side]').appendChild(filtersForm('side'));
   }
 
-  // szybki wybór bestsellerów i nowości nad wynikami (widoczny także na telefonie, gdzie filtry są w szufladzie)
+  // szybki wybór promocji, bestsellerów i nowości nad wynikami (widoczny także na telefonie, gdzie filtry są w szufladzie)
   function wyroznione() {
     return WYROZN.map(function (w) {
       return [w[0], w[1], catalog.products.filter(function (p) { return p[w[0]]; }).length];
@@ -201,9 +201,10 @@
     if (state.profil) list = list.filter(function (p) { return rank(p) >= 0; });
     if (state.wyrozn) list = list.filter(function (p) { return p[state.wyrozn]; });
     // zapachy ze zdjęciem na początku grupy (do czasu zdjęć wszystkich flakonów), potem kolejność z arkusza
-    // w grupie: najpierw zapachy ze zdjęciem, wśród nich bestsellery i nowości, potem kolejność z arkusza
+    // w grupie: najpierw zapachy ze zdjęciem, wśród nich promocje, bestsellery i nowości, potem kolejność z arkusza
+    var wyr = function (p) { return Number(!!(p.promocja || p.bestseller || p.nowosc)); };
     return list.sort(function (a, b) {
-      return Number(!a.zdjecie) - Number(!b.zdjecie) || rank(a) - rank(b) || Number(!!(b.bestseller || b.nowosc)) - Number(!!(a.bestseller || a.nowosc)) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
+      return Number(!a.zdjecie) - Number(!b.zdjecie) || rank(a) - rank(b) || wyr(b) - wyr(a) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
     });
   }
 

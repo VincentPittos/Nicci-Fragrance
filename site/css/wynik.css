@@ -30,6 +30,8 @@
 .rc__name { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.15; font-weight: 500; }
 .rc__why { font-size: 0.9375rem; line-height: 1.55; color: var(--text); }
 .rc .card__buy { gap: var(--n-space-2); margin-top: var(--n-space-2); }
+/* promocja: przekreślona cena tuż przy nowej, nie przy prawej krawędzi */
+.rc .card__row { justify-content: flex-start; }
 .rc .seg { gap: 0.3rem; }
 .rc .seg__opt span { min-height: 2.5rem; font-size: 0.875rem; }
 .rc .price { font-size: 1.375rem; }
@@ -110,3 +112,8 @@
   font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
 }
 .rc__new { background: var(--n-cream-50); color: var(--n-gold-700); box-shadow: inset 0 0 0 1px var(--n-gold); }
+.rc__promo {
+  width: fit-content; padding: 0.25rem 0.55rem;
+  background: var(--n-red-700); color: var(--n-cream-50);
+  font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+}

@@ -60,6 +60,7 @@
 .cat__dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; flex: none; }
 .cat__dot--bestseller { background: var(--accent); }
 .cat__dot--nowosc { background: var(--n-cream-50); box-shadow: inset 0 0 0 1px var(--n-gold); }
+.cat__dot--promocja { background: var(--n-red-700); }
 .cat__badge:empty { display: none; }
 
 .cat__status {
@@ -232,6 +233,11 @@
   font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
 }
 .pd__new { background: var(--n-cream-50); color: var(--n-gold-700); box-shadow: inset 0 0 0 1px var(--n-gold); }
+.pd__promo {
+  width: fit-content; padding: 0.3rem 0.6rem;
+  background: var(--n-red-700); color: var(--n-cream-50);
+  font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+}
 .pd__name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; color: var(--text-strong); }
 .pd__chips { justify-content: center; }
 .pd .scarcity { justify-content: center; }
@@ -273,10 +279,13 @@
 .pd__ig .ikona { flex: none; }
 .pd__foot { display: grid; gap: var(--n-space-3); }
 .pd__foot .card__buy { gap: var(--n-space-3); }
-.pd__foot .card__row { justify-content: space-between; }
+.pd__foot .card__row { justify-content: flex-start; }
 @media (min-width: 30rem) {
   .pd__foot .card__buy { grid-template-columns: 1fr auto; align-items: center; }
   .pd__foot .seg { grid-column: 1 / -1; }
+  /* promocja: cena i przycisk w jednym rzędzie, najniższa cena z 30 dni pod nimi na całą szerokość */
+  .pd__foot .card__action { order: 1; }
+  .pd__foot .price-low { order: 2; grid-column: 1 / -1; }
   .pd__foot .card__action { min-width: 12rem; }
 }
 

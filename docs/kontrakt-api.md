@@ -35,7 +35,7 @@ Katalog jest w cache 5 minut. Nowe zamówienie, zmiana statusu i każda edycja z
 | `trwalosc`, `projekcja` | number 1–5 albo string | liczba: pasek; tekst: sam tekst; `''`: nie renderować |
 | `intensywnosc` | 1, 2, 3 albo null | tylko dla quizu |
 | `okazja` | string[] | może być pusta |
-| `variants` | `[{ml, price, available}]` | tylko warianty z ceną, rosnąco po ml |
+| `variants` | `[{ml, price, available, wasPrice?}]` | tylko warianty z ceną, rosnąco po ml; przy pojemności w promocji `price` to cena po obniżce, a `wasPrice` cena sprzed obniżki (grosze) |
 | `malo` | bool | wolny stan od najmniejszego wariantu do `LOW_STOCK_ML` |
 | `zostalo` | number albo null | wolne ml, tylko gdy `malo` |
 | `podobne` | string[] | id aktywnych produktów |
@@ -46,6 +46,7 @@ Katalog jest w cache 5 minut. Nowe zamówienie, zmiana statusu i każda edycja z
 | `renoma` | 1, 2, 3 albo null | rozpoznawalność i oceny zapachu, tylko dla quizu (null liczy się jak 2) |
 | `nowosc` | bool | `TAK` w kolumnie `nowosc` (premiera w tym roku); etykieta „Nowość” na karcie, w szczegółach i w quizie |
 | `odbior` | `męski`, `damski` albo `''` | tylko przy profilu `unisex`: strona, w którą zapach jest zwykle odbierany; quiz przy „Dla niej” pomija `męski`, przy „Dla niego” `damski` |
+| `promocja` | number | procent obniżki z kolumny `promocja` (np. 10), gdy działa przy co najmniej jednej pojemności; 0 bez promocji. Cena po obniżce: cena z arkusza minus procent, w dół do pełnych złotych, ta sama w wycenie zamówienia |
 
 Produkt wyprzedany: `variants` bez `available: true` albo pusta lista.
 

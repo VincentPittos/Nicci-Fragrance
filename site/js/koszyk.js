@@ -18,13 +18,23 @@
     return '<span class="cl__media">' + C.media(p, { sizes: '4.5rem' }) + '</span>';
   }
 
+  /** Cena przed obniżką dla pozycji w promocji (zestawy i zwykłe ceny: pusto). */
+  function wasPrice(item) {
+    if (item.type === 'set') return null;
+    var p = N.findProduct(catalog, item.id);
+    var v = p && p.variants.filter(function (x) { return x.ml === item.ml; })[0];
+    return v && v.wasPrice ? v.wasPrice : null;
+  }
+
   function lineHtml(l, idx) {
     var item = l.item;
+    var was = wasPrice(item);
     return '<li class="cl" data-index="' + idx + '"' + (l.available ? '' : ' data-unavailable') + '>' +
       lineMedia(item) +
       '<div class="cl__main">' +
         '<p class="cl__name">' + esc(l.nazwa) + '</p>' +
-        '<p class="cl__opt">' + esc(l.opis) + ', ' + U.price(l.price) + ' za sztukę</p>' +
+        '<p class="cl__opt">' + esc(l.opis) + ', ' + (was ? '<s class="cl__was"><span class="visually-hidden">przed obniżką </span>' + U.price(was) + '</s> ' : '') +
+          U.price(l.price) + ' za sztukę' + (was ? ' <span class="cl__promo">promocja</span>' : '') + '</p>' +
         (l.available ? '' : '<p class="cl__warn">Tej pozycji właśnie zabrakło. Usuń ją, żeby przejść dalej.</p>') +
         '<div class="cl__row">' +
           (l.available

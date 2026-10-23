@@ -60,10 +60,30 @@
     return pick.sort(function (a, b) { return order.indexOf(a.label) - order.indexOf(b.label); });
   }
 
+  // przy promocji na start najmniejsza pojemność z obniżką, żeby od razu było widać cenę przed i po
   function defaultVariant(p) {
     var av = U.availableVariants(p);
-    return av.length ? av[0].ml : null;
+    var promo = av.filter(function (v) { return v.wasPrice; });
+    return promo.length ? promo[0].ml : av.length ? av[0].ml : null;
   }
+
+  /** Etykieta promocji (procent z katalogu, np. „Promocja −10%”). */
+  function promoLabel(p) { return 'Promocja −' + String(p.promocja).replace('.', ',') + '%'; }
+
+  /** Cena przed obniżką i najniższa cena z 30 dni (wymóg przy obniżce); ukryte, gdy wybrana pojemność jej nie ma. */
+  function wasHtml(p, v) {
+    var on = !!(v && v.wasPrice);
+    return '<p class="price-was" data-was' + (on ? '' : ' hidden') + '>' + (on ? wasInner(p, v) : '') + '</p>';
+  }
+  function wasInner(p, v) {
+    return '<span class="visually-hidden">Cena przed obniżką: </span><s>' + U.price(v.wasPrice) + '</s>' +
+      '<span class="price-off">−' + String(p.promocja).replace('.', ',') + '%</span>';
+  }
+  function lowHtml(v) {
+    var on = !!(v && v.wasPrice);
+    return '<p class="price-low" data-low30' + (on ? '' : ' hidden') + '>' + (on ? lowText(v) : '') + '</p>';
+  }
+  function lowText(v) { return 'Najniższa cena z 30 dni przed obniżką: ' + U.price(v.wasPrice); }
 
   function actionHtml(p, ml) {
     if (U.isSoldOut(p)) {
@@ -100,8 +120,9 @@
     h.push(mediaHtml(p, opts));
     h.push('</button>');
     if (soldOut) h.push('<span class="card__flag">Wyprzedane</span>');
-    else if (p.bestseller || p.nowosc) {
-      h.push('<span class="card__flags">' + (p.nowosc ? '<span class="card__flag card__flag--new">Nowość</span>' : '') +
+    else if (p.bestseller || p.nowosc || p.promocja) {
+      h.push('<span class="card__flags">' + (p.promocja ? '<span class="card__flag card__flag--promo">' + promoLabel(p) + '</span>' : '') +
+        (p.nowosc ? '<span class="card__flag card__flag--new">Nowość</span>' : '') +
         (p.bestseller ? '<span class="card__flag card__flag--best">Bestseller</span>' : '') + '</span>');
     }
     h.push('</div><div class="card__body">');
@@ -155,7 +176,8 @@
           '</label>');
       });
       h.push('</fieldset>');
-      h.push('<div class="card__row"><p class="price" data-price aria-live="polite">' + (v ? U.price(v.price) : '') + '</p></div>');
+      h.push('<div class="card__row"><p class="price' + (v && v.wasPrice ? ' price--promo' : '') + '" data-price aria-live="polite">' + (v ? U.price(v.price) : '') + '</p>' +
+        (p.promocja ? wasHtml(p, v) : '') + '</div>' + (p.promocja ? lowHtml(v) : ''));
     }
     h.push('<div class="card__action" data-action>' + actionHtml(p, ml) + '</div>');
     h.push('</div>');
@@ -203,7 +225,11 @@
     el.dataset.value = v.price;
     s.to(v.price);
     // czytnik dostaje dokładną cenę od razu, bez klatek pośrednich
-    el.setAttribute('aria-label', 'Cena ' + ml + ' ml: ' + U.price(v.price));
+    el.setAttribute('aria-label', 'Cena ' + ml + ' ml: ' + U.price(v.price) + (v.wasPrice ? ', przed obniżką ' + U.price(v.wasPrice) : ''));
+    el.classList.toggle('price--promo', !!v.wasPrice);
+    var was = card.querySelector('[data-was]'), low = card.querySelector('[data-low30]');
+    if (was) { was.hidden = !v.wasPrice; was.innerHTML = v.wasPrice ? wasInner(p, v) : ''; }
+    if (low) { low.hidden = !v.wasPrice; low.textContent = v.wasPrice ? lowText(v) : ''; }
   }
 
   function onChange(e) {
@@ -286,5 +312,5 @@
     });
   }
 
-  window.NicciCard = { render: render, buy: buy, mount: mount, register: register, media: mediaHtml, notes: cardNotes, initials: initials };
+  window.NicciCard = { render: render, buy: buy, mount: mount, register: register, media: mediaHtml, notes: cardNotes, initials: initials, promoLabel: promoLabel };
 })();

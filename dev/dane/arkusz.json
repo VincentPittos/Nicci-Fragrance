@@ -28,7 +28,9 @@
    "klimat",
    "renoma",
    "nowosc",
-   "odbior"
+   "odbior",
+   "promocja",
+   "promocja_ml"
   ],
   [
    "p01",
@@ -57,6 +59,8 @@
    "TAK",
    "cytrusowy, aromatyczny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -88,6 +92,8 @@
    "cytrusowy",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -117,6 +123,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -148,6 +156,8 @@
    "orientalny, slodki",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -178,7 +188,9 @@
    "orientalny, kwiatowy",
    3,
    "",
-   "męski"
+   "męski",
+   10,
+   "10, 20"
   ],
   [
    "p06",
@@ -207,6 +219,8 @@
    "",
    "cytrusowy, aromatyczny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -238,6 +252,8 @@
    "cytrusowy",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -268,7 +284,9 @@
    "cytrusowy, slodki",
    3,
    "",
-   ""
+   "",
+   10,
+   "10, 20"
   ],
   [
    "p09",
@@ -298,7 +316,9 @@
    "cytrusowy, aromatyczny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p10",
@@ -328,7 +348,9 @@
    "slodki, aromatyczny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p11",
@@ -357,6 +379,8 @@
    "TAK",
    "cytrusowy, drzewny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -388,6 +412,8 @@
    "cytrusowy, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -417,6 +443,8 @@
    "",
    "cytrusowy, slodki",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -448,6 +476,8 @@
    "cytrusowy",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -478,7 +508,9 @@
    "cytrusowy, orientalny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p16",
@@ -508,7 +540,9 @@
    "kwiatowy, drzewny",
    3,
    "",
-   ""
+   "",
+   10,
+   "10, 20"
   ],
   [
    "p17",
@@ -538,7 +572,9 @@
    "orientalny, aromatyczny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p18",
@@ -567,6 +603,8 @@
    "",
    "orientalny, kwiatowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -598,6 +636,8 @@
    "orientalny, aromatyczny",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -628,7 +668,9 @@
    "aromatyczny, orientalny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p21",
@@ -657,6 +699,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -688,7 +732,9 @@
    "cytrusowy, drzewny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p23",
@@ -717,6 +763,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -748,6 +796,8 @@
    "slodki",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -778,7 +828,9 @@
    "aromatyczny, orientalny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p26",
@@ -807,6 +859,8 @@
    "",
    "slodki",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -838,7 +892,9 @@
    "slodki, kwiatowy",
    2,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p28",
@@ -868,7 +924,9 @@
    "orientalny, slodki",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p29",
@@ -898,7 +956,9 @@
    "slodki",
    3,
    "",
-   ""
+   "",
+   10,
+   "10, 20"
   ],
   [
    "p30",
@@ -928,7 +988,9 @@
    "orientalny, slodki",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p31",
@@ -958,7 +1020,9 @@
    "aromatyczny, drzewny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p32",
@@ -988,7 +1052,9 @@
    "drzewny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p33",
@@ -1017,6 +1083,8 @@
    "",
    "slodki, aromatyczny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1048,7 +1116,9 @@
    "slodki, cytrusowy",
    3,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p35",
@@ -1078,7 +1148,9 @@
    "slodki, aromatyczny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p36",
@@ -1108,7 +1180,9 @@
    "drzewny, aromatyczny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p37",
@@ -1138,7 +1212,9 @@
    "drzewny, orientalny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p38",
@@ -1168,7 +1244,9 @@
    "drzewny, orientalny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p39",
@@ -1197,6 +1275,8 @@
    "",
    "drzewny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1228,7 +1308,9 @@
    "cytrusowy, slodki",
    3,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p41",
@@ -1257,6 +1339,8 @@
    "",
    "orientalny, cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1288,6 +1372,8 @@
    "orientalny, slodki",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1317,6 +1403,8 @@
    "TAK",
    "slodki, orientalny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -1348,7 +1436,9 @@
    "drzewny, aromatyczny",
    3,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p45",
@@ -1377,6 +1467,8 @@
    "TAK",
    "cytrusowy, drzewny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -1408,7 +1500,9 @@
    "cytrusowy",
    1,
    "",
-   ""
+   "",
+   10,
+   "10, 20"
   ],
   [
    "p47",
@@ -1437,6 +1531,8 @@
    "",
    "cytrusowy, kwiatowy",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -1468,7 +1564,9 @@
    "cytrusowy, kwiatowy",
    1,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p49",
@@ -1498,7 +1596,9 @@
    "orientalny, aromatyczny",
    1,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p50",
@@ -1527,6 +1627,8 @@
    "",
    "aromatyczny, cytrusowy",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -1558,6 +1660,8 @@
    "cytrusowy",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1587,6 +1691,8 @@
    "",
    "aromatyczny, drzewny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1618,6 +1724,8 @@
    "aromatyczny, drzewny",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1648,6 +1756,8 @@
    "drzewny, aromatyczny",
    2,
    "TAK",
+   "",
+   "",
    ""
   ],
   [
@@ -1677,6 +1787,8 @@
    "",
    "aromatyczny, slodki",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1708,6 +1820,8 @@
    "cytrusowy, aromatyczny",
    1,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1734,6 +1848,8 @@
    "",
    57,
    "Wyjście, klub, randka, event",
+   "",
+   "",
    "",
    "",
    "",
@@ -1768,6 +1884,8 @@
    "",
    "",
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1797,6 +1915,8 @@
    "",
    "aromatyczny, drzewny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1828,6 +1948,8 @@
    "orientalny, slodki",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1857,6 +1979,8 @@
    "",
    "drzewny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1888,6 +2012,8 @@
    "cytrusowy, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1917,6 +2043,8 @@
    "",
    "aromatyczny, cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -1948,6 +2076,8 @@
    "kwiatowy, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -1977,6 +2107,8 @@
    "",
    "drzewny, cytrusowy",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -2008,6 +2140,8 @@
    "slodki, aromatyczny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2037,6 +2171,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2068,6 +2204,8 @@
    "slodki, aromatyczny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2097,6 +2235,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2128,6 +2268,8 @@
    "slodki, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2157,6 +2299,8 @@
    "",
    "slodki, aromatyczny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2188,7 +2332,9 @@
    "drzewny, aromatyczny",
    2,
    "",
-   "męski"
+   "męski",
+   "",
+   ""
   ],
   [
    "p73",
@@ -2218,7 +2364,9 @@
    "cytrusowy, kwiatowy",
    1,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p74",
@@ -2248,7 +2396,9 @@
    "kwiatowy, orientalny",
    2,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p75",
@@ -2277,6 +2427,8 @@
    "",
    "slodki, aromatyczny",
    3,
+   "",
+   "",
    "",
    ""
   ],
@@ -2308,6 +2460,8 @@
    "slodki, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2337,6 +2491,8 @@
    "",
    "cytrusowy, aromatyczny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2368,7 +2524,9 @@
    "kwiatowy, orientalny",
    2,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p79",
@@ -2397,6 +2555,8 @@
    "",
    "slodki, drzewny",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2428,7 +2588,9 @@
    "kwiatowy, drzewny",
    1,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p81",
@@ -2458,7 +2620,9 @@
    "slodki",
    1,
    "TAK",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p82",
@@ -2487,6 +2651,8 @@
    "",
    "drzewny, orientalny",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -2518,7 +2684,9 @@
    "orientalny, kwiatowy",
    3,
    "",
-   "damski"
+   "damski",
+   "",
+   ""
   ],
   [
    "p84",
@@ -2547,6 +2715,8 @@
    "",
    "cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2578,6 +2748,8 @@
    "drzewny, aromatyczny",
    1,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2607,6 +2779,8 @@
    "",
    "kwiatowy, slodki",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2638,6 +2812,8 @@
    "orientalny, kwiatowy, slodki",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2667,6 +2843,8 @@
    "",
    "orientalny, kwiatowy",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -2698,6 +2876,8 @@
    "slodki",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2727,6 +2907,8 @@
    "",
    "slodki, cytrusowy",
    2,
+   "",
+   "",
    "",
    ""
   ],
@@ -2758,6 +2940,8 @@
    "kwiatowy, aromatyczny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2787,6 +2971,8 @@
    "",
    "kwiatowy, slodki",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -2818,6 +3004,8 @@
    "kwiatowy",
    3,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2848,6 +3036,8 @@
    "kwiatowy, cytrusowy",
    1,
    "TAK",
+   "",
+   "",
    ""
   ],
   [
@@ -2877,6 +3067,8 @@
    "",
    "orientalny, slodki",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -2908,6 +3100,8 @@
    "orientalny, drzewny",
    2,
    "",
+   "",
+   "",
    ""
   ],
   [
@@ -2937,6 +3131,8 @@
    "",
    "cytrusowy, aromatyczny",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -2968,7 +3164,9 @@
    "slodki, cytrusowy",
    1,
    "",
-   "damski"
+   "damski",
+   10,
+   "10, 20"
   ],
   [
    "p99",
@@ -2997,6 +3195,8 @@
    "",
    "orientalny, aromatyczny",
    1,
+   "",
+   "",
    "",
    ""
   ],
@@ -3027,6 +3227,8 @@
    "",
    "slodki, aromatyczny",
    1,
+   "",
+   "",
    "",
    ""
   ]

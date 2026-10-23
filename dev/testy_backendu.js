@@ -510,7 +510,8 @@ function fakeSpreadsheet(tables) {
       getRange: (r, c, nr, nc) => ({
         getValues: () => Array.from({ length: nr || 1 }, (_, i) => Array.from({ length: nc || 1 }, (_, j) => cell(r - 1 + i, c - 1 + j))),
         setValues: (vals) => vals.forEach((row, i) => row.forEach((v, j) => put(r - 1 + i, c - 1 + j, v))),
-        setValue: (v) => put(r - 1, c - 1, v),
+        setValue(v) { put(r - 1, c - 1, v); return this; },
+        setNumberFormat() { return this; },
         setFontWeight: () => {}
       }),
       appendRow: (row) => { grid.push(row.slice()); },
@@ -560,8 +561,10 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
     const byId = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
     assert.equal(Object.keys(byId).length, 100, rev);
     const wlasne = { p03: ['cena_10'], p42: ['podobne'], p21: ['ml_dostepne'], p05: c('klimat') !== -1 ? ['klimat'] : [] };
+    // kolumny, które ta aktualizacja obejmuje (późniejsze, np. promocja z 23.10, wpisują osobne funkcje)
+    const objete = vm.runInContext('AKTUALIZACJA_2026_10.Produkty.kolumny', ctx);
     oczekiwane.forEach((e) => {
-      Object.keys(e).forEach((k) => { if ((wlasne[e.id] || []).indexOf(k) === -1) assert.deepEqual(byId[e.id][k], e[k], rev + ' ' + e.id + '.' + k); });
+      Object.keys(e).forEach((k) => { if (objete.indexOf(k) !== -1 && (wlasne[e.id] || []).indexOf(k) === -1) assert.deepEqual(byId[e.id][k], e[k], rev + ' ' + e.id + '.' + k); });
     });
     assert.equal(byId.p03.cena_10, 999);
     assert.equal(byId.p42.podobne, 'p01, p02');
@@ -610,6 +613,65 @@ test('zdjęcia: lista w app.js zgadza się z plikami (AVIF i WebP, 400/600/800),
   const withPhotos = new Function('ZDJECIA', 'return ' + src.match(/function withPhotos\(data\) \{[\s\S]*?\n  \}/)[0])(lista.map((id) => id.slice(1)));
   const d = withPhotos({ products: [{ id: 'p83', zdjecie: '' }, { id: 'p98' }, { id: 'p44', zdjecie: '/img/inne.webp' }, { id: 'p999', zdjecie: '' }] });
   deq(d.products.map((p) => p.zdjecie), ['/img/produkty/p83-800.webp', '/img/produkty/p98-800.webp', '/img/inne.webp', '']);
+});
+
+// ---------- promocja (decyzja 83) ----------
+function wierszPromo(nadpisz) {
+  const r = Object.assign({}, productRows.find((x) => x.id === 'p29'), { promocja: '', promocja_ml: '' }, nadpisz);
+  return r;
+}
+const cenyPromo = (r) => { const p = be.productFromRow_(r); return [p.ceny, p.cenyPrzed, p.promocja]; };
+
+test('promocja: 10% na 10 i 20 ml, 5 ml bez zmian, cena w dół do pełnych złotych', () => {
+  const rows = productRows.map((r) => (['p05', 'p29'].indexOf(r.id) !== -1 ? Object.assign({}, r, { promocja: 10, promocja_ml: '10, 20' }) : r));
+  const cat = be.buildCatalog_(rows, setRows, {}, cfg, NOW);
+  const p05 = cat.products.find((p) => p.id === 'p05'), p29 = cat.products.find((p) => p.id === 'p29');
+  deq(p05.variants.map((v) => [v.ml, v.price, v.wasPrice || null]), [[5, 15000, null], [10, 20700, 23000], [20, 36000, 40000]]);
+  deq(p29.variants.map((v) => [v.ml, v.price, v.wasPrice || null]), [[10, 7200, 8000], [20, 13000, 14500]]); // 130,50 → 130
+  assert.equal(p05.promocja, 10);
+  assert.equal(cat.products.find((p) => p.id === 'p01').promocja, 0);
+  // wycena zamówienia bierze cenę promocyjną, 5 ml zwykłą
+  const r = be.priceOrder_([{ type: 'decant', id: 'p29', ml: 20, qty: 2 }, { type: 'decant', id: 'p05', ml: 5, qty: 1 }], 'paczkomat', rows, setRows, {}, cfg);
+  assert.equal(r.ok, true);
+  deq(r.lines.map((l) => [l.id, l.cena, l.suma]), [['p29', 13000, 26000], ['p05', 15000, 15000]]);
+});
+
+test('promocja: zapisy z arkusza (10%, 0,1, „10 20”, ułamek 10,2, puste pojemności, błędne wartości)', () => {
+  deq(cenyPromo(wierszPromo({ promocja: '10%', promocja_ml: '20' })), [{ 5: null, 10: 8000, 20: 13000 }, { 20: 14500 }, 10]);
+  deq(cenyPromo(wierszPromo({ promocja: 0.1, promocja_ml: '10 20' }))[2], 10);          // „10%” w formacie procentowym
+  deq(cenyPromo(wierszPromo({ promocja: 10, promocja_ml: 10.2 })), [{ 5: null, 10: 8000, 20: 14500 }, {}, null]); // arkusz zamienił „10,20”
+  deq(cenyPromo(wierszPromo({ promocja: 10, promocja_ml: '' }))[1], { 10: 8000, 20: 14500 }); // puste = wszystkie z ceną
+  deq(cenyPromo(wierszPromo({ promocja: 'dużo', promocja_ml: '10' })), [{ 5: null, 10: 8000, 20: 14500 }, {}, null]);
+  deq(cenyPromo(wierszPromo({ promocja: 95 }))[2], null);                                  // powyżej 90% nie działa
+  const w = be.diagnoza_([wierszPromo({ promocja: 'dużo' }), Object.assign(wierszPromo({ promocja: 10, promocja_ml: 10.2 }), { id: 'p30' }),
+    Object.assign(wierszPromo({ promocja: 10, promocja_ml: '15' }), { id: 'p31' }), Object.assign(wierszPromo({ promocja: 10, promocja_ml: '5' }), { id: 'p32' })], setRows, be.CONFIG)
+    .filter((x) => /promocja/.test(x[1])).map((x) => x[1]);
+  assert.ok(w.some((m) => /promocja „dużo” to nie procent/.test(m)), w.join(' | '));
+  assert.ok(w.some((m) => /zamienił na ułamek/.test(m)), w.join(' | '));
+  assert.ok(w.some((m) => /promocja_ml „15” spoza pojemności/.test(m)), w.join(' | '));
+  assert.ok(w.some((m) => /żadna pojemność z promocja_ml nie ma ceny/.test(m)), w.join(' | ')); // p29 nie ma 5 ml
+});
+
+test('promocja: funkcja promocja_2026_10 wpisuje 10% przy sześciu zapachach, dopisuje kolumny, powtórka nic nie psuje', () => {
+  const fs = require('fs'), path = require('path'), vm = require('vm');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Promocja_2026_10.gs'), 'utf8');
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Promocja_2026_10.gs' });
+  // arkusz właściciela bez kolumn promocji (stan po aktualizacji z 8.10)
+  const head = sheet.Produkty[0], bez = ['promocja', 'promocja_ml'].map((k) => head.indexOf(k));
+  const grid = sheet.Produkty.map((r) => r.filter((_, i) => bez.indexOf(i) === -1));
+  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: grid, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+  const opis = vm.runInContext('promocja_2026_10()', ctx);
+  assert.match(opis, /Promocja 10% na 10 i 20 ml: Louis Vuitton Ombre Nomade, Xerjoff Erba Pura, Amouage Reflection Man, Montale Chocolate Greedy, Nous Tous Casa di Capri, Bohoboco Wet Cherry Liquor\.$/);
+  vm.runInContext('promocja_2026_10()', ctx);
+  const rows = be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid);
+  deq(rows.filter((r) => r.promocja).map((r) => [r.id, r.promocja, r.promocja_ml]).sort(),
+    [['p05', 10, '10, 20'], ['p08', 10, '10, 20'], ['p16', 10, '10, 20'], ['p29', 10, '10, 20'], ['p46', 10, '10, 20'], ['p98', 10, '10, 20']]);
+  const cat = be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ss.sheets[ctx.SHEET.PRODUKTY].grid, 100)), setRows, {}, cfg, NOW);
+  assert.equal(cat.products.filter((p) => p.promocja).length, 6);
 });
 
 (async () => {

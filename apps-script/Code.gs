@@ -93,12 +93,17 @@ const KLIMATY = ['cytrusowy', 'aromatyczny', 'drzewny', 'slodki', 'orientalny', 
 // Kolumna odbior (tylko zapachy unisex): męski albo damski, gdy większość osób odbiera zapach wyraźnie w jedną stronę.
 // Quiz przy „Dla niej” pomija zapachy unisex odbierane jako męskie, przy „Dla niego” odbierane jako damskie.
 const ODBIOR = ['męski', 'damski'];
+// Promocja (kolumny promocja i promocja_ml): procent obniżki i pojemności, których dotyczy (puste = wszystkie).
+// Cena promocyjna = cena z kolumny cena_ml minus procent, zaokrąglona w dół do pełnych złotych. Ta sama cena idzie
+// do katalogu i do wyceny zamówienia; katalog podaje też cenę sprzed obniżki (wasPrice). Promocję kończy
+// wyczyszczenie komórki promocja.
+const PROMOCJA_MAX = 90;
 
 const HEADERS = {
   Produkty: ['id', 'aktywny', 'marka', 'nazwa', 'rodzina', 'profil', 'nuty_glowy', 'nuty_serca', 'nuty_bazy',
     'opis', 'sezon', 'pora', 'trwalosc', 'projekcja', 'intensywnosc', 'cena_5', 'cena_10', 'cena_20',
     'ml_dostepne', 'podobne', 'zdjecie_url', 'kolejnosc', 'okazja', 'bestseller', 'klimat', 'renoma',
-    'nowosc', 'odbior'],
+    'nowosc', 'odbior', 'promocja', 'promocja_ml'],
   Zestawy: ['id', 'aktywny', 'nazwa', 'opis', 'rodzina', 'cena', 'sklad'],
   Zamowienia: ['numer', 'utworzone', 'status', 'rezerwacja_do', 'oplacone', 'imie_nazwisko', 'email', 'telefon',
     'instagram', 'dostawa', 'paczkomat', 'ulica', 'kod', 'miasto', 'platnosc', 'pozycje', 'wartosc_produktow',
@@ -196,9 +201,40 @@ function tableToObjects_(values) {
   return out;
 }
 
+/** 10, "10" albo "10%" → 10. Wpis „10%” arkusz zapisuje jako 0,1 w formacie procentowym, więc ułamek poniżej 1
+ *  czytamy jako procent. Puste, zero albo spoza 1..PROMOCJA_MAX → null. */
+function promocjaProc_(v) {
+  let n = typeof v === 'number' ? v : toNumber_(str_(v).replace('%', '').trim());
+  if (n !== null && n > 0 && n < 1) n = Math.round(n * 10000) / 100;
+  return n !== null && n >= 1 && n <= PROMOCJA_MAX ? n : null;
+}
+
+/** "10, 20", "10 20" albo "10 i 20 ml" → [10, 20]; puste → wszystkie pojemności. Liczby spoza POJEMNOSCI
+ *  pomijamy (diagnostyka ostrzega). Ułamek (arkusz zamienił „10,20” na 10,2) → żadna, żeby nie obniżyć nie tej ceny. */
+function promocjaMl_(v) {
+  if (typeof v === 'number' && Math.round(v) !== v) return [];
+  const lista = (str_(v).match(/\d+/g) || []).map(Number);
+  return lista.length ? POJEMNOSCI.filter(function (ml) { return lista.indexOf(ml) !== -1; }) : POJEMNOSCI.slice();
+}
+
+/** Cena po obniżce w groszach, w dół do pełnych złotych. */
+function cenaPromocyjna_(grosze, proc) {
+  return Math.floor(grosze * (100 - proc) / 10000 + 1e-9) * 100;
+}
+
 function productFromRow_(r) {
   const ceny = {};
-  POJEMNOSCI.forEach(function (ml) { ceny[ml] = toGrosze_(r['cena_' + ml]); });
+  const cenyPrzed = {};
+  const proc = promocjaProc_(r.promocja);
+  const promoMl = proc ? promocjaMl_(r.promocja_ml) : [];
+  POJEMNOSCI.forEach(function (ml) {
+    const c = toGrosze_(r['cena_' + ml]);
+    ceny[ml] = c;
+    if (c !== null && promoMl.indexOf(ml) !== -1) {
+      const nowa = cenaPromocyjna_(c, proc);
+      if (nowa > 0 && nowa < c) { ceny[ml] = nowa; cenyPrzed[ml] = c; }
+    }
+  });
   const intens = toNumber_(r.intensywnosc);
   return {
     id: str_(r.id),
@@ -216,6 +252,10 @@ function productFromRow_(r) {
     intensywnosc: intens >= 1 && intens <= 3 ? Math.round(intens) : null,
     okazja: splitList_(r.okazja),
     ceny: ceny,
+    cenyPrzed: cenyPrzed,
+    promocja: Object.keys(cenyPrzed).length ? proc : null,
+    promocjaSurowa: str_(r.promocja),
+    promocjaMlSurowe: r.promocja_ml,
     ml: toNumber_(r.ml_dostepne),
     podobne: splitList_(r.podobne),
     zdjecie: str_(r.zdjecie_url),
@@ -303,7 +343,11 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
   const products = all.filter(isListed_).map(function (p) {
     const f = free[p.id];
     const variants = POJEMNOSCI.filter(function (ml) { return p.ceny[ml] !== null; })
-      .map(function (ml) { return { ml: ml, price: p.ceny[ml], available: f >= ml }; });
+      .map(function (ml) {
+        const v = { ml: ml, price: p.ceny[ml], available: f >= ml };
+        if (p.cenyPrzed[ml]) v.wasPrice = p.cenyPrzed[ml];
+        return v;
+      });
     const minMl = variants.length ? variants[0].ml : Infinity;
     const malo = f >= minMl && f <= cfg.LOW_STOCK_ML;
     return {
@@ -314,7 +358,8 @@ function buildCatalog_(productRows, setRows, reserved, cfg, now) {
       podobne: p.podobne.filter(function (id) { return byId[id] && isListed_(byId[id]) && id !== p.id; }),
       zdjecie: p.zdjecie, kolejnosc: p.kolejnosc,
       bestseller: p.bestseller, klimat: p.klimat.filter(function (k) { return KLIMATY.indexOf(k) !== -1; }), renoma: p.renoma,
-      nowosc: p.nowosc, odbior: p.profil === 'unisex' && ODBIOR.indexOf(p.odbior) !== -1 ? p.odbior : ''
+      nowosc: p.nowosc, odbior: p.profil === 'unisex' && ODBIOR.indexOf(p.odbior) !== -1 ? p.odbior : '',
+      promocja: variants.some(function (v) { return v.wasPrice; }) ? p.promocja : 0
     };
   }).sort(function (a, b) { return a.kolejnosc - b.kolejnosc || a.marka.localeCompare(b.marka, 'pl'); });
 
@@ -1432,6 +1477,15 @@ function diagnoza_(productRows, setRows, cfg) {
     if (!p.klimat.length) W(label + ': klimat nie jest uzupełniony (quiz weźmie go z rodziny)');
     if (p.odbior && ODBIOR.indexOf(p.odbior) === -1) W(label + ': odbior „' + p.odbior + '” spoza listy (męski, damski albo puste)');
     if (ODBIOR.indexOf(p.odbior) !== -1 && p.profil !== 'unisex') W(label + ': odbior działa tylko przy profilu unisex');
+    if (p.promocjaSurowa && !promocjaProc_(p.promocjaSurowa)) W(label + ': promocja „' + p.promocjaSurowa + '” to nie procent od 1 do ' + PROMOCJA_MAX + ' (np. 10)');
+    if (typeof p.promocjaMlSurowe === 'number' && Math.round(p.promocjaMlSurowe) !== p.promocjaMlSurowe) {
+      W(label + ': promocja_ml „' + p.promocjaMlSurowe + '” arkusz zamienił na ułamek; wpisz pojemności ze spacją, np. 10 20');
+    } else {
+      (str_(p.promocjaMlSurowe).match(/\d+/g) || []).forEach(function (x) {
+        if (POJEMNOSCI.indexOf(Number(x)) === -1) W(label + ': promocja_ml „' + x + '” spoza pojemności ' + POJEMNOSCI.join(', '));
+      });
+    }
+    if (promocjaProc_(p.promocjaSurowa) && !p.promocja) W(label + ': promocja wpisana, ale żadna pojemność z promocja_ml nie ma ceny, więc nie działa');
     if (!p.zdjecie) W(label + ': brak zdjęcia');
   });
   if (bezStanu) out.push(['INFO', bezStanu + ' aktywnych zapachów bez ml_dostepne: sprzedaż bez limitu i bez etykiety „Zostało X ml”. Gdy zapach się skończy, wpisz 0.']);
