@@ -95,7 +95,7 @@
     if (inflight && !force) return inflight;
     var p = N.fetchCatalog(force);
     inflight = p.then(function (data) {
-      memory = data = withPhotos(data);
+      memory = data = withPromos(withPhotos(data));
       ss('set', CAT_KEY, JSON.stringify({ t: Date.now(), data: data }));
       inflight = null;
       return data;
@@ -113,13 +113,34 @@
     return data;
   }
 
+  // Promocja z 23.10.2026 (decyzja 83, 84): 10% na 10 i 20 ml, w dół do pełnych złotych, tak jak liczy Code.gs.
+  // Zapas na czas, gdy arkusz sklepu działa jeszcze na Code.gs bez promocji (katalog bez pola promocja). Tylko przy
+  // wstrzymanej sprzedaży: wtedy nikt nie złoży zamówienia, więc strona nie obieca innej ceny, niż policzy serwer.
+  // Po wgraniu nowego Code.gs o promocjach decyduje wyłącznie arkusz (kolumny promocja i promocja_ml).
+  var PROMO_ZAPAS = { proc: 10, ml: [10, 20], ids: ['p05', 'p08', 'p16', 'p29', 'p46', 'p98'] };
+  function withPromos(data) {
+    var ps = (data && data.products) || [];
+    if (!ps.length || data.sprzedaz === true || ps.some(function (p) { return 'promocja' in p; })) return data;
+    ps.forEach(function (p) {
+      if (PROMO_ZAPAS.ids.indexOf(p.id) === -1) return;
+      var on = false;
+      (p.variants || []).forEach(function (v) {
+        if (PROMO_ZAPAS.ml.indexOf(v.ml) === -1 || !(v.price > 0)) return;
+        var nowa = Math.floor(v.price * (100 - PROMO_ZAPAS.proc) / 10000 + 1e-9) * 100;
+        if (nowa > 0 && nowa < v.price) { v.wasPrice = v.price; v.price = nowa; on = true; }
+      });
+      if (on) p.promocja = PROMO_ZAPAS.proc;
+    });
+    return data;
+  }
+
   function catalog(force) {
     if (force) return fetchFresh(true);
     if (memory) return Promise.resolve(memory);
     var saved = null;
     try { saved = JSON.parse(ss('get', CAT_KEY) || 'null'); } catch (e) { saved = null; }
     if (saved && saved.data) {
-      memory = withPhotos(saved.data);
+      memory = withPromos(withPhotos(saved.data));
       if (Date.now() - saved.t > FRESH_MS) {
         fetchFresh(true).then(function (d) { listeners.forEach(function (fn) { fn(d); }); }, function () {});
       }
