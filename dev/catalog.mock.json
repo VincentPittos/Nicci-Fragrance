@@ -350,15 +350,13 @@
      },
      {
       "ml": 10,
-      "price": 20700,
-      "available": true,
-      "wasPrice": 23000
+      "price": 23000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 36000,
-      "available": true,
-      "wasPrice": 40000
+      "price": 40000,
+      "available": true
      }
     ],
     "malo": false,
@@ -378,7 +376,7 @@
     "renoma": 3,
     "nowosc": false,
     "odbior": "męski",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p06",
@@ -581,15 +579,13 @@
      },
      {
       "ml": 10,
-      "price": 9000,
-      "available": true,
-      "wasPrice": 10000
+      "price": 10000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 17100,
-      "available": true,
-      "wasPrice": 19000
+      "price": 19000,
+      "available": true
      }
     ],
     "malo": false,
@@ -610,7 +606,7 @@
     "renoma": 3,
     "nowosc": false,
     "odbior": "",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p09",
@@ -1111,15 +1107,13 @@
      },
      {
       "ml": 10,
-      "price": 18000,
-      "available": true,
-      "wasPrice": 20000
+      "price": 20000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 34200,
-      "available": true,
-      "wasPrice": 38000
+      "price": 38000,
+      "available": true
      }
     ],
     "malo": false,
@@ -1140,7 +1134,7 @@
     "renoma": 3,
     "nowosc": false,
     "odbior": "",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p17",
@@ -1910,15 +1904,13 @@
     "variants": [
      {
       "ml": 10,
-      "price": 7200,
-      "available": true,
-      "wasPrice": 8000
+      "price": 8000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 13000,
-      "available": true,
-      "wasPrice": 14500
+      "price": 14500,
+      "available": true
      }
     ],
     "malo": false,
@@ -1939,7 +1931,7 @@
     "renoma": 3,
     "nowosc": false,
     "odbior": "",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p30",
@@ -3104,15 +3096,13 @@
     "variants": [
      {
       "ml": 10,
-      "price": 10800,
-      "available": true,
-      "wasPrice": 12000
+      "price": 12000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 19800,
-      "available": true,
-      "wasPrice": 22000
+      "price": 22000,
+      "available": true
      }
     ],
     "malo": false,
@@ -3133,7 +3123,7 @@
     "renoma": 1,
     "nowosc": false,
     "odbior": "",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p47",
@@ -6566,15 +6556,13 @@
      },
      {
       "ml": 10,
-      "price": 18000,
-      "available": true,
-      "wasPrice": 20000
+      "price": 20000,
+      "available": true
      },
      {
       "ml": 20,
-      "price": 33300,
-      "available": true,
-      "wasPrice": 37000
+      "price": 37000,
+      "available": true
      }
     ],
     "malo": false,
@@ -6593,7 +6581,7 @@
     "renoma": 1,
     "nowosc": false,
     "odbior": "damski",
-    "promocja": 10
+    "promocja": 0
    },
    {
     "id": "p99",

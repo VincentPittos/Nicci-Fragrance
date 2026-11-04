@@ -652,55 +652,7 @@ test('promocja: zapisy z arkusza (10%, 0,1, „10 20”, ułamek 10,2, puste poj
   assert.ok(w.some((m) => /żadna pojemność z promocja_ml nie ma ceny/.test(m)), w.join(' | ')); // p29 nie ma 5 ml
 });
 
-test('promocja: funkcja promocja_2026_10 wpisuje 10% przy sześciu zapachach, dopisuje kolumny, powtórka nic nie psuje', () => {
-  const fs = require('fs'), path = require('path'), vm = require('vm');
-  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
-    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Promocja_2026_10.gs'), 'utf8');
-  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
-  vm.createContext(ctx);
-  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Promocja_2026_10.gs' });
-  // arkusz właściciela bez kolumn promocji (stan po aktualizacji z 8.10)
-  const head = sheet.Produkty[0], bez = ['promocja', 'promocja_ml'].map((k) => head.indexOf(k));
-  const grid = sheet.Produkty.map((r) => r.filter((_, i) => bez.indexOf(i) === -1));
-  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: grid, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
-  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
-  const opis = vm.runInContext('promocja_2026_10()', ctx);
-  assert.match(opis, /Promocja 10% na 10 i 20 ml: Louis Vuitton Ombre Nomade, Xerjoff Erba Pura, Amouage Reflection Man, Montale Chocolate Greedy, Nous Tous Casa di Capri, Bohoboco Wet Cherry Liquor\.$/);
-  vm.runInContext('promocja_2026_10()', ctx);
-  const rows = be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid);
-  deq(rows.filter((r) => r.promocja).map((r) => [r.id, r.promocja, r.promocja_ml]).sort(),
-    [['p05', 10, '10, 20'], ['p08', 10, '10, 20'], ['p16', 10, '10, 20'], ['p29', 10, '10, 20'], ['p46', 10, '10, 20'], ['p98', 10, '10, 20']]);
-  const cat = be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ss.sheets[ctx.SHEET.PRODUKTY].grid, 100)), setRows, {}, cfg, NOW);
-  assert.equal(cat.products.filter((p) => p.promocja).length, 6);
-});
 
-test('promocja: zapas na stronie (app.js) przy starym Code.gs liczy jak arkusz, tylko przy wstrzymanej sprzedaży, bez dublowania', () => {
-  const fs = require('fs'), path = require('path');
-  const src = fs.readFileSync(path.join(__dirname, '..', 'site', 'js', 'app.js'), 'utf8');
-  const zapas = src.match(/var PROMO_ZAPAS = (\{[^\n]*\});/)[1];
-  const withPromos = new Function('return (function () { var PROMO_ZAPAS = ' + zapas + '; return ' +
-    src.match(/function withPromos\(data\) \{[\s\S]*?\n  \}/)[0] + '; })()')();
-  // katalog ze starego Code.gs: zwykłe ceny, bez pól promocja i wasPrice
-  const bezPromo = productRows.map((r) => Object.assign({}, r, { promocja: '', promocja_ml: '' }));
-  const stary = () => {
-    const c = JSON.parse(JSON.stringify(be.buildCatalog_(bezPromo, setRows, {}, cfg, NOW)));
-    c.products.forEach((p) => { delete p.promocja; p.variants.forEach((v) => delete v.wasPrice); });
-    c.sprzedaz = false;
-    return c;
-  };
-  // wzorzec: nowy Code.gs z kolumnami promocji wpisanymi przez promocja_2026_10
-  const ids = ['p05', 'p08', 'p16', 'p29', 'p46', 'p98'];
-  const wzor = be.buildCatalog_(bezPromo.map((r) => (ids.indexOf(r.id) !== -1 ? Object.assign({}, r, { promocja: 10, promocja_ml: '10, 20' }) : r)), setRows, {}, cfg, NOW);
-  const ceny = (c) => c.products.filter((p) => p.promocja).map((p) => [p.id, p.promocja, p.variants.map((v) => [v.ml, v.price, v.wasPrice || null])]);
-  const z = withPromos(stary());
-  deq(ceny(z), JSON.parse(JSON.stringify(ceny(wzor))));
-  deq(ceny(withPromos(JSON.parse(JSON.stringify(z)))), ceny(z));              // drugi raz nic nie zmienia
-  const otwarta = Object.assign(stary(), { sprzedaz: true });
-  assert.equal(withPromos(otwarta).products.filter((p) => p.promocja).length, 0); // sprzedaż otwarta: tylko ceny z serwera
-  const nowy = JSON.parse(JSON.stringify(be.buildCatalog_(bezPromo, setRows, {}, cfg, NOW)));
-  nowy.sprzedaz = false;
-  assert.equal(withPromos(nowy).products.filter((p) => p.promocja).length, 0);   // nowy Code.gs bez wpisanej promocji: arkusz decyduje
-});
 
 (async () => {
   for (const [name, fn] of tests) {

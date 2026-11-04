@@ -161,10 +161,10 @@ PLEC = {
     'unisex (dla obu)': ('unisex', ''), 'unisex': ('unisex', ''),
 }
 
-# Promocja (23.10.2026, właściciel): 10% na 10 i 20 ml, 5 ml bez zmian. Cenę liczy Apps Script (Code.gs,
-# productFromRow_), w arkuszu zostają zwykłe ceny. Lp.: Ombre Nomade, Erba Pura, Reflection Man, Chocolate Greedy,
-# Casa di Capri, Wet Cherry Liquor.
-PROMOCJE = {lp: (10, '10, 20') for lp in (5, 8, 16, 29, 46, 98)}
+# Promocje: {Lp.: (procent, pojemności)}, np. {5: (10, '10, 20')}. Cenę po obniżce liczy Apps Script (Code.gs,
+# productFromRow_), w arkuszu zostają zwykłe ceny. Promocja z 23.10.2026 (10% na 10 i 20 ml przy Lp. 5, 8, 16, 29,
+# 46, 98) zakończona 4.11.2026 (decyzja 85).
+PROMOCJE = {}
 
 # Nazwy, które zniknęły z arkusza przez pomyłkę. p56: 8.10 komórka z nazwą jest pusta, a reszta wiersza bez zmian
 # (status „Dostępny”, opis, ceny), tego samego dnia właściciel wgrał zdjęcie Eros Energy. Do potwierdzenia.
