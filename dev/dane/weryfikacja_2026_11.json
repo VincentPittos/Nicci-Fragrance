@@ -1,0 +1,537 @@
+{
+ "data": "4.11.2026",
+ "opis": "Weryfikacja nut i opisów zapachów o średniej i niskiej pewności (decyzja 86). Pierwszeństwo ma strona marki, potem autoryzowani sprzedawcy. Opis zmieniony tylko w zdaniach z błędem. Wartości przed zmianą wpisuje dev/weryfikacja_katalogu.js przy pierwszym uruchomieniu.",
+ "do_decyzji": [
+  {
+   "id": "p63",
+   "nazwa": "Y Parfum",
+   "pytanie": "Z którego flakonu odlewamy: Y Eau de Parfum (biała koszula, jabłko i imbir), Y Le Parfum w czarnym flakonie (2021) czy Y Le Parfum w granatowym flakonie (2025, sosna i balsam jodłowy)? Obecna lista nut pasuje najbardziej do Y Eau de Parfum i nie pasuje do żadnej wersji Y Le Parfum.",
+   "zrodla": [
+    "https://www.yslbeautyus.com/fragrance/mens-fragrances/y/y-le-parfum/WW-507861YSL.html",
+    "https://www.boots.com/ysl-y-le-parfum-100ml-10359962",
+    "https://www.fragrantica.com/perfume/Yves-Saint-Laurent/Y-Le-Parfum-2025-102208.html"
+   ]
+  },
+  {
+   "id": "p64",
+   "nazwa": "MYSLF Parfum",
+   "pytanie": "MYSLF Eau de Parfum czy MYSLF Le Parfum? Le Parfum to czarny pieprz, cynamon, kardamon, kwiat pomarańczy, wanilia bourbon i ambra, a obecna lista i słowo „czysto” w opisie pasują raczej do wody perfumowanej.",
+   "zrodla": [
+    "https://www.lookfantastic.com/p/yves-saint-laurent-myslf-le-parfum-60ml/15373984/",
+    "https://www.dillards.com/p/-/518802736"
+   ]
+  },
+  {
+   "id": "p88",
+   "nazwa": "Oud Voyager",
+   "pytanie": "Profil damski: Tom Ford nie przypisuje zapachu płci, sprzedawcy podają unisex."
+  },
+  {
+   "id": "p12",
+   "nazwa": "Absolu Aventus",
+   "pytanie": "Sezon wiosna, lato i pora dzień wynikały z opisu „wersja na lato”; marka mówi o korzennej, dymnej wersji. Do sprawdzenia na skórze."
+  },
+  {
+   "id": "p66",
+   "nazwa": "Black XS",
+   "pytanie": "Rodzina cytrusowa: marka podaje drzewno-ambrową, bliżej jej do naszej rodziny ambrowej albo orientalnej."
+  },
+  {
+   "id": "p76",
+   "nazwa": "Pegasus Exclusif",
+   "pytanie": "Koncentracja: marka nazywa go Parfum, większość sprzedawców podaje wodę perfumowaną."
+  },
+  {
+   "id": "p72",
+   "nazwa": "Cuirs",
+   "pytanie": "Literówka w katalogu na Dysku, kolumna Podobne: „LV Nouvau Monde” zamiast „LV Nouveau Monde”."
+  }
+ ],
+ "zapachy": [
+  {
+   "id": "p03",
+   "nazwa": "Afternoon Swim",
+   "powod": "Louis Vuitton podaje bergamotkę, mandarynkę, pomarańczę, imbir i ambrę szarą. Gorzkiej pomarańczy, ambrette, ambroksanu i białego piżma nie ma w źródłach marki.",
+   "zrodla": [
+    "https://me.louisvuitton.com/eng-ae/products/afternoon-swim-nvprod3630151v/LP0313",
+    "https://www.fragrantica.com/perfume/Louis-Vuitton/Afternoon-Swim-53947.html"
+   ],
+   "po": {
+    "nuty_serca": "Imbir",
+    "nuty_bazy": "Ambra szara"
+   },
+   "przed": {
+    "nuty_serca": "Gorzka pomarańcza, nuty ambrette",
+    "nuty_bazy": "Ambroksan, białe piżmo"
+   }
+  },
+  {
+   "id": "p21",
+   "nazwa": "Lemon Line",
+   "powod": "Piramida z mancera.com: cytrusy i lawenda, białe kwiaty, ambra i geranium, białe piżmo i mech dębowy. W zapachu nie ma imbiru, jaśminu, wanilii ani sandałowca. Marka nazywa go lekkim jak woda kolońska, więc „trzyma cały dzień” było na wyrost.",
+   "zrodla": [
+    "https://www.manceraparfums.com/esp/en/fruity/30-lemon-line.html",
+    "https://www.parfumo.com/Perfumes/Mancera/Lemon_Line"
+   ],
+   "po": {
+    "nuty_glowy": "Cytryna, nuty cytrusowe, lawenda",
+    "nuty_serca": "Białe kwiaty, ambra, geranium",
+    "nuty_bazy": "Białe piżmo, mech dębowy",
+    "opis": "Pierwsza sekunda to cytryna z lawendą uderzająca jak zimny prysznic, najbardziej orzeźwiający start w całej ofercie. Po chwili wchodzą białe kwiaty i geranium, a na skórze zostaje miękkie białe piżmo z mchem dębowym, przez co ludzie podchodzą bliżej. Jak na lekki cytrus w stylu wody kolońskiej trzyma się przyzwoicie, zwykle kilka godzin. Dla kogoś, kto chce świeżości bez odnawiania jej co dwie godziny.",
+    "trwalosc": 3
+   },
+   "przed": {
+    "nuty_glowy": "Cytryna, imbir, bergamotka",
+    "nuty_serca": "Jaśmin, nuty mszyste",
+    "nuty_bazy": "Wanilia, piżmo, sandałowiec, ambra",
+    "opis": "Pierwsza sekunda to cytryna z imbirem uderzająca jak zimny prysznic, najbardziej orzeźwiający start w całej ofercie. Po chwili wchodzi ciepła wanilia i całość robi się kremowa, przez co ludzie podchodzą bliżej. Trzyma cały dzień, czyli znacznie dłużej niż typowe letnie perfumy w tej cenie. Dla kogoś, kto chce świeżości bez odnawiania jej co dwie godziny.\\",
+    "trwalosc": 4
+   }
+  },
+  {
+   "id": "p24",
+   "nazwa": "Tonka Cola",
+   "powod": "Piramida z mancera.com: cytryna sycylijska, gałka muszkatołowa, cynamon i czarna wiśnia, cola z paczulą i kwiatem pomarańczy, tonka, benzoina, labdanum i wanilia. Bergamotki, mandarynki i piżma marka nie podaje.",
+   "zrodla": [
+    "https://www.manceraparfums.com/en/gourmand/110-tonka-cola.html"
+   ],
+   "po": {
+    "nuty_glowy": "Cytryna sycylijska, gałka muszkatołowa, cynamon, czarna wiśnia",
+    "nuty_serca": "Akord coli, paczula, kwiat pomarańczy",
+    "nuty_bazy": "Fasolka tonka, benzoina, labdanum, wanilia"
+   },
+   "przed": {
+    "nuty_glowy": "Bergamotka, mandarynka, cytrusy",
+    "nuty_serca": "Akord coli, tonka, cynamon",
+    "nuty_bazy": "Wanilia, benzoina, piżmo"
+   }
+  },
+  {
+   "id": "p25",
+   "nazwa": "Red Tobacco",
+   "powod": "Piramida z mancera.com. Róży i skóry nie ma w zapachu, tytoń jest w bazie. Opis mówił o ciepłej skórze.",
+   "zrodla": [
+    "https://manceraparfums.com/en/unisex/67-red-tobacco.html"
+   ],
+   "po": {
+    "nuty_glowy": "Szafran, cynamon, kadzidło, gałka muszkatołowa, biała brzoskwinia, zielone jabłko, oud",
+    "nuty_serca": "Liście paczuli, jaśmin",
+    "nuty_bazy": "Tytoń, ambra, nuty drzewne, wetyweria, wanilia, białe piżmo",
+    "opis": "Jeden z najmocniejszych zapachów, jakie mamy. Czuć cię w pomieszczeniu, zanim wejdziesz, i długo po tym, jak wyjdziesz. Pachnie jak subtelne cygaro, kremowy cynamon i ciepła wanilia z ambrą, czyli tak, jak wyobrażasz sobie zimowy wieczór w drogim miejscu. Nie będzie udawał, że nadaje się do biura, za bardzo zwraca na siebie uwagę. Za to jeśli chcesz, żeby ludzie się odwracali, dwa psiknięcia załatwiają sprawę."
+   },
+   "przed": {
+    "nuty_glowy": "Szafran, cynamon, nuty korzenne",
+    "nuty_serca": "Tytoń, róża, oud",
+    "nuty_bazy": "Skóra, wanilia, drewno, piżmo",
+    "opis": "Jeden z najmocniejszych zapachów, jakie mamy. Czuć cię w pomieszczeniu, zanim wejdziesz, i długo po tym, jak wyjdziesz. Pachnie jak subtelne cygaro, kremowy cynamon i ciepła skóra, czyli tak, jak wyobrażasz sobie zimowy wieczór w drogim miejscu. Nie będzie udawał, że nadaje się do biura, za bardzo zwraca na siebie uwagę. Za to jeśli chcesz, żeby ludzie się odwracali, dwa psiknięcia załatwiają sprawę."
+   }
+  },
+  {
+   "id": "p30",
+   "nazwa": "Honey Aoud",
+   "powod": "Piramida z montaleparfums.com: cynamon i miód, liście paczuli, ambra, skóra, oud, wanilia i białe piżmo. Szafranu i róży marka nie podaje.",
+   "zrodla": [
+    "https://montaleparfums.com/en/gourmand/203-honey-aoud.html"
+   ],
+   "po": {
+    "nuty_glowy": "Cynamon, miód",
+    "nuty_serca": "Liście paczuli",
+    "nuty_bazy": "Ambra, skóra, oud, wanilia, białe piżmo"
+   },
+   "przed": {
+    "nuty_glowy": "Szafran, miód",
+    "nuty_serca": "Róża, oud (agar)",
+    "nuty_bazy": "Ambra, drewno, piżmo"
+   }
+  },
+  {
+   "id": "p38",
+   "nazwa": "Ébène Fumé",
+   "powod": "Tom Ford podaje palo santo, heban, czarny pieprz, czystek (labdanum) i smołę sosnową, a w opisie marki także kadzidło, liść fiołka, papirus, różę, skórę i drewno gwajakowe. Różowego pieprzu, kardamonu, cynamonu, paczuli, wetywerii, benzoiny i piżma marka nie podaje.",
+   "zrodla": [
+    "https://www.tomfordbeauty.com/product/ebene-fume-eau-de-parfum",
+    "https://www.johnlewis.com/tom-ford-private-blend-ebene-fume-eau-de-parfum/p5915557"
+   ],
+   "po": {
+    "nuty_glowy": "Palo santo, czarny pieprz, kadzidło, liść fiołka, igły sosnowe",
+    "nuty_serca": "Labdanum, smoła sosnowa, papirus, róża, skóra",
+    "nuty_bazy": "Heban, drewno gwajakowe, żywice",
+    "opis": "Dym, ciemne drewno i czarny pieprz, czyli ognisko widziane z okna ciepłego domu. Wyobraź sobie wnętrze rozgrzanej sauny z palo santo. Nastrojowy w sposób, którego nie osiągniesz niczym z popularnej półki, i dlatego działa na ludzi, którzy wąchali już wszystko, ale i na tych, dla których perfumy są nowością."
+   },
+   "przed": {
+    "nuty_glowy": "Różowy pieprz, kardamon, cynamon",
+    "nuty_serca": "Kadzidło, heban, skóra, paczula",
+    "nuty_bazy": "Wetyweria, drewno gwajakowe, benzoina, piżmo",
+    "opis": "Dym, ciemne drewno i przyprawy, czyli ognisko widziane z okna ciepłego domu. Wyobraź sobie wnętrze rozgrzanej sauny z palo santo. Nastrojowy w sposób, którego nie osiągniesz niczym z popularnej półki, i dlatego działa na ludzi, którzy wąchali już wszystko, ale i na tych, dla których perfumy są nowością."
+   }
+  },
+  {
+   "id": "p55",
+   "nazwa": "Eros Parfum",
+   "powod": "Piramida wersji Parfum (2021) z versace.com i John Lewis. Mięta i zielone jabłko należą do Eros EDT i EDP. Versace nie nazywa tej wersji najciemniejszą i nie porównuje ilości wanilii.",
+   "zrodla": [
+    "https://johnlewis.com/versace-eros-parfum-100ml/p5992508",
+    "https://www.versace.com/row/en/eros-parfum-100-ml/R740210-R100MLS.html"
+   ],
+   "po": {
+    "nuty_glowy": "Cytryna, mandarynka, litsea cubeba, elemi, czarny pieprz",
+    "nuty_serca": "Pomarose, geranium, szałwia muszkatołowa, lawenda",
+    "nuty_bazy": "Kaszmeran, benzoina, wetyweria, paczula, wanilia",
+    "opis": "Cytrusowo-ambrowa wersja Parfum kultowego już zapachu. Pieprz, ciemne drewno, wanilia i chłód lawendy z szałwią sprawiają, że brzmi wynioślej od protoplastów. Jesień, zima, wieczory, kiedy budżet ma znaczenie, a efekt nie może go zdradzać."
+   },
+   "przed": {
+    "nuty_glowy": "Mięta, cytryna, zielone jabłko",
+    "nuty_serca": "Geranium, pieprz, ambrowe drewno",
+    "nuty_bazy": "Cedr, wetyweria, paczula, wanilia",
+    "opis": "Najciemniejsza wersja kultowego już zapachu. Pieprz, ciemne drewno, jeszcze więcej wanilii i chłód sprawiają, że brzmi wynioślej od protoplastów. Jesień, zima, wieczory, kiedy budżet ma znaczenie, a efekt nie może go zdradzać."
+   }
+  },
+  {
+   "id": "p59",
+   "nazwa": "Bottled Elixir",
+   "powod": "Piramida Boss Bottled Elixir (Parfum Intense, 2023): kadzidło i kardamon, wetyweria i paczula, cedr i labdanum. Jabłko, cynamon, śliwka, sandałowiec i wanilia to nuty oryginalnego Boss Bottled. Skojarzenie z garniturem i biurem dotyczy całej linii.",
+   "zrodla": [
+    "https://www.lookfantastic.com/p/hugo-boss-boss-bottled-elixir-parfum-intense-for-him-100ml/14903447/",
+    "https://www.hugoboss.com/boss-bottled-elixir-eau-de-parfum-50ml/hbeu58129502_999.html",
+    "https://www.boots.com/hugo-boss-boss-bottled-elixir-parfum-intense-for-him-100ml-10330103"
+   ],
+   "po": {
+    "nuty_glowy": "Kadzidło, kardamon",
+    "nuty_serca": "Wetyweria, paczula",
+    "nuty_bazy": "Drzewo cedrowe, labdanum",
+    "opis": "Ludzie odruchowo kojarzą linię Boss Bottled z garniturem i biurem, i to jest jej największa siła. Kadzidło i kardamon na ambrowo-drzewnej bazie z wetywerii, paczuli i cedru brzmią jak ktoś kompetentny, dojrzały i godny zaufania. Działa spokojnie i buduje wrażenie osoby, która ma wszystko pod kontrolą. Jesień, zima, praca, spotkania."
+   },
+   "przed": {
+    "nuty_glowy": "Jabłko, cynamon, śliwka",
+    "nuty_serca": "Paczula, korzenne nuty",
+    "nuty_bazy": "Drzewo sandałowe, wanilia, wetyweria",
+    "opis": "Ludzie odruchowo kojarzą ten zapach z garniturem i biurem, i to jest jego największa siła. Ciepłe przyprawy z jabłkiem na drzewnej bazie brzmią jak ktoś kompetentny, dojrzały i godny zaufania. Działa spokojnie i buduje wrażenie osoby, która ma wszystko pod kontrolą. Jesień, zima, praca, spotkania."
+   }
+  },
+  {
+   "id": "p61",
+   "nazwa": "Bottled Beyond",
+   "powod": "Hugo Boss buduje zapach na imbirze i akordzie skóry. Skóra idzie zaraz po imbirze, drewno zostaje na końcu.",
+   "zrodla": [
+    "https://www.hugoboss.com/us/all-brands/men/features/inspiration/boss-bottled-beyond/",
+    "https://www.fragrantica.com/perfume/Hugo-Boss/Boss-Bottled-Beyond-106404.html"
+   ],
+   "po": {
+    "nuty_serca": "Skóra",
+    "nuty_bazy": "Nuty drzewne"
+   },
+   "przed": {
+    "nuty_serca": "Nuty drzewne",
+    "nuty_bazy": "Skóra"
+   }
+  },
+  {
+   "id": "p65",
+   "nazwa": "Terre d'Hermès Eau Intense Vétiver",
+   "powod": "Hermès podaje zieloną bergamotkę, pieprz syczuański i wetywerię. Cedru i bergamotki sycylijskiej nie ma w żadnym źródle. Wetyweria była wpisana dwa razy.",
+   "zrodla": [
+    "https://www.hermes.com/us/en/product/terre-d-hermes-eau-intense-vetiver-eau-de-parfum-V40946/",
+    "https://www.fragrantica.com/perfume/Hermes/Terre-D-Hermes-Eau-Intense-Vetiver-50672.html"
+   ],
+   "po": {
+    "nuty_glowy": "Zielona bergamotka, grejpfrut, cytryna",
+    "nuty_serca": "Pieprz syczuański, geranium",
+    "nuty_bazy": "Wetyweria, paczula, olibanum, drewno ambrowe"
+   },
+   "przed": {
+    "nuty_glowy": "Grejpfrut, bergamotka sycylijska",
+    "nuty_serca": "Pieprz syczuański, wetyweria",
+    "nuty_bazy": "Wetyweria, cedr, drzewo ambrowe, paczula"
+   }
+  },
+  {
+   "id": "p66",
+   "nazwa": "Black XS",
+   "powod": "Rabanne podaje cytrynę kalabryjską, kalamansi, akord praliny z cynamonem, czarną ambrę i paczulę. Tamaryndowiec jest z damskiego Black XS For Her, kadzidła i tonki nie ma w męskiej wodzie toaletowej. Literówka „na codzień”.",
+   "zrodla": [
+    "https://www.rabanne.com/uk/en_GB/fragrance/p/black-xs-eau-de-toilette-for-men--000000000065150134",
+    "https://www.douglas.pl/pl/p/2010006654"
+   ],
+   "po": {
+    "nuty_glowy": "Cytryna kalabryjska, kalamansi, szałwia, aksamitka",
+    "nuty_serca": "Pralina, cynamon, czarny kardamon, balsam tolu",
+    "nuty_bazy": "Czarna ambra, paczula, heban, palisander",
+    "opis": "Ciemny, słodki zapach na co dzień w cenie, która nie boli: cytrusy, pralina, przyprawy i drewno. Nie udaje niczego wyrafinowanego i robi dokładnie to, czego się od niego oczekuje, czyli przyciąga uwagę na małym dystansie. Dobry pierwszy zapach dla kogoś, kto dopiero zaczyna i nie chce od razu inwestować."
+   },
+   "przed": {
+    "nuty_glowy": "Cytryna, kalamansi, tamaryndowiec",
+    "nuty_serca": "Pralina, cynamon, kadzidło",
+    "nuty_bazy": "Tonka, paczula, drewno",
+    "opis": "Ciemny, słodki zapach na codzień w cenie, która nie boli: cytrusy, pralina, przyprawy i drewno. Nie udaje niczego wyrafinowanego i robi dokładnie to, czego się od niego oczekuje, czyli przyciąga uwagę na małym dystansie. Dobry pierwszy zapach dla kogoś, kto dopiero zaczyna i nie chce od razu inwestować."
+   }
+  },
+  {
+   "id": "p69",
+   "nazwa": "Chrome",
+   "powod": "Lista była niepełna: brakowało rozmarynu, cedru, kardamonu i drzewa różanego, a mech dębowy jest w sercu (Notino, Douglas, Fragrantica).",
+   "zrodla": [
+    "https://www.notino.pl/azzaro/chrome-woda-toaletowa-dla-mczyzn/",
+    "https://www.fragrantica.com/perfume/Azzaro/Chrome-788.html"
+   ],
+   "po": {
+    "nuty_glowy": "Cytryna, bergamotka, ananas, neroli, rozmaryn",
+    "nuty_serca": "Kolendra, jaśmin, cyklamen, mech dębowy",
+    "nuty_bazy": "Piżmo, drzewo sandałowe, cedr, kardamon, drzewo różane, tonka"
+   },
+   "przed": {
+    "nuty_glowy": "Cytryna, bergamotka, ananas, neroli",
+    "nuty_serca": "Kolendra, jaśmin, cyklamen",
+    "nuty_bazy": "Piżmo, drzewo sandałowe, tonka, mech dębowy"
+   }
+  },
+  {
+   "id": "p70",
+   "nazwa": "Forever Wanted Elixir",
+   "powod": "Azzaro podaje malinę, zieloną mandarynkę i bergamotkę, kardamon, szałwię i lawandynę, akord skóry, wetywerię i wolfwood. Czerwony imbir, rozżarzone drewno i wanilia bourbon to The Most Wanted Parfum. Recenzje mówią o umiarkowanej projekcji.",
+   "zrodla": [
+    "https://www.ulta.com/p/forever-wanted-elixir-pimprod2050973",
+    "https://nstperfume.com/2025/02/26/azzaro-forever-wanted-elixir-new-fragrance/",
+    "https://vivir.com/article/azzaro-azzaro-forever-wanted-elixir"
+   ],
+   "po": {
+    "nuty_glowy": "Malina, zielona mandarynka, bergamotka",
+    "nuty_serca": "Kardamon, szałwia muszkatołowa, lawandyna",
+    "nuty_bazy": "Akord skóry, wetyweria, drewno wolfwood",
+    "opis": "Według Azzaro najintensywniejsza odsłona linii Wanted: soczysta malina na starcie, kardamon w sercu i skóra z drewnem pod spodem. Potrafi trzymać nawet dziesięć godzin, choć projekcja jest raczej umiarkowana, a najdłużej zostaje na ubraniu. Zapach klubowy i wieczorowy, nie sprawdzi się na formalne spotkania. Jeśli chcesz mocny efekt za rozsądne pieniądze, to jest najkrótsza droga.",
+    "projekcja": 3,
+    "intensywnosc": 2
+   },
+   "przed": {
+    "nuty_glowy": "Czerwony imbir, żywica elemi",
+    "nuty_serca": "Rozżarzone nuty drzewne, szałwia muszkatołowa",
+    "nuty_bazy": "Wanilia bourbon, drewno ambrowe, benzoina",
+    "opis": "Jeden z najmocniejszych zapachów w tej półce cenowej: ostry imbir na starcie, gęsta słodka wanilia z drewnem pod spodem. Potrafi trzymać nawet dziesięć godzin, a przez pierwsze cztery czuć cię w całym pomieszczeniu. Zapach klubowy i wieczorowy, nie sprawdzi się na formalne spotkania. Jeśli chcesz maksymalny efekt za rozsądne pieniądze, to jest najkrótsza droga.",
+    "projekcja": 4,
+    "intensywnosc": 3
+   }
+  },
+  {
+   "id": "p71",
+   "nazwa": "The Most Wanted Parfum",
+   "powod": "Azzaro podaje trzy nuty: czerwony imbir, akord rozżarzonego drewna i wanilię bourbon z Madagaskaru. Kardamon, cytrusy, lawenda, drzewo ambrowe i tonka są z innych wersji Wanted.",
+   "zrodla": [
+    "https://www.ulta.com/p/most-wanted-parfum-pimprod2032753",
+    "https://www.notino.pl/azzaro/the-most-wanted-perfumy-dla-mezczyzn/"
+   ],
+   "po": {
+    "nuty_glowy": "Czerwony imbir",
+    "nuty_serca": "Akord rozżarzonego drewna",
+    "nuty_bazy": "Wanilia bourbon"
+   },
+   "przed": {
+    "nuty_glowy": "Kardamon, cytrusy",
+    "nuty_serca": "Lawenda, drzewo ambrowe",
+    "nuty_bazy": "Wanilia, tonka, drewno"
+   }
+  },
+  {
+   "id": "p72",
+   "nazwa": "Cuirs",
+   "powod": "Piramida z carnerbarcelona.com: kmin rzymski i szafran, sandałowiec i cedr teksański, akord skóry i drewno oud. Pozostałych nut marka nie podaje, a bez tonki i labdanum zapach nie jest słodkawy.",
+   "zrodla": [
+    "https://carnerbarcelona.com/products/cuirs-perfume"
+   ],
+   "po": {
+    "nuty_glowy": "Kmin rzymski, szafran",
+    "nuty_serca": "Drzewo sandałowe, cedr",
+    "nuty_bazy": "Akord skóry, drewno oud",
+    "opis": "Otulające przyprawy okryte gładką skórą. Drzewny, z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni roku. Idealne wprowadzenie w zapachy skórzane oraz niszowe."
+   },
+   "przed": {
+    "nuty_glowy": "Szafran, kminek",
+    "nuty_serca": "Drewno sandałowe, gwajakowiec, paczula, cedr Virginia, fiołek",
+    "nuty_bazy": "Oud, skóra, francuskie labdanum, fasola tonka, bursztyn, piżmo, cypriol, amyris",
+    "opis": "Otulające przyprawy okryte gładką skórą. Słodkawy z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni roku. Idealne wprowadzenie w zapachy skórzane oraz niszowe."
+   }
+  },
+  {
+   "id": "p73",
+   "nazwa": "Akigala Mandarino",
+   "powod": "Nuty się zgadzają (Liberty London, John Lewis). W zapachu nie ma szafranu ani nut mineralnych, sprzedawcy opisują akigalawood jako korzenne. Marka jest sprzedawana w Polsce.",
+   "zrodla": [
+    "https://www.libertylondon.com/uk/akigala-mandarino-extrait-de-parfum-50ml-000830484.html",
+    "https://www.johnlewis.com/new-notes-akigala-mandarino-extrait-de-parfum-50ml/p115285067"
+   ],
+   "po": {
+    "opis": "Mandarynka z maliną i marakują, podane tak soczyście, że pierwsze minuty pachną jak miska owoców postawiona na słońcu, a w tle przebija się już korzenna nuta akigalawood. Potem robi się kwiatowo i miękko, a na dnie zostaje ciepłe, lekko pieprzne drewno. Tej marki w Polsce wciąż mało kto zna, więc pytania o nazwę przychodzą same."
+   },
+   "przed": {
+    "opis": "Mandarynka z maliną i marakują, podane tak soczyście, że pierwsze minuty pachną jak miska owoców postawiona na słońcu, a w tle mineralne akordy akigalawood oraz szafran. Potem robi się kwiatowo i miękko, a na dnie zostaje ciepłe, lekko pieprzne drewno. Tej marki nie zna w Polsce prawie nikt, więc pytania o nazwę przychodzą same."
+   }
+  },
+  {
+   "id": "p76",
+   "nazwa": "Pegasus Exclusif",
+   "powod": "Nuty zgodne ze stroną marki. Noszący podają zwykle 8 do 10 godzin i umiarkowany ślad, nie kilkanaście godzin.",
+   "zrodla": [
+    "https://parfums-de-marly.com/products/pegasus-exclusif",
+    "https://www.venbafragrance.com/collections/men/products/parfums-de-marly-pegasus-exclusif-edp"
+   ],
+   "po": {
+    "opis": "Migdał z wanilią na ciepłym, lekko dymnym drewnie. Pachnie jak wnętrze drogiej cukierni, do której ktoś wstawił skórzane fotele: słodko, ale zdecydowanie dorośle. Wersja parfum, czyli gęsta, i trzyma zwykle osiem do dziesięciu godzin. Dobra propozycja dla kogoś, kto lubi Laytona i chce czegoś mniej rozpoznawalnego.",
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2
+   },
+   "przed": {
+    "opis": "Migdał z wanilią na ciepłym, lekko dymnym drewnie. Pachnie jak wnętrze drogiej cukierni, do której ktoś wstawił skórzane fotele: słodko, ale zdecydowanie dorośle. Wersja parfum, czyli gęsta, i przy jednym psiknięciu trzyma kilkanaście godzin. Dobra propozycja dla kogoś, kto lubi Laytona i chce czegoś mniej rozpoznawalnego.",
+    "trwalosc": 4.5,
+    "projekcja": 4,
+    "intensywnosc": 3
+   }
+  },
+  {
+   "id": "p80",
+   "nazwa": "Velvet Iris",
+   "powod": "Essential Parfums umieszcza zamsz Saffiano w bazie z sandałowcem i labdanum, a irys opisuje jako kremowy i pudrowy, z wyraźnym śladem. Parfumo: trwałość ok. 6,8 i ślad ok. 7,1 na 10.",
+   "zrodla": [
+    "https://us.essentialparfums.com/products/velvet-iris-eau-de-parfum-refillable-spray-100-ml",
+    "https://ministryofscent.com/products/velvet-iris",
+    "https://www.parfumo.com/Perfumes/Essential_Parfums/velvet-iris"
+   ],
+   "po": {
+    "nuty_serca": "Konkret irysowy, galbanum, mastyks",
+    "nuty_bazy": "Drzewo sandałowe, labdanum, akord zamszu Saffiano, kremowy akord drzewny",
+    "opis": "Irys wytrawny i cielesny, tylko lekko pudrowy i bez kwiatowej słodyczy. Zielony, lekko korzenny start łagodnieje, a kończy się kremowym drzewem sandałowym, labdanum i zamszem. To zapach o umiarkowanym śladzie, który dobrze pracuje w rozmowie i przy stole. Dla kogoś, kto ma już w szufladzie cytrusy i słodycze i chce czegoś, czego nikt nie rozpozna.",
+    "trwalosc": 3.5,
+    "projekcja": 3,
+    "intensywnosc": 2
+   },
+   "przed": {
+    "nuty_serca": "Konkret irysowy, galbanum, mastyks, akord zamszu Saffiano",
+    "nuty_bazy": "Labdanum, kremowy akord drzewny, drzewo sandałowe",
+    "opis": "Irys wytrawny i cielesny, bez pudru i bez kwiatowej słodyczy. Zielony, lekko korzenny start przechodzi w zamsz, a kończy się suchym, kremowym drewnem. To zapach na bliski dystans, który pracuje w rozmowie i przy stole. Dla kogoś, kto ma już w szufladzie cytrusy i słodycze i chce czegoś, czego nikt nie rozpozna.",
+    "trwalosc": 3,
+    "projekcja": 2.5,
+    "intensywnosc": 1
+   }
+  },
+  {
+   "id": "p81",
+   "nazwa": "Ambre Latte",
+   "powod": "Nuty zgodne ze stroną marki. W zapachu nie ma kawy, marka nazywa go migdałowym latte.",
+   "zrodla": [
+    "https://us.essentialparfums.com/products/ambre-latte-eau-de-parfum-natural-spray-refillable-100-ml"
+   ],
+   "po": {
+    "opis": "Zimowe latte bez kawy: mleko migdałowe, karmel i prażona tonka, podane ciepło i leniwie. Pomysł jest prosty, a efekt działa dokładnie tam, gdzie powinien, czyli przy stole i w kołnierzu kurtki. Pod spodem siedzą drzewne molekuły, które trzymają słodycz w ryzach i rozciągają ją na wiele godzin. Premiera z tego roku, więc mogłeś nie doświadczyć tego wokół ciebie."
+   },
+   "przed": {
+    "opis": "Zimowe cappuccino: mleko migdałowe, karmel i prażona tonka, podane ciepło i leniwie. Pomysł jest prosty, a efekt działa dokładnie tam, gdzie powinien, czyli przy stole i w kołnierzu kurtki. Pod spodem siedzą drzewne molekuły, które trzymają słodycz w ryzach i rozciągają ją na wiele godzin. Premiera z tego roku, więc mogłeś nie doświadczyć tego wokół ciebie."
+   }
+  },
+  {
+   "id": "p88",
+   "nazwa": "Oud Voyager",
+   "powod": "Nuty zgodne ze stroną Tom Forda. Marka nie podaje nuty dymnej, a kwiatowe oudy nie są rzadkością. Zapach dostał nagrodę Fragrance Foundation, więc nie jest już nieznany.",
+   "zrodla": [
+    "https://www.tomfordbeauty.com/product/oud-voyager-eau-de-parfum",
+    "https://tom-ford.prezly.com/tom-ford--oud-voyager"
+   ],
+   "po": {
+    "opis": "Oud podany kwiatowo. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno oudu i cypriolu. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera była we wrześniu 2025 roku, więc wciąż mało kto go zna, a pytania o nazwę przychodzą szybko."
+   },
+   "przed": {
+    "opis": "Oud podany kwiatowo, co na rynku zdarza się rzadko. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno z dymem. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera była we wrześniu 2025 roku, więc nikt wokół go nie zna, a pytania o nazwę przychodzą szybko."
+   }
+  },
+  {
+   "id": "p94",
+   "nazwa": "Sparkling Royal",
+   "powod": "Kilian podaje fasolkę tonka (bez prażenia) i czarną porzeczkę. Kir Royal to inspiracja całego zapachu, nie osobny akord.",
+   "zrodla": [
+    "https://www.cultbeauty.com/p/kilian-sparkling-royal-eau-de-parfum-10ml/18002837/",
+    "https://nstperfume.com/2026/08/08/by-kilian-cocktail-collection-new-fragrances/"
+   ],
+   "po": {
+    "nuty_serca": "Róża, czarna porzeczka",
+    "nuty_bazy": "Fasolka tonka, delikatne piżmo"
+   },
+   "przed": {
+    "nuty_serca": "Róża, czarna porzeczka (akord Kir Royal)",
+    "nuty_bazy": "Prażona fasolka tonka, delikatne piżmo"
+   }
+  },
+  {
+   "id": "p97",
+   "nazwa": "Mint & Tonic",
+   "powod": "Atkinsons nie podaje mandarynki. Recenzenci Parfumo oceniają trwałość na ok. 5 do 7 na 10, więc 2 było za nisko.",
+   "zrodla": [
+    "https://atkinsons1799.com/products/mint-tonic",
+    "https://www.lookfantastic.com/atkinsons-mint-and-tonic-eau-de-parfum-100ml/13974409.html"
+   ],
+   "po": {
+    "nuty_glowy": "Limonka, grejpfrut, mięta",
+    "trwalosc": 2.5
+   },
+   "przed": {
+    "nuty_glowy": "Limonka, grejpfrut, mięta, mandarynka",
+    "trwalosc": 2
+   }
+  },
+  {
+   "id": "p98",
+   "nazwa": "Wet Cherry Liquor",
+   "powod": "Nuty zgodne ze stroną Bohoboco. Porównanie z Lost Cherry znaleźliśmy w jednej recenzji, a syrop, karmel, truskawka, wanilia i tonka nie dają „mniej cukierka”.",
+   "zrodla": [
+    "https://bohobocoperfume.pl/wet-cherry-liquor",
+    "https://ministryofscent.com/collections/sweet-gourmand/products/wet-cherry-liquor"
+   ],
+   "po": {
+    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co bywa porównywane do Lost Cherry: podobny wiśniowo-likierowy klimat, ale intensywniej i z wyraźnym drewnem na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny."
+   },
+   "przed": {
+    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co wielu uważa za dojrzalszą wersję Lost Cherry: wyraźniejsze parametry, mniej cukierka, więcej wytrawności i wyraźne drewno na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny."
+   }
+  },
+  {
+   "id": "p100",
+   "nazwa": "Vanilla Black Pepper",
+   "powod": "Nuty zgodne ze stroną Bohoboco. Marka opisuje zapach jako słodko-ostry, więc pieprz nie zabiera słodyczy. Opis mówi, że zapach siedzi blisko skóry, a projekcja 3,5 temu przeczyła.",
+   "zrodla": [
+    "https://bohobocoperfume.eu/vanilla-black-pepper",
+    "https://bohobocoperfume.pl/vanilla-black-pepper"
+   ],
+   "po": {
+    "opis": "Wanilia dla kogoś, kto nie chce pachnieć deserem. Czarny pieprz i kadzidło przełamują jej słodycz, a kwiatowe serce robi z całości rzecz raczej elegancką. Zapach siedzi bardzo blisko skóry: w biurze ani w windzie nikomu nie przeszkodzi, ale trzeba podejść, żeby go wyczuć. Flagowiec polskiego Bohoboco i jeden z niewielu zapachów z tej listy, które naprawdę nosi się przez cały rok. Idealny dla kobiety jak i mężczyzny.",
+    "projekcja": 2.5,
+    "intensywnosc": 1
+   },
+   "przed": {
+    "opis": "Wanilia dla kogoś, kto nie chce pachnieć deserem. Czarny pieprz i kadzidło zabierają jej słodycz, a kwiatowe serce robi z całości rzecz raczej elegancką. Zapach siedzi bardzo blisko skóry: w biurze ani w windzie nikomu nie przeszkodzi, ale trzeba podejść, żeby go wyczuć. Flagowiec polskiego Bohoboco i jeden z niewielu zapachów z tej listy, które naprawdę nosi się przez cały rok. Idealny dla kobiety jak i mężczyzny.",
+    "projekcja": 3.5,
+    "intensywnosc": 2
+   }
+  },
+  {
+   "id": "p12",
+   "nazwa": "Absolu Aventus",
+   "powod": "Obecna strona Creed podaje dziewięć nut (bergamotka, imbir, grejpfrut, kardamon, cynamon, ananas, labdanum, wetyweria, paczula). Dłuższa lista pochodzi z limitowanej edycji 2023 i zawiera nuty, których marka już nie podaje. Creed opisuje go jako korzenną, dymną wersję Aventusa, nie letnią. Recenzje mówią o słabej projekcji.",
+   "zrodla": [
+    "https://creedfragrances.co.uk/products/absolu-aventus",
+    "https://nstperfume.com/2023/10/31/creed-absolu-aventus-new-fragrance/"
+   ],
+   "po": {
+    "nuty_glowy": "Bergamotka kalabryjska, imbir, grejpfrut",
+    "nuty_serca": "Kardamon, cynamon, ananas",
+    "nuty_bazy": "Labdanum, wetyweria, paczula",
+    "opis": "Aventus w ciemniejszej wersji: ten sam charakter, tylko wzbogacony o kardamon, cynamon i żywiczne labdanum. Grejpfrut z imbirem wychodzą na pierwszy plan, przez co całość brzmi młodziej niż oryginał. Uniwersalny zapach na cały rok, który spodoba się każdemu. Dla kogoś, kto zna Aventusa i szuka jego bardziej korzennej odsłony.",
+    "projekcja": 3,
+    "intensywnosc": 2
+   },
+   "przed": {
+    "nuty_glowy": "Grejpfrut, bergamotka, cytryna, czarna porzeczka, imbir",
+    "nuty_serca": "Ananas, paczula, różowy pieprz, kardamon, cynamon",
+    "nuty_bazy": "Wetyweria, drewno kaszmirowe, labdanum, ambroksan, piżmo, dębowy mech",
+    "opis": "Aventus w wersji na lato: ten sam charakter, tylko wzbogacony o świeższe niuanse. Grejpfrut z imbirem wychodzą na pierwszy plan, przez co całość brzmi młodziej niż oryginał. Uniwersalny zapach na cały rok, który spodoba się każdemu. Dla kogoś, kto zna Aventusa i szuka jego letniej odsłony.",
+    "projekcja": 4,
+    "intensywnosc": 3
+   }
+  }
+ ]
+}

@@ -95,7 +95,7 @@
     if (inflight && !force) return inflight;
     var p = N.fetchCatalog(force);
     inflight = p.then(function (data) {
-      memory = data = withPhotos(data);
+      memory = data = withKorekty(withPhotos(data));
       ss('set', CAT_KEY, JSON.stringify({ t: Date.now(), data: data }));
       inflight = null;
       return data;
@@ -113,13 +113,38 @@
     return data;
   }
 
+  // Poprawki nut i opisów z weryfikacji (site/js/korekty-katalogu.js, decyzja 86). Pole zapachu podmieniamy tylko
+  // wtedy, gdy katalog z arkusza ma jeszcze stare wartości (skrót h); po aktualizacji arkusza (Korekta_2026_11.gs)
+  // albo po zmianie wpisu przez właściciela poprawka przestaje działać i decyduje arkusz.
+  function fnv(s) {
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+    return h.toString(36);
+  }
+  function withKorekty(data) {
+    var K = window.NicciKorekty || [];
+    var byId = {};
+    ((data && data.products) || []).forEach(function (p) { byId[p.id] = p; });
+    K.forEach(function (k) {
+      var p = byId[k.id];
+      if (!p) return;
+      var val = function (pole) { return pole === 'opis' ? p.opis : pole.indexOf('nuty_') === 0 ? (p.nuty || {})[pole.slice(5)] : p[pole]; };
+      if (fnv(JSON.stringify(k.pola.map(val))) !== k.h) return;
+      k.pola.forEach(function (pole) {
+        var v = k.nowe[pole];
+        if (pole.indexOf('nuty_') === 0) { p.nuty = p.nuty || {}; p.nuty[pole.slice(5)] = v.slice(); } else p[pole] = v;
+      });
+    });
+    return data;
+  }
+
   function catalog(force) {
     if (force) return fetchFresh(true);
     if (memory) return Promise.resolve(memory);
     var saved = null;
     try { saved = JSON.parse(ss('get', CAT_KEY) || 'null'); } catch (e) { saved = null; }
     if (saved && saved.data) {
-      memory = withPhotos(saved.data);
+      memory = withKorekty(withPhotos(saved.data));
       if (Date.now() - saved.t > FRESH_MS) {
         fetchFresh(true).then(function (d) { listeners.forEach(function (fn) { fn(d); }); }, function () {});
       }

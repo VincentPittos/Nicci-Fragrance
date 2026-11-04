@@ -193,6 +193,38 @@ KOREKTY_OPISU = {
 }
 
 
+# ---------- weryfikacja nut i opisów (listopad 2026, decyzja 86) ----------
+# Te same poprawki, które strona (site/js/korekty-katalogu.js) i apps-script/Korekta_2026_11.gs nakładają na arkusz
+# sklepu. Pole zmieniamy tylko wtedy, gdy w źródle stoi jeszcze wartość sprzed weryfikacji („przed”). Gdy Nicci
+# poprawił je w katalogu po swojemu, zostaje jego wersja, a nasza propozycja trafia do weryfikacji.
+WERYFIKACJA = os.path.join(ROOT, 'dev', 'dane', 'weryfikacja_2026_11.json')
+
+
+def tekst_pola(v):
+    """Wartość pola do porównań: bez spacji na brzegach, liczby całkowite bez „.0” (3 i 3.0 to to samo)."""
+    if v is None:
+        return ''
+    if isinstance(v, float) and v.is_integer():
+        v = int(v)
+    return str(v).strip()
+
+
+def wczytaj_weryfikacje():
+    if not os.path.exists(WERYFIKACJA):
+        return {}
+    with open(WERYFIKACJA, encoding='utf-8') as f:
+        dane = json.load(f)
+    wynik = {}
+    for z in dane['zapachy']:
+        if not z.get('po'):
+            continue
+        brak = [k for k in z['po'] if k not in (z.get('przed') or {})]
+        if brak:
+            raise SystemExit(f"{WERYFIKACJA}: {z['id']} bez wartości „przed” dla {', '.join(brak)}; "
+                             'najpierw uruchom node dev/weryfikacja_katalogu.js')
+        wynik[z['id']] = z
+    return wynik
+
 # ---------- sezon i pora ----------
 PORY_ROKU = [('wiosn', 'wiosna'), ('lat', 'lato'), ('jesien', 'jesień'), ('zim', 'zima')]
 
@@ -330,6 +362,7 @@ def main():
             zrodlo[-1]['uzupelniona_nazwa'] = True
 
     idx = indeks_nazw(zrodlo)
+    weryfikacja = wczytaj_weryfikacje()
     produkty, weryf = [], []
     statystyka = Counter()
     mapa_rodzin = OrderedDict()
@@ -463,6 +496,16 @@ def main():
             p['zdjecie_url'] = f"/img/produkty/{p['id']}-800.webp"
         elif not niedostepny:
             flag(s, 'zdjecie_url', '', '', 'brak zdjęcia: strona producenta blokuje pobieranie, potrzebne własne albo prasowe')
+
+        # weryfikacja nut i opisów (decyzja 86)
+        z = weryfikacja.get(p['id'])
+        for pole, nowe in (z['po'].items() if z else ()):
+            if tekst_pola(p[pole]) == tekst_pola(z['przed'][pole]):
+                p[pole] = nowe
+                flag(s, pole, z['przed'][pole], nowe, 'weryfikacja nut i opisów 4.11.2026 (decyzja 86): ' + z['powod'])
+            elif tekst_pola(p[pole]) != tekst_pola(nowe):
+                flag(s, pole, p[pole], p[pole], 'weryfikacja 4.11.2026 proponowała: ' + tekst_pola(nowe) +
+                     '; w źródle jest już inna wartość, zostawiona')
 
         produkty.append(p)
 

@@ -168,12 +168,10 @@
       "bergamotka"
      ],
      "serca": [
-      "Gorzka pomarańcza",
-      "nuty ambrette"
+      "Imbir"
      ],
      "bazy": [
-      "Ambroksan",
-      "białe piżmo"
+      "Ambra szara"
      ]
     },
     "sezon": [
@@ -842,29 +840,22 @@
     "nazwa": "Absolu Aventus",
     "rodzina": "drzewna",
     "profil": "męski",
-    "opis": "Aventus w wersji na lato: ten sam charakter, tylko wzbogacony o świeższe niuanse. Grejpfrut z imbirem wychodzą na pierwszy plan, przez co całość brzmi młodziej niż oryginał. Uniwersalny zapach na cały rok, który spodoba się każdemu. Dla kogoś, kto zna Aventusa i szuka jego letniej odsłony.",
+    "opis": "Aventus w ciemniejszej wersji: ten sam charakter, tylko wzbogacony o kardamon, cynamon i żywiczne labdanum. Grejpfrut z imbirem wychodzą na pierwszy plan, przez co całość brzmi młodziej niż oryginał. Uniwersalny zapach na cały rok, który spodoba się każdemu. Dla kogoś, kto zna Aventusa i szuka jego bardziej korzennej odsłony.",
     "nuty": {
      "glowy": [
-      "Grejpfrut",
-      "bergamotka",
-      "cytryna",
-      "czarna porzeczka",
-      "imbir"
+      "Bergamotka kalabryjska",
+      "imbir",
+      "grejpfrut"
      ],
      "serca": [
-      "Ananas",
-      "paczula",
-      "różowy pieprz",
-      "kardamon",
-      "cynamon"
+      "Kardamon",
+      "cynamon",
+      "ananas"
      ],
      "bazy": [
-      "Wetyweria",
-      "drewno kaszmirowe",
-      "labdanum",
-      "ambroksan",
-      "piżmo",
-      "dębowy mech"
+      "Labdanum",
+      "wetyweria",
+      "paczula"
      ]
     },
     "sezon": [
@@ -873,8 +864,8 @@
     ],
     "pora": "dzień",
     "trwalosc": 3,
-    "projekcja": 4,
-    "intensywnosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
     "okazja": [
      "Codzienność",
      "biuro",
@@ -1384,22 +1375,21 @@
     "nazwa": "Lemon Line",
     "rodzina": "cytrusowa",
     "profil": "unisex",
-    "opis": "Pierwsza sekunda to cytryna z imbirem uderzająca jak zimny prysznic, najbardziej orzeźwiający start w całej ofercie. Po chwili wchodzi ciepła wanilia i całość robi się kremowa, przez co ludzie podchodzą bliżej. Trzyma cały dzień, czyli znacznie dłużej niż typowe letnie perfumy w tej cenie. Dla kogoś, kto chce świeżości bez odnawiania jej co dwie godziny.\\",
+    "opis": "Pierwsza sekunda to cytryna z lawendą uderzająca jak zimny prysznic, najbardziej orzeźwiający start w całej ofercie. Po chwili wchodzą białe kwiaty i geranium, a na skórze zostaje miękkie białe piżmo z mchem dębowym, przez co ludzie podchodzą bliżej. Jak na lekki cytrus w stylu wody kolońskiej trzyma się przyzwoicie, zwykle kilka godzin. Dla kogoś, kto chce świeżości bez odnawiania jej co dwie godziny.",
     "nuty": {
      "glowy": [
       "Cytryna",
-      "imbir",
-      "bergamotka"
+      "nuty cytrusowe",
+      "lawenda"
      ],
      "serca": [
-      "Jaśmin",
-      "nuty mszyste"
+      "Białe kwiaty",
+      "ambra",
+      "geranium"
      ],
      "bazy": [
-      "Wanilia",
-      "piżmo",
-      "sandałowiec",
-      "ambra"
+      "Białe piżmo",
+      "mech dębowy"
      ]
     },
     "sezon": [
@@ -1407,7 +1397,7 @@
      "lato"
     ],
     "pora": "dzień",
-    "trwalosc": 4,
+    "trwalosc": 3,
     "projekcja": 3.5,
     "intensywnosc": 2,
     "okazja": [
@@ -1601,19 +1591,21 @@
     "opis": "Dokładnie to, co obiecuje nazwa: musująca cola i kremowe przyprawy w jednym flakonie. Brzmi zabawnie, działa poważnie. To jeden z tych zapachów, przy których ktoś dosłownie pyta, czym pachniesz, bo nie umie tego umieścić w żadnej znanej kategorii. Przyprawy trzymają słodycz w ryzach, więc całość nie robi się dziecinna. Jesień, zima, wieczór.",
     "nuty": {
      "glowy": [
-      "Bergamotka",
-      "mandarynka",
-      "cytrusy"
+      "Cytryna sycylijska",
+      "gałka muszkatołowa",
+      "cynamon",
+      "czarna wiśnia"
      ],
      "serca": [
       "Akord coli",
-      "tonka",
-      "cynamon"
+      "paczula",
+      "kwiat pomarańczy"
      ],
      "bazy": [
-      "Wanilia",
+      "Fasolka tonka",
       "benzoina",
-      "piżmo"
+      "labdanum",
+      "wanilia"
      ]
     },
     "sezon": [
@@ -1666,23 +1658,28 @@
     "nazwa": "Red Tobacco",
     "rodzina": "orientalna",
     "profil": "unisex",
-    "opis": "Jeden z najmocniejszych zapachów, jakie mamy. Czuć cię w pomieszczeniu, zanim wejdziesz, i długo po tym, jak wyjdziesz. Pachnie jak subtelne cygaro, kremowy cynamon i ciepła skóra, czyli tak, jak wyobrażasz sobie zimowy wieczór w drogim miejscu. Nie będzie udawał, że nadaje się do biura, za bardzo zwraca na siebie uwagę. Za to jeśli chcesz, żeby ludzie się odwracali, dwa psiknięcia załatwiają sprawę.",
+    "opis": "Jeden z najmocniejszych zapachów, jakie mamy. Czuć cię w pomieszczeniu, zanim wejdziesz, i długo po tym, jak wyjdziesz. Pachnie jak subtelne cygaro, kremowy cynamon i ciepła wanilia z ambrą, czyli tak, jak wyobrażasz sobie zimowy wieczór w drogim miejscu. Nie będzie udawał, że nadaje się do biura, za bardzo zwraca na siebie uwagę. Za to jeśli chcesz, żeby ludzie się odwracali, dwa psiknięcia załatwiają sprawę.",
     "nuty": {
      "glowy": [
       "Szafran",
       "cynamon",
-      "nuty korzenne"
-     ],
-     "serca": [
-      "Tytoń",
-      "róża",
+      "kadzidło",
+      "gałka muszkatołowa",
+      "biała brzoskwinia",
+      "zielone jabłko",
       "oud"
      ],
+     "serca": [
+      "Liście paczuli",
+      "jaśmin"
+     ],
      "bazy": [
-      "Skóra",
+      "Tytoń",
+      "ambra",
+      "nuty drzewne",
+      "wetyweria",
       "wanilia",
-      "drewno",
-      "piżmo"
+      "białe piżmo"
      ]
     },
     "sezon": [
@@ -1942,17 +1939,18 @@
     "opis": "Ciężki, ciemny miód z żywicznym drewnem, brzmiący jak wnętrze bardzo drogiego i bardzo cichego pomieszczenia. Mocniejszy i mniej grzeczny niż typowe słodkie perfumy, przez co odbiera się go jako dorosły. Zostaje w powietrzu i na ubraniu przez wiele godzin, więc jedno psiknięcie robi robotę. Dla kogoś, kto zna już słodkie zapachy, ale szuka czegoś innego.",
     "nuty": {
      "glowy": [
-      "Szafran",
+      "Cynamon",
       "miód"
      ],
      "serca": [
-      "Róża",
-      "oud (agar)"
+      "Liście paczuli"
      ],
      "bazy": [
       "Ambra",
-      "drewno",
-      "piżmo"
+      "skóra",
+      "oud",
+      "wanilia",
+      "białe piżmo"
      ]
     },
     "sezon": [
@@ -2474,24 +2472,26 @@
     "nazwa": "Ébène Fumé",
     "rodzina": "drzewna",
     "profil": "unisex",
-    "opis": "Dym, ciemne drewno i przyprawy, czyli ognisko widziane z okna ciepłego domu. Wyobraź sobie wnętrze rozgrzanej sauny z palo santo. Nastrojowy w sposób, którego nie osiągniesz niczym z popularnej półki, i dlatego działa na ludzi, którzy wąchali już wszystko, ale i na tych, dla których perfumy są nowością.",
+    "opis": "Dym, ciemne drewno i czarny pieprz, czyli ognisko widziane z okna ciepłego domu. Wyobraź sobie wnętrze rozgrzanej sauny z palo santo. Nastrojowy w sposób, którego nie osiągniesz niczym z popularnej półki, i dlatego działa na ludzi, którzy wąchali już wszystko, ale i na tych, dla których perfumy są nowością.",
     "nuty": {
      "glowy": [
-      "Różowy pieprz",
-      "kardamon",
-      "cynamon"
+      "Palo santo",
+      "czarny pieprz",
+      "kadzidło",
+      "liść fiołka",
+      "igły sosnowe"
      ],
      "serca": [
-      "Kadzidło",
-      "heban",
-      "skóra",
-      "paczula"
+      "Labdanum",
+      "smoła sosnowa",
+      "papirus",
+      "róża",
+      "skóra"
      ],
      "bazy": [
-      "Wetyweria",
+      "Heban",
       "drewno gwajakowe",
-      "benzoina",
-      "piżmo"
+      "żywice"
      ]
     },
     "sezon": [
@@ -3699,20 +3699,24 @@
     "nazwa": "Eros Parfum",
     "rodzina": "aromatyczna",
     "profil": "męski",
-    "opis": "Najciemniejsza wersja kultowego już zapachu. Pieprz, ciemne drewno, jeszcze więcej wanilii i chłód sprawiają, że brzmi wynioślej od protoplastów. Jesień, zima, wieczory, kiedy budżet ma znaczenie, a efekt nie może go zdradzać.",
+    "opis": "Cytrusowo-ambrowa wersja Parfum kultowego już zapachu. Pieprz, ciemne drewno, wanilia i chłód lawendy z szałwią sprawiają, że brzmi wynioślej od protoplastów. Jesień, zima, wieczory, kiedy budżet ma znaczenie, a efekt nie może go zdradzać.",
     "nuty": {
      "glowy": [
-      "Mięta",
-      "cytryna",
-      "zielone jabłko"
+      "Cytryna",
+      "mandarynka",
+      "litsea cubeba",
+      "elemi",
+      "czarny pieprz"
      ],
      "serca": [
-      "Geranium",
-      "pieprz",
-      "ambrowe drewno"
+      "Pomarose",
+      "geranium",
+      "szałwia muszkatołowa",
+      "lawenda"
      ],
      "bazy": [
-      "Cedr",
+      "Kaszmeran",
+      "benzoina",
       "wetyweria",
       "paczula",
       "wanilia"
@@ -3839,21 +3843,19 @@
     "nazwa": "Bottled Elixir",
     "rodzina": "drzewna",
     "profil": "męski",
-    "opis": "Ludzie odruchowo kojarzą ten zapach z garniturem i biurem, i to jest jego największa siła. Ciepłe przyprawy z jabłkiem na drzewnej bazie brzmią jak ktoś kompetentny, dojrzały i godny zaufania. Działa spokojnie i buduje wrażenie osoby, która ma wszystko pod kontrolą. Jesień, zima, praca, spotkania.",
+    "opis": "Ludzie odruchowo kojarzą linię Boss Bottled z garniturem i biurem, i to jest jej największa siła. Kadzidło i kardamon na ambrowo-drzewnej bazie z wetywerii, paczuli i cedru brzmią jak ktoś kompetentny, dojrzały i godny zaufania. Działa spokojnie i buduje wrażenie osoby, która ma wszystko pod kontrolą. Jesień, zima, praca, spotkania.",
     "nuty": {
      "glowy": [
-      "Jabłko",
-      "cynamon",
-      "śliwka"
+      "Kadzidło",
+      "kardamon"
      ],
      "serca": [
-      "Paczula",
-      "korzenne nuty"
+      "Wetyweria",
+      "paczula"
      ],
      "bazy": [
-      "Drzewo sandałowe",
-      "wanilia",
-      "wetyweria"
+      "Drzewo cedrowe",
+      "labdanum"
      ]
     },
     "sezon": [
@@ -3911,10 +3913,10 @@
       "Imbir"
      ],
      "serca": [
-      "Nuty drzewne"
+      "Skóra"
      ],
      "bazy": [
-      "Skóra"
+      "Nuty drzewne"
      ]
     },
     "sezon": [
@@ -4174,18 +4176,19 @@
     "opis": "Grejpfrut i suche drewno, czyli francuska elegancja bez cienia słodyczy. Zapach dorosłego mężczyzny w najbardziej klasycznym sensie, sprawdzający się w pracy, u klienta i wszędzie tam, gdzie mocne perfumy byłyby błędem. W klubie nie wywoła okrzyków. Za to zbuduje wrażenie osoby poważnej i uporządkowanej. Wiosna, lato, wczesna jesień, w ciągu dnia.",
     "nuty": {
      "glowy": [
-      "Grejpfrut",
-      "bergamotka sycylijska"
+      "Zielona bergamotka",
+      "grejpfrut",
+      "cytryna"
      ],
      "serca": [
       "Pieprz syczuański",
-      "wetyweria"
+      "geranium"
      ],
      "bazy": [
       "Wetyweria",
-      "cedr",
-      "drzewo ambrowe",
-      "paczula"
+      "paczula",
+      "olibanum",
+      "drewno ambrowe"
      ]
     },
     "sezon": [
@@ -4241,22 +4244,25 @@
     "nazwa": "Black XS",
     "rodzina": "cytrusowa",
     "profil": "męski",
-    "opis": "Ciemny, słodki zapach na codzień w cenie, która nie boli: cytrusy, pralina, przyprawy i drewno. Nie udaje niczego wyrafinowanego i robi dokładnie to, czego się od niego oczekuje, czyli przyciąga uwagę na małym dystansie. Dobry pierwszy zapach dla kogoś, kto dopiero zaczyna i nie chce od razu inwestować.",
+    "opis": "Ciemny, słodki zapach na co dzień w cenie, która nie boli: cytrusy, pralina, przyprawy i drewno. Nie udaje niczego wyrafinowanego i robi dokładnie to, czego się od niego oczekuje, czyli przyciąga uwagę na małym dystansie. Dobry pierwszy zapach dla kogoś, kto dopiero zaczyna i nie chce od razu inwestować.",
     "nuty": {
      "glowy": [
-      "Cytryna",
+      "Cytryna kalabryjska",
       "kalamansi",
-      "tamaryndowiec"
+      "szałwia",
+      "aksamitka"
      ],
      "serca": [
       "Pralina",
       "cynamon",
-      "kadzidło"
+      "czarny kardamon",
+      "balsam tolu"
      ],
      "bazy": [
-      "Tonka",
+      "Czarna ambra",
       "paczula",
-      "drewno"
+      "heban",
+      "palisander"
      ]
     },
     "sezon": [
@@ -4434,18 +4440,22 @@
       "Cytryna",
       "bergamotka",
       "ananas",
-      "neroli"
+      "neroli",
+      "rozmaryn"
      ],
      "serca": [
       "Kolendra",
       "jaśmin",
-      "cyklamen"
+      "cyklamen",
+      "mech dębowy"
      ],
      "bazy": [
       "Piżmo",
       "drzewo sandałowe",
-      "tonka",
-      "mech dębowy"
+      "cedr",
+      "kardamon",
+      "drzewo różane",
+      "tonka"
      ]
     },
     "sezon": [
@@ -4493,20 +4503,22 @@
     "nazwa": "Forever Wanted Elixir",
     "rodzina": "drzewna",
     "profil": "męski",
-    "opis": "Jeden z najmocniejszych zapachów w tej półce cenowej: ostry imbir na starcie, gęsta słodka wanilia z drewnem pod spodem. Potrafi trzymać nawet dziesięć godzin, a przez pierwsze cztery czuć cię w całym pomieszczeniu. Zapach klubowy i wieczorowy, nie sprawdzi się na formalne spotkania. Jeśli chcesz maksymalny efekt za rozsądne pieniądze, to jest najkrótsza droga.",
+    "opis": "Według Azzaro najintensywniejsza odsłona linii Wanted: soczysta malina na starcie, kardamon w sercu i skóra z drewnem pod spodem. Potrafi trzymać nawet dziesięć godzin, choć projekcja jest raczej umiarkowana, a najdłużej zostaje na ubraniu. Zapach klubowy i wieczorowy, nie sprawdzi się na formalne spotkania. Jeśli chcesz mocny efekt za rozsądne pieniądze, to jest najkrótsza droga.",
     "nuty": {
      "glowy": [
-      "Czerwony imbir",
-      "żywica elemi"
+      "Malina",
+      "zielona mandarynka",
+      "bergamotka"
      ],
      "serca": [
-      "Rozżarzone nuty drzewne",
-      "szałwia muszkatołowa"
+      "Kardamon",
+      "szałwia muszkatołowa",
+      "lawandyna"
      ],
      "bazy": [
-      "Wanilia bourbon",
-      "drewno ambrowe",
-      "benzoina"
+      "Akord skóry",
+      "wetyweria",
+      "drewno wolfwood"
      ]
     },
     "sezon": [
@@ -4515,8 +4527,8 @@
     ],
     "pora": "wieczór",
     "trwalosc": 4,
-    "projekcja": 4,
-    "intensywnosc": 3,
+    "projekcja": 3,
+    "intensywnosc": 2,
     "okazja": [
      "Randka",
      "wyjście",
@@ -4562,17 +4574,13 @@
     "opis": "Ciepła wanilia z przyprawami, idealny na randki. Przytulny i słodkawy, przy zachowanym męskim charakterze, więc nie brzmi dziecinnie. Trzyma długo i szeroko się podoba, co czyni go bezpiecznym wyborem na wieczór dla młodszego odbiorcy.",
     "nuty": {
      "glowy": [
-      "Kardamon",
-      "cytrusy"
+      "Czerwony imbir"
      ],
      "serca": [
-      "Lawenda",
-      "drzewo ambrowe"
+      "Akord rozżarzonego drewna"
      ],
      "bazy": [
-      "Wanilia",
-      "tonka",
-      "drewno"
+      "Wanilia bourbon"
      ]
     },
     "sezon": [
@@ -4625,28 +4633,19 @@
     "nazwa": "Cuirs",
     "rodzina": "skórzana",
     "profil": "unisex",
-    "opis": "Otulające przyprawy okryte gładką skórą. Słodkawy z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni roku. Idealne wprowadzenie w zapachy skórzane oraz niszowe.",
+    "opis": "Otulające przyprawy okryte gładką skórą. Drzewny, z zachowanym balansem elegancji, przy czym bardzo uniwersalny. Nada się na randkę jak i na mniej zobowiązujące wyjścia w chłodniejsze dni roku. Idealne wprowadzenie w zapachy skórzane oraz niszowe.",
     "nuty": {
      "glowy": [
-      "Szafran",
-      "kminek"
+      "Kmin rzymski",
+      "szafran"
      ],
      "serca": [
-      "Drewno sandałowe",
-      "gwajakowiec",
-      "paczula",
-      "cedr Virginia",
-      "fiołek"
+      "Drzewo sandałowe",
+      "cedr"
      ],
      "bazy": [
-      "Oud",
-      "skóra",
-      "francuskie labdanum",
-      "fasola tonka",
-      "bursztyn",
-      "piżmo",
-      "cypriol",
-      "amyris"
+      "Akord skóry",
+      "drewno oud"
      ]
     },
     "sezon": [
@@ -4702,7 +4701,7 @@
     "nazwa": "Akigala Mandarino",
     "rodzina": "drzewna",
     "profil": "unisex",
-    "opis": "Mandarynka z maliną i marakują, podane tak soczyście, że pierwsze minuty pachną jak miska owoców postawiona na słońcu, a w tle mineralne akordy akigalawood oraz szafran. Potem robi się kwiatowo i miękko, a na dnie zostaje ciepłe, lekko pieprzne drewno. Tej marki nie zna w Polsce prawie nikt, więc pytania o nazwę przychodzą same.",
+    "opis": "Mandarynka z maliną i marakują, podane tak soczyście, że pierwsze minuty pachną jak miska owoców postawiona na słońcu, a w tle przebija się już korzenna nuta akigalawood. Potem robi się kwiatowo i miękko, a na dnie zostaje ciepłe, lekko pieprzne drewno. Tej marki w Polsce wciąż mało kto zna, więc pytania o nazwę przychodzą same.",
     "nuty": {
      "glowy": [
       "Mandarynka",
@@ -4924,7 +4923,7 @@
     "nazwa": "Pegasus Exclusif",
     "rodzina": "drzewna",
     "profil": "męski",
-    "opis": "Migdał z wanilią na ciepłym, lekko dymnym drewnie. Pachnie jak wnętrze drogiej cukierni, do której ktoś wstawił skórzane fotele: słodko, ale zdecydowanie dorośle. Wersja parfum, czyli gęsta, i przy jednym psiknięciu trzyma kilkanaście godzin. Dobra propozycja dla kogoś, kto lubi Laytona i chce czegoś mniej rozpoznawalnego.",
+    "opis": "Migdał z wanilią na ciepłym, lekko dymnym drewnie. Pachnie jak wnętrze drogiej cukierni, do której ktoś wstawił skórzane fotele: słodko, ale zdecydowanie dorośle. Wersja parfum, czyli gęsta, i trzyma zwykle osiem do dziesięciu godzin. Dobra propozycja dla kogoś, kto lubi Laytona i chce czegoś mniej rozpoznawalnego.",
     "nuty": {
      "glowy": [
       "Różowy pieprz",
@@ -4948,9 +4947,9 @@
      "zima"
     ],
     "pora": "wieczór",
-    "trwalosc": 4.5,
-    "projekcja": 4,
-    "intensywnosc": 3,
+    "trwalosc": 4,
+    "projekcja": 3.5,
+    "intensywnosc": 2,
     "okazja": [
      "Kolacja",
      "wyjście",
@@ -5223,7 +5222,7 @@
     "nazwa": "Velvet Iris",
     "rodzina": "drzewna",
     "profil": "unisex",
-    "opis": "Irys wytrawny i cielesny, bez pudru i bez kwiatowej słodyczy. Zielony, lekko korzenny start przechodzi w zamsz, a kończy się suchym, kremowym drewnem. To zapach na bliski dystans, który pracuje w rozmowie i przy stole. Dla kogoś, kto ma już w szufladzie cytrusy i słodycze i chce czegoś, czego nikt nie rozpozna.",
+    "opis": "Irys wytrawny i cielesny, tylko lekko pudrowy i bez kwiatowej słodyczy. Zielony, lekko korzenny start łagodnieje, a kończy się kremowym drzewem sandałowym, labdanum i zamszem. To zapach o umiarkowanym śladzie, który dobrze pracuje w rozmowie i przy stole. Dla kogoś, kto ma już w szufladzie cytrusy i słodycze i chce czegoś, czego nikt nie rozpozna.",
     "nuty": {
      "glowy": [
       "Esencja liścia kurkumy",
@@ -5233,13 +5232,13 @@
      "serca": [
       "Konkret irysowy",
       "galbanum",
-      "mastyks",
-      "akord zamszu Saffiano"
+      "mastyks"
      ],
      "bazy": [
-      "Labdanum",
-      "kremowy akord drzewny",
-      "drzewo sandałowe"
+      "Drzewo sandałowe",
+      "labdanum",
+      "akord zamszu Saffiano",
+      "kremowy akord drzewny"
      ]
     },
     "sezon": [
@@ -5247,9 +5246,9 @@
      "jesień"
     ],
     "pora": "uniwersalna",
-    "trwalosc": 3,
-    "projekcja": 2.5,
-    "intensywnosc": 1,
+    "trwalosc": 3.5,
+    "projekcja": 3,
+    "intensywnosc": 2,
     "okazja": [
      "Biuro",
      "spotkania",
@@ -5292,7 +5291,7 @@
     "nazwa": "Ambre Latte",
     "rodzina": "gourmand",
     "profil": "unisex",
-    "opis": "Zimowe cappuccino: mleko migdałowe, karmel i prażona tonka, podane ciepło i leniwie. Pomysł jest prosty, a efekt działa dokładnie tam, gdzie powinien, czyli przy stole i w kołnierzu kurtki. Pod spodem siedzą drzewne molekuły, które trzymają słodycz w ryzach i rozciągają ją na wiele godzin. Premiera z tego roku, więc mogłeś nie doświadczyć tego wokół ciebie.",
+    "opis": "Zimowe latte bez kawy: mleko migdałowe, karmel i prażona tonka, podane ciepło i leniwie. Pomysł jest prosty, a efekt działa dokładnie tam, gdzie powinien, czyli przy stole i w kołnierzu kurtki. Pod spodem siedzą drzewne molekuły, które trzymają słodycz w ryzach i rozciągają ją na wiele godzin. Premiera z tego roku, więc mogłeś nie doświadczyć tego wokół ciebie.",
     "nuty": {
      "glowy": [
       "Akord mleka migdałowego",
@@ -5809,7 +5808,7 @@
     "nazwa": "Oud Voyager",
     "rodzina": "drzewna",
     "profil": "damski",
-    "opis": "Oud podany kwiatowo, co na rynku zdarza się rzadko. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno z dymem. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera była we wrześniu 2025 roku, więc nikt wokół go nie zna, a pytania o nazwę przychodzą szybko.",
+    "opis": "Oud podany kwiatowo. Geranium z czerwoną piwonią dają jasny, prawie różowy początek, a pod spodem siedzi ciemne, wilgotne drewno oudu i cypriolu. Mimo wszystko jest to uniwersalne pachnidło dla kobiet i świetnie nada się na bezpieczny prezent. Premiera była we wrześniu 2025 roku, więc wciąż mało kto go zna, a pytania o nazwę przychodzą szybko.",
     "nuty": {
      "glowy": [
       "Absolut geranium",
@@ -6239,10 +6238,10 @@
      ],
      "serca": [
       "Róża",
-      "czarna porzeczka (akord Kir Royal)"
+      "czarna porzeczka"
      ],
      "bazy": [
-      "Prażona fasolka tonka",
+      "Fasolka tonka",
       "delikatne piżmo"
      ]
     },
@@ -6449,8 +6448,7 @@
      "glowy": [
       "Limonka",
       "grejpfrut",
-      "mięta",
-      "mandarynka"
+      "mięta"
      ],
      "serca": [
       "Imbir",
@@ -6467,7 +6465,7 @@
      "lato"
     ],
     "pora": "dzień",
-    "trwalosc": 2,
+    "trwalosc": 2.5,
     "projekcja": 2,
     "intensywnosc": 1,
     "okazja": [
@@ -6516,7 +6514,7 @@
     "nazwa": "Wet Cherry Liquor",
     "rodzina": "gourmand",
     "profil": "unisex",
-    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co wielu uważa za dojrzalszą wersję Lost Cherry: wyraźniejsze parametry, mniej cukierka, więcej wytrawności i wyraźne drewno na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny.",
+    "opis": "Dojrzała wiśnia podlana likierem, z karmelem i różą w tle. Bohoboco zrobiło tu coś, co bywa porównywane do Lost Cherry: podobny wiśniowo-likierowy klimat, ale intensywniej i z wyraźnym drewnem na końcu. Słodko, ale bez lepkości, z trwałością i śladem, które realnie pracują. Polska marka niszowa, co bywa mocnym argumentem dla kogoś, kto szuka czegoś poza oczywistymi nazwami. Idealny dla kobiety jak i mężczyzny.",
     "nuty": {
      "glowy": [
       "Wiśnia",
@@ -6663,7 +6661,7 @@
     "nazwa": "Vanilla Black Pepper",
     "rodzina": "ambrowa",
     "profil": "unisex",
-    "opis": "Wanilia dla kogoś, kto nie chce pachnieć deserem. Czarny pieprz i kadzidło zabierają jej słodycz, a kwiatowe serce robi z całości rzecz raczej elegancką. Zapach siedzi bardzo blisko skóry: w biurze ani w windzie nikomu nie przeszkodzi, ale trzeba podejść, żeby go wyczuć. Flagowiec polskiego Bohoboco i jeden z niewielu zapachów z tej listy, które naprawdę nosi się przez cały rok. Idealny dla kobiety jak i mężczyzny.",
+    "opis": "Wanilia dla kogoś, kto nie chce pachnieć deserem. Czarny pieprz i kadzidło przełamują jej słodycz, a kwiatowe serce robi z całości rzecz raczej elegancką. Zapach siedzi bardzo blisko skóry: w biurze ani w windzie nikomu nie przeszkodzi, ale trzeba podejść, żeby go wyczuć. Flagowiec polskiego Bohoboco i jeden z niewielu zapachów z tej listy, które naprawdę nosi się przez cały rok. Idealny dla kobiety jak i mężczyzny.",
     "nuty": {
      "glowy": [
       "Kwiat pomarańczy",
@@ -6690,8 +6688,8 @@
     ],
     "pora": "uniwersalna",
     "trwalosc": 4,
-    "projekcja": 3.5,
-    "intensywnosc": 2,
+    "projekcja": 2.5,
+    "intensywnosc": 1,
     "okazja": [
      "Biuro",
      "codzienność",

@@ -508,6 +508,7 @@ function fakeSpreadsheet(tables) {
       getLastRow: () => grid.length,
       getLastColumn: width,
       getRange: (r, c, nr, nc) => ({
+        getValue: () => cell(r - 1, c - 1),
         getValues: () => Array.from({ length: nr || 1 }, (_, i) => Array.from({ length: nc || 1 }, (_, j) => cell(r - 1 + i, c - 1 + j))),
         setValues: (vals) => vals.forEach((row, i) => row.forEach((v, j) => put(r - 1 + i, c - 1 + j, v))),
         setValue(v) { put(r - 1, c - 1, v); return this; },
@@ -532,7 +533,8 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
   const vm = require('vm');
   const { execSync } = require('child_process');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
-    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Aktualizacja_2026_10.gs'), 'utf8');
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Aktualizacja_2026_10.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Korekta_2026_11.gs'), 'utf8');
   const git = (rev) => JSON.parse(execSync('git show ' + rev + ':dev/dane/arkusz.json', { cwd: path.join(__dirname, '..') }).toString());
   const oczekiwane = JSON.parse(JSON.stringify(be.tableToObjects_(sheet.Produkty)));
 
@@ -557,6 +559,8 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
     assert.match(opis, /zostawione Twoje wpisy: [^.]*p03\.cena_10/, rev);
     assert.match(opis, /p42\.podobne/, rev);
     assert.doesNotMatch(opis, /ml_dostepne/, rev);
+    // listopad 2026: po tej aktualizacji właściciel uruchamia korekta_2026_11 (weryfikacja nut i opisów, decyzja 86)
+    assert.match(vm.runInContext('korekta_2026_11()', ctx), /zmienione komórki 81 w 25 zapachach\.$/, rev);
 
     const byId = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
     assert.equal(Object.keys(byId).length, 100, rev);
@@ -652,6 +656,114 @@ test('promocja: zapisy z arkusza (10%, 0,1, „10 20”, ułamek 10,2, puste poj
   assert.ok(w.some((m) => /żadna pojemność z promocja_ml nie ma ceny/.test(m)), w.join(' | ')); // p29 nie ma 5 ml
 });
 
+
+// ---------- weryfikacja nut i opisów (listopad 2026, decyzja 86) ----------
+const weryf = (() => {
+  const fs = require('fs'), path = require('path');
+  const plik = (...p) => path.join(__dirname, '..', ...p);
+  const dane = JSON.parse(fs.readFileSync(plik('dev', 'dane', 'weryfikacja_2026_11.json'), 'utf8'));
+  const head = sheet.Produkty[0];
+  // arkusz sprzed weryfikacji: wiersze z wartościami „przed” (taki stoi dziś u właściciela)
+  const przedArkusz = () => {
+    const ark = JSON.parse(JSON.stringify(sheet));
+    const byId = Object.fromEntries(ark.Produkty.slice(1).map((r) => [r[0], r]));
+    dane.zapachy.forEach((z) => Object.keys(z.przed || {}).forEach((k) => { byId[z.id][head.indexOf(k)] = z.przed[k]; }));
+    return ark;
+  };
+  return { fs, plik, dane, head, przedArkusz };
+})();
+
+test('weryfikacja 2026-11: pliki strony i Apps Script są aktualne, dane repozytorium już poprawione, bez jabłka w Bottled Elixir', () => {
+  const gen = require('./weryfikacja_katalogu');
+  assert.ok(weryf.dane.zapachy.every((z) => z.przed && Object.keys(z.po).every((k) => k in z.przed)), 'każde „po” ma „przed”');
+  const w = gen.zbuduj(JSON.parse(JSON.stringify(weryf.dane)), JSON.parse(JSON.stringify(sheet)));
+  assert.equal(w.uzupelnione, 0);
+  assert.equal(w.wRepo, 0, 'arkusz.json ma już wszystkie poprawki (uruchom node dev/weryfikacja_katalogu.js)');
+  assert.equal(weryf.fs.readFileSync(weryf.plik('site', 'js', 'korekty-katalogu.js'), 'utf8'), w.korektyJs, 'korekty-katalogu.js aktualny');
+  assert.equal(weryf.fs.readFileSync(weryf.plik('apps-script', 'Korekta_2026_11.gs'), 'utf8'), w.gs, 'Korekta_2026_11.gs aktualny');
+  // z arkusza sprzed weryfikacji wychodzi ten sam wynik i te same poprawki w danych
+  const ark = weryf.przedArkusz();
+  const w2 = gen.zbuduj(JSON.parse(JSON.stringify(weryf.dane)), ark);
+  assert.equal(w2.korektyJs, w.korektyJs);
+  assert.equal(w2.wRepo, weryf.dane.zapachy.reduce((n, z) => n + Object.keys(z.po).length, 0));
+  deq(ark.Produkty, JSON.parse(JSON.stringify(sheet.Produkty)));
+  // intensywność do quizu idzie za projekcją
+  weryf.dane.zapachy.filter((z) => 'projekcja' in z.po).forEach((z) => assert.equal(z.po.intensywnosc, gen.intensywnosc(z.po.projekcja), z.id));
+  // treść: bez półpauz i myślników, nuty z opisu Bottled Elixir są w jego piramidzie
+  assert.doesNotMatch(JSON.stringify(weryf.dane), /[–—]/);
+  const p59 = be.productFromRow_(productRows.find((r) => r.id === 'p59'));
+  assert.doesNotMatch(JSON.stringify([p59.opis, p59.nuty]), /jabł/i);
+  deq(p59.nuty, { glowy: ['Kadzidło', 'kardamon'], serca: ['Wetyweria', 'paczula'], bazy: ['Drzewo cedrowe', 'labdanum'] });
+});
+
+test('weryfikacja 2026-11: korekta_2026_11 zmienia tylko stary tekst, zostawia wpisy właściciela, drugi raz niczego nie zmienia', () => {
+  const vm = require('vm');
+  const code = weryf.fs.readFileSync(weryf.plik('apps-script', 'Code.gs'), 'utf8') + '\n' +
+    weryf.fs.readFileSync(weryf.plik('apps-script', 'Korekta_2026_11.gs'), 'utf8');
+  const usuniete = [];
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove: (k) => usuniete.push(k) }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Korekta_2026_11.gs' });
+  const ark = weryf.przedArkusz();
+  const c = (n) => weryf.head.indexOf(n);
+  const wiersz = (id) => ark.Produkty.find((r) => r[0] === id);
+  wiersz('p59')[c('nuty_glowy')] = 'Kadzidło, kardamon, szafran'; // właściciel poprawił po swojemu: zostaje
+  wiersz('p76')[c('trwalosc')] = 4.5;                               // ta sama wartość co przed, liczba z arkusza
+  ark.Produkty = ark.Produkty.filter((r) => r[0] !== 'p97');        // wiersza nie ma w arkuszu
+  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: ark.Produkty, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+
+  const wszystkie = weryf.dane.zapachy.reduce((n, z) => n + Object.keys(z.po).length, 0);
+  const p97 = Object.keys(weryf.dane.zapachy.find((z) => z.id === 'p97').po).length;
+  const opis = vm.runInContext('korekta_2026_11()', ctx);
+  assert.match(opis, new RegExp('zmienione komórki ' + (wszystkie - p97 - 1) + ' w 25 zapachach; zostawione Twoje wpisy: p59\\.nuty_glowy; nie ma w arkuszu: p97\\.$'), opis);
+  assert.ok(usuniete.length > 0, 'katalog odświeżony (invalidateCatalog_)');
+  assert.ok(ss.sheets[ctx.SHEET.LOG].grid.some((r) => r[2] === 'korekta_2026_11'), 'wpis w zakładce Log');
+  const po = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
+  const oczek = Object.fromEntries(productRows.map((r) => [r.id, r]));
+  weryf.dane.zapachy.filter((z) => z.id !== 'p97').forEach((z) => Object.keys(z.po).forEach((k) => {
+    if (z.id === 'p59' && k === 'nuty_glowy') assert.equal(po.p59.nuty_glowy, 'Kadzidło, kardamon, szafran');
+    else assert.equal(String(po[z.id][k]), String(oczek[z.id][k]), z.id + '.' + k);
+  }));
+  const drugi = vm.runInContext('korekta_2026_11()', ctx);
+  assert.match(drugi, new RegExp('zmienione komórki 0 w 25 zapachach, już poprawne ' + (wszystkie - p97 - 1) + '; zostawione Twoje wpisy: p59\\.nuty_glowy'), drugi);
+});
+
+test('weryfikacja 2026-11: strona podmienia pola tylko przy starym tekście z arkusza i sama wygasa po aktualizacji', () => {
+  const src = weryf.fs.readFileSync(weryf.plik('site', 'js', 'app.js'), 'utf8');
+  const fnvSrc = src.match(/function fnv\(s\) \{[\s\S]*?\n  \}/)[0];
+  const korSrc = src.match(/function withKorekty\(data\) \{[\s\S]*?\n  \}/)[0];
+  const window = {};
+  new Function('window', weryf.fs.readFileSync(weryf.plik('site', 'js', 'korekty-katalogu.js'), 'utf8'))(window);
+  const withKorekty = new Function('window', fnvSrc + '\nreturn ' + korSrc)(window);
+  const pola = (c) => JSON.parse(JSON.stringify(c.products.map((p) => [p.id, p.opis, p.nuty, p.trwalosc, p.projekcja, p.intensywnosc])));
+  const katalog = (ark) => be.buildCatalog_(be.tableToObjects_(withPlaceholderStock(ark.Produkty, 100)), setRows, {}, cfg, NOW);
+  const teraz = katalog(sheet);
+  // arkusz właściciela przed korektą (stary Code.gs też podaje te pola): strona pokazuje poprawione
+  const stary = JSON.parse(JSON.stringify(katalog(weryf.przedArkusz())));
+  assert.notDeepEqual(pola(stary), pola(teraz));
+  deq(pola(withKorekty(stary)), pola(teraz));
+  // po korekcie w arkuszu nic się nie zmienia
+  const nowy = JSON.parse(JSON.stringify(teraz));
+  deq(pola(withKorekty(nowy)), pola(teraz));
+  // własny opis właściciela w jednym zapachu: ten zapach zostaje w całości taki jak w arkuszu, reszta poprawiona
+  const wlasny = JSON.parse(JSON.stringify(katalog(weryf.przedArkusz())));
+  const p59 = wlasny.products.find((p) => p.id === 'p59');
+  p59.opis = 'Własny opis właściciela.';
+  const nuty59 = JSON.parse(JSON.stringify(p59.nuty));
+  withKorekty(wlasny);
+  assert.equal(p59.opis, 'Własny opis właściciela.');
+  deq(p59.nuty, nuty59);
+  deq(pola(wlasny).filter((x) => x[0] !== 'p59'), pola(teraz).filter((x) => x[0] !== 'p59'));
+  // bez pliku poprawek i bez katalogu nic się nie psuje
+  assert.equal(new Function('window', fnvSrc + '\nreturn ' + korSrc)({})(null), null);
+  // plik ładuje się przed app.js na każdej stronie, która ładuje app.js
+  weryf.fs.readdirSync(weryf.plik('site')).filter((f) => f.endsWith('.html')).forEach((f) => {
+    const html = weryf.fs.readFileSync(weryf.plik('site', f), 'utf8');
+    const a = html.indexOf('/js/app.js'), k = html.indexOf('/js/korekty-katalogu.js');
+    if (a !== -1) assert.ok(k !== -1 && k < a, f + ': korekty-katalogu.js przed app.js');
+  });
+});
 
 
 (async () => {
