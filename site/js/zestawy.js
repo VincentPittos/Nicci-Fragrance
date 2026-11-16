@@ -68,6 +68,17 @@
     // dostępne najpierw, potem kolejność z arkusza
     var list = sets.slice().sort(function (a, b) { return Number(b.available) - Number(a.available); });
     root.innerHTML = '<ul class="set-row" role="list">' + list.map(function (s) { return '<li>' + card(s) + '</li>'; }).join('') + '</ul>';
+    jump();
+  }
+
+  // Wejście z linku /katalog#zestawy: przeglądarka przewija do kotwicy, zanim katalog nad zestawami się wczyta,
+  // więc po wczytaniu przewijamy jeszcze raz (raz na wejście).
+  var jumped = false;
+  function jump() {
+    if (jumped || location.hash !== '#zestawy') return;
+    jumped = true;
+    var section = root.closest('section');
+    if (section) requestAnimationFrame(function () { section.scrollIntoView({ block: 'start' }); });
   }
 
   function swap(el, animate) {

@@ -1,7 +1,7 @@
 /**
  * NICCI: strona główna. Pasek zaufania, parallax hero, przejście z ciemnego do jasnego, karuzela rodzin.
- * Półka katalogu (polka.js), rolki (instagram.js) i zestawy mają własne pliki; tu tylko to, co żyje na samej stronie głównej.
- * Pełny katalog jest na /katalog (decyzja 88).
+ * Półka katalogu (polka.js) i rolki (instagram.js) mają własne pliki; tu tylko to, co żyje na samej stronie głównej.
+ * Pełny katalog jest na /katalog (decyzja 88), zestawy odkrywców też (decyzja 89).
  */
 (function () {
   'use strict';
@@ -153,6 +153,8 @@
   // Dawne adresy katalogu na stronie głównej (/?rodzina=, ?marka=, ?pokaz=, ?szukaj=, linki z Instagrama i wyniku
   // quizu sprzed decyzji 88) prowadzą teraz do pełnego katalogu z tymi samymi filtrami.
   function legacyCatalogLink() {
+    // zestawy odkrywców przeniesione na /katalog (decyzja 89): stare linki /#zestawy prowadzą tam
+    if (location.hash === '#zestawy') { location.replace('/katalog#zestawy'); return true; }
     var q = new URLSearchParams(location.search);
     if (!['rodzina', 'marka', 'pokaz', 'szukaj'].some(function (k) { return q.has(k); })) return false;
     location.replace('/katalog' + location.search);
