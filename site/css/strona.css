@@ -566,9 +566,17 @@ body { background: var(--bg-dark); }
   .shelf__item { flex-basis: 15rem; max-width: none; }
   .shelf__all-btn { flex: 0 0 auto; }
 }
+/* komputer: karta 16rem, czyli w trybie kompaktowym jak na telefonie (components.css, @container card ≤ 17rem):
+   zdjęcie, marka, nazwa, rodzina i pora, pojemność, cena i przycisk. Cała karta (ok. 580 px) mieści się na ekranie
+   razem z menu, więc półkę da się przeglądać wzrokiem bez przewijania w pionie (decyzja 92). */
 @media (min-width: 64rem) {
-  .shelf__track { gap: var(--n-space-5); }
-  .shelf__item { flex-basis: 18.5rem; }
+  .shelf__track { gap: var(--n-space-4); }
+  .shelf__item { flex-basis: 16rem; }
+  /* rodzina, pora i dla kogo zostają widoczne w mniejszych etykietach: po nich przegląda się półkę wzrokiem */
+  .shelf .card .chips { display: flex; gap: 0.25rem; }
+  .shelf .card .chip { min-height: 1.375rem; padding: 0 0.375rem; font-size: 0.625rem; letter-spacing: 0.03em; }
+  .shelf .card .card__brand { font-size: 1.3125rem; }
+  .shelf .card .card__name { font-size: 1.0625rem; }
   .shelf__item--all { flex-basis: 13rem; }
   .shelf__arrows { display: flex; }
 }

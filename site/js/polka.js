@@ -16,8 +16,8 @@
   var next = section.querySelector('[data-shelf-next]');
   var allBtn = section.querySelector('[data-shelf-all]');
   var LIMIT = 16;
-  // szerokość karty na półce (strona.css, .shelf__item): telefon 62vw, od 40rem 15rem, od 64rem 18.5rem
-  var SIZES = '(min-width: 64rem) 18.5rem, (min-width: 40rem) 15rem, 62vw';
+  // szerokość karty na półce (strona.css, .shelf__item): telefon 62vw, od 40rem 15rem, od 64rem 16rem
+  var SIZES = '(min-width: 64rem) 16rem, (min-width: 40rem) 15rem, 62vw';
 
   function zapachy(n) { return n + ' ' + A.plural(n, ['zapach', 'zapachy', 'zapachów']); }
 
