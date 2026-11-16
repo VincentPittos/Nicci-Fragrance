@@ -81,7 +81,8 @@
     v.preload = 'auto';
     v.addEventListener('playing', function () { box.dataset.playing = ''; });
     v.src = box.dataset.wideo;
-    box.insertBefore(v, box.firstChild.nextSibling);
+    var pic = box.querySelector('picture');
+    box.insertBefore(v, pic ? pic.nextSibling : box.firstChild); // nad okładką, pod ikoną i podpisem
     var icon = box.querySelector('.ig__play');
     if (icon) icon.insertAdjacentHTML('beforeend', ICON_MUTED);
     previews.push(v);

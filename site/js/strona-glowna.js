@@ -29,33 +29,6 @@
     window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
   }
 
-  // ---------- przejście z sekcji 2 do 3: poświata jaśnieje razem z przewijaniem ----------
-  function initHorizon() {
-    var el = document.querySelector('[data-horizon]');
-    if (!el) return;
-    // Na ekranach dotykowych poświata stoi w jednym położeniu: przeliczana przy każdej klatce przewijania
-    // na iPhonie i iPadzie nie nadąża za przewijaniem i drży. Na komputerze z myszą jaśnieje z przewijaniem.
-    // Sam gradient (strona.css, --hz-curve) nie zależy od przewijania.
-    var touch = window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
-    if (M.reduced() || touch) { el.style.setProperty('--p', '0.6'); return; }
-    var raf = 0, on = false;
-    function update() {
-      raf = 0;
-      // wysokość z chwili wejścia (NicciApp.screenH): chowający się pasek przeglądarki nie szarpie przejściem
-      var r = el.getBoundingClientRect(), vh = A.screenH();
-      // 0: pas dopiero wchodzi od dołu ekranu; 1: jego dół minął 45% wysokości ekranu
-      var p = (vh - r.top) / (vh * 0.55 + r.height);
-      el.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
-    }
-    function onScroll() { if (on && !raf) raf = requestAnimationFrame(update); }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (e) { on = e[0].isIntersecting; if (on) update(); }, { rootMargin: '10% 0px' }).observe(el);
-    } else { on = true; }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
-  }
-
   // ---------- pasek zaufania: liczba zapachów z katalogu ----------
   function trustCount(catalog) {
     var n = catalog.products.length;
@@ -164,7 +137,6 @@
   function init() {
     if (legacyCatalogLink()) return;
     initParallax();
-    initHorizon();
     A.catalog().then(function (catalog) {
       trustCount(catalog);
       renderFamilies(catalog);

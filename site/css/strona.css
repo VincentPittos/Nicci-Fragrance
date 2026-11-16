@@ -310,7 +310,7 @@ body { background: var(--bg-dark); }
    Jedna krzywa od dołu sekcji 2 do nagłówka rodzin (właściciel: bez widocznego początku i końca, gradient rozrzedzony,
    bez linii; decyzje 70 i 71). Każdy z trzech elementów maluje swój odcinek tej samej krzywej we własnym tle:
      .nf-how      dolny pas wysokości --hz-up (pod przyciskiem i dopiskiem),
-     .horizon     cały pas --hz-h (tu jeszcze poświata i ziarno),
+     .horizon     cały pas --hz-h (sam gradient: bez poświaty i ziarna, decyzja 94),
      .light-page  górny pas --hz-down (pod nadtytułem i tytułem rodzin), niżej krem.
    Punkty krzywej leżą w tych samych miejscach strony, przesunięte o --hz-o (początek krzywej względem górnej krawędzi
    danego tła), więc na styku elementów kolor i tempo zmiany są identyczne. Żaden element nie zachodzi na inny: Safari
@@ -322,7 +322,9 @@ body { background: var(--bg-dark); }
    Długość krzywej wyznacza kontrast tekstu: dół dopisku pod przyciskiem stoi na 18% krzywej (tło ma 4% kremu, kontrast
    dopisku 4,8:1), nadtytuł „Katalog” na 80% (tło 94% kremu, kontrast 4,9:1). Odstęp między nimi to 62% krzywej.
    Decyzja 90 (właściciel: krótsza przerwa między sekcjami, przejście płynniej i szybciej): pusty pas .horizon skrócony
-   do minimum, a cała krzywa do odstępu między dopiskiem a nadtytułem podzielonego przez 0,62 (komputer 594 px → 320 px). */
+   do minimum, a cała krzywa do odstępu między dopiskiem a nadtytułem podzielonego przez 0,62 (komputer 594 px → 320 px).
+   Decyzja 94 (właściciel: pasek w przejściu ma zniknąć): w 40-pikselowym pasie poświata i ziarno wyglądały jak jasna
+   linia, więc zostały usunięte; zostaje sama krzywa. */
 :root {
   /* telefon: dół dopisku 32 px nad końcem sekcji 2, nadtytuł 64 px pod początkiem części jasnej */
   --hz-up: 4.3rem; --hz-h: 2rem; --hz-down: 6.6rem;
@@ -375,33 +377,6 @@ body { background: var(--bg-dark); }
   overflow: hidden;
   pointer-events: none;
 }
-/* Ziarno rozmywa schodki kolorów na zwykłych monitorach; pojawia się i znika stopniowo, więc nie ma brzegu. */
-.horizon::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-  opacity: 0.05;
-  mix-blend-mode: soft-light;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
-}
-/* Poświata (--n-gold-soft #E9D2AF) w środku pasa gaśnie po krzywej i kończy się w 3/4 promienia, czyli wewnątrz pasa: nic jej nie ucina.
-   Na komputerze jaśnieje z przewijaniem (--p ze strona-glowna.js), na ekranach dotykowych stoi (--p: 0.6). */
-.horizon__glow {
-  position: absolute; left: 50%; top: 50%;
-  width: min(90rem, 160vw); height: 100%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(50% 50% at 50% 50%,
-    rgba(233, 210, 175, 0.26) 0%,
-    rgba(233, 210, 175, 0.245) 15%,
-    rgba(233, 210, 175, 0.178) 30%,
-    rgba(233, 210, 175, 0.082) 45%,
-    rgba(233, 210, 175, 0.015) 60%,
-    transparent 75%);
-  opacity: calc(0.35 + 0.4 * var(--p));
-  pointer-events: none;
-}
-
 /* ---------- część jasna ---------- */
 /* górny pas --hz-down: koniec przejścia pod nagłówkiem rodzin (właściciel: napis może nachodzić na gradient), niżej krem */
 .light-page.theme-light {
@@ -414,10 +389,11 @@ body { background: var(--bg-dark); }
 .section-head { display: grid; gap: var(--n-space-3); margin-bottom: var(--n-space-6); }
 .section-head .t-h2 { max-width: 20ch; }
 .families, .catalog, .sets, .guarantees, .faq { padding-block: var(--n-space-8); scroll-margin-top: 4rem; }
-.families { padding-top: var(--n-space-7); }
+/* strona główna: mniejsze odstępy między sekcjami jasnej części (decyzja 95), telefon 3 rem, komputer 4 rem na sekcję */
+.families, .guarantees, .faq { padding-block: var(--n-space-7); }
 @media (min-width: 64rem) {
-  .families, .catalog, .sets, .guarantees, .faq { padding-block: var(--n-space-9); }
-  .families { padding-top: var(--n-space-7); }
+  .catalog, .sets { padding-block: var(--n-space-9); }
+  .families, .guarantees, .faq { padding-block: var(--n-space-8); }
   .section-head { margin-bottom: var(--n-space-7); }
 }
 
@@ -525,8 +501,13 @@ body { background: var(--bg-dark); }
 }
 
 /* ---------- półka katalogu (sekcja 3, decyzja 88) ---------- */
-.shelf, .ig { padding-block: var(--n-space-8); scroll-margin-top: 4rem; }
-@media (min-width: 64rem) { .shelf, .ig { padding-block: var(--n-space-9); } }
+/* góra półki zostaje (nadtytuł „Katalog” stoi w przejściu z grafitu, decyzja 90); niżej mniejsze odstępy (decyzja 95) */
+.shelf, .ig { padding-block: var(--n-space-8) var(--n-space-7); scroll-margin-top: 4rem; }
+.ig { padding-top: var(--n-space-7); }
+@media (min-width: 64rem) {
+  .shelf { padding-block: var(--n-space-9) var(--n-space-8); }
+  .ig { padding-block: var(--n-space-8); }
+}
 .shelf__lead, .ig__lead { max-width: 38em; color: var(--text); }
 /* lewy brzeg pierwszej karty równo z treścią kontenera, ostatnia karta dochodzi do prawego brzegu */
 .shelf__rail, .ig__rail {
