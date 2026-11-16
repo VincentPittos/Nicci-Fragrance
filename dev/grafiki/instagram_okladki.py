@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+NIEUŻYWANY od decyzji 93: okładki rolek robi teraz dev/grafiki/rolki.py z klatek filmów (ten skrypt by je nadpisał).
+
 Okładki boxów w sekcji Instagram na stronie głównej (decyzja 88): kadry 9:16 ze zdjęć z sesji Nicciego
 (folder FOTY NICCI na Dysku Skalentry, podgląd 2400 x 1600 px). Stoją tam, dopóki właściciel nie przyśle rolek;
 wtedy okładką będzie pierwsza klatka rolki.

@@ -14,3 +14,7 @@
 # Zdjęcia nie mają skrótu w nazwie: tydzień, żeby podmieniony plik dotarł do klientów bez zmiany nazwy.
 /img/*
   Cache-Control: public, max-age=604800
+
+# Filmy rolek (dev/grafiki/rolki.py): jak zdjęcia, tydzień.
+/media/*
+  Cache-Control: public, max-age=604800
