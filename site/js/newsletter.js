@@ -38,7 +38,7 @@
   var HTML =
     '<div class="nl__card">' +
       '<button type="button" class="nl__close" data-nl-close aria-label="Zamknij">' + ICON_X + '</button>' +
-      // grafika z napisem −99% schowanym za flakonami (wersja 4, dev/grafiki/napis_99.py); napisy z grafiki są w alt
+      // grafika z napisem −99% schowanym za flakonami (wersja 3: Anton, krem; dev/grafiki/napis_99.py); napisy z grafiki są w alt
       '<div class="nl__media">' +
         '<picture>' +
           '<source type="image/avif" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 70vw">' +

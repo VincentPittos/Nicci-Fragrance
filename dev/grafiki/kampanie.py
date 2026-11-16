@@ -6,8 +6,8 @@ Grafiki kampanii na stronę (popup newslettera, strona ofert): tła z OpenArt be
     python3 dev/grafiki/kampanie.py
 
 Wynik w site/img/kampanie/NAZWA-SZEROKOŚĆ.{webp,avif}:
-  essentials-99-*    popup newslettera i pas na /oferty: grafika 4:5 z napisem −99% za flakonami (wybrana wersja 4,
-                     Anton złoto; powstaje z dev/grafiki/napis_99.py, etykiety: essentials_etykiety_fragrance.py)
+  essentials-99-*    popup newslettera i pas na /oferty: grafika 4:5 z napisem −99% za flakonami (wybrana wersja 3,
+                     Anton krem; powstaje z dev/grafiki/napis_99.py, etykiety: essentials_etykiety_fragrance.py)
   black-weeks-*      hero strony ofert 16:9 na komputerze, black-weeks-pion-* 4:5 na telefonie
   christmas-*        to samo dla oferty świątecznej
 """
