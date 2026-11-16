@@ -131,7 +131,6 @@
 
 /* ---------- CTA: przycisk jak w hero, obok krótka informacja ---------- */
 .nf-how__cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--n-space-3) var(--n-space-5);margin-top:var(--n-space-8)}
-.nf-how__note{margin:0;font-size:var(--n-size-small);color:var(--nf-cream-2)}
 
 /* ---------- Animacje ---------- */
 @keyframes nf-float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-4px,0)}}

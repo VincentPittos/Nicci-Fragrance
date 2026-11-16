@@ -323,6 +323,7 @@ body { background: var(--bg-dark); }
    dopisku 4,8:1), nadtytuł „Katalog” na 80% (tło 94% kremu, kontrast 4,9:1). Odstęp między nimi to 62% krzywej.
    Decyzja 90 (właściciel: krótsza przerwa między sekcjami, przejście płynniej i szybciej): pusty pas .horizon skrócony
    do minimum, a cała krzywa do odstępu między dopiskiem a nadtytułem podzielonego przez 0,62 (komputer 594 px → 320 px).
+   Decyzja 97: dopisek pod przyciskiem usunięty (właściciel); przycisk stoi tam, gdzie był dopisek, krzywa bez zmian.
    Decyzja 94 (właściciel: pasek w przejściu ma zniknąć): w 40-pikselowym pasie poświata i ziarno wyglądały jak jasna
    linia, więc zostały usunięte; zostaje sama krzywa. */
 :root {
