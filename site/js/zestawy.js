@@ -10,6 +10,9 @@
   var root = document.querySelector('[data-sets]');
   if (!root) return;
   var MAX = 5;
+  // strona ofert pokazuje tylko wybrane zestawy (data-sets-only="id1,id2", w tej kolejności) z własnym nadtytułem
+  var ONLY = (root.getAttribute('data-sets-only') || '').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+  var EYEBROW = root.getAttribute('data-sets-eyebrow') || 'Zestaw odkrywców';
   var sets = [];
   var cat = null;
 
@@ -39,7 +42,7 @@
     var save = s.cenaOsobno && s.cenaOsobno > s.price ? s.cenaOsobno - s.price : 0;
     var totalMl = (s.sklad || []).reduce(function (t, x) { return t + (x.ml || 0); }, 0);
     return '<article class="set-card" data-set-id="' + esc(s.id) + '" aria-labelledby="set-' + esc(s.id) + '"' + (s.available ? '' : ' data-soldout') + '>' +
-      '<p class="t-eyebrow">Zestaw odkrywców</p>' +
+      '<p class="t-eyebrow">' + esc(EYEBROW) + '</p>' +
       '<h3 class="set-card__name" id="set-' + esc(s.id) + '">' + esc(s.nazwa) + '</h3>' +
       (s.opis ? '<p class="set-card__desc">' + esc(s.opis) + '</p>' : '') +
       '<p class="set-card__meta">' + s.sklad.length + ' ' + A.plural(s.sklad.length, ['zapach', 'zapachy', 'zapachów']) + ', razem ' + totalMl + '&nbsp;ml</p>' +
@@ -63,10 +66,11 @@
   function render(catalog) {
     cat = catalog;
     sets = catalog.sets || [];
+    if (ONLY.length) sets = ONLY.map(function (id) { return sets.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean);
     var section = root.closest('section');
     if (!sets.length) { if (section) section.hidden = true; return; }
     // dostępne najpierw, potem kolejność z arkusza
-    var list = sets.slice().sort(function (a, b) { return Number(b.available) - Number(a.available); });
+    var list = ONLY.length ? sets.slice() : sets.slice().sort(function (a, b) { return Number(b.available) - Number(a.available); });
     root.innerHTML = '<ul class="set-row" role="list">' + list.map(function (s) { return '<li>' + card(s) + '</li>'; }).join('') + '</ul>';
     jump();
   }

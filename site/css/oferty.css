@@ -1,0 +1,134 @@
+/*
+ * NICCI: strona ofert specjalnych /oferty (Black Weeks, Święta). Które hero i sekcje widać, decyduje
+ * <html data-kampania data-faza> ustawiane w <head> przez js/oferty-kampanie.js, więc nic nie miga.
+ */
+
+/* ---------- widoczność według kampanii i fazy ---------- */
+html:not([data-kampania="black-weeks"]) [data-hero="black-weeks"],
+html:not([data-kampania="christmas"]) [data-hero="christmas"],
+html:not([data-kampania="brak"]) [data-hero="brak"],
+html:not([data-faza="przed"]) [data-tylko="przed"],
+html:not([data-faza="trwa"]) [data-tylko="trwa"],
+html:not([data-kampania="christmas"]) [data-kampania-tylko="christmas"],
+html[data-faza="przed"] [data-kampania-tylko="christmas"] { display: none !important; }
+
+/* ---------- hero ---------- */
+.offer-hero {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  background: var(--n-black);
+  isolation: isolate;
+}
+.offer-hero__media { grid-row: 2; display: block; position: relative; z-index: -1; margin-top: -24vw; }
+.offer-hero__media img { display: block; width: 100%; height: auto; }
+.offer-hero__media::before { /* górna krawędź zdjęcia wtapia się w czerń pod tekstem */
+  content: ""; position: absolute; inset: 0 0 auto; height: 40%;
+  background: linear-gradient(to bottom, var(--n-black), rgba(4, 4, 4, 0));
+}
+.offer-hero__inner { grid-row: 1; padding-block: var(--n-space-7) var(--n-space-4); }
+.offer-hero--none .offer-hero__inner { padding-block: var(--n-space-9); }
+.offer-hero__copy { display: grid; justify-items: start; gap: var(--n-space-4); max-width: 36rem; }
+.offer-hero__title { display: grid; margin: 0; color: var(--text-strong); }
+.offer-hero__t1 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: var(--n-size-display); line-height: 1; letter-spacing: -0.02em;
+}
+.offer-hero--xmas .offer-hero__t1 { font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem); line-height: 1.04; text-wrap: balance; }
+.offer-hero__t2 {
+  font-family: 'Carattere', var(--font-display); font-weight: 400;
+  font-size: clamp(3rem, 1.9rem + 5.2vw, 6.25rem); line-height: 1; letter-spacing: 0;
+  color: var(--accent);
+  margin-top: -0.05em;
+}
+.offer-hero__lead { max-width: 34rem; color: var(--text); }
+.offer-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--n-space-3) var(--n-space-5); margin-top: var(--n-space-2); }
+.offer-hero__link { color: var(--text-strong); text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: rgba(213, 168, 101, 0.6); }
+
+@media (min-width: 48rem) {
+  .offer-hero { min-height: clamp(36rem, 86vh, 54rem); align-items: center; }
+  .offer-hero__media { position: absolute; inset: 0; grid-row: auto; margin: 0; }
+  .offer-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .offer-hero__media::before {
+    inset: 0; height: auto;
+    background: linear-gradient(90deg, rgba(4, 4, 4, 0.92) 0%, rgba(4, 4, 4, 0.7) 32%, rgba(4, 4, 4, 0) 58%);
+  }
+  .offer-hero__inner { grid-row: auto; padding-block: var(--n-space-9); }
+  .offer-hero__copy { max-width: min(38rem, 48%); }
+}
+
+/* ---------- licznik ---------- */
+.countdown { display: grid; gap: var(--n-space-2); margin-top: var(--n-space-2); }
+.countdown__label {
+  margin: 0;
+  font-size: var(--n-size-micro); font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-accent);
+}
+.countdown__row {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: var(--n-hairline) solid rgba(213, 168, 101, 0.38);
+  background: rgba(4, 4, 4, 0.5);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.countdown__cell { display: grid; justify-items: center; gap: 0.15rem; padding: var(--n-space-3) var(--n-space-4); min-width: 4.25rem; }
+.countdown__cell + .countdown__cell { border-left: var(--n-hairline) solid rgba(232, 215, 195, 0.14); }
+.countdown__n {
+  font-family: var(--font-display); font-size: 2.25rem; font-weight: 500; line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--text-strong);
+}
+.countdown__u { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+@media (min-width: 48rem) { .countdown__n { font-size: 2.75rem; } .countdown__cell { min-width: 5.5rem; } }
+
+/* ---------- zestawy prezentowe ---------- */
+.gifts { background: var(--n-cream-100); }
+.gifts__lead { max-width: 42rem; }
+
+/* ---------- oferty ---------- */
+.offers { padding-block: var(--n-space-8); scroll-margin-top: 4rem; }
+@media (min-width: 64rem) { .offers { padding-block: var(--n-space-9); } }
+.offers.theme-light { background: var(--n-cream-50); }
+.offers__head .t-lead { max-width: 44rem; }
+.offers__tabs { display: flex; flex-wrap: wrap; gap: var(--n-space-2); margin-bottom: var(--n-space-5); }
+.offers__tabs[hidden] { display: none; }
+.offers__tab {
+  min-height: 2.75rem; padding: 0 var(--n-space-4);
+  border: var(--n-hairline) solid var(--border-input); border-radius: var(--n-radius-pill);
+  background: none; color: var(--text);
+  font: inherit; font-size: var(--n-size-small); font-weight: 500; letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums;
+  cursor: pointer;
+  transition: background-color var(--n-dur-base) var(--n-ease-out), border-color var(--n-dur-base) var(--n-ease-out), color var(--n-dur-base) var(--n-ease-out);
+}
+.offers__tab[aria-pressed="true"] { background: var(--selected-bg); border-color: var(--selected-bg); color: var(--selected-fg); }
+.offers__tab:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@media (hover: hover) { .offers__tab:not([aria-pressed="true"]):hover { border-color: var(--accent); } }
+.offers__tab span { margin-left: 0.4rem; color: inherit; opacity: 0.6; font-variant-numeric: tabular-nums; }
+
+.grid--offers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 56rem) { .grid--offers { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--n-space-4); } }
+@media (min-width: 80rem) { .grid--offers { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.offers__empty { margin: var(--n-space-6) auto 0; max-width: 34rem; text-align: center; color: var(--text); }
+.offers__empty[hidden] { display: none; }
+.offers__rules { margin: var(--n-space-6) 0 0; max-width: 46rem; font-size: var(--n-size-small); line-height: 1.6; color: var(--text-muted); }
+
+/* ---------- pas newslettera ---------- */
+.offer-nl { padding-block: var(--n-space-8); }
+.offer-nl__inner { display: grid; gap: var(--n-space-6); align-items: center; }
+.offer-nl__media { display: block; border: var(--n-hairline) solid rgba(213, 168, 101, 0.35); overflow: hidden; }
+.offer-nl__media img { display: block; width: 100%; height: auto; }
+.offer-nl__copy { display: grid; justify-items: start; gap: var(--n-space-4); }
+.offer-nl__title { max-width: 16ch; }
+.offer-nl__text { margin: 0; max-width: 34rem; color: var(--text); }
+@media (min-width: 64rem) {
+  .offer-nl { padding-block: var(--n-space-9); }
+  .offer-nl__inner { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); gap: var(--n-space-8); }
+}
+
+/* pasek podglądu (?podglad=1) nad hero: przypomina, że dane ofert są przykładowe */
+.offers-preview {
+  margin: 0; padding: 0.6rem var(--gutter, 1rem);
+  background: #8E2A1A; color: #fff;
+  font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.02em; text-align: center;
+}

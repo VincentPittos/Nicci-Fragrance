@@ -1,0 +1,205 @@
+/*
+ * NICCI: popup newslettera z kodem −99% na zestaw NICCI ESSENTIALS.
+ * Natywny <dialog> (showModal): fokus zostaje w środku, Esc zamyka, strona pod spodem jest nieaktywna.
+ * Komputer: grafika 4:5 po lewej z napisem −99% na ciemnym niebie, formularz po prawej.
+ * Telefon: arkusz od dołu, u góry pas z flakonami i siedmioma odlewkami, −99% w pasku pod zdjęciem.
+ * Kolory i kroje z tokens.css; złoty tekst tylko na ciemnym tle.
+ */
+.nl {
+  --nl-pad: var(--n-space-5);
+  width: 100%;
+  max-width: 100%;
+  max-height: min(96svh, 100%);
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  border-top: var(--n-hairline) solid rgba(213, 168, 101, 0.45);
+  border-radius: 1rem 1rem 0 0;
+  background: var(--n-graphite-900);
+  color: var(--text);
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 -1.5rem 4rem rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 260ms var(--n-ease-out), transform var(--n-spring-ui-ms) var(--n-spring-ui), overlay 260ms allow-discrete, display 260ms allow-discrete;
+}
+.nl.is-open { opacity: 1; transform: none; }
+.nl::backdrop {
+  background: rgba(4, 4, 4, 0);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  transition: background-color 260ms var(--n-ease-out), backdrop-filter 260ms var(--n-ease-out);
+}
+.nl.is-open::backdrop { background: rgba(4, 4, 4, 0.72); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
+
+.nl__card { position: relative; display: grid; }
+
+/* ---------- zdjęcie ---------- */
+.nl__media { position: relative; overflow: hidden; background: #0c0c0c; aspect-ratio: 640 / 405; }
+.nl__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.nl__media::after { /* przejście zdjęcia w panel na telefonie */
+  content: ""; position: absolute; inset: auto 0 0; height: 9%;
+  background: linear-gradient(to bottom, rgba(26, 25, 24, 0), var(--n-graphite-900));
+  pointer-events: none;
+}
+
+/* napis −99% NICCI ESSENTIALS: na telefonie pod zdjęciem, na komputerze na ciemnym tle zdjęcia */
+.nl__badge {
+  position: relative;
+  display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: var(--n-space-4);
+  margin-top: var(--n-space-3);
+  padding: 0 var(--nl-pad);
+}
+.nl__pct {
+  grid-row: span 2;
+  font-family: var(--font-display);
+  font-size: 3.75rem; font-weight: 600; line-height: 0.85; letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums;
+  background: linear-gradient(180deg, #F6E2B6 0%, #E6C88E 38%, #D5A865 62%, #A9803F 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0.25rem 0.9rem rgba(0, 0, 0, 0.55));
+}
+.nl__brand {
+  align-self: end;
+  font-family: var(--font-text); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--n-gold);
+}
+.nl__sub {
+  align-self: start;
+  font-family: 'Carattere', var(--font-display); font-size: 1.625rem; line-height: 1.1;
+  color: var(--n-cream);
+}
+
+/* ---------- treść i formularz ---------- */
+.nl__body { padding: var(--n-space-3) var(--nl-pad) var(--n-space-4); }
+.nl__title {
+  margin: 0;
+  font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; line-height: 1.08; letter-spacing: -0.01em;
+  color: var(--text-strong); text-wrap: balance;
+}
+.nl__desc { margin: var(--n-space-2) 0 0; font-size: 0.875rem; line-height: 1.55; color: var(--text); text-wrap: pretty; }
+.nl__desc strong { font-weight: 500; color: var(--text-strong); }
+.nl__form { display: grid; gap: var(--n-space-3); margin-top: var(--n-space-4); }
+.nl__step1 { display: grid; gap: var(--n-space-1); margin-top: var(--n-space-4); }
+
+/* telefon: dwa kroki. Najpierw oferta ze zdjęciem i przyciskiem, potem sam formularz (mieści się bez przewijania). */
+@media (max-width: 51.99rem) {
+  .nl:not([data-krok="2"]) .nl__form { display: none; }
+  .nl[data-krok="2"] .nl__step1, .nl[data-krok="2"] .nl__media, .nl[data-krok="2"] .nl__desc { display: none; }
+  .nl[data-krok="2"] .nl__badge { margin-top: var(--n-space-5); padding-right: 4rem; }
+  .nl[data-krok="2"] .nl__form { margin-top: var(--n-space-4); }
+}
+.nl__fields { display: grid; gap: var(--n-space-3); }
+.nl .field input { min-height: 3rem; }
+.nl .field input::placeholder { color: rgba(232, 215, 195, 0.38); }
+
+.nl__check {
+  position: relative;
+  display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 0.7rem;
+  cursor: pointer;
+  font-size: 0.8125rem; line-height: 1.5; color: var(--text-muted);
+}
+.nl__check input { position: absolute; opacity: 0; width: 1.25rem; height: 1.25rem; margin: 0; }
+.nl__box {
+  width: 1.25rem; height: 1.25rem; margin-top: 0.05rem;
+  border: var(--n-hairline) solid var(--border-input); border-radius: var(--n-radius-1);
+  display: grid; place-items: center;
+  transition: background-color var(--n-dur-base) var(--n-ease-out), border-color var(--n-dur-base) var(--n-ease-out);
+}
+.nl__box::after {
+  content: ""; width: 0.65rem; height: 0.35rem;
+  border-left: 1.5px solid var(--n-black); border-bottom: 1.5px solid var(--n-black);
+  transform: translateY(-1px) rotate(-45deg) scale(0);
+  transition: transform var(--n-spring-snappy-ms) var(--n-spring-snappy);
+}
+.nl__check input:checked + .nl__box { background: var(--n-cream); border-color: var(--n-cream); }
+.nl__check input:checked + .nl__box::after { transform: translateY(-1px) rotate(-45deg) scale(1); }
+.nl__check input:focus-visible + .nl__box { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.nl__check[data-invalid] .nl__box { border-color: var(--danger); }
+.nl__check a { display: inline; min-height: 0; color: var(--text); }
+@media (hover: hover) { .nl__check:hover .nl__box { border-color: var(--n-gold); } }
+
+.nl__error { margin: 0; font-size: var(--n-size-small); font-weight: 500; color: var(--danger); }
+.nl__error[hidden] { display: none; }
+.nl__submit { margin-top: var(--n-space-1); }
+.nl__decline {
+  justify-self: center;
+  min-height: 2.75rem; padding: 0 var(--n-space-3);
+  border: 0; background: none;
+  font: inherit; font-size: var(--n-size-small); color: var(--text-muted);
+  text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: rgba(169, 151, 137, 0.5);
+  cursor: pointer;
+}
+@media (hover: hover) { .nl__decline:hover { color: var(--text); } }
+.nl__small { margin: 0; font-size: var(--n-size-micro); line-height: 1.5; color: var(--text-muted); text-align: center; }
+
+/* ---------- po zapisie ---------- */
+.nl__done { display: grid; gap: var(--n-space-3); padding-block: var(--n-space-2) var(--n-space-2); }
+.nl__done[hidden], .nl__start[hidden] { display: none; }
+.nl__done:focus { outline: none; }
+.nl__done-mark {
+  width: 3rem; height: 3rem; border-radius: 50%;
+  display: grid; place-items: center;
+  border: var(--n-hairline) solid var(--n-gold); color: var(--n-gold);
+}
+.nl__done .btn { margin-top: var(--n-space-3); }
+
+/* ---------- zamykanie ---------- */
+.nl__close {
+  position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2;
+  width: 2.75rem; height: 2.75rem;
+  display: grid; place-items: center;
+  border: var(--n-hairline) solid rgba(232, 215, 195, 0.22); border-radius: 50%;
+  background: rgba(4, 4, 4, 0.55);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: var(--n-cream);
+  cursor: pointer;
+  transition: border-color var(--n-dur-base) var(--n-ease-out), color var(--n-dur-base) var(--n-ease-out);
+}
+@media (hover: hover) { .nl__close:hover { border-color: var(--n-gold); color: var(--n-gold); } }
+.nl__close:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+/* ---------- komputer i tablet poziomo ---------- */
+@media (min-width: 52rem) {
+  .nl {
+    --nl-pad: var(--n-space-7);
+    width: min(62rem, calc(100% - 3rem));
+    max-height: calc(100svh - 3rem);
+    margin: auto;
+    border: var(--n-hairline) solid rgba(213, 168, 101, 0.4);
+    border-radius: var(--n-radius-1);
+    box-shadow: 0 2.5rem 6rem rgba(0, 0, 0, 0.6);
+    transform: translateY(1rem) scale(0.985);
+  }
+  .nl__card { grid-template-columns: 29rem minmax(0, 1fr); align-items: stretch; }
+  .nl__step1 { display: none; }
+  .nl__fields { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  .nl__media { grid-row: 1 / span 2; aspect-ratio: 4 / 5; min-height: 100%; }
+  .nl__media img { position: absolute; inset: 0; object-position: 50% 100%; }
+  .nl__media::after {
+    inset: 0 0 auto; height: 45%;
+    background: radial-gradient(70% 80% at 50% 0%, rgba(4, 4, 4, 0.35), rgba(4, 4, 4, 0) 70%);
+  }
+  .nl__badge {
+    position: absolute; z-index: 1; top: 0; left: 0;
+    width: 29rem; margin: 0; padding: var(--n-space-5) var(--n-space-4) 0;
+    grid-template-columns: 1fr; justify-items: center; row-gap: 0.15rem;
+    text-align: center;
+    pointer-events: none;
+  }
+  .nl__brand { order: -1; }
+  .nl__pct { grid-row: auto; font-size: 5.5rem; }
+  .nl__sub { font-size: 1.75rem; }
+  .nl__body { grid-column: 2; padding: var(--n-space-6) var(--nl-pad) var(--n-space-5); align-self: center; }
+  .nl__title { font-size: 2.375rem; padding-right: var(--n-space-5); }
+  .nl__desc { margin-top: var(--n-space-3); font-size: 0.9375rem; }
+  .nl__close { top: 0.75rem; right: 0.75rem; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl, .nl::backdrop { transition: none; }
+  .nl { transform: none; }
+}
