@@ -48,7 +48,7 @@
       '</div>' +
       '<div class="nl__body">' +
         '<div class="nl__start">' +
-          '<h2 class="nl__title" id="nl-t">7 zapachów za 1&nbsp;złotówkę</h2>' +
+          '<h2 class="nl__title" id="nl-t">Siedem zapachów za&nbsp;złotówkę</h2>' +
           '<p class="nl__desc" id="nl-d">Zapisz się do newslettera, a wyślemy Ci kod −99% na zestaw Nicci Essentials: ' +
             'Aventus, Imagination, Erba Pura, Bois Impérial, Chocolate Greedy, Black Orchid i&nbsp;Red Tobacco, każdy po 1&nbsp;ml. ' +
             'Kod działa do zamówienia z&nbsp;dowolną odlewką 20&nbsp;ml.</p>' +
