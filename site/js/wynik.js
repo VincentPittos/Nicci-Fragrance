@@ -124,7 +124,7 @@
     if (!top.length) {
       root.innerHTML = '<div class="result__empty"><h1 class="result__title">Na razie nic nie pasuje</h1>' +
         '<p>Wszystkie zapachy z tego kierunku właśnie się skończyły. Napisz do nas, podpowiemy coś podobnego z katalogu.</p>' +
-        '<p><a class="btn btn--primary" href="' + A.url('/#katalog') + '">Zobacz katalog</a></p></div>';
+        '<p><a class="btn btn--primary" href="' + A.url('/katalog') + '">Zobacz katalog</a></p></div>';
       return;
     }
     var partial = rec.partial;
@@ -142,7 +142,7 @@
       '<div class="result__cards">' + top.map(resultCard).join('') + '</div>' +
       '<div class="result__all">' +
         '<button type="button" class="btn btn--primary" data-add-all>Dodaj wszystkie trzy do koszyka<span class="result__sum">' + U.price(sum) + '</span></button>' +
-        '<a class="btn btn--outline" href="' + A.url('/?rodzina=' + R.slug(family)) + '#katalog">Zobacz wszystkie zapachy z tej rodziny</a>' +
+        '<a class="btn btn--outline" href="' + A.url('/katalog?rodzina=' + R.slug(family)) + '">Zobacz wszystkie zapachy z tej rodziny</a>' +
       '</div>' +
       setBlock(set, partial) +
       '<p class="result__links"><a class="link" href="' + A.url('/quiz') + '" data-restart>Zacznij quiz od nowa</a>' +

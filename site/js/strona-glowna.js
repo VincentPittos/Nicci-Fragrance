@@ -1,6 +1,7 @@
 /**
  * NICCI: strona główna. Pasek zaufania, parallax hero, przejście z ciemnego do jasnego, karuzela rodzin.
- * Katalog (etap 5) i zestawy mają własne pliki; tu tylko to, co żyje na samej stronie głównej.
+ * Półka katalogu (polka.js), rolki (instagram.js) i zestawy mają własne pliki; tu tylko to, co żyje na samej stronie głównej.
+ * Pełny katalog jest na /katalog (decyzja 88).
  */
 (function () {
   'use strict';
@@ -107,7 +108,7 @@
         (desc ? '<p class="families__desc">' + esc(desc) + '</p>' : '') +
         '<div class="families__cta">' +
           '<a class="btn btn--primary" href="' + A.url('/quiz?rodzina=' + slug) + '">Dobierz zapach w minutę</a>' +
-          '<a class="link" href="' + A.url('/?rodzina=' + slug) + '#katalog" data-filter-family="' + esc(g.key) + '">Zobacz zapachy z tej rodziny</a>' +
+          '<a class="link" href="' + A.url('/katalog?rodzina=' + slug) + '" data-filter-family="' + esc(g.key) + '">Zobacz zapachy z tej rodziny</a>' +
         '</div>' +
       '</div></div>';
   }
@@ -136,17 +137,8 @@
       .sort(function (a, b) { return b.items.length - a.items.length || a.key.localeCompare(b.key, 'pl'); });
     track.innerHTML = groups.map(familySlide).join('') + quizSlide(catalog.products.length);
     var labels = groups.map(function (g) { return U.cap(g.key); }).concat(['Quiz']);
+    // „Zobacz zapachy z tej rodziny” prowadzi do pełnego katalogu z filtrem (/katalog?rodzina=, decyzja 88)
     window.NicciCarousel.mount(root, { label: function (k) { return labels[k]; } });
-
-    track.addEventListener('click', function (e) {
-      var link = e.target.closest('[data-filter-family]');
-      if (!link || !document.querySelector('[data-catalog]')) return;
-      // na stronie głównej filtr ustawiamy bez przeładowania; katalog słucha tego zdarzenia (etap 5)
-      e.preventDefault();
-      document.dispatchEvent(new CustomEvent('nicci:filter', { detail: { rodzina: [link.dataset.filterFamily] } }));
-      var target = document.getElementById('katalog');
-      target.scrollIntoView({ behavior: M.reduced() ? 'auto' : 'smooth', block: 'start' });
-    });
   }
 
   function familiesError() {
@@ -158,7 +150,17 @@
       '<div class="families__cta"><a class="btn btn--primary" href="' + A.url('/quiz') + '">Dobierz zapach w minutę</a></div></div></div>';
   }
 
+  // Dawne adresy katalogu na stronie głównej (/?rodzina=, ?marka=, ?pokaz=, ?szukaj=, linki z Instagrama i wyniku
+  // quizu sprzed decyzji 88) prowadzą teraz do pełnego katalogu z tymi samymi filtrami.
+  function legacyCatalogLink() {
+    var q = new URLSearchParams(location.search);
+    if (!['rodzina', 'marka', 'pokaz', 'szukaj'].some(function (k) { return q.has(k); })) return false;
+    location.replace('/katalog' + location.search);
+    return true;
+  }
+
   function init() {
+    if (legacyCatalogLink()) return;
     initParallax();
     initHorizon();
     A.catalog().then(function (catalog) {

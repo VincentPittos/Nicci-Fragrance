@@ -51,7 +51,7 @@
       <ul role="list">
         <li><a class="t-nav" href="#jak-to-dziala">Jak to działa</a></li>
         <li><a class="t-nav" href="/quiz">Quiz</a></li>
-        <li><a class="t-nav" href="#katalog">Katalog</a></li>
+        <li><a class="t-nav" href="/katalog">Katalog</a></li>
         <li><a class="t-nav" href="#zestawy">Zestawy odkrywców</a></li>
         <li><a class="t-nav" href="#gwarancje">Gwarancje</a></li>
         <li><a class="t-nav" href="#faq">FAQ</a></li>
@@ -92,7 +92,7 @@
       <p class="t-lead hero__lead">Odlewamy oryginalne perfumy niszowe i designerskie do atomizerów 5, 10 i&nbsp;20&nbsp;ml, więc płacisz tylko za tyle, ile chcesz nosić. Nie wiesz, od czego zacząć? Odpowiedz na pięć pytań, a&nbsp;pokażemy Ci trzy zapachy, które do Ciebie pasują.</p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="/quiz">Znajdź zapach dla siebie</a>
-        <a class="btn btn--outline" href="#katalog">Zobacz wszystkie zapachy</a>
+        <a class="btn btn--outline" href="/katalog">Zobacz wszystkie zapachy</a>
       </div>
     </div>
   </div>
@@ -239,7 +239,80 @@
 
 <div class="light-page theme-light">
 
-<!-- 3. RODZINY ZAPACHOWE -->
+<!-- 3. KATALOG: półka przewijanych kart, pełny katalog na /katalog (decyzja 88) -->
+<section class="shelf" id="katalog" aria-labelledby="shelf-t">
+  <header class="section-head container container--wide shelf__head">
+    <p class="t-eyebrow t-eyebrow--rule">Katalog</p>
+    <h2 class="t-h2" id="shelf-t">Zapachy, od których <span class="t-accent">warto zacząć</span></h2>
+    <p class="t-lead shelf__lead">Bestsellery i nowości z naszej półki. Pełną listę z wyszukiwarką i filtrami znajdziesz w katalogu.</p>
+  </header>
+  <div class="shelf__rail" data-shelf tabindex="0" role="region" aria-label="Wybrane zapachy, przewiń w bok">
+    <ul class="shelf__track" role="list" data-shelf-track>
+      <li class="shelf__item" aria-hidden="true"><div class="card card--grafit theme-graphite skeleton"><div class="card__media"></div><div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span><span class="sk" style="height:2.75rem"></span></div></div></li><li class="shelf__item" aria-hidden="true"><div class="card card--grafit theme-graphite skeleton"><div class="card__media"></div><div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span><span class="sk" style="height:2.75rem"></span></div></div></li><li class="shelf__item" aria-hidden="true"><div class="card card--grafit theme-graphite skeleton"><div class="card__media"></div><div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span><span class="sk" style="height:2.75rem"></span></div></div></li><li class="shelf__item" aria-hidden="true"><div class="card card--grafit theme-graphite skeleton"><div class="card__media"></div><div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span><span class="sk" style="height:2.75rem"></span></div></div></li><li class="shelf__item" aria-hidden="true"><div class="card card--grafit theme-graphite skeleton"><div class="card__media"></div><div class="card__body"><span class="sk" style="width:55%;margin-inline:auto"></span><span class="sk" style="width:75%;margin-inline:auto"></span><span class="sk" style="height:2.75rem"></span></div></div></li>
+    </ul>
+  </div>
+  <div class="container container--wide shelf__foot">
+    <div class="shelf__progress" aria-hidden="true"><span data-shelf-progress></span></div>
+    <div class="shelf__arrows">
+      <button type="button" class="icon-btn carousel__arrow" data-shelf-prev aria-label="Poprzednie zapachy"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="icon-btn carousel__arrow" data-shelf-next aria-label="Następne zapachy"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <a class="btn btn--primary shelf__all-btn" href="/katalog" data-shelf-all>Zobacz pełny katalog</a>
+  </div>
+</section>
+
+<!-- 4. ROLKI Z INSTAGRAMA: boxy 9:16, które lekko się unoszą (decyzja 88). Okładki to kadry z sesji Nicciego,
+     dopóki właściciel nie przyśle rolek; wtedy href prowadzi do rolki, a box może odtwarzać wideo (js/instagram.js). -->
+<section class="ig" id="instagram" aria-labelledby="ig-t">
+  <header class="section-head container ig__head">
+    <p class="t-eyebrow t-eyebrow--rule">Instagram</p>
+    <h2 class="t-h2" id="ig-t">Zajrzyj do <span class="t-accent">naszej pracowni</span></h2>
+    <p class="t-lead ig__lead">Zobacz, jak odlewamy zapachy prosto z flakonów i co nowego pojawia się na naszej półce.</p>
+  </header>
+  <div class="ig__rail" data-ig-rail tabindex="0" role="region" aria-label="Rolki z Instagrama, przewiń w bok">
+    <ul class="ig__track" role="list">
+      <li class="ig__item" style="--i:0"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Odlewamy pipetą prosto z oryginalnego flakonu. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-1-320.avif 320w, /img/instagram/rolka-1-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-1-320.webp" srcset="/img/instagram/rolka-1-320.webp 320w, /img/instagram/rolka-1-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Odlewamy pipetą prosto z oryginalnego flakonu</span>
+      </a></li>
+      <li class="ig__item" style="--i:1"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Złoty atomizer gotowy do wysyłki. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-2-320.avif 320w, /img/instagram/rolka-2-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-2-320.webp" srcset="/img/instagram/rolka-2-320.webp 320w, /img/instagram/rolka-2-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Złoty atomizer gotowy do wysyłki</span>
+      </a></li>
+      <li class="ig__item" style="--i:2"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Atomizery 5, 10 i 20 ml. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-3-320.avif 320w, /img/instagram/rolka-3-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-3-320.webp" srcset="/img/instagram/rolka-3-320.webp 320w, /img/instagram/rolka-3-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Atomizery 5, 10 i 20 ml</span>
+      </a></li>
+      <li class="ig__item" style="--i:3"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Nicci w pracowni. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-4-320.avif 320w, /img/instagram/rolka-4-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-4-320.webp" srcset="/img/instagram/rolka-4-320.webp 320w, /img/instagram/rolka-4-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Nicci w pracowni</span>
+      </a></li>
+      <li class="ig__item" style="--i:4"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Flakony, z których odlewamy. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-5-320.avif 320w, /img/instagram/rolka-5-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-5-320.webp" srcset="/img/instagram/rolka-5-320.webp 320w, /img/instagram/rolka-5-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Flakony, z których odlewamy</span>
+      </a></li>
+      <li class="ig__item" style="--i:5"><a class="ig__box" href="https://instagram.com/" data-ig target="_blank" rel="noopener" aria-label="Ręczne odlewanie w rękawiczkach. Otwiera Instagram Nicci Fragrance">
+        <picture><source type="image/avif" srcset="/img/instagram/rolka-6-320.avif 320w, /img/instagram/rolka-6-640.avif 640w" sizes="(min-width: 64rem) 15rem, 46vw"><img src="/img/instagram/rolka-6-320.webp" srcset="/img/instagram/rolka-6-320.webp 320w, /img/instagram/rolka-6-640.webp 640w" sizes="(min-width: 64rem) 15rem, 46vw" width="320" height="569" alt="" loading="lazy" decoding="async"></picture>
+        <span class="ig__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></svg></span>
+        <span class="ig__cap">Ręczne odlewanie w rękawiczkach</span>
+      </a></li>
+    </ul>
+  </div>
+  <div class="container ig__foot">
+    <div class="shelf__arrows">
+      <button type="button" class="icon-btn carousel__arrow" data-ig-prev aria-label="Poprzednie rolki"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="icon-btn carousel__arrow" data-ig-next aria-label="Następne rolki"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <a class="btn btn--outline" href="https://instagram.com/" data-ig target="_blank" rel="noopener">Obserwuj nas na Instagramie</a>
+  </div>
+</section>
+
+<!-- 5. RODZINY ZAPACHOWE i quiz (mniejsze kadry, decyzja 88) -->
 <section class="families" id="rodziny" aria-labelledby="families-t">
   <header class="section-head container">
     <p class="t-eyebrow t-eyebrow--rule">Rodziny zapachowe</p>
@@ -266,16 +339,7 @@
   </div>
 </section>
 
-<!-- 4. KATALOG (etap 5) -->
-<section class="catalog" id="katalog" aria-labelledby="catalog-t">
-  <header class="section-head container container--wide">
-    <p class="t-eyebrow t-eyebrow--rule">Katalog</p>
-    <h2 class="t-h2" id="catalog-t">Wszystkie zapachy</h2>
-  </header>
-  <div class="container container--wide" data-catalog></div>
-</section>
-
-<!-- 5. ZESTAWY ODKRYWCÓW (etap 5) -->
+<!-- 6. ZESTAWY ODKRYWCÓW (etap 5) -->
 <section class="sets" id="zestawy" aria-labelledby="sets-t">
   <header class="section-head container">
     <p class="t-eyebrow t-eyebrow--rule">Zestawy odkrywców</p>
@@ -284,7 +348,7 @@
   <div class="container" data-sets></div>
 </section>
 
-<!-- 6. GWARANCJE i 7. FAQ (etap 5) -->
+<!-- 7. GWARANCJE i 8. FAQ (etap 5) -->
 <section class="guarantees" id="gwarancje" aria-labelledby="guarantees-t">
   <header class="section-head container">
     <p class="t-eyebrow t-eyebrow--rule">Gwarancje</p>
@@ -339,7 +403,7 @@
 </div>
 </main>
 
-<!-- 8. STOPKA -->
+<!-- 9. STOPKA -->
 <footer class="site-footer theme-dark">
   <div class="site-footer__inner container">
     <div class="site-footer__brand">
@@ -350,7 +414,7 @@
       <h2 class="site-footer__h">Sklep</h2>
       <ul role="list">
         <li><a href="/quiz">Quiz zapachowy</a></li>
-        <li><a href="#katalog">Katalog</a></li>
+        <li><a href="/katalog">Katalog</a></li>
         <li><a href="#zestawy">Zestawy odkrywców</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -393,7 +457,8 @@
 <script src="/js/app.js" defer></script>
 <script src="/js/koszyk.js" defer></script>
 <script src="/js/sekcja2.js" defer></script>
-<script src="/js/katalog.js" defer></script>
+<script src="/js/polka.js" defer></script>
+<script src="/js/instagram.js" defer></script>
 <script src="/js/produkt.js" defer></script>
 <script src="/js/zestawy.js" defer></script>
 <script src="/js/strona-glowna.js" defer></script>

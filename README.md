@@ -7,7 +7,7 @@ Strona sprzedażowa odlewek oryginalnych perfum (5, 10, 20 ml) i zestawów odkry
 | Katalog | Zawartość |
 |---|---|
 | `site/` | Strona publikowana na Netlify (`netlify.toml` w katalogu głównym wskazuje `site/`). `nicci-api.js` to moduł integracji, zmienia się w nim tylko `API_URL` i `IG_HANDLE`. |
-| `apps-script/` | `Code.gs` i manifest. Wklejasz do projektu Apps Script przy arkuszu. `Aktualizacja_2026_10.gs` to jednorazowa aktualizacja arkusza (nowe zapachy z października 2026), `Korekta_2026_11.gs` jednorazowa poprawka nut i opisów (weryfikacja z listopada 2026). |
+| `apps-script/` | `Code.gs` i manifest. Wklejasz do projektu Apps Script przy arkuszu. `Aktualizacja_2026_10.gs` to jednorazowa aktualizacja arkusza (nowe zapachy z października 2026), `Korekta_2026_11.gs` jednorazowa poprawka nut i opisów (weryfikacja z listopada 2026), `Zestaw_Essentials_2026_11.gs` dopisuje zestaw NICCI ESSENTIALS. |
 | `dev/` | Konwersja arkusza, mock katalogu, testy backendu, podglądy etapów. Nie trafia na produkcję. |
 | `docs/` | Raporty etapów, kontrakt API, rejestr decyzji. |
 | `refs/` | Materiały wejściowe: prompt, architektura, referencje graficzne, artifact sekcji 2. |

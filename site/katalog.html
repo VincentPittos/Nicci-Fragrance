@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Katalog perfum w odlewkach 5, 10 i 20 ml | Nicci Fragrance</title>
+<meta name="description" content="Wszystkie zapachy Nicci Fragrance w jednym miejscu: perfumy niszowe i designerskie w odlewkach 5, 10 i 20 ml. Szukaj po nazwie, marce albo nucie i filtruj po rodzinie, porze dnia i sezonie.">
+<meta name="theme-color" content="#040404">
+<link rel="canonical" href="https://niccifragrance.pl/katalog">
+<meta property="og:url" content="https://niccifragrance.pl/katalog">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Nicci Fragrance">
+<meta property="og:title" content="Katalog perfum w odlewkach | Nicci Fragrance">
+<meta property="og:description" content="Oryginalne perfumy niszowe i designerskie w odlewkach 5, 10 i 20 ml.">
+<meta property="og:image" content="https://niccifragrance.pl/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/marka/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/img/marka/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/img/marka/apple-touch-icon.png">
+<link rel="preload" href="/fonts/cormorant-garamond-normal-latin-2fed1d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jost-normal-latin-35841f.woff2" as="font" type="font/woff2" crossorigin>
+<!-- katalog z arkusza (Apps Script): połączenie zestawiane od razu, zanim skrypty o nie poproszą -->
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/strona.css">
+<link rel="stylesheet" href="/css/katalog.css">
+<link rel="stylesheet" href="/css/koszyk.css">
+</head>
+<body class="plain-page">
+<a class="skip-link" href="#main">Przejdź do treści</a>
+<div data-page-root>
+<header class="site-header site-header--solid theme-dark" data-header>
+  <div class="site-header__bar">
+    <a class="brand-mark" href="/" aria-label="Nicci Fragrance, strona główna">
+      <img src="/img/marka/logo-pelne-zloto.svg" alt="" width="1505" height="1640">
+    </a>
+    <nav class="site-nav" data-nav aria-label="Główna">
+      <ul role="list">
+        <li><a class="t-nav" href="/#jak-to-dziala">Jak to działa</a></li>
+        <li><a class="t-nav" href="/quiz">Quiz</a></li>
+        <li><a class="t-nav" href="/katalog" aria-current="page">Katalog</a></li>
+        <li><a class="t-nav" href="#zestawy">Zestawy odkrywców</a></li>
+        <li><a class="t-nav" href="/#gwarancje">Gwarancje</a></li>
+        <li><a class="t-nav" href="/#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__end">
+      <a class="btn btn--primary header-cta" href="/quiz">Wybierz swój zapach</a>
+      <button class="icon-btn menu-btn" type="button" data-menu aria-expanded="false" aria-label="Menu">
+        <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M5 9.5h18M5 18.5h12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="cart-btn" type="button" data-cart-button data-open-cart aria-label="Koszyk, pusty">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7.5 10.5h13l-1 12.5a1.5 1.5 0 0 1-1.5 1.4H10a1.5 1.5 0 0 1-1.5-1.4l-1-12.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.5 10.5V9a3.5 3.5 0 0 1 7 0v1.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="cart-btn__count" data-cart-count></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main" class="catalog-page theme-light">
+<section class="catalog catalog--page" id="katalog" aria-labelledby="catalog-t">
+  <header class="section-head container container--wide catalog-page__head">
+    <p class="t-eyebrow t-eyebrow--rule">Katalog</p>
+    <h1 class="t-h2" id="catalog-t">Wszystkie zapachy</h1>
+    <p class="t-lead catalog-page__lead">Perfumy niszowe i designerskie w odlewkach 5, 10 i&nbsp;20&nbsp;ml. Szukaj po nazwie, marce albo nucie, a&nbsp;jeśli nie wiesz, od czego zacząć, <a class="link" href="/quiz">quiz dobierze trzy zapachy</a> w minutę.</p>
+  </header>
+  <div class="container container--wide" data-catalog></div>
+</section>
+
+<section class="sets" id="zestawy" aria-labelledby="sets-t">
+  <header class="section-head container">
+    <p class="t-eyebrow t-eyebrow--rule">Zestawy odkrywców</p>
+    <h2 class="t-h2" id="sets-t">Kilka zapachów na próbę</h2>
+  </header>
+  <div class="container" data-sets></div>
+</section>
+</main>
+
+<!-- 8. STOPKA -->
+<footer class="site-footer theme-dark">
+  <div class="site-footer__inner container">
+    <div class="site-footer__brand">
+      <img src="/img/marka/logo-pelne-zloto.svg" alt="Nicci Fragrance" width="1505" height="1640" loading="lazy">
+      <p>Odlewki oryginalnych perfum niszowych i designerskich. Odlewamy ręcznie, wysyłamy paczkomatem albo kurierem.</p>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Sklep</h2>
+      <ul role="list">
+        <li><a href="/quiz">Quiz zapachowy</a></li>
+        <li><a href="/katalog">Katalog</a></li>
+        <li><a href="#zestawy">Zestawy odkrywców</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Płatność i dostawa</h2>
+      <ul role="list">
+        <li>BLIK na telefon</li>
+        <li>Przelew na konto</li>
+        <li>Paczkomat InPost</li>
+        <li>Kurier InPost, DPD albo DHL</li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__h">Kontakt</h2>
+      <ul role="list">
+        <li><a href="https://instagram.com/" data-ig rel="noopener" target="_blank">Instagram</a></li>
+        <li><a href="mailto:kontakt@niccifragrance.pl">kontakt@niccifragrance.pl</a></li>
+        <li>Nicci Fragrance</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__legal container">
+    <p>© <span data-year>2026</span> Nicci Fragrance</p>
+    <p><a href="/regulamin">Regulamin</a> <a href="/prywatnosc">Polityka prywatności</a></p>
+  </div>
+</footer>
+</div>
+
+<script src="/nicci-api.js" defer></script>
+<script src="/js/motion.js" defer></script>
+<script src="/js/ui.js" defer></script>
+<script src="/js/nuty.js" defer></script>
+<script src="/js/ikony.js" defer></script>
+<script src="/js/rodziny.js" defer></script>
+<script src="/js/drawer.js" defer></script>
+<script src="/js/card.js" defer></script>
+<script src="/js/korekty-katalogu.js" defer></script>
+<script src="/js/app.js" defer></script>
+<script src="/js/koszyk.js" defer></script>
+<script src="/js/katalog.js" defer></script>
+<script src="/js/produkt.js" defer></script>
+<script src="/js/zestawy.js" defer></script>
+<script src="/js/dane-strukturalne.js" defer></script>
+</body>
+</html>

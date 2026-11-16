@@ -15,7 +15,7 @@
   if (!o || !o.numer) {
     root.innerHTML = '<div class="confirm__empty"><h1 class="order__title">Nie widzimy tu zamówienia</h1>' +
       '<p>Jeśli zamówienie zostało złożone, dane do płatności są w mailu od nas. Nie ma go? Zajrzyj do folderu Oferty albo Spam.</p>' +
-      '<p class="confirm__actions"><a class="btn btn--primary" href="' + A.url('/#katalog') + '">Wróć do katalogu</a></p></div>';
+      '<p class="confirm__actions"><a class="btn btn--primary" href="' + A.url('/katalog') + '">Wróć do katalogu</a></p></div>';
     return;
   }
 

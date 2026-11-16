@@ -516,6 +516,7 @@ function fakeSpreadsheet(tables) {
         setFontWeight: () => {}
       }),
       appendRow: (row) => { grid.push(row.slice()); },
+      insertRowAfter: (r) => { grid.splice(r, 0, []); },
       setFrozenRows: () => {}
     };
   };
@@ -763,6 +764,37 @@ test('weryfikacja 2026-11: strona podmienia pola tylko przy starym tekście z ar
     const a = html.indexOf('/js/app.js'), k = html.indexOf('/js/korekty-katalogu.js');
     if (a !== -1) assert.ok(k !== -1 && k < a, f + ': korekty-katalogu.js przed app.js');
   });
+});
+
+// ---------- zestaw NICCI ESSENTIALS (decyzja 87) ----------
+test('zestaw Essentials: 7 zapachów po 1 ml za 99 zł, funkcja dla arkusza dopisuje go raz na początku Zestawów', () => {
+  const fs = require('fs'), path = require('path'), vm = require('vm');
+  const c = be.buildCatalog_(productRows, setRows, {}, cfg, NOW);
+  const ess = c.sets.find((s) => s.id === 'essentials');
+  assert.ok(ess && ess.available, 'zestaw dostępny');
+  assert.equal(ess.price, 9900);
+  deq(ess.sklad.map((x) => [x.id, x.ml]), [['p11', 1], ['p01', 1], ['p08', 1], ['p44', 1], ['p29', 1], ['p87', 1], ['p25', 1]]);
+  assert.equal(ess.cenaOsobno, null, 'odlewki 1 ml nie mają osobnej ceny, więc bez „oszczędzasz”');
+  assert.equal(c.sets[0].id, 'essentials', 'pierwszy w kolejności z arkusza');
+  assert.doesNotMatch(JSON.stringify(sheet.Zestawy), /[–—]/);
+  // wycena: zestaw zużywa po 1 ml każdego składnika
+  const r = be.priceOrder_([{ type: 'set', id: 'essentials', qty: 2 }], 'paczkomat', productRows, setRows, {}, cfg);
+  assert.equal(r.ok, true);
+  assert.equal(r.lines[0].suma, 19800);
+  // funkcja dla arkusza właściciela (stary Code.gs: ss_, headerMap_, str_, log_, invalidateCatalog_)
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Zestaw_Essentials_2026_11.gs'), 'utf8');
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Zestaw_Essentials_2026_11.gs' });
+  const bez = sheet.Zestawy.filter((row) => row[0] !== 'essentials');
+  const ss = fakeSpreadsheet({ [ctx.SHEET.ZESTAWY]: bez, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+  assert.match(vm.runInContext('zestaw_essentials_2026_11()', ctx), /^Dopisany zestaw NICCI ESSENTIALS/);
+  deq(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.ZESTAWY].grid))).map((z) => { delete z._row; return z; }),
+    JSON.parse(JSON.stringify(be.tableToObjects_(sheet.Zestawy))).map((z) => { delete z._row; return z; }));
+  assert.match(vm.runInContext('zestaw_essentials_2026_11()', ctx), /już jest/);
+  assert.equal(ss.sheets[ctx.SHEET.ZESTAWY].grid.length, sheet.Zestawy.length, 'drugie uruchomienie niczego nie dopisuje');
 });
 
 

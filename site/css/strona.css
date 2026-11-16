@@ -458,16 +458,16 @@ body { background: var(--bg-dark); }
 .families__carousel .carousel__viewport { padding-inline: var(--gutter); }
 .families__carousel .carousel__track { gap: var(--n-space-4); }
 .families__slide {
-  flex: 0 0 88%;
+  flex: 0 0 80%;
   display: flex; flex-direction: column;
   background: var(--surface);
   border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
   transition: opacity 400ms var(--n-ease-out);
 }
 .families__slide:not([data-current]) { opacity: 0.55; }
-.families__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-panel); }
+.families__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-panel); }
 .families__media img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.families__panel { display: grid; gap: var(--n-space-3); align-content: start; padding: var(--n-space-5) var(--n-space-5) var(--n-space-6); }
+.families__panel { display: grid; gap: var(--n-space-3); align-content: start; padding: var(--n-space-4) var(--n-space-4) var(--n-space-5); }
 .families__name { font-family: var(--font-display); font-size: var(--n-size-h3); line-height: 1.08; letter-spacing: -0.01em; font-weight: 500; }
 .families__count { margin-top: calc(var(--n-space-2) * -1); font-size: var(--n-size-small); color: var(--text-muted); }
 .families__desc { font-size: 0.9875rem; line-height: 1.65; color: var(--text); max-width: 34em; }
@@ -493,7 +493,7 @@ body { background: var(--bg-dark); }
 }
 
 @media (min-width: 48rem) {
-  .families__slide { flex-basis: 80%; }
+  .families__slide { flex-basis: 62%; }
   .families__cta { grid-auto-flow: column; align-items: center; gap: var(--n-space-5); }
   .families__cta .btn { width: auto; }
 }
@@ -501,26 +501,123 @@ body { background: var(--bg-dark); }
   .families__carousel .carousel__viewport { padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter))); }
   .families__carousel .carousel__track { gap: var(--n-space-6); }
   .families__slide {
-    flex-basis: min(100%, calc(var(--container) - 2 * var(--gutter)));
-    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center;
+    flex-basis: min(100%, 58rem);
+    display: grid; grid-template-columns: minmax(0, 22.5rem) minmax(0, 1fr); align-items: center;
     background: none; border: 0;
   }
   .families__slide:not([data-current]) { opacity: 0.35; }
-  .families__media { aspect-ratio: 4 / 5; max-height: 44rem; }
+  .families__media { aspect-ratio: 4 / 5; max-height: 28rem; }
   /* panel nachodzi na kadr, jak w referencji */
   .families__panel {
     position: relative; z-index: 1;
     margin-left: -12%;
-    padding: var(--n-space-7) var(--n-space-7) var(--n-space-7);
+    padding: var(--n-space-6);
     background: var(--surface);
     border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
   }
-  .families__name { font-size: var(--n-size-h2); }
+  .families__name { font-size: var(--n-size-h3); }
   .note-row { gap: var(--n-space-3); }
   .note-row li { flex-basis: 4.25rem; }
   .note-row img { width: 3.5rem; height: 3.5rem; }
   .families__collage { aspect-ratio: 4 / 5; align-content: center; gap: 8% 10%; padding: 10% 12%; }
 }
+
+/* ---------- półka katalogu (sekcja 3, decyzja 88) ---------- */
+.shelf, .ig { padding-block: var(--n-space-8); scroll-margin-top: 4rem; }
+@media (min-width: 64rem) { .shelf, .ig { padding-block: var(--n-space-9); } }
+.shelf__lead, .ig__lead { max-width: 38em; color: var(--text); }
+/* lewy brzeg pierwszej karty równo z treścią kontenera, ostatnia karta dochodzi do prawego brzegu */
+.shelf__rail, .ig__rail {
+  --edge: max(var(--gutter), calc((100vw - 90rem) / 2 + var(--gutter)));
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+}
+.ig__rail { --edge: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter))); }
+.shelf__rail::-webkit-scrollbar, .ig__rail::-webkit-scrollbar { display: none; }
+.shelf__rail:focus-visible, .ig__rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* selektor z rodzicem: base.css zeruje padding list z role="list" mocniejszym selektorem */
+.shelf__rail > .shelf__track, .ig__rail > .ig__track { display: flex; width: max-content; margin: 0; padding: 0 var(--edge); list-style: none; }
+.shelf__rail > .shelf__track { gap: var(--n-space-3); padding-block: var(--n-space-2) var(--n-space-5); }
+.shelf__item { display: flex; flex: 0 0 62vw; max-width: 16rem; scroll-snap-align: start; }
+.shelf__item > .card { width: 100%; }
+.shelf__item--all { flex-basis: 11rem; }
+.shelf__item--msg { flex-basis: min(34rem, 84vw); max-width: none; }
+.shelf__all {
+  display: grid; align-content: center; justify-items: center; gap: var(--n-space-2);
+  width: 100%; padding: var(--n-space-6) var(--n-space-4); text-align: center; text-decoration: none;
+  background: var(--surface); color: var(--text);
+  border: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color var(--n-dur-base) var(--n-ease-out);
+}
+.shelf__all:hover { border-color: var(--accent); }
+.shelf__all-n { font-family: var(--font-display); font-size: clamp(3rem, 2.2rem + 3vw, 4.5rem); line-height: 1; color: var(--accent); }
+.shelf__all-t { font-size: var(--n-size-small); color: var(--text-muted); }
+.shelf__all-cta { margin-top: var(--n-space-3); padding-bottom: 0.2rem; border-bottom: var(--n-hairline) solid var(--accent); font-size: 0.9375rem; }
+.shelf__foot, .ig__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--n-space-4) var(--n-space-5); }
+.shelf__progress { position: relative; flex: 1 1 8rem; height: var(--n-hairline); background: var(--border-hairline); overflow: hidden; }
+.shelf__progress span { position: absolute; inset: 0 auto 0 0; width: 30%; background: var(--accent); }
+.shelf__arrows { display: none; gap: var(--n-space-2); }
+.shelf__all-btn { flex: 1 1 100%; }
+@media (min-width: 40rem) {
+  .shelf__track { gap: var(--n-space-4); }
+  .shelf__item { flex-basis: 15rem; max-width: none; }
+  .shelf__all-btn { flex: 0 0 auto; }
+}
+@media (min-width: 64rem) {
+  .shelf__track { gap: var(--n-space-5); }
+  .shelf__item { flex-basis: 18.5rem; }
+  .shelf__item--all { flex-basis: 13rem; }
+  .shelf__arrows { display: flex; }
+}
+
+/* ---------- rolki z Instagrama (sekcja 4, decyzja 88) ---------- */
+/* boxy unoszą się każdy w swoim rytmie (animacja na <li>, żeby najechanie mogło podnieść sam box) */
+.ig__rail > .ig__track { gap: var(--n-space-4); padding-block: var(--n-space-6) var(--n-space-7); }
+.ig__item { flex: 0 0 46vw; max-width: 14rem; scroll-snap-align: start; animation: ig-float 7.5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+.ig__item:nth-child(even) { animation-duration: 8.6s; }
+@keyframes ig-float {
+  0%, 100% { transform: translateY(0.35rem) rotate(-0.5deg); }
+  50% { transform: translateY(-0.55rem) rotate(0.5deg); }
+}
+.ig__box {
+  position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden;
+  border-radius: 1.25rem; background: var(--n-graphite); color: var(--n-cream-100); text-decoration: none;
+  box-shadow: 0 1.75rem 3rem -1.5rem rgb(26 25 24 / 0.6), 0 0 0 var(--n-hairline) rgb(213 168 101 / 0.35);
+  transition: transform 600ms var(--n-ease-out), box-shadow 600ms var(--n-ease-out);
+}
+.ig__box:hover, .ig__box:focus-visible {
+  transform: translateY(-0.6rem) scale(1.025);
+  box-shadow: 0 2.5rem 3.5rem -1.5rem rgb(26 25 24 / 0.7), 0 0 0 var(--n-hairline) rgb(213 168 101 / 0.8);
+}
+.ig__box:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.ig__box img, .ig__box video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ig__box::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(4 4 4 / 0.82), rgb(4 4 4 / 0) 48%); }
+.ig__cap { position: absolute; z-index: 1; inset: auto var(--n-space-4) var(--n-space-4); font-size: 0.875rem; line-height: 1.35; text-wrap: balance; }
+.ig__play {
+  position: absolute; z-index: 1; top: 0.75rem; right: 0.75rem;
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem; padding-left: 0.1rem;
+  border-radius: 50%; color: var(--n-cream-100); background: rgb(4 4 4 / 0.45);
+  border: var(--n-hairline) solid rgb(213 168 101 / 0.55); backdrop-filter: blur(6px);
+  transition: opacity 300ms;
+}
+.ig__box[data-playing] .ig__play { opacity: 0; }
+.ig__foot { justify-content: space-between; }
+@media (min-width: 40rem) { .ig__item { flex-basis: 13rem; } }
+@media (min-width: 64rem) {
+  .ig__track { gap: var(--n-space-6); }
+  .ig__item { flex-basis: 15rem; max-width: none; }
+  .ig__foot .shelf__arrows { display: flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ig__item { animation: none; }
+  .ig__box { transition: none; }
+}
+
+/* ---------- strona katalogu (/katalog, decyzja 88) ---------- */
+.catalog-page { background: var(--bg-light); }
+.catalog--page { padding-top: var(--n-space-7); }
+.catalog-page__lead { max-width: 40em; color: var(--text); }
 
 /* ---------- stopka ---------- */
 .site-footer { padding-block: var(--n-space-8) var(--n-space-6); border-top: var(--n-hairline) solid color-mix(in srgb, var(--accent) 45%, transparent); }

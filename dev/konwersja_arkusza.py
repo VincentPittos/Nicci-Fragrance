@@ -193,6 +193,18 @@ KOREKTY_OPISU = {
 }
 
 
+# ---------- zestawy właściciela (listopad 2026, decyzja 87) ----------
+# NICCI ESSENTIALS: 7 zapachów po 1 ml za 99 zł. Nie ma go w katalogu doradcy, więc dopisujemy go tutaj, a do arkusza
+# sklepu trafia przez apps-script/Zestaw_Essentials_2026_11.gs. Id stałe (nie z numeracji z01, z02...), bo zestawy
+# z katalogu dostają kolejne numery według wierszy źródła.
+ZESTAWY_WLASNE = [{
+    'id': 'essentials', 'aktywny': 'TAK', 'nazwa': 'NICCI ESSENTIALS', 'rodzina': '', 'cena': 99,
+    'opis': 'Siedem zapachów do sprawdzenia na własnej skórze, od cytrusowego Imagination i drzewnego Aventusa '
+            'po słodki Chocolate Greedy, ciemną Black Orchid i korzenny Red Tobacco. Po 1 ml każdego, czyli tyle, '
+            'żeby ponosić zapach przez dzień i wybrać ten, który weźmiesz w większej odlewce.',
+    'sklad': 'p11:1, p01:1, p08:1, p44:1, p29:1, p87:1, p25:1',
+}]
+
 # ---------- weryfikacja nut i opisów (listopad 2026, decyzja 86) ----------
 # Te same poprawki, które strona (site/js/korekty-katalogu.js) i apps-script/Korekta_2026_11.gs nakładają na arkusz
 # sklepu. Pole zmieniamy tylko wtedy, gdy w źródle stoi jeszcze wartość sprzed weryfikacji („przed”). Gdy Nicci
@@ -567,6 +579,9 @@ def main():
             zflag('rodzina', '', '', 'brak rodziny: quiz nie zaproponuje tego zestawu')
         zflag('opis', '', '', 'źródło ma tylko opis pozycjonowania dla doradcy; opis dla klienta do napisania')
         zestawy.append(z)
+
+    # Zestawy właściciela spoza katalogu doradcy, na początku listy (strona pokazuje zestawy w kolejności z arkusza).
+    zestawy[:0] = [OrderedDict((k, z.get(k, '')) for k in KOLUMNY_ZESTAWY) for z in ZESTAWY_WLASNE]
 
     # ---------- zapis ----------
     os.makedirs(OUT, exist_ok=True)

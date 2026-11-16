@@ -76,7 +76,7 @@
     return '<div class="cart-empty"><p class="cart-empty__title">Koszyk jest pusty</p>' +
       '<p>Nie wiesz, od czego zacząć? Pięć pytań i pokażemy trzy zapachy, które do Ciebie pasują.</p>' +
       '<a class="btn btn--primary" href="' + A.url('/quiz') + '">Dobierz zapach w minutę</a>' +
-      '<a class="link" href="' + A.url('/#katalog') + '" data-close-cart>Przejrzyj katalog</a></div>';
+      '<a class="link" href="' + A.url('/katalog') + '" data-close-cart>Przejrzyj katalog</a></div>';
   }
 
   function render() {

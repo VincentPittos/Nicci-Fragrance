@@ -6735,6 +6735,66 @@
   ],
   "sets": [
    {
+    "id": "essentials",
+    "nazwa": "NICCI ESSENTIALS",
+    "opis": "Siedem zapachów do sprawdzenia na własnej skórze, od cytrusowego Imagination i drzewnego Aventusa po słodki Chocolate Greedy, ciemną Black Orchid i korzenny Red Tobacco. Po 1 ml każdego, czyli tyle, żeby ponosić zapach przez dzień i wybrać ten, który weźmiesz w większej odlewce.",
+    "rodzina": "",
+    "price": 9900,
+    "available": true,
+    "sklad": [
+     {
+      "id": "p11",
+      "marka": "Creed",
+      "nazwa": "Aventus",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p01",
+      "marka": "Louis Vuitton",
+      "nazwa": "Imagination",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p08",
+      "marka": "Xerjoff",
+      "nazwa": "Erba Pura",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p44",
+      "marka": "Essential Parfums",
+      "nazwa": "Bois Impérial",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p29",
+      "marka": "Montale",
+      "nazwa": "Chocolate Greedy",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p87",
+      "marka": "Tom Ford",
+      "nazwa": "Black Orchid",
+      "ml": 1,
+      "available": true
+     },
+     {
+      "id": "p25",
+      "marka": "Mancera",
+      "nazwa": "Red Tobacco",
+      "ml": 1,
+      "available": true
+     }
+    ],
+    "cenaOsobno": null
+   },
+   {
     "id": "z01",
     "nazwa": "LV DISCOVERY SET",
     "opis": "",

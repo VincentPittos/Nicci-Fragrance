@@ -198,7 +198,7 @@
     document.querySelectorAll('[data-sum-count]').forEach(function (el) { el.textContent = n + ' szt.'; });
     document.querySelectorAll('[data-sum-total]').forEach(function (el) { el.textContent = U.price(total); });
     if (!sum.lines.length) {
-      summaryBox.innerHTML = '<p class="os__empty">Koszyk jest pusty.</p><a class="btn btn--primary btn--block" href="' + A.url('/#katalog') + '">Wróć do katalogu</a>';
+      summaryBox.innerHTML = '<p class="os__empty">Koszyk jest pusty.</p><a class="btn btn--primary btn--block" href="' + A.url('/katalog') + '">Wróć do katalogu</a>';
       submit.disabled = true;
       return;
     }
@@ -278,7 +278,7 @@
       '<ul class="oa__list" role="list">' + list.map(function (s) {
         return '<li><b>' + esc(s.nazwa) + '</b>: ' + (s.zostalo > 0 ? 'zostało ' + s.zostalo + '&nbsp;ml, a w koszyku potrzeba ' + s.potrzeba + '&nbsp;ml' : 'nie ma go już na stanie') +
           (s.podobne && s.podobne.length ? '<span class="oa__alt">Podobne: ' + s.podobne.map(function (p) {
-            return '<a class="link" href="' + A.url('/?produkt=' + encodeURIComponent(p.id)) + '#katalog">' + esc(p.nazwa) + '</a>';
+            return '<a class="link" href="' + A.url('/katalog?produkt=' + encodeURIComponent(p.id)) + '">' + esc(p.nazwa) + '</a>';
           }).join(', ') + '</span>' : '') + '</li>';
       }).join('') + '</ul><button type="button" class="btn btn--outline" data-open-cart>Otwórz koszyk</button>';
   }

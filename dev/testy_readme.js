@@ -80,14 +80,14 @@ function orders() { try { return JSON.parse(fs.readFileSync(ORDERS, 'utf8')); } 
     const stale = JSON.parse(JSON.stringify(cat.data));
     product({ data: stale }, ID).variants.forEach((v) => { v.price = 100; });
     await page.evaluate((s) => sessionStorage.setItem('nicci_catalog_v1', JSON.stringify({ t: Date.now() - 3 * 60 * 1000, data: s })), stale);
-    await page.goto(BASE + '/?produkt=' + ID, { waitUntil: 'networkidle' });
+    await page.goto(BASE + '/katalog?produkt=' + ID, { waitUntil: 'networkidle' });
     await page.waitForTimeout(800);
     const shown = await page.locator('.cat-group .card[data-id="' + ID + '"] [data-price]').textContent();
     check('1. zmiana ceny: katalog starszy niż 2 min odświeża się w tle', shown.replace(/\s/g, '') === (realPrice / 100) + 'zł', 'na karcie: ' + shown + ', w arkuszu: ' + realPrice / 100);
     await page.keyboard.press('Escape');
     // próba kontrolna: świeży zapis (poniżej 2 minut) zostaje bez odświeżania, więc test umie wykryć starą cenę
     await page.evaluate((s) => sessionStorage.setItem('nicci_catalog_v1', JSON.stringify({ t: Date.now(), data: s })), stale);
-    await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+    await page.goto(BASE + '/katalog', { waitUntil: 'networkidle' });
     await page.waitForTimeout(800);
     const control = await page.locator('.cat-group .card[data-id="' + ID + '"] [data-price]').textContent();
     check('1. próba kontrolna: świeży zapis w przeglądarce nie jest pobierany ponownie', control.replace(/\s/g, '') === '1zł', 'na karcie: ' + control);
@@ -95,7 +95,7 @@ function orders() { try { return JSON.parse(fs.readFileSync(ORDERS, 'utf8')); } 
 
     // ---------- 2. zamówienie BLIK ----------
     check('2. stan wyjściowy: 40 ml, bez etykiety niedoboru', p.malo === false, JSON.stringify({ malo: p.malo, zostalo: p.zostalo }));
-    await page.goto(BASE + '/?src=test2', { waitUntil: 'networkidle' });
+    await page.goto(BASE + '/katalog?src=test2', { waitUntil: 'networkidle' });
     await addToCart(page, ID, 10, 1);
     await page.goto(BASE + '/zamowienie', { waitUntil: 'networkidle' });
     await fillForm(page);
