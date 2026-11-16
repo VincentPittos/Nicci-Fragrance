@@ -130,7 +130,7 @@
     if (M && M.reduced && M.reduced()) finish(); else setTimeout(finish, 260);
   }
 
-  // telefon: drugi krok to opis z warunkami i formularz
+  // telefon: drugi krok to sam formularz
   function step2() {
     dlg.setAttribute('data-krok', '2');
     dlg.scrollTop = 0;

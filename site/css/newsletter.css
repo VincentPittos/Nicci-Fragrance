@@ -3,12 +3,12 @@
  * Natywny <dialog> (showModal): fokus zostaje w środku, Esc zamyka, strona pod spodem jest nieaktywna.
  * Grafika 4:5 ma napis −99% wpisany w zdjęcie (schowany za flakonami), więc w HTML nie ma osobnego napisu.
  * Komputer: grafika po lewej, formularz po prawej. Telefon: arkusz od dołu, grafika od krawędzi do krawędzi
- * przechodząca cieniem w tytuł (krok 1), w kroku 2 opis i formularz.
+ * przechodząca cieniem w tytuł i opis (krok 1), w kroku 2 formularz. Teksty na obu są te same.
  * Kolory i kroje z tokens.css; złoty tekst tylko na ciemnym tle.
  */
 .nl {
   --nl-pad: var(--n-space-5);
-  --nl-zakladka: 1.75rem;
+  --nl-zakladka: 2.75rem;
   width: 100%;
   max-width: 100%;
   max-height: min(96svh, 100%);
@@ -40,7 +40,7 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 
 /* ---------- grafika ---------- */
 /* telefon: grafika 4:5 od krawędzi do krawędzi, przycięta zaokrągleniem arkusza; dół przechodzi cieniem w grafit,
-   a tytuł wchodzi na ten cień (--nl-zakladka). Na niskich ekranach zakładka rośnie, żeby przycisk był widoczny. */
+   a tytuł wchodzi na ten cień (--nl-zakladka). Cień zaczyna się pod etykietami odlewek. */
 .nl__media {
   position: relative; overflow: hidden;
   width: 100%;
@@ -52,7 +52,7 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 .nl__media::after {
   content: ""; position: absolute; inset: auto 0 0; height: calc(var(--nl-zakladka) + 4.5rem);
   background: linear-gradient(to bottom,
-    rgba(26, 25, 24, 0) 0%, rgba(26, 25, 24, 0.28) 30%, rgba(26, 25, 24, 0.7) 62%, rgba(26, 25, 24, 0.94) 86%, #1A1918 100%);
+    rgba(26, 25, 24, 0) 0%, rgba(26, 25, 24, 0.42) 24%, rgba(26, 25, 24, 0.82) 52%, rgba(26, 25, 24, 0.97) 76%, #1A1918 100%);
   pointer-events: none;
 }
 
@@ -63,18 +63,30 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
   font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; line-height: 1.08; letter-spacing: -0.01em;
   color: var(--text-strong); text-wrap: balance;
 }
+/* nagłówek oferty zawsze w jednej linii: krój zmniejsza się do szerokości kolumny (11,5 em tekstu + zapas).
+   Przeglądarki bez jednostek cqi (Safari przed 16) łamią go jak dotąd. */
+@supports (font-size: 1cqi) {
+  .nl__body { container-type: inline-size; }
+  .nl__start .nl__title { white-space: nowrap; font-size: min(1.75rem, 100cqi / 11.8); }
+}
 .nl__desc { margin: var(--n-space-2) 0 0; font-size: 0.875rem; line-height: 1.55; color: var(--text); text-wrap: pretty; }
 .nl__desc strong { font-weight: 500; color: var(--text-strong); }
 .nl__form { display: grid; gap: var(--n-space-3); margin-top: var(--n-space-4); }
 .nl__step1 { display: grid; gap: var(--n-space-1); margin-top: var(--n-space-4); }
 
-/* telefon: dwa kroki, każdy mieści się bez przewijania. Krok 1: grafika, tytuł i przycisk. Krok 2 (data-krok="2"):
-   opis z warunkami kodu i formularz, bez grafiki. Po zapisie (data-krok="gotowe") też bez grafiki, jak w kroku 2. */
+/* telefon: dwa kroki z tymi samymi tekstami co na komputerze. Krok 1: grafika, tytuł, opis i przycisk; gdy całość
+   nie mieści się na ekranie, przycisk zostaje przyklejony do dołu arkusza, a opis przewija się pod nim.
+   Krok 2 (data-krok="2"): tytuł i formularz, bez grafiki. Po zapisie (data-krok="gotowe") też bez grafiki. */
 @media (max-width: 51.99rem) {
-  .nl:not([data-krok]) .nl__form, .nl:not([data-krok]) .nl__start .nl__desc { display: none; }
-  .nl[data-krok] .nl__step1, .nl[data-krok] .nl__media { display: none; }
-  .nl[data-krok] .nl__body { margin-top: 0; padding-top: var(--n-space-6); }
-  .nl[data-krok] .nl__title { padding-right: 3rem; }
+  .nl:not([data-krok]) .nl__form { display: none; }
+  .nl:not([data-krok]) .nl__step1 {
+    position: sticky; bottom: 0; z-index: 1;
+    margin: var(--n-space-2) calc(-1 * var(--nl-pad)) 0;
+    padding: var(--n-space-4) var(--nl-pad) 0;
+    background: linear-gradient(to bottom, rgba(26, 25, 24, 0), #1A1918 var(--n-space-4));
+  }
+  .nl[data-krok] .nl__step1, .nl[data-krok] .nl__media, .nl[data-krok] .nl__start .nl__desc { display: none; }
+  .nl[data-krok] .nl__body { margin-top: 0; padding-top: 3rem; }
   .nl[data-krok="2"] .nl__form { margin-top: var(--n-space-4); }
 }
 .nl__fields { display: grid; gap: var(--n-space-3); }
@@ -134,8 +146,8 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 
 /* ---------- zamykanie ---------- */
 .nl__close {
-  position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2;
-  width: 2.75rem; height: 2.75rem;
+  position: absolute; top: 0.625rem; right: 0.625rem; z-index: 2;
+  width: 2.125rem; height: 2.125rem;
   display: grid; place-items: center;
   border: var(--n-hairline) solid rgba(232, 215, 195, 0.22); border-radius: 50%;
   background: rgba(4, 4, 4, 0.55);
@@ -144,6 +156,8 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
   cursor: pointer;
   transition: border-color var(--n-dur-base) var(--n-ease-out), color var(--n-dur-base) var(--n-ease-out);
 }
+.nl__close svg { width: 1rem; height: 1rem; }
+.nl__close::before { content: ""; position: absolute; inset: -0.3125rem; } /* telefon: pole dotyku 44 px przy mniejszym kółku */
 @media (hover: hover) { .nl__close:hover { border-color: var(--n-gold); color: var(--n-gold); } }
 .nl__close:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
@@ -162,13 +176,16 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
   .nl__card { grid-template-columns: 29rem minmax(0, 1fr); align-items: stretch; }
   .nl__step1 { display: none; }
   .nl__fields { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
-  .nl__media { grid-row: 1 / span 2; width: auto; min-height: 100%; margin: 0; border: 0; border-radius: 0; }
+  .nl__media { grid-row: 1; width: auto; min-height: 100%; margin: 0; border: 0; border-radius: 0; }
   .nl__media img { position: absolute; inset: 0; }
   .nl__media::after { display: none; }
-  .nl__body { grid-column: 2; margin-top: 0; padding: var(--n-space-6) var(--nl-pad) var(--n-space-5); align-self: center; }
+  .nl__body { grid-row: 1; grid-column: 2; margin-top: 0; padding: var(--n-space-6) var(--nl-pad) var(--n-space-5); align-self: center; }
   .nl__title { font-size: 2.375rem; padding-right: var(--n-space-5); }
+  @supports (font-size: 1cqi) { .nl__start .nl__title { font-size: min(2.125rem, (100cqi - 1.5rem) / 11.8); } }
   .nl__desc { margin-top: var(--n-space-3); font-size: 0.9375rem; }
-  .nl__close { top: 0.75rem; right: 0.75rem; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nl__close svg { width: 1.25rem; height: 1.25rem; }
+  .nl__close::before { display: none; }
+  .nl__close { top: 0.75rem; right: 0.75rem; width: 2.75rem; height: 2.75rem; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
