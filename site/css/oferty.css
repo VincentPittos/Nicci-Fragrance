@@ -116,14 +116,15 @@ html[data-faza="przed"] [data-kampania-tylko="christmas"] { display: none !impor
 /* ---------- pas newslettera ---------- */
 .offer-nl { padding-block: var(--n-space-8); }
 .offer-nl__inner { display: grid; gap: var(--n-space-6); align-items: center; }
-.offer-nl__media { display: block; border: var(--n-hairline) solid rgba(213, 168, 101, 0.35); overflow: hidden; }
+.offer-nl__media { display: block; width: 100%; max-width: 22rem; justify-self: center; border: var(--n-hairline) solid rgba(213, 168, 101, 0.35); border-radius: 0.75rem; overflow: hidden; }
 .offer-nl__media img { display: block; width: 100%; height: auto; }
 .offer-nl__copy { display: grid; justify-items: start; gap: var(--n-space-4); }
 .offer-nl__title { max-width: 16ch; }
 .offer-nl__text { margin: 0; max-width: 34rem; color: var(--text); }
 @media (min-width: 64rem) {
   .offer-nl { padding-block: var(--n-space-9); }
-  .offer-nl__inner { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); gap: var(--n-space-8); }
+  .offer-nl__inner { grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: var(--n-space-8); }
+  .offer-nl__media { max-width: none; }
 }
 
 /* pasek podglądu (?podglad=1) nad hero: przypomina, że dane ofert są przykładowe */

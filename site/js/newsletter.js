@@ -38,19 +38,13 @@
   var HTML =
     '<div class="nl__card">' +
       '<button type="button" class="nl__close" data-nl-close aria-label="Zamknij">' + ICON_X + '</button>' +
+      // grafika z napisem −99% schowanym za flakonami (wersja 4, dev/grafiki/napis_99.py); napisy z grafiki są w alt
       '<div class="nl__media">' +
         '<picture>' +
-          '<source media="(min-width: 52rem)" type="image/avif" srcset="' + set('essentials', [480, 720, 960], 'avif') + '" sizes="25rem">' +
-          '<source media="(min-width: 52rem)" type="image/webp" srcset="' + set('essentials', [480, 720, 960], 'webp') + '" sizes="25rem">' +
-          '<source type="image/avif" srcset="' + set('essentials-pas', [640, 960], 'avif') + '" sizes="100vw">' +
-          '<img src="/img/kampanie/essentials-pas-640.webp" srcset="' + set('essentials-pas', [640, 960], 'webp') + '" sizes="100vw" width="640" height="405" ' +
-            'alt="Siedem flakonów z zestawu NICCI ESSENTIALS na czarnych skałach, w środku siedem odlewek po 1 ml z logo Nicci">' +
+          '<source type="image/avif" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 70vw">' +
+          '<img src="/img/kampanie/essentials-99-720.webp" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'webp') + '" sizes="(min-width: 52rem) 29rem, 70vw" width="1080" height="1350" ' +
+            'alt="NICCI ESSENTIALS −99%, 7 zapachów po 1 ml. Siedem flakonów z zestawu na czarnej skale, przed nimi siedem odlewek po 1 ml z logo Nicci.">' +
         '</picture>' +
-      '</div>' +
-      '<div class="nl__badge" aria-hidden="true">' +
-        '<span class="nl__pct">−99%</span>' +
-        '<span class="nl__brand">Nicci Essentials</span>' +
-        '<span class="nl__sub">7 zapachów po 1 ml</span>' +
       '</div>' +
       '<div class="nl__body">' +
         '<div class="nl__start">' +

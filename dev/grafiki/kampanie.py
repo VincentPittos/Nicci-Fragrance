@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 Grafiki kampanii na stronę (popup newslettera, strona ofert): tła z OpenArt bez napisów, napisy są w HTML.
-Źródła 2752 x 1536 (16:9) i 1856 x 2304 (4:5) leżą w dev/grafiki/zrodla/kampanie (poza repozytorium).
+Źródła 2752 x 1536 (16:9) i 4:5 (1856 px szerokości) leżą w dev/grafiki/zrodla/kampanie (poza repozytorium).
 
     python3 dev/grafiki/kampanie.py
 
 Wynik w site/img/kampanie/NAZWA-SZEROKOŚĆ.{webp,avif}:
-  essentials-*       popup na komputerze, pełny kadr 4:5 (u góry ciemne tło na napis −99%)
-  essentials-pas-*   popup na telefonie, pas z flakonami i siedmioma odlewkami (ok. 640:405)
+  essentials-99-*    popup newslettera i pas na /oferty: grafika 4:5 z napisem −99% za flakonami (wybrana wersja 4,
+                     Anton złoto; powstaje z dev/grafiki/napis_99.py, etykiety: essentials_etykiety_fragrance.py)
   black-weeks-*      hero strony ofert 16:9 na komputerze, black-weeks-pion-* 4:5 na telefonie
   christmas-*        to samo dla oferty świątecznej
 """
@@ -25,8 +25,7 @@ OUT = os.path.join(ROOT, 'site', 'img', 'kampanie')
 
 # (plik źródłowy, nazwa wyniku, kadr jako ułamki (lewo, góra, prawo, dół) albo None, szerokości)
 ZADANIA = [
-    ('essentials-4x5.webp', 'essentials', None, (480, 720, 960)),
-    ('essentials-4x5.webp', 'essentials-pas', (0.0, 0.25, 1.0, 0.76), (640, 960)),
+    ('essentials-99-4x5.png', 'essentials-99', None, (480, 720, 960, 1080)),
     ('black-weeks-16x9.webp', 'black-weeks', None, (1280, 1920, 2560)),
     ('black-weeks-4x5.webp', 'black-weeks-pion', None, (640, 960)),
     ('christmas-16x9.webp', 'christmas', None, (1280, 1920, 2560)),
