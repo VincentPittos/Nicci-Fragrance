@@ -320,16 +320,18 @@ body { background: var(--bg-dark); }
    złote światło (do 9% złota) rośnie i gaśnie razem z postępem zmiany. Wpisane jako gotowe kolory, bez color-mix, żeby
    przejście wyglądało tak samo w każdej przeglądarce, także w starszym Safari na iPhonie (color-mix od iOS 16.2).
    Długość krzywej wyznacza kontrast tekstu: dół dopisku pod przyciskiem stoi na 18% krzywej (tło ma 4% kremu, kontrast
-   dopisku 4,8:1), nadtytuł „Rodziny zapachowe” na 80% (tło 94% kremu, kontrast 4,9:1). Odstęp między nimi to 62% krzywej. */
+   dopisku 4,8:1), nadtytuł „Katalog” na 80% (tło 94% kremu, kontrast 4,9:1). Odstęp między nimi to 62% krzywej.
+   Decyzja 90 (właściciel: krótsza przerwa między sekcjami, przejście płynniej i szybciej): pusty pas .horizon skrócony
+   do minimum, a cała krzywa do odstępu między dopiskiem a nadtytułem podzielonego przez 0,62 (komputer 594 px → 320 px). */
 :root {
-  /* telefon: dopisek pod przyciskiem, dół dopisku 32 px nad końcem sekcji 2 */
-  --hz-up: 7.25rem; --hz-h: 13rem; --hz-down: 8.75rem;
+  /* telefon: dół dopisku 32 px nad końcem sekcji 2, nadtytuł 64 px pod początkiem części jasnej */
+  --hz-up: 4.3rem; --hz-h: 2rem; --hz-down: 6.6rem;
   --hz-r: calc(var(--hz-up) + var(--hz-h) + var(--hz-down));
 }
 /* tablet: przycisk i dopisek w rzędzie, dół dopisku ok. 48 px nad końcem sekcji */
-@media (min-width: 48rem) { :root { --hz-up: 9.375rem; --hz-h: 16rem; --hz-down: 10.125rem; } }
-/* komputer: dolny margines sekcji 3rem, dół dopisku ok. 64 px nad końcem sekcji */
-@media (min-width: 64rem) { :root { --hz-up: 10.75rem; --hz-h: 16rem; --hz-down: 10.375rem; } }
+@media (min-width: 48rem) { :root { --hz-up: 6rem; --hz-h: 2.25rem; --hz-down: 8.3rem; } }
+/* komputer: dół dopisku ok. 64 px nad końcem sekcji, nadtytuł 96 px pod początkiem części jasnej */
+@media (min-width: 64rem) { :root { --hz-up: 7.5rem; --hz-h: 2.5rem; --hz-down: 10rem; } }
 .nf-how, .horizon, .light-page {
   --hz-curve: linear-gradient(180deg,
     #272727 var(--hz-o),

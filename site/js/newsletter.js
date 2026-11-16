@@ -41,14 +41,14 @@
       // grafika z napisem −99% schowanym za flakonami (wersja 3: Anton, krem; dev/grafiki/napis_99.py); napisy z grafiki są w alt
       '<div class="nl__media">' +
         '<picture>' +
-          '<source type="image/avif" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 70vw">' +
-          '<img src="/img/kampanie/essentials-99-720.webp" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'webp') + '" sizes="(min-width: 52rem) 29rem, 70vw" width="1080" height="1350" ' +
+          '<source type="image/avif" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 100vw">' +
+          '<img src="/img/kampanie/essentials-99-720.webp" srcset="' + set('essentials-99', [480, 720, 960, 1080], 'webp') + '" sizes="(min-width: 52rem) 29rem, 100vw" width="1080" height="1350" ' +
             'alt="NICCI ESSENTIALS −99%, 7 zapachów po 1 ml. Siedem flakonów z zestawu na czarnej skale, przed nimi siedem odlewek po 1 ml z logo Nicci.">' +
         '</picture>' +
       '</div>' +
       '<div class="nl__body">' +
         '<div class="nl__start">' +
-          '<h2 class="nl__title" id="nl-t">Siedem zapachów za 99&nbsp;groszy</h2>' +
+          '<h2 class="nl__title" id="nl-t">7 zapachów za 1&nbsp;złotówkę</h2>' +
           '<p class="nl__desc" id="nl-d">Zapisz się do newslettera, a wyślemy Ci kod −99% na zestaw Nicci Essentials: ' +
             'Aventus, Imagination, Erba Pura, Bois Impérial, Chocolate Greedy, Black Orchid i&nbsp;Red Tobacco, każdy po 1&nbsp;ml. ' +
             'Kod działa do zamówienia z&nbsp;dowolną odlewką 20&nbsp;ml.</p>' +
@@ -130,7 +130,7 @@
     if (M && M.reduced && M.reduced()) finish(); else setTimeout(finish, 260);
   }
 
-  // telefon: drugi krok to sam formularz
+  // telefon: drugi krok to opis z warunkami i formularz
   function step2() {
     dlg.setAttribute('data-krok', '2');
     dlg.scrollTop = 0;
@@ -178,6 +178,7 @@
   }
 
   function done(instant) {
+    dlg.setAttribute('data-krok', 'gotowe'); // telefon: bez grafiki, jak w kroku 2
     dlg.querySelector('.nl__start').hidden = true;
     var d = dlg.querySelector('.nl__done'); d.hidden = false;
     dlg.removeAttribute('aria-describedby');
