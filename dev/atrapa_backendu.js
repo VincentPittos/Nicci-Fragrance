@@ -63,7 +63,7 @@ function createBackend() {
         const last = orders.filter((o) => o.bon === b.kod).pop();
         return Object.assign({ _row: i + 2, wykorzystany_w: last ? last.numer : '' }, b);
       });
-      voucher = be.checkVoucher_(d.voucher, bonRows, rows(), priced.subtotal, now, cfg);
+      voucher = be.checkVoucher_(d.voucher, bonRows, rows(), priced.subtotal, now, cfg, priced.lines, d.customer.email);
       if (!voucher.ok) return JSON.parse(JSON.stringify({ ok: false, error: 'validation', fields: ['voucher'], voucher }));
     }
     const rabat = voucher ? voucher.rabat : 0;

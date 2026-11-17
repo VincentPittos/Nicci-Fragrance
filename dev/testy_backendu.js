@@ -816,9 +816,19 @@ test('newsletter: kod NICCI daje zestaw Essentials za 1 zł tylko z odlewką 20 
   const zam = [{ numer: 'NF-0101', status: 'OPŁACONE', rezerwacja_do: '' }];
   assert.equal(be.checkVoucher_('NICCI-ABC234', [uzyty], zam, 0, NOW, cfg, lines([ess, z20])).reason, 'wykorzystany');
   assert.match(be.newsletterCode_(), /^NICCI-[A-HJ-NP-Z2-9]{6}$/);
+  // wspólny kod (decyzja 109): bez wiersza w Bony, ta sama reguła, raz na adres e-mail
+  assert.equal(N.KOD_WSPOLNY, 'NICCI-LEGEND');
+  const w = be.checkVoucher_('NICCI-LEGEND', [], [], 0, NOW, cfg, lines([ess, z20]), 'anna@example.com');
+  assert.equal(w.ok, true); assert.equal(w.rabat, 9800); assert.equal(w.row, null);
+  deq(be.checkVoucher_('NICCI-LEGEND', [], [], 0, NOW, cfg, lines([ess, z10]), 'anna@example.com'), { ok: false, reason: 'essentials_20ml' });
+  const jej = [{ numer: 'NF-0102', status: 'OPŁACONE', rezerwacja_do: '', bon: 'NICCI-LEGEND', email: 'Anna@Example.com' }];
+  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').reason, 'wykorzystany', 'drugi raz ten sam adres');
+  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'ola@example.com').ok, true, 'inny adres może');
+  const anul = [Object.assign({}, jej[0], { status: 'ANULOWANE' })];
+  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], anul, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').ok, true, 'anulowane zamówienie oddaje kod');
 });
 
-test('newsletter: zapis tworzy kod i kontakt w GHL (upsert, potem tag), ponowny zapis zostawia ten sam kod', () => {
+test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt w GHL (upsert, potem tag); bez wspólnego kodu osobny kod na adres', () => {
   const fs = require('fs'), path = require('path'), vm = require('vm');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8');
   const props = { GHL_TOKEN: 'test-token', GHL_LOCATION_ID: 'loc1' };
@@ -857,9 +867,8 @@ test('newsletter: zapis tworzy kod i kontakt w GHL (upsert, potem tag), ponowny 
   assert.match(String(nl[0].zgoda), /^TAK, \d\d\.\d\d\.\d{4}/);
   assert.equal(nl[0].ghl, 'przekazany do GHL');
   const kod = nl[0].kod;
-  assert.match(kod, /^NICCI-/);
-  const bon = be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid)[0];
-  assert.equal(bon.kod, kod); assert.equal(bon.powod, 'newsletter-essentials'); assert.ok(bon.wazny_do instanceof ctx.Date || bon.wazny_do);
+  assert.equal(kod, 'NICCI-LEGEND', 'wspólny kod');
+  assert.equal(be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid).length, 0, 'wspólny kod bez wiersza w Bony');
   // kolejność i treść zapytań do GHL
   assert.deepEqual(calls.map((c) => c.method + ' ' + c.url.replace('https://services.leadconnectorhq.com', '')),
     ['get /locations/loc1/customFields?model=contact', 'post /contacts/upsert', 'post /contacts/k77/tags']);
@@ -869,12 +878,20 @@ test('newsletter: zapis tworzy kod i kontakt w GHL (upsert, potem tag), ponowny 
   deq(calls[2].body, { tags: ['newsletter-essentials'] });
   assert.equal(props.GHL_POLE_KOD_ID, 'cf9', 'id pola zapamiętane');
 
-  // ponowny zapis po minucie: ten sam kod, bez nowego bonu
+  // bez wspólnego kodu: osobny kod na adres, wiersz w Bony; ponowny zapis po minucie zostawia ten sam kod
+  vm.runInContext("CONFIG.NEWSLETTER.KOD_WSPOLNY = ''", ctx);
+  ctx.body2 = { action: 'newsletter', imie: 'Ola', email: 'ola@example.com', zgoda: true };
+  vm.runInContext('subscribe_(body2)', ctx);
+  const kod2 = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid)[1].kod;
+  assert.match(kod2, /^NICCI-[A-HJ-NP-Z2-9]{6}$/);
+  const bon = be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid)[0];
+  assert.equal(bon.kod, kod2); assert.equal(bon.powod, 'newsletter-essentials'); assert.ok(bon.wazny_do instanceof ctx.Date || bon.wazny_do);
   Object.keys(cacheStore).filter((k) => /^nl_[^h]/.test(k)).forEach((k) => delete cacheStore[k]);
-  vm.runInContext('subscribe_(body)', ctx);
+  vm.runInContext('subscribe_(body2)', ctx);
   const nl2 = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid);
-  assert.equal(nl2.length, 2); assert.equal(nl2[1].kod, kod);
+  assert.equal(nl2.length, 3); assert.equal(nl2[2].kod, kod2);
   assert.equal(be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid).length, 1, 'jeden kod na adres');
+  vm.runInContext("CONFIG.NEWSLETTER.KOD_WSPOLNY = 'NICCI-LEGEND'", ctx);
   // walidacja i ukryte pole
   ctx.zle = { imie: 'Anna', email: 'zly-adres', zgoda: true };
   deq(vm.runInContext('subscribe_(zle)', ctx), { ok: false, error: 'validation' });
@@ -882,7 +899,7 @@ test('newsletter: zapis tworzy kod i kontakt w GHL (upsert, potem tag), ponowny 
   deq(vm.runInContext('subscribe_(bez)', ctx), { ok: false, error: 'validation' }, 'bez zgody nie zapisujemy');
   // bez konfiguracji GHL: zapis zostaje, status „czeka na GHL”
   delete props.GHL_TOKEN;
-  ctx.inny = { imie: 'Ola', email: 'ola@example.com', zgoda: true };
+  ctx.inny = { imie: 'Ewa', email: 'ewa@example.com', zgoda: true };
   vm.runInContext('subscribe_(inny)', ctx);
   const ostatni = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid).pop();
   assert.equal(ostatni.ghl, 'czeka na GHL');

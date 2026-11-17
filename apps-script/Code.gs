@@ -54,8 +54,11 @@ const CONFIG = {
   // i tagiem), a mail z kodem wysyła workflow w GHL uruchamiany tagiem. Token i lokalizacja GHL są tylko we
   // Właściwościach skryptu (GHL_TOKEN, GHL_LOCATION_ID), nigdy w tym pliku. Kod jest jednorazowy, jeden na adres
   // e-mail, i działa z zestawem ZESTAW oraz dowolną odlewką ODLEWKA_ML: zestaw kosztuje wtedy CENA_ZESTAWU zł.
+  // KOD_WSPOLNY (decyzja 109): na razie jeden kod dla wszystkich zapisów, wpisany wprost w mail; działa raz na adres
+  // e-mail zamówienia, bez terminu ważności i bez wierszy w zakładce Bony. Pusty: osobny losowy kod NICCI-XXXXXX dla
+  // każdego adresu (wiersz w Bony, WAZNOSC_DNI dni, pole POLE_KOD w GHL).
   NEWSLETTER: { ZESTAW: 'essentials', CENA_ZESTAWU: 1, ODLEWKA_ML: 20, WAZNOSC_DNI: 30, TAG: 'newsletter-essentials',
-    POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60 },
+    POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60, KOD_WSPOLNY: 'NICCI-LEGEND' },
   // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
   // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
   TRACKING_URLS: {
@@ -577,7 +580,17 @@ function orderHoldsVoucher_(rec, now) {
  * Kod z newslettera (powod = CONFIG.NEWSLETTER.TAG) zamiast progu sprawdza pozycje zamówienia (lines z priceOrder_).
  * wykorzystany_w z numerem, którego nie ma w zamówieniach (np. wpis ręczny), też oznacza wykorzystany.
  */
-function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg, lines) {
+function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg, lines, email) {
+  const N = cfg.NEWSLETTER;
+  if (code && N && N.KOD_WSPOLNY && code === normVoucher_(N.KOD_WSPOLNY)) {
+    // wspólny kod z newslettera: raz na adres e-mail (zamówienie z tym kodem i tym adresem, które go trzyma)
+    const mail = str_(email).toLowerCase();
+    const juz = !!mail && orderRows.some(function (o) {
+      return normVoucher_(o.bon) === code && str_(o.email).toLowerCase() === mail && orderHoldsVoucher_(o, now);
+    });
+    if (juz) return { ok: false, reason: 'wykorzystany' };
+    return newsletterVoucher_({ kod: code, _row: null }, lines || [], cfg);
+  }
   const bon = bonRows.filter(function (b) { return normVoucher_(b.kod) === code; })[0];
   if (!code || !bon) return { ok: false, reason: 'nieznany' };
   const used = str_(bon.wykorzystany_w);
@@ -987,7 +1000,8 @@ function subscribe_(body) {
     const prev = tableToObjects_(nl.getDataRange().getValues())
       .filter(function (r) { return str_(r.email).toLowerCase() === email && str_(r.kod); })[0];
     let kod = prev ? str_(prev.kod) : '';
-    if (!kod) {
+    if (N.KOD_WSPOLNY) kod = normVoucher_(N.KOD_WSPOLNY);
+    else if (!kod) {
       const bony = ensureSheet_(ss, SHEET.BONY, HEADERS[SHEET.BONY]);
       const zajete = {};
       tableToObjects_(bony.getDataRange().getValues()).forEach(function (b) { zajete[normVoucher_(b.kod)] = true; });
@@ -999,7 +1013,7 @@ function subscribe_(body) {
     }
     appendRecord_(nl, {
       czas: now, email: email, imie: imie, zgoda: 'TAK, ' + dateTxt_(now, CONFIG.TIMEZONE), zrodlo: clean_(body.zrodlo, 60) || 'popup',
-      strona: clean_(body.strona, 120), kod: kod, ghl: 'w toku', uwagi: prev ? 'ponowny zapis, ten sam kod' : ''
+      strona: clean_(body.strona, 120), kod: kod, ghl: 'w toku', uwagi: prev ? (N.KOD_WSPOLNY ? 'ponowny zapis' : 'ponowny zapis, ten sam kod') : ''
     });
     SpreadsheetApp.flush();
     rec = { email: email, imie: imie, kod: kod, row: nl.getLastRow() };
@@ -1053,11 +1067,11 @@ function ghlSubscribe_(rec, cfg) {
   if (!token || !loc) return { status: 'czeka na GHL', uwagi: 'Brak GHL_TOKEN albo GHL_LOCATION_ID we Właściwościach skryptu. Po uzupełnieniu uruchom ghl_wyslij_zalegle.' };
   try {
     const pole = ghlFieldId_(token, loc, N.POLE_KOD, props);
-    if (!pole) return { status: 'błąd GHL', uwagi: 'W GHL nie ma pola kontaktu o kluczu contact.' + N.POLE_KOD + ' albo token nie ma uprawnienia do pól.' };
-    const up = ghlCall_('post', '/contacts/upsert', token, {
-      locationId: loc, email: rec.email, firstName: rec.imie, source: N.ZRODLO,
-      customFields: [{ id: pole, key: N.POLE_KOD, fieldValue: rec.kod }]
-    });
+    // przy wspólnym kodzie mail ma kod wpisany wprost, więc pole w GHL jest opcjonalne
+    if (!pole && !N.KOD_WSPOLNY) return { status: 'błąd GHL', uwagi: 'W GHL nie ma pola kontaktu o kluczu contact.' + N.POLE_KOD + ' albo token nie ma uprawnienia do pól.' };
+    const dane = { locationId: loc, email: rec.email, firstName: rec.imie, source: N.ZRODLO };
+    if (pole) dane.customFields = [{ id: pole, key: N.POLE_KOD, fieldValue: rec.kod }];
+    const up = ghlCall_('post', '/contacts/upsert', token, dane);
     const id = up.body && up.body.contact && up.body.contact.id;
     if (up.code >= 300 || !id) return { status: 'błąd GHL', uwagi: 'Kontakt: HTTP ' + up.code + ' ' + up.text };
     const tag = ghlCall_('post', '/contacts/' + encodeURIComponent(id) + '/tags', token, { tags: [N.TAG] });
@@ -1093,9 +1107,13 @@ function ghl_test() {
   if (!token || !loc) tekst = 'Brak GHL_TOKEN albo GHL_LOCATION_ID we Właściwościach skryptu.';
   else {
     props.deleteProperty('GHL_POLE_KOD_ID');
-    const pole = ghlFieldId_(token, loc, CONFIG.NEWSLETTER.POLE_KOD, props);
-    tekst = pole ? 'GHL działa: pole contact.' + CONFIG.NEWSLETTER.POLE_KOD + ' ma id ' + pole + '.'
-      : 'GHL: nie znaleziono pola contact.' + CONFIG.NEWSLETTER.POLE_KOD + ' (sprawdź klucz pola i uprawnienia tokenu: contacts.write, locations/customFields.readonly).';
+    const N = CONFIG.NEWSLETTER;
+    const r = ghlCall_('get', '/locations/' + encodeURIComponent(loc) + '/customFields?model=contact', token);
+    const pole = r.code < 300 ? ghlFieldId_(token, loc, N.POLE_KOD, props) : '';
+    if (r.code >= 300) tekst = 'GHL: HTTP ' + r.code + ' (sprawdź token, Location ID i uprawnienia: contacts.write, contacts.readonly, locations/customFields.readonly). ' + r.text;
+    else if (pole) tekst = 'GHL działa: pole contact.' + N.POLE_KOD + ' ma id ' + pole + '.';
+    else if (N.KOD_WSPOLNY) tekst = 'GHL działa. Wspólny kod ' + N.KOD_WSPOLNY + ' jest wpisany w mail, więc pole contact.' + N.POLE_KOD + ' nie jest potrzebne.';
+    else tekst = 'GHL: nie znaleziono pola contact.' + N.POLE_KOD + ' (sprawdź klucz pola i uprawnienia tokenu: contacts.write, locations/customFields.readonly).';
   }
   log_(/^GHL działa/.test(tekst) ? 'INFO' : 'ERROR', 'ghl_test', tekst);
   return tekst;
@@ -1144,7 +1162,7 @@ function createOrder_(body) {
     const bonSheet = data.voucher ? ss_().getSheetByName(SHEET.BONY) : null;
     if (data.voucher) {
       const bonRows = bonSheet ? tableToObjects_(bonSheet.getDataRange().getValues()) : [];
-      voucher = checkVoucher_(data.voucher, bonRows, orders, priced.subtotal, now, CONFIG, priced.lines);
+      voucher = checkVoucher_(data.voucher, bonRows, orders, priced.subtotal, now, CONFIG, priced.lines, data.customer.email);
       if (!voucher.ok) return { ok: false, error: 'validation', fields: ['voucher'], voucher: voucher };
     }
     const rabat = voucher ? voucher.rabat : 0;
@@ -1170,7 +1188,7 @@ function createOrder_(body) {
       historia: dateTxt_(now, CONFIG.TIMEZONE) + ' NOWE', status_przetworzony: STATUS.NOWE,
       pozycje_json: JSON.stringify(order.lines), ml_json: JSON.stringify(order.need)
     });
-    if (voucher) writeFields_(bonSheet, headerMap_(bonSheet), voucher.row, { wykorzystany_w: order.numer });
+    if (voucher && voucher.row) writeFields_(bonSheet, headerMap_(bonSheet), voucher.row, { wykorzystany_w: order.numer }); // wspólny kod nie ma wiersza
     SpreadsheetApp.flush();
     cache.put(rlKey, '1', CONFIG.RATE_LIMIT_SECONDS);
     cache.put('orders_hour', String(hourCount + 1), 3600);
@@ -1454,6 +1472,8 @@ function handleStatus_(sh, H, r) {
  * w międzyczasie użyło go inne, aktywne zamówienie. Zwraca opis kolizji do kolumny uwagi albo ''.
  */
 function claimVoucherOnPayment_(order, orderRows, now) {
+  const N = CONFIG.NEWSLETTER;
+  if (N && N.KOD_WSPOLNY && order.bon === normVoucher_(N.KOD_WSPOLNY)) return ''; // wspólny kod: nie ma czego oznaczać
   const sh = ss_().getSheetByName(SHEET.BONY);
   if (!sh) return 'Brak zakładki Bony, bon ' + order.bon + ' nie został oznaczony jako wykorzystany.';
   const bon = tableToObjects_(sh.getDataRange().getValues()).filter(function (b) { return normVoucher_(b.kod) === order.bon; })[0];
