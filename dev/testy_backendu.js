@@ -562,7 +562,7 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
     assert.match(opis, /p42\.podobne/, rev);
     assert.doesNotMatch(opis, /ml_dostepne/, rev);
     // listopad 2026: po tej aktualizacji właściciel uruchamia korekta_2026_11 (weryfikacja nut i opisów, decyzja 86)
-    assert.match(vm.runInContext('korekta_2026_11()', ctx), /zmienione komórki 81 w 25 zapachach\.$/, rev);
+    assert.match(vm.runInContext('korekta_2026_11()', ctx), /zmienione komórki 84 w 26 zapachach\.$/, rev);
 
     const byId = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
     assert.equal(Object.keys(byId).length, 100, rev);
@@ -718,7 +718,7 @@ test('weryfikacja 2026-11: korekta_2026_11 zmienia tylko stary tekst, zostawia w
   const wszystkie = weryf.dane.zapachy.reduce((n, z) => n + Object.keys(z.po).length, 0);
   const p97 = Object.keys(weryf.dane.zapachy.find((z) => z.id === 'p97').po).length;
   const opis = vm.runInContext('korekta_2026_11()', ctx);
-  assert.match(opis, new RegExp('zmienione komórki ' + (wszystkie - p97 - 1) + ' w 25 zapachach; zostawione Twoje wpisy: p59\\.nuty_glowy; nie ma w arkuszu: p97\\.$'), opis);
+  assert.match(opis, new RegExp('zmienione komórki ' + (wszystkie - p97 - 1) + ' w 26 zapachach; zostawione Twoje wpisy: p59\\.nuty_glowy; nie ma w arkuszu: p97\\.$'), opis);
   assert.ok(usuniete.length > 0, 'katalog odświeżony (invalidateCatalog_)');
   assert.ok(ss.sheets[ctx.SHEET.LOG].grid.some((r) => r[2] === 'korekta_2026_11'), 'wpis w zakładce Log');
   const po = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
@@ -728,7 +728,7 @@ test('weryfikacja 2026-11: korekta_2026_11 zmienia tylko stary tekst, zostawia w
     else assert.equal(String(po[z.id][k]), String(oczek[z.id][k]), z.id + '.' + k);
   }));
   const drugi = vm.runInContext('korekta_2026_11()', ctx);
-  assert.match(drugi, new RegExp('zmienione komórki 0 w 25 zapachach, już poprawne ' + (wszystkie - p97 - 1) + '; zostawione Twoje wpisy: p59\\.nuty_glowy'), drugi);
+  assert.match(drugi, new RegExp('zmienione komórki 0 w 26 zapachach, już poprawne ' + (wszystkie - p97 - 1) + '; zostawione Twoje wpisy: p59\\.nuty_glowy'), drugi);
 });
 
 test('weryfikacja 2026-11: strona podmienia pola tylko przy starym tekście z arkusza i sama wygasa po aktualizacji', () => {

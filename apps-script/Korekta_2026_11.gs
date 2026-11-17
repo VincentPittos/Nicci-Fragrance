@@ -480,6 +480,24 @@ const KOREKTA_2026_11 = [
     2
    ]
   }
+ },
+ {
+  "id": "p60",
+  "nazwa": "Bottled Absolu",
+  "pola": {
+   "nuty_glowy": [
+    "Bergamotka, korzenne nuty",
+    "Akord palonej skóry"
+   ],
+   "nuty_serca": [
+    "Kadzidło, żywice",
+    "Paczula, mirra"
+   ],
+   "nuty_bazy": [
+    "Bursztyn, drzewo, wanilia",
+    "Drewno cedrowe, ambra, davana"
+   ]
+  }
  }
 ];
 

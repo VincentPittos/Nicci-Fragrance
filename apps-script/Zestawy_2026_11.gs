@@ -5,7 +5,8 @@
  * wdrożenia. Zmienia trzy komórki „aktywny”:
  *   z01 LV DISCOVERY SET i z03 NOUS TOUS DISCOVERY SET: NIE (zdjęte ze sprzedaży),
  *   p60 Hugo Boss Bottled Absolu: TAK, bo bez niego WINTER DISCOVERY SET (z07) jest niedostępny.
- * Uwaga: p60 pojawi się też w katalogu jako osobny zapach (ceny 10 i 20 ml z arkusza, bez zdjęcia na stronie).
+ * Uwaga: p60 pojawi się też w katalogu jako osobny zapach (ceny 10 i 20 ml z arkusza). Zdjęcie ma na stronie,
+ * a nuty strona poprawia sama według Hugo Boss (decyzja 104), dopóki w arkuszu stoją stare.
  * Opisy zestawów strona pokazuje sama, dopóki kolumna „opis” w zakładce Zestawy jest pusta (site/js/app.js);
  * ten skrypt ich nie wpisuje. Wynik trafia do zakładki Log. Po uruchomieniu ten plik można usunąć.
  */

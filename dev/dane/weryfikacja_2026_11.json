@@ -532,6 +532,24 @@
     "projekcja": 4,
     "intensywnosc": 3
    }
+  },
+  {
+   "id": "p60",
+   "nazwa": "Bottled Absolu",
+   "powod": "Dopisane 17.11.2026 przed włączeniem p60 do Winter Discovery Set (decyzja 104). Hugo Boss podaje dla Boss Bottled Absolu Parfum Intense: na otwarcie lekko palony akord skóry, potem esencja paczuli i mirra, w bazie ciepłe drewno cedrowe, ambra i owocowa davana. Bergamotki, nut korzennych, kadzidła i wanilii marka nie wymienia.",
+   "zrodla": [
+    "https://www.hugoboss.com/us/boss-bottled-absolu-parfum-intense-100-ml-%E2%80%93-3.38-oz/hbna58139181_999.html"
+   ],
+   "po": {
+    "nuty_glowy": "Akord palonej skóry",
+    "nuty_serca": "Paczula, mirra",
+    "nuty_bazy": "Drewno cedrowe, ambra, davana"
+   },
+   "przed": {
+    "nuty_glowy": "Bergamotka, korzenne nuty",
+    "nuty_serca": "Kadzidło, żywice",
+    "nuty_bazy": "Bursztyn, drzewo, wanilia"
+   }
   }
  ]
 }

@@ -6,6 +6,8 @@ atomizery NICCI z sesji (d_4432), odlewka 1 ml, a dla Bottled Absolu zdjęcie ze
 Essentials (v3): luźny, niesymetryczny układ jak w Entry i Autumn; zdublowany flakon Bois Impérial usunięty edycją
 w Nano Banana. Winter (v2): logo NICCI na bocznej ściance atomizerów, granatowy flakon Oud Maracujá, trzy drobne
 napisy na etykietach poprawione ręcznie (EXTRAIT, EAU DE PARFUM, 100ML).
+Sweet & Spicy, Entry i Autumn (v3): atomizery z logo na ściance zamiast na denku; z edycji w Nano Banana wzięta
+tylko strefa atomizerów, flakony zostały z wersji v2 (decyzja 104).
 
     python3 dev/grafiki/zestawy_muapi.py [ID ...]   (bez argumentów: wszystkie)
 
@@ -24,7 +26,7 @@ from zapis import zapisz  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC = os.path.join(ROOT, 'dev', 'grafiki', 'zrodla', 'zestawy')
 OUT = os.path.join(ROOT, 'site', 'img', 'zestawy')
-WERSJE = {'essentials': 'v3', 'z04': 'v2', 'z05': 'v2', 'z06': 'v2', 'z07': 'v2'}
+WERSJE = {'essentials': 'v3', 'z04': 'v3', 'z05': 'v3', 'z06': 'v3', 'z07': 'v2'}
 
 
 def main():

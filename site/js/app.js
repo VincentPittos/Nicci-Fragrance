@@ -105,7 +105,7 @@
 
   // Zapachy, których zdjęcie leży na stronie (site/img/produkty/pNN-800.webp). Gdy w arkuszu komórka zdjecie_url
   // jest pusta, karta i szczegóły biorą ten plik zamiast kadru zastępczego. Listę pilnuje test w dev/testy_backendu.js.
-  var ZDJECIA = '01 02 03 04 05 06 07 08 09 10 11 12 14 15 16 17 19 20 21 22 23 24 25 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 59 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100'.split(' ');
+  var ZDJECIA = '01 02 03 04 05 06 07 08 09 10 11 12 14 15 16 17 19 20 21 22 23 24 25 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100'.split(' ');
   function withPhotos(data) {
     ((data && data.products) || []).forEach(function (p) {
       if (!p.zdjecie && ZDJECIA.indexOf(String(p.id).slice(1)) !== -1) p.zdjecie = '/img/produkty/' + p.id + '-800.webp';
@@ -143,8 +143,8 @@
   // grafikę z site/img/zestawy (dev/grafiki/zestawy_grafiki.py), a pusty opis w arkuszu zastępuje opis poniżej;
   // opis wpisany w arkuszu ma pierwszeństwo.
   var ZESTAWY_UKRYTE = ['z01', 'z03'];
-  // grafiki zestawów: z Nano Banana Pro przez Muapi (decyzje 102 i 103), dev/grafiki/zestawy_muapi.py
-  var ZESTAWY_ZDJECIA = { essentials: 'essentials-v3', z04: 'z04-v2', z05: 'z05-v2', z06: 'z06-v2', z07: 'z07-v2' };
+  // grafiki zestawów: z Nano Banana Pro przez Muapi (decyzje 102 do 104), dev/grafiki/zestawy_muapi.py
+  var ZESTAWY_ZDJECIA = { essentials: 'essentials-v3', z04: 'z04-v3', z05: 'z05-v3', z06: 'z06-v3', z07: 'z07-v2' };
   var ZESTAWY_OPISY = {
     z04: 'Pięć słodkich zapachów, z których każdy idzie w inną stronę: kakao z pomarańczą, cola z cynamonem, wiśniowy likier, owocowa Erba Pura i szafranowy Baccarat Rouge 540. Dla kogoś, kto lubi, gdy zapach otula, i chce sprawdzić, która słodycz pasuje mu najbardziej.',
     z05: 'Pięć zapachów na dobry początek: świeży grejpfrut, cytryna z imbirem, kwiatowa elegancja Amouage, drzewa z kadzidłem i miękka skóra Toma Forda. Każdy jest inny, więc szybko poczujesz, w którą stronę ciągnie Cię nos.',
