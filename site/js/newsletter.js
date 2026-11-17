@@ -168,7 +168,7 @@
     var form = e.target;
     if (TRYB !== 'zapis') { // zapisy jeszcze nie ruszyły: nic nie wysyłamy i nic nie zapisujemy
       var info = dlg.querySelector('.nl__info');
-      info.textContent = 'Zapisy ruszą wkrótce. Na razie niczego nie zapisujemy, więc zajrzyj tu ponownie po swój kod.';
+      info.textContent = 'Zapisy ruszą wkrótce.';
       info.hidden = false;
       return;
     }
