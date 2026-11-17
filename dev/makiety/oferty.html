@@ -82,18 +82,18 @@
     <section class="offer-timer theme-graphite" data-timer aria-labelledby="timer-t" hidden>
       <div class="offer-timer__top">
         <p class="offer-timer__label" id="timer-t" data-timer-label></p>
-        <p class="offer-timer__day" data-timer-day></p>
+        <p class="offer-timer__day" data-timer-day hidden></p>
       </div>
       <div class="offer-timer__digits" aria-hidden="true">
         <span class="offer-timer__cell"><span class="offer-timer__n" data-t="d">00</span><span class="offer-timer__u" data-tu="d">dni</span></span>
-        <span class="offer-timer__sep">:</span>
-        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="h">00</span><span class="offer-timer__u">godz.</span></span>
-        <span class="offer-timer__sep">:</span>
-        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="m">00</span><span class="offer-timer__u">min</span></span>
-        <span class="offer-timer__sep">:</span>
-        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="s">00</span><span class="offer-timer__u">sek.</span></span>
+        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="h">00</span><span class="offer-timer__u">godzin</span></span>
+        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="m">00</span><span class="offer-timer__u">minut</span></span>
+        <span class="offer-timer__cell"><span class="offer-timer__n" data-t="s">00</span><span class="offer-timer__u">sekund</span></span>
       </div>
-      <ol class="offer-timer__days" data-timer-days aria-hidden="true"></ol>
+      <div class="offer-timer__track" data-timer-track aria-hidden="true">
+        <span class="offer-timer__rail"><span class="offer-timer__fill"></span><span class="offer-timer__now"></span></span>
+        <ol class="offer-timer__days" data-timer-days></ol>
+      </div>
       <p class="offer-timer__note" data-timer-note></p>
       <p class="visually-hidden" data-timer-text></p>
     </section>

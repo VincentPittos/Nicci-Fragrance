@@ -20,7 +20,7 @@
 
   var TEKSTY = {
     'black-weeks': {
-      eyebrow: 'Black Weeks · 23 do 29 listopada',
+      eyebrow: 'Oferty specjalne',
       title: 'Zapachy z najwyższej półki nawet o połowę taniej',
       lead: 'Dziesiątki zapachów w promocji przez siedem dni. Przy każdej obniżce widzisz cenę sprzed niej.',
       timer: { przed: 'Do startu Black Weeks', trwa: 'Do końca Black Weeks' },
@@ -31,7 +31,7 @@
         'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
     },
     christmas: {
-      eyebrow: 'Święta z Nicci · do 24 grudnia',
+      eyebrow: 'Oferty specjalne',
       title: 'Luksus pod choinkę',
       lead: '−20% na wybrane perfumy i zestawy prezentowe dla niego, dla niej, dla taty i dla mamy. Prezent, który zachwyca od pierwszej nuty.',
       timer: { przed: 'Do startu świątecznych ofert', trwa: 'Do Wigilii' },
@@ -92,12 +92,13 @@
       var pl = new Date(od + i * DZIEN + 13 * 3600000);
       var nr = pl.getUTCDate(), tyg = DNI_TYG[pl.getUTCDay()];
       var label = n > 10 ? nr + '.' + two(pl.getUTCMonth() + 1) : String(nr); // przy wielu dniach CSS pokazuje tylko pierwszy, ostatni i dzisiejszy
-      html += '<li class="offer-timer__dd"><span class="offer-timer__bar"><span class="offer-timer__fill"></span></span>' +
+      html += '<li class="offer-timer__dd">' +
         '<span class="offer-timer__dn">' + label + '</span>' + (n <= 10 ? '<span class="offer-timer__dw">' + tyg + '</span>' : '') + '</li>';
     }
     list.innerHTML = html;
     days = Array.prototype.slice.call(list.children);
-    days.od = od; days.n = n;
+    days.od = od; days.n = n; days.koniec = koniec;
+    box.querySelector('[data-timer-track]').setAttribute('data-faza', FAZA);
   }
 
   function setDigit(el, v) {
@@ -120,13 +121,15 @@
     setDigit(box.querySelector('[data-t="s"]'), two(sec));
     if (days.length) {
       var idx = FAZA === 'trwa' ? Math.floor((t - days.od) / DZIEN) : -1;
-      var frac = FAZA === 'trwa' ? ((t - days.od) % DZIEN) / DZIEN : 0;
       days.forEach(function (li, i) {
         li.classList.toggle('is-past', i < idx);
         li.classList.toggle('is-today', i === idx);
-        li.style.setProperty('--p', i < idx ? 1 : i === idx ? frac.toFixed(3) : 0);
       });
-      box.querySelector('[data-timer-day]').textContent = FAZA === 'trwa' && idx >= 0 ? 'Dzień ' + (idx + 1) + ' z ' + days.n : '';
+      var p = FAZA === 'trwa' ? Math.min(1, Math.max(0, (t - days.od) / (days.koniec - days.od))) : 0;
+      box.querySelector('[data-timer-track]').style.setProperty('--p', p.toFixed(4));
+      var dayEl = box.querySelector('[data-timer-day]');
+      dayEl.textContent = FAZA === 'trwa' && idx >= 0 ? 'Dzień ' + (idx + 1) + ' z ' + days.n : '';
+      dayEl.hidden = !dayEl.textContent;
     }
     if (m !== lastMin) {
       box.querySelector('[data-timer-text]').textContent = (FAZA === 'przed' ? 'Do startu zostało ' : 'Do końca zostało ') +
