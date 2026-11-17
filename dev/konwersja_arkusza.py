@@ -200,8 +200,8 @@ KOREKTY_OPISU = {
 ZESTAWY_WLASNE = [{
     'id': 'essentials', 'aktywny': 'TAK', 'nazwa': 'NICCI ESSENTIALS', 'rodzina': '', 'cena': 99,
     'opis': 'Siedem zapachów do sprawdzenia na własnej skórze, od cytrusowego Imagination i drzewnego Aventusa '
-            'po słodki Chocolate Greedy, ciemną Black Orchid i korzenny Red Tobacco. Po 1 ml każdego, czyli tyle, '
-            'żeby ponosić zapach przez dzień i wybrać ten, który weźmiesz w większej odlewce.',
+            'po słodki Chocolate Greedy, ciemną Black Orchid i korzenny Red Tobacco. Po 1 ml każdego, a ten, który '
+            'polubisz najbardziej, weźmiesz potem w większej odlewce.',
     'sklad': 'p11:1, p01:1, p08:1, p44:1, p29:1, p87:1, p25:1',
 }]
 
