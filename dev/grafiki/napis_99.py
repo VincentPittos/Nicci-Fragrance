@@ -99,7 +99,7 @@ def compose(st):
     bx, by = (W - bm.width) // 2, int(H * st.get('brand_top', 0.04))
     out.paste(Image.new('RGBA', bm.size, (213, 168, 101, 255)), (bx, by), bm)
     sub = font('Carattere-Regular.ttf', int(W * 0.062))
-    sm = text_mask(sub, '7 zapachów po 1 ml')
+    sm = text_mask(sub, os.environ.get('PODPIS', '7 zapachów po 1 ml'))   # dopisek pismem pod dużym napisem
     if os.environ.get('SUB_MODE') == 'prawo':
         # pod dużym napisem, wyrównany do prawej krawędzi „%”, nad niższymi flakonami po prawej
         sx, sy = x + m.width - sm.width - int(W * 0.01), y + m.height + int(H * 0.012)
@@ -134,6 +134,9 @@ STYLE = {
     'H_anton_zloto_najwiekszy': dict(font='Anton-Regular.ttf', width=0.95, hide=0.40, fill=ZLOTO, bevel=True,
                                      glow=((213, 168, 101), 0.3, 70), min_top=0.075),
     'B_anton_krem': dict(font='Anton-Regular.ttf', width=0.90, top=0.075, fill=KREM, glow=((213, 168, 101), 0.28, 70), tracking=0.0),
+    # grafika z obniżoną skałą (post i popup „−99% na Siedem Legend”): korki zasłaniają tylko dół cyfr,
+    # żeby pod „%” zmieścił się dopisek nad niższymi flakonami po prawej
+    'L_legendy_anton_krem': dict(font='Anton-Regular.ttf', width=0.92, hide=0.09, fill=KREM, glow=((213, 168, 101), 0.28, 70), tracking=0.0),
     'C_playfair_szampan': dict(font='PlayfairDisplay[wght].ttf', axes=[900], width=0.94, fill=SZAMPAN, bevel=True,
                                glow=((255, 236, 200), 0.22, 60), tracking=-0.03, minus_bold=0.02, hide=0.28),
     'D_jost_zloto': dict(font='Jost[wght].ttf', axes=[800], width=0.92, top=0.10, fill=ZLOTO, bevel=True, glow=((213, 168, 101), 0.3, 60), tracking=-0.04),
