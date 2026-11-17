@@ -41,9 +41,9 @@
       // grafika z napisem −99% schowanym za flakonami (wersja 3: Anton, krem; dev/grafiki/napis_99.py); napisy z grafiki są w alt
       '<div class="nl__media">' +
         '<picture>' +
-          '<source type="image/avif" srcset="' + set('essentials-siedem-legend', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 100vw">' +
-          '<img src="/img/kampanie/essentials-siedem-legend-720.webp" srcset="' + set('essentials-siedem-legend', [480, 720, 960, 1080], 'webp') + '" sizes="(min-width: 52rem) 29rem, 100vw" width="1080" height="1350" ' +
-            'alt="NICCI ESSENTIALS −99% na siedem legend. Siedem flakonów z zestawu na czarnych skałach, przed nimi siedem odlewek po 1 ml z logo Nicci.">' +
+          '<source type="image/avif" srcset="' + set('essentials-legend-v3', [480, 720, 960, 1080], 'avif') + '" sizes="(min-width: 52rem) 29rem, 100vw">' +
+          '<img src="/img/kampanie/essentials-legend-v3-720.webp" srcset="' + set('essentials-legend-v3', [480, 720, 960, 1080], 'webp') + '" sizes="(min-width: 52rem) 29rem, 100vw" width="1080" height="1350" ' +
+            'alt="NICCI ESSENTIALS −99% na Siedem Legend. Siedem flakonów z zestawu na czarnych skałach, przed nimi siedem odlewek po 1 ml z logo Nicci.">' +
         '</picture>' +
       '</div>' +
       '<div class="nl__body">' +
