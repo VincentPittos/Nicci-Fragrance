@@ -562,7 +562,7 @@ test('aktualizacja arkusza 2026-10: z importu wrześniowego i po poprzedniej akt
     assert.match(opis, /p42\.podobne/, rev);
     assert.doesNotMatch(opis, /ml_dostepne/, rev);
     // listopad 2026: po tej aktualizacji właściciel uruchamia korekta_2026_11 (weryfikacja nut i opisów, decyzja 86)
-    assert.match(vm.runInContext('korekta_2026_11()', ctx), /zmienione komórki 84 w 26 zapachach\.$/, rev);
+    assert.match(vm.runInContext('korekta_2026_11()', ctx), /zmienione komórki 85 w 26 zapachach\.$/, rev);
 
     const byId = Object.fromEntries(JSON.parse(JSON.stringify(be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid))).map((p) => [p.id, p]));
     assert.equal(Object.keys(byId).length, 100, rev);

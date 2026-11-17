@@ -26,12 +26,16 @@ Strona nigdy nie dostaje kodu w odpowiedzi: kod trafia tylko do skrzynki, na kt�
 3. **Location ID.** Ustawienia, Business Profile (albo adres panelu: `.../location/<ID>/...`).
 4. **Szablon maila.** Marketing, Emails, Templates, nowy szablon w edytorze kodu HTML: wklej cały plik `dev/maile/kod-essentials.html`.
    * Temat: `{{contact.first_name}}, Twój kod −99% na Siedem Legend`.
-   * Nadawca: Nicci Fragrance. Adres nadawcy z domeny podpiętej w GHL (np. kontakt@niccifragrance.pl).
+   * Nadawca: Nicci Fragrance, adres **kontakt@niccifragrance.pl** (wymaganie właściciela z 17.11.2026). Działa dopiero z domeną wysyłkową z punktu 6.
    * Zostaw włączoną domyślną stopkę GHL z linkiem do wypisania się: szablon nie ma własnego.
 5. **Workflow.**
    * Wyzwalacz: Contact Tag, tag dodany: `newsletter-essentials`.
    * Akcja: Send Email z szablonem z punktu 4.
    * Opublikuj.
+6. **Domena wysyłkowa (żeby mail szedł z kontakt@niccifragrance.pl i nie lądował w spamie).** Ustawienia, Email Services, dodaj domenę wysyłkową. GHL poda rekordy DNS (TXT, CNAME, MX) do wpisania u dostawcy domeny niccifragrance.pl; zwykle na poddomenie, np. `mg.niccifragrance.pl`.
+   * Stan DNS z 17.11.2026: poczta domeny jest w Google Workspace (MX Google, SPF tylko `include:_spf.google.com`, DKIM Google), bez rekordu DMARC i bez domeny wysyłkowej GHL.
+   * Nie zmieniaj rekordów MX ani SPF domeny głównej: od nich zależy obecna skrzynka kontakt@niccifragrance.pl. Rekordy GHL idą na poddomenę.
+   * Poczekaj, aż GHL pokaże domenę jako zweryfikowaną, i dopiero wtedy wybierz ją w szablonie i workflow.
 
 ## Krok 2. Apps Script (arkusz sklepu)
 
@@ -45,7 +49,7 @@ Strona nigdy nie dostaje kodu w odpowiedzi: kod trafia tylko do skrzynki, na kt�
 
 ## Krok 3. Test i włączenie
 
-1. Daj znać, że kroki 1 i 2 są gotowe. Włączymy popup na stronie (`AKTYWNY = true` w `site/js/newsletter.js`, skrypt na stronach).
+1. Daj znać, że kroki 1 i 2 są gotowe. Popup już jest na stronie głównej, w katalogu i na stronie wyniku quizu, ale w trybie `'blokada'`: formularz widać, a wysłanie niczego nie zapisuje (decyzja 105). Zapisy włącza `TRYB = 'zapis'` w `site/js/newsletter.js`. Podgląd popupu od razu, bez czekania: `?popup=1` (w trybie `'zapis'` ten podgląd wysyła już prawdziwy zapis).
 2. Zapisz się własnym adresem. Sprawdź:
    * wiersz w zakładce Newsletter ze statusem „przekazany do GHL”;
    * kontakt z tagiem w GHL;

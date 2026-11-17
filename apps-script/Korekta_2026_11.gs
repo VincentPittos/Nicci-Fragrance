@@ -496,6 +496,10 @@ const KOREKTA_2026_11 = [
    "nuty_bazy": [
     "Bursztyn, drzewo, wanilia",
     "Drewno cedrowe, ambra, davana"
+   ],
+   "rodzina": [
+    "gourmand",
+    "drzewna"
    ]
   }
  }

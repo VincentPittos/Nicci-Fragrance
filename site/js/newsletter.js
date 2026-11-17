@@ -8,17 +8,21 @@
  *
  * Wysyłka (decyzja 101): backend sklepu w Apps Script (API_URL z nicci-api.js, action: newsletter). Backend zapisuje
  * zgodę w zakładce Newsletter, wystawia jednorazowy kod i przekazuje kontakt do GHL, a GHL wysyła mail z kodem.
- * AKTYWNY = false: popup działa tylko w podglądzie (?popup=1, ?popup=gotowe) i niczego nie wysyła. Włącz dopiero po
- * wdrożeniu nowego Code.gs i konfiguracji GHL (docs/ghl-newsletter.md).
+ * TRYB (decyzja 105):
+ *   'blokada'    popup pokazuje się na stronie z formularzem, ale formularz niczego nie wysyła ani nie zapisuje
+ *                (zapisy jeszcze nie ruszyły); zamknięcie liczy się osobno, więc po starcie zapisów popup wróci;
+ *   'zapis'      zapisy działają; włącz po wdrożeniu nowego Code.gs i konfiguracji GHL (docs/ghl-newsletter.md);
+ *   'wylaczony'  popup tylko w podglądzie (?popup=1, ?popup=gotowe), bez wysyłki.
  */
 (function () {
   'use strict';
-  var AKTYWNY = false;
+  var TRYB = 'blokada';
   var API = window.Nicci && window.Nicci.CONFIG && window.Nicci.CONFIG.API_URL;
-  var ENDPOINT = AKTYWNY && API && !/UZUPELNIJ/.test(API) ? API : '';
-  var KEY = 'nicci-newsletter';
-  var BACK_AFTER = 14 * 24 * 3600 * 1000;
-  var SKIP = /^\/(zamowienie|potwierdzenie|regulamin|prywatnosc)(\.html)?\/?$/;
+  var ENDPOINT = TRYB === 'zapis' && API && !/UZUPELNIJ/.test(API) ? API : '';
+  // przed startem zapisów osobna pamięć i krótsza przerwa, żeby zamknięcie zapowiedzi nie chowało popupu po starcie
+  var KEY = TRYB === 'zapis' ? 'nicci-newsletter' : 'nicci-newsletter-przed-startem';
+  var BACK_AFTER = (TRYB === 'zapis' ? 14 : 3) * 24 * 3600 * 1000;
+  var SKIP = /^\/(zamowienie|potwierdzenie|regulamin|prywatnosc|quiz)(\.html)?\/?$/;
   var M = window.NicciMotion;
   var params = new URLSearchParams(location.search);
   var preview = params.get('popup');
@@ -71,6 +75,7 @@
               '<span>Chcę dostawać newsletter Nicci Fragrance z&nbsp;ofertami i&nbsp;nowościami. Zgodę mogę wycofać w&nbsp;każdej chwili. ' +
               'Zasady w&nbsp;<a class="link" href="/prywatnosc" target="_blank">Polityce prywatności</a>.</span></label>' +
             '<p class="nl__error" role="alert" hidden></p>' +
+            '<p class="nl__info" role="status" hidden></p>' +
             '<button type="submit" class="btn btn--primary btn--block nl__submit">Wyślij mi kod</button>' +
             '<button type="button" class="nl__decline" data-nl-close>Nie, dziękuję</button>' +
           '</form>' +
@@ -161,6 +166,12 @@
   function submit(e) {
     e.preventDefault();
     var form = e.target;
+    if (TRYB !== 'zapis') { // zapisy jeszcze nie ruszyły: nic nie wysyłamy i nic nie zapisujemy
+      var info = dlg.querySelector('.nl__info');
+      info.textContent = 'Zapisy ruszą wkrótce. Na razie niczego nie zapisujemy, więc zajrzyj tu ponownie po swój kod.';
+      info.hidden = false;
+      return;
+    }
     var imie = form.imie.value.trim(), email = form.email.value.trim();
     if (!imie) return fail('imie', 'Wpisz swoje imię, żebyśmy wiedzieli, jak się do Ciebie zwracać.');
     if (!EMAIL.test(email)) return fail('email', 'Sprawdź adres e-mail, na który mamy wysłać kod.');
@@ -213,14 +224,14 @@
 
   // przyciski „Chcę kod” na innych stronach (np. /oferty) otwierają popup na żądanie
   window.NicciNewsletter = {
-    enabled: typeof HTMLDialogElement !== 'undefined' && !!(ENDPOINT || preview || params.has('podglad')),
+    enabled: typeof HTMLDialogElement !== 'undefined' && !!(ENDPOINT || TRYB === 'blokada' || preview || params.has('podglad')),
     open: function () { if (this.enabled) open(true); }
   };
 
   function init() {
     if (typeof HTMLDialogElement === 'undefined') return;
     if (preview) { open(preview === 'gotowe' ? 'gotowe' : null); return; }
-    if (!ENDPOINT || !allowed()) return;
+    if (TRYB === 'wylaczony' || (TRYB === 'zapis' && !ENDPOINT) || !allowed()) return;
     arm();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -121,6 +121,9 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 
 .nl__error { margin: 0; font-size: var(--n-size-small); font-weight: 500; color: var(--danger); }
 .nl__error[hidden] { display: none; }
+/* informacja przed startem zapisów (TRYB 'blokada' w newsletter.js) */
+.nl__info { margin: 0; font-size: var(--n-size-small); font-weight: 500; color: var(--n-gold); }
+.nl__info[hidden] { display: none; }
 .nl__submit { margin-top: var(--n-space-1); }
 .nl__decline {
   justify-self: center;

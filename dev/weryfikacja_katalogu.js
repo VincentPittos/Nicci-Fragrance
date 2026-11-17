@@ -18,7 +18,7 @@ const { ROOT, loadBackend } = require('./wspolne');
 const be = loadBackend();
 const PLIK = path.join(ROOT, 'dev', 'dane', 'weryfikacja_2026_11.json');
 const ARKUSZ = path.join(ROOT, 'dev', 'dane', 'arkusz.json');
-const POLA = ['opis', 'nuty_glowy', 'nuty_serca', 'nuty_bazy', 'trwalosc', 'projekcja', 'intensywnosc'];
+const POLA = ['opis', 'nuty_glowy', 'nuty_serca', 'nuty_bazy', 'trwalosc', 'projekcja', 'intensywnosc', 'rodzina'];
 
 /** FNV-1a 32-bit po jednostkach UTF-16, tak samo jak korekty() w site/js/app.js. */
 function fnv(s) {
@@ -34,7 +34,7 @@ function intensywnosc(proj) { return proj <= 2.5 ? 1 : proj <= 3.5 ? 2 : 3; }
 function wApi(row, pole) {
   const p = be.productFromRow_(row);
   return { opis: p.opis, nuty_glowy: p.nuty.glowy, nuty_serca: p.nuty.serca, nuty_bazy: p.nuty.bazy,
-    trwalosc: p.trwalosc, projekcja: p.projekcja, intensywnosc: p.intensywnosc }[pole];
+    trwalosc: p.trwalosc, projekcja: p.projekcja, intensywnosc: p.intensywnosc, rodzina: p.rodzina }[pole];
 }
 
 const tekst = (v) => (v === null || v === undefined ? '' : String(v).trim());

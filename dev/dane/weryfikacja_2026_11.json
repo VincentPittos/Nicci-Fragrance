@@ -536,19 +536,22 @@
   {
    "id": "p60",
    "nazwa": "Bottled Absolu",
-   "powod": "Dopisane 17.11.2026 przed włączeniem p60 do Winter Discovery Set (decyzja 104). Hugo Boss podaje dla Boss Bottled Absolu Parfum Intense: na otwarcie lekko palony akord skóry, potem esencja paczuli i mirra, w bazie ciepłe drewno cedrowe, ambra i owocowa davana. Bergamotki, nut korzennych, kadzidła i wanilii marka nie wymienia.",
+   "powod": "Dopisane 17.11.2026 przed włączeniem p60 do Winter Discovery Set (decyzja 104). Hugo Boss podaje dla Boss Bottled Absolu Parfum Intense: na otwarcie lekko palony akord skóry, potem esencja paczuli i mirra, w bazie ciepłe drewno cedrowe, ambra i owocowa davana. Bergamotki, nut korzennych, kadzidła i wanilii marka nie wymienia. Rodzina zmieniona z gourmand na drzewną decyzją właściciela (17.11.2026, główne akordy według Fragrantiki: ambrowy, balsamiczny, drzewny).",
    "zrodla": [
-    "https://www.hugoboss.com/us/boss-bottled-absolu-parfum-intense-100-ml-%E2%80%93-3.38-oz/hbna58139181_999.html"
+    "https://www.hugoboss.com/us/boss-bottled-absolu-parfum-intense-100-ml-%E2%80%93-3.38-oz/hbna58139181_999.html",
+    "https://www.fragrantica.pl/perfumy/Hugo-Boss/Bottled-Absolu-96246.html"
    ],
    "po": {
     "nuty_glowy": "Akord palonej skóry",
     "nuty_serca": "Paczula, mirra",
-    "nuty_bazy": "Drewno cedrowe, ambra, davana"
+    "nuty_bazy": "Drewno cedrowe, ambra, davana",
+    "rodzina": "drzewna"
    },
    "przed": {
     "nuty_glowy": "Bergamotka, korzenne nuty",
     "nuty_serca": "Kadzidło, żywice",
-    "nuty_bazy": "Bursztyn, drzewo, wanilia"
+    "nuty_bazy": "Bursztyn, drzewo, wanilia",
+    "rodzina": "gourmand"
    }
   }
  ]
