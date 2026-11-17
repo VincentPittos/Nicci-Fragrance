@@ -16,7 +16,7 @@
  */
 (function () {
   'use strict';
-  var TRYB = 'blokada';
+  var TRYB = 'wylaczony'; // właściciel 17.11: popup schowany do poprawy maila (decyzja 105)
   var API = window.Nicci && window.Nicci.CONFIG && window.Nicci.CONFIG.API_URL;
   var ENDPOINT = TRYB === 'zapis' && API && !/UZUPELNIJ/.test(API) ? API : '';
   // przed startem zapisów osobna pamięć i krótsza przerwa, żeby zamknięcie zapowiedzi nie chowało popupu po starcie
