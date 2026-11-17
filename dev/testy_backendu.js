@@ -507,6 +507,7 @@ function fakeSpreadsheet(tables) {
       grid,
       getLastRow: () => grid.length,
       getLastColumn: width,
+      getDataRange: () => ({ getValues: () => grid.map((row) => Array.from({ length: width() }, (_, j) => (row[j] !== undefined ? row[j] : ''))) }),
       getRange: (r, c, nr, nc) => ({
         getValue: () => cell(r - 1, c - 1),
         getValues: () => Array.from({ length: nr || 1 }, (_, i) => Array.from({ length: nc || 1 }, (_, j) => cell(r - 1 + i, c - 1 + j))),
@@ -795,6 +796,96 @@ test('zestaw Essentials: 7 zapachów po 1 ml za 99 zł, funkcja dla arkusza dopi
     JSON.parse(JSON.stringify(be.tableToObjects_(sheet.Zestawy))).map((z) => { delete z._row; return z; }));
   assert.match(vm.runInContext('zestaw_essentials_2026_11()', ctx), /już jest/);
   assert.equal(ss.sheets[ctx.SHEET.ZESTAWY].grid.length, sheet.Zestawy.length, 'drugie uruchomienie niczego nie dopisuje');
+});
+
+test('newsletter: kod NICCI daje zestaw Essentials za 1 zł tylko z odlewką 20 ml, jednorazowo', () => {
+  const N = cfg.NEWSLETTER;
+  const bon = { kod: 'NICCI-ABC234', kwota: '', prog: '', wazny_do: '', powod: N.TAG, email: 'anna@example.com', wykorzystany_w: '', _row: 2 };
+  const lines = (items) => be.priceOrder_(items, 'paczkomat', productRows, setRows, {}, cfg).lines;
+  const ess = { type: 'set', id: 'essentials', qty: 1 };
+  const z20 = { type: 'decant', id: 'p01', ml: 20, qty: 1 };
+  const z10 = { type: 'decant', id: 'p01', ml: 10, qty: 1 };
+  const ok = be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z20]));
+  assert.equal(ok.ok, true);
+  assert.equal(ok.rabat, 9900 - 100, 'zestaw za 1 zł');
+  deq(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z10])), { ok: false, reason: 'essentials_20ml' });
+  deq(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([z20])), { ok: false, reason: 'essentials' });
+  const dwa = be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([{ type: 'set', id: 'essentials', qty: 2 }, z20]));
+  assert.equal(dwa.rabat, 9800, 'rabat na jeden zestaw, nie na każdy');
+  const uzyty = Object.assign({}, bon, { wykorzystany_w: 'NF-0101' });
+  const zam = [{ numer: 'NF-0101', status: 'OPŁACONE', rezerwacja_do: '' }];
+  assert.equal(be.checkVoucher_('NICCI-ABC234', [uzyty], zam, 0, NOW, cfg, lines([ess, z20])).reason, 'wykorzystany');
+  assert.match(be.newsletterCode_(), /^NICCI-[A-HJ-NP-Z2-9]{6}$/);
+});
+
+test('newsletter: zapis tworzy kod i kontakt w GHL (upsert, potem tag), ponowny zapis zostawia ten sam kod', () => {
+  const fs = require('fs'), path = require('path'), vm = require('vm');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8');
+  const props = { GHL_TOKEN: 'test-token', GHL_LOCATION_ID: 'loc1' };
+  const calls = [];
+  const resp = (code, body) => ({ getResponseCode: () => code, getContentText: () => JSON.stringify(body) });
+  const cacheStore = {};
+  const ctx = {
+    console, Intl, Date, JSON, Math, Logger: { log() {} },
+    CacheService: { getScriptCache: () => ({ get: (k) => cacheStore[k] || null, put: (k, v) => { cacheStore[k] = v; }, remove: (k) => { delete cacheStore[k]; } }) },
+    LockService: { getScriptLock: () => ({ tryLock: () => true, releaseLock() {} }) },
+    Utilities: { DigestAlgorithm: { SHA_256: 'sha256' }, computeDigest: (a, t) => Array.from(require('crypto').createHash('sha256').update(t).digest()), base64EncodeWebSafe: (b) => Buffer.from(b).toString('base64url'),
+      formatDate: (d, tz, pat) => {
+        const o = {}; new Intl.DateTimeFormat('en-GB', { timeZone: tz, weekday: 'short', day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
+          .formatToParts(d).forEach((x) => { o[x.type] = x.value; });
+        return { u: String(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(o.weekday) + 1), d: o.day, M: o.month, yyyy: o.year, 'HH:mm': o.hour + ':' + o.minute }[pat];
+      } },
+    PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] || null, setProperty: (k, v) => { props[k] = v; }, deleteProperty: (k) => { delete props[k]; } }) },
+    UrlFetchApp: { fetch: (url, opt) => {
+      calls.push({ url, method: opt.method, headers: opt.headers, body: opt.payload ? JSON.parse(opt.payload) : null });
+      if (/customFields/.test(url)) return resp(200, { customFields: [{ id: 'cf9', fieldKey: 'contact.kod_essentials', name: 'Kod Essentials' }] });
+      if (/contacts\/upsert/.test(url)) return resp(201, { new: true, contact: { id: 'k77' } });
+      if (/contacts\/k77\/tags/.test(url)) return resp(201, { tags: ['newsletter-essentials'] });
+      return resp(404, {});
+    } }
+  };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET; this.HEADERS = HEADERS;', ctx, { filename: 'Code.gs' });
+  const ss = fakeSpreadsheet({ [ctx.SHEET.BONY]: [ctx.HEADERS.Bony.slice()], [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss, flush() {} };
+  ctx.body = { action: 'newsletter', imie: 'Anna', email: ' Anna@Example.com ', zgoda: true, zrodlo: 'popup-essentials', strona: '/' };
+
+  deq(vm.runInContext('subscribe_(body)', ctx), { ok: true }, 'odpowiedź bez kodu');
+  const nl = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid);
+  assert.equal(nl.length, 1);
+  assert.equal(nl[0].email, 'anna@example.com');
+  assert.match(String(nl[0].zgoda), /^TAK, \d\d\.\d\d\.\d{4}/);
+  assert.equal(nl[0].ghl, 'przekazany do GHL');
+  const kod = nl[0].kod;
+  assert.match(kod, /^NICCI-/);
+  const bon = be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid)[0];
+  assert.equal(bon.kod, kod); assert.equal(bon.powod, 'newsletter-essentials'); assert.ok(bon.wazny_do instanceof ctx.Date || bon.wazny_do);
+  // kolejność i treść zapytań do GHL
+  assert.deepEqual(calls.map((c) => c.method + ' ' + c.url.replace('https://services.leadconnectorhq.com', '')),
+    ['get /locations/loc1/customFields?model=contact', 'post /contacts/upsert', 'post /contacts/k77/tags']);
+  assert.equal(calls[1].headers.Authorization, 'Bearer test-token'); assert.equal(calls[1].headers.Version, '2021-07-28');
+  deq(calls[1].body, { locationId: 'loc1', email: 'anna@example.com', firstName: 'Anna', source: 'niccifragrance.pl, popup newslettera', customFields: [{ id: 'cf9', key: 'kod_essentials', fieldValue: kod }] });
+  assert.equal(calls[1].body.tags, undefined, 'upsert bez tagów: w GHL zastąpiłyby dotychczasowe');
+  deq(calls[2].body, { tags: ['newsletter-essentials'] });
+  assert.equal(props.GHL_POLE_KOD_ID, 'cf9', 'id pola zapamiętane');
+
+  // ponowny zapis po minucie: ten sam kod, bez nowego bonu
+  Object.keys(cacheStore).filter((k) => /^nl_[^h]/.test(k)).forEach((k) => delete cacheStore[k]);
+  vm.runInContext('subscribe_(body)', ctx);
+  const nl2 = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid);
+  assert.equal(nl2.length, 2); assert.equal(nl2[1].kod, kod);
+  assert.equal(be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid).length, 1, 'jeden kod na adres');
+  // walidacja i ukryte pole
+  ctx.zle = { imie: 'Anna', email: 'zly-adres', zgoda: true };
+  deq(vm.runInContext('subscribe_(zle)', ctx), { ok: false, error: 'validation' });
+  ctx.bez = { imie: 'Anna', email: 'b@example.com', zgoda: false };
+  deq(vm.runInContext('subscribe_(bez)', ctx), { ok: false, error: 'validation' }, 'bez zgody nie zapisujemy');
+  // bez konfiguracji GHL: zapis zostaje, status „czeka na GHL”
+  delete props.GHL_TOKEN;
+  ctx.inny = { imie: 'Ola', email: 'ola@example.com', zgoda: true };
+  vm.runInContext('subscribe_(inny)', ctx);
+  const ostatni = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid).pop();
+  assert.equal(ostatni.ghl, 'czeka na GHL');
 });
 
 test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, więc Winter Discovery Set jest dostępny', () => {

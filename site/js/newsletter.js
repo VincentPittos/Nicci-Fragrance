@@ -6,12 +6,16 @@
  * prywatności, nie przy otwartym koszyku. Raz na wizytę; po „Nie, dziękuję” albo zamknięciu wraca po 14 dniach,
  * po zapisie nigdy. Pamięć w localStorage (bez ciasteczek).
  *
- * Wysyłka: ENDPOINT (adres do ustalenia z właścicielem: backend w Apps Script albo webhook GHL). Dopóki jest pusty,
- * popup działa tylko w podglądzie (?popup=1, ?popup=gotowe) i niczego nie wysyła.
+ * Wysyłka (decyzja 101): backend sklepu w Apps Script (API_URL z nicci-api.js, action: newsletter). Backend zapisuje
+ * zgodę w zakładce Newsletter, wystawia jednorazowy kod i przekazuje kontakt do GHL, a GHL wysyła mail z kodem.
+ * AKTYWNY = false: popup działa tylko w podglądzie (?popup=1, ?popup=gotowe) i niczego nie wysyła. Włącz dopiero po
+ * wdrożeniu nowego Code.gs i konfiguracji GHL (docs/ghl-newsletter.md).
  */
 (function () {
   'use strict';
-  var ENDPOINT = '';
+  var AKTYWNY = false;
+  var API = window.Nicci && window.Nicci.CONFIG && window.Nicci.CONFIG.API_URL;
+  var ENDPOINT = AKTYWNY && API && !/UZUPELNIJ/.test(API) ? API : '';
   var KEY = 'nicci-newsletter';
   var BACK_AFTER = 14 * 24 * 3600 * 1000;
   var SKIP = /^\/(zamowienie|potwierdzenie|regulamin|prywatnosc)(\.html)?\/?$/;
@@ -173,8 +177,10 @@
 
   function send(data) {
     if (!ENDPOINT) return new Promise(function (resolve) { setTimeout(resolve, 600); }); // podgląd: bez wysyłki
+    data.action = 'newsletter';
     return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r; });
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (res) { if (!res || !res.ok) throw new Error(res && res.error || 'blad'); return res; });
   }
 
   function done(instant) {

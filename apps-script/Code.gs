@@ -50,6 +50,12 @@ const CONFIG = {
   // Bon za realizację dłuższą niż PO_DNIACH_ROBOCZYCH dni roboczych od wpłaty (bez weekendów i świąt w Polsce).
   // Wystawia się sam (trigger co godzinę), a klient wpisuje kod w polu „Kod bonu”. PROG liczymy za same zapachy.
   BON: { KWOTA: 50, PROG: 199, WAZNOSC_DNI: 90, PO_DNIACH_ROBOCZYCH: 7 },
+  // Newsletter (popup na stronie, decyzja 101): zapis trafia do zakładki Newsletter i do GHL (kontakt z polem na kod
+  // i tagiem), a mail z kodem wysyła workflow w GHL uruchamiany tagiem. Token i lokalizacja GHL są tylko we
+  // Właściwościach skryptu (GHL_TOKEN, GHL_LOCATION_ID), nigdy w tym pliku. Kod jest jednorazowy, jeden na adres
+  // e-mail, i działa z zestawem ZESTAW oraz dowolną odlewką ODLEWKA_ML: zestaw kosztuje wtedy CENA_ZESTAWU zł.
+  NEWSLETTER: { ZESTAW: 'essentials', CENA_ZESTAWU: 1, ODLEWKA_ML: 20, WAZNOSC_DNI: 30, TAG: 'newsletter-essentials',
+    POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60 },
   // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
   // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
   TRACKING_URLS: {
@@ -62,7 +68,7 @@ const CONFIG = {
 // ============ 2. STAŁE ============
 const SHEET = {
   PRODUKTY: 'Produkty', ZESTAWY: 'Zestawy', ZAMOWIENIA: 'Zamowienia',
-  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy', BONY: 'Bony', SKLEP: 'Sklep'
+  EWIDENCJA: 'Ewidencja', LOG: 'Log', STATUSY: 'Statusy', BONY: 'Bony', SKLEP: 'Sklep', NEWSLETTER: 'Newsletter'
 };
 
 // Zakładka Sklep: przełączniki dla właściciela. Pusty arkusz dostaje je z setup().
@@ -115,7 +121,9 @@ const HEADERS = {
   Bony: ['kod', 'kwota', 'prog', 'wazny_do', 'wystawiony', 'powod', 'email', 'wykorzystany_w'],
   Log: ['czas', 'poziom', 'zdarzenie', 'szczegoly'],
   Statusy: ['status', 'znaczenie'],
-  Sklep: ['ustawienie', 'wartosc', 'opis']
+  Sklep: ['ustawienie', 'wartosc', 'opis'],
+  // zgoda: data i godzina zgody z popupu; ghl: wynik przekazania kontaktu do GHL (ponowienie: ghl_wyslij_zalegle)
+  Newsletter: ['czas', 'email', 'imie', 'zgoda', 'zrodlo', 'strona', 'kod', 'ghl', 'uwagi']
 };
 
 // Kolumny techniczne ukrywane przez setup(). Właściciel ich nie edytuje.
@@ -565,10 +573,11 @@ function orderHoldsVoucher_(rec, now) {
 
 /**
  * Sprawdza bon dla zamówienia. subtotal w groszach, same zapachy bez dostawy.
- * → {ok:true, kod, rabat, row} | {ok:false, reason:'nieznany'|'wykorzystany'|'wygasl'|'prog', prog?, brakuje?}
+ * → {ok:true, kod, rabat, row} | {ok:false, reason:'nieznany'|'wykorzystany'|'wygasl'|'prog'|'essentials'|'essentials_20ml', prog?, brakuje?}
+ * Kod z newslettera (powod = CONFIG.NEWSLETTER.TAG) zamiast progu sprawdza pozycje zamówienia (lines z priceOrder_).
  * wykorzystany_w z numerem, którego nie ma w zamówieniach (np. wpis ręczny), też oznacza wykorzystany.
  */
-function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg) {
+function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg, lines) {
   const bon = bonRows.filter(function (b) { return normVoucher_(b.kod) === code; })[0];
   if (!code || !bon) return { ok: false, reason: 'nieznany' };
   const used = str_(bon.wykorzystany_w);
@@ -578,10 +587,29 @@ function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg) {
   }
   const valid = bon.wazny_do instanceof Date ? bon.wazny_do : (str_(bon.wazny_do) ? new Date(bon.wazny_do) : null);
   if (valid && !isNaN(valid.getTime()) && ymd_(now, cfg.TIMEZONE) > ymd_(valid, cfg.TIMEZONE)) return { ok: false, reason: 'wygasl' };
+  if (cfg.NEWSLETTER && str_(bon.powod) === cfg.NEWSLETTER.TAG) return newsletterVoucher_(bon, lines || [], cfg);
   const kwota = toGrosze_(str_(bon.kwota) === '' ? cfg.BON.KWOTA : bon.kwota) || 0;
   const prog = toGrosze_(str_(bon.prog) === '' ? cfg.BON.PROG : bon.prog) || 0;
   if (subtotal < prog) return { ok: false, reason: 'prog', prog: prog, brakuje: prog - subtotal };
   return { ok: true, kod: normVoucher_(bon.kod), rabat: Math.min(kwota, subtotal), row: bon._row };
+}
+
+/** Kod z newslettera: jeden zestaw ZESTAW za CENA_ZESTAWU zł, gdy w zamówieniu jest też odlewka ODLEWKA_ML. */
+function newsletterVoucher_(bon, lines, cfg) {
+  const N = cfg.NEWSLETTER;
+  const set = lines.filter(function (l) { return l.typ === 'set' && l.id === N.ZESTAW; })[0];
+  if (!set) return { ok: false, reason: 'essentials' };
+  if (!lines.some(function (l) { return l.typ === 'decant' && l.ml === N.ODLEWKA_ML; })) return { ok: false, reason: 'essentials_20ml' };
+  return { ok: true, kod: normVoucher_(bon.kod), rabat: Math.max(0, set.cena - (toGrosze_(N.CENA_ZESTAWU) || 0)), row: bon._row };
+}
+
+/** Kod z newslettera NICCI-XXXXXX, z tych samych znaków co bony. */
+function newsletterCode_(rnd) {
+  const abc = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  const r = rnd || Math.random;
+  let s = '';
+  for (let i = 0; i < 6; i++) s += abc.charAt(Math.floor(r() * abc.length));
+  return 'NICCI-' + s;
 }
 
 /** Kod bonu NF-XXXX-XXXX z liter i cyfr bez łatwych do pomylenia (0, O, 1, I, L). */
@@ -923,11 +951,154 @@ function doPost(e) {
     let body;
     try { body = JSON.parse(raw); } catch (err) { return json_({ ok: false, error: 'server_error' }); }
     if (body.action === 'createOrder') return json_(createOrder_(body));
+    if (body.action === 'newsletter') return json_(subscribe_(body));
     return json_({ ok: false, error: 'unknown_action' });
   } catch (err) {
     log_('ERROR', 'doPost', String(err && err.stack || err));
     return json_({ ok: false, error: 'server_error' });
   }
+}
+
+// ---------- newsletter i GHL (decyzja 101) ----------
+
+/**
+ * Zapis z popupu: wiersz w zakładce Newsletter, jednorazowy kod w zakładce Bony (jeden na adres e-mail; ponowny zapis
+ * dostaje ten sam kod) i kontakt w GHL. Odpowiedź nie zawiera kodu: kod trafia tylko do skrzynki z maila od GHL.
+ * → {ok:true} | {ok:false, error:'validation'|'busy'}
+ */
+function subscribe_(body) {
+  if (str_(body.website) !== '') return { ok: true }; // ukryte pole wypełnione: bot, udajemy sukces
+  const N = CONFIG.NEWSLETTER;
+  const email = clean_(body.email, 120).toLowerCase();
+  const imie = clean_(body.imie, 60);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || !imie || body.zgoda !== true) return { ok: false, error: 'validation' };
+  const cache = CacheService.getScriptCache();
+  const rlKey = 'nl_' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, email)).slice(0, 40);
+  if (cache.get(rlKey)) return { ok: true }; // drugi klik w ciągu minuty: zapis już jest
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(10000)) return { ok: false, error: 'busy' };
+  let rec, nl;
+  try {
+    const hour = Number(cache.get('nl_hour') || 0);
+    if (hour >= N.MAX_NA_GODZINE) { log_('WARN', 'newsletter', 'Przekroczony limit zapisów na godzinę.'); return { ok: false, error: 'busy' }; }
+    const ss = ss_();
+    const now = new Date();
+    nl = ensureSheet_(ss, SHEET.NEWSLETTER, HEADERS[SHEET.NEWSLETTER]);
+    const prev = tableToObjects_(nl.getDataRange().getValues())
+      .filter(function (r) { return str_(r.email).toLowerCase() === email && str_(r.kod); })[0];
+    let kod = prev ? str_(prev.kod) : '';
+    if (!kod) {
+      const bony = ensureSheet_(ss, SHEET.BONY, HEADERS[SHEET.BONY]);
+      const zajete = {};
+      tableToObjects_(bony.getDataRange().getValues()).forEach(function (b) { zajete[normVoucher_(b.kod)] = true; });
+      do { kod = newsletterCode_(); } while (zajete[kod]);
+      appendRecord_(bony, {
+        kod: kod, kwota: '', prog: '', wystawiony: now, powod: N.TAG, email: email,
+        wazny_do: N.WAZNOSC_DNI ? new Date(now.getTime() + N.WAZNOSC_DNI * 86400000) : ''
+      });
+    }
+    appendRecord_(nl, {
+      czas: now, email: email, imie: imie, zgoda: 'TAK, ' + dateTxt_(now, CONFIG.TIMEZONE), zrodlo: clean_(body.zrodlo, 60) || 'popup',
+      strona: clean_(body.strona, 120), kod: kod, ghl: 'w toku', uwagi: prev ? 'ponowny zapis, ten sam kod' : ''
+    });
+    SpreadsheetApp.flush();
+    rec = { email: email, imie: imie, kod: kod, row: nl.getLastRow() };
+    cache.put(rlKey, '1', 60);
+    cache.put('nl_hour', String(hour + 1), 3600);
+  } finally {
+    lock.releaseLock();
+  }
+  const wynik = ghlSubscribe_(rec, CONFIG); // poza blokadą: zapytania do GHL trwają chwilę
+  writeFields_(nl, headerMap_(nl), rec.row, { ghl: wynik.status, uwagi: wynik.uwagi });
+  if (wynik.status !== GHL_OK) log_('WARN', 'newsletter', rec.email + ': ' + wynik.status + '. ' + wynik.uwagi);
+  return { ok: true };
+}
+
+const GHL_OK = 'przekazany do GHL';
+const GHL_API = 'https://services.leadconnectorhq.com';
+
+/** Zapytanie do API GHL (v2, nagłówek Version 2021-07-28). → {code, body, text} */
+function ghlCall_(method, path, token, payload) {
+  const opt = {
+    method: method, muteHttpExceptions: true, contentType: 'application/json',
+    headers: { Authorization: 'Bearer ' + token, Version: '2021-07-28', Accept: 'application/json' }
+  };
+  if (payload) opt.payload = JSON.stringify(payload);
+  const res = UrlFetchApp.fetch(GHL_API + path, opt);
+  const text = res.getContentText();
+  let body = {};
+  try { body = JSON.parse(text); } catch (e) { body = {}; }
+  return { code: res.getResponseCode(), body: body, text: str_(text).slice(0, 300) };
+}
+
+/** Id pola kontaktu z kodem: z Właściwości skryptu (GHL_POLE_KOD_ID) albo wyszukane po kluczu i zapamiętane. */
+function ghlFieldId_(token, loc, key, props) {
+  const saved = props.getProperty('GHL_POLE_KOD_ID');
+  if (saved) return saved;
+  const r = ghlCall_('get', '/locations/' + encodeURIComponent(loc) + '/customFields?model=contact', token);
+  const fields = (r.body && r.body.customFields) || [];
+  const f = fields.filter(function (x) { return x.fieldKey === 'contact.' + key || x.fieldKey === key; })[0];
+  if (f && f.id) props.setProperty('GHL_POLE_KOD_ID', f.id);
+  return f ? f.id : '';
+}
+
+/**
+ * Kontakt w GHL: upsert (imię, e-mail, pole z kodem, źródło), potem osobno tag, bo tagi w upsert zastępują wszystkie
+ * dotychczasowe. Dodanie tagu uruchamia workflow z mailem. → {status, uwagi}
+ */
+function ghlSubscribe_(rec, cfg) {
+  const N = cfg.NEWSLETTER;
+  const props = PropertiesService.getScriptProperties();
+  const token = props.getProperty('GHL_TOKEN'), loc = props.getProperty('GHL_LOCATION_ID');
+  if (!token || !loc) return { status: 'czeka na GHL', uwagi: 'Brak GHL_TOKEN albo GHL_LOCATION_ID we Właściwościach skryptu. Po uzupełnieniu uruchom ghl_wyslij_zalegle.' };
+  try {
+    const pole = ghlFieldId_(token, loc, N.POLE_KOD, props);
+    if (!pole) return { status: 'błąd GHL', uwagi: 'W GHL nie ma pola kontaktu o kluczu contact.' + N.POLE_KOD + ' albo token nie ma uprawnienia do pól.' };
+    const up = ghlCall_('post', '/contacts/upsert', token, {
+      locationId: loc, email: rec.email, firstName: rec.imie, source: N.ZRODLO,
+      customFields: [{ id: pole, key: N.POLE_KOD, fieldValue: rec.kod }]
+    });
+    const id = up.body && up.body.contact && up.body.contact.id;
+    if (up.code >= 300 || !id) return { status: 'błąd GHL', uwagi: 'Kontakt: HTTP ' + up.code + ' ' + up.text };
+    const tag = ghlCall_('post', '/contacts/' + encodeURIComponent(id) + '/tags', token, { tags: [N.TAG] });
+    if (tag.code >= 300) return { status: 'błąd GHL', uwagi: 'Tag: HTTP ' + tag.code + ' ' + tag.text };
+    return { status: GHL_OK, uwagi: 'Kontakt ' + id + (up.body.new ? ', nowy.' : ', już był w GHL.') };
+  } catch (e) {
+    return { status: 'błąd GHL', uwagi: str_(e && e.message || e).slice(0, 300) };
+  }
+}
+
+/** Dla właściciela: ponawia przekazanie do GHL wierszy z zakładki Newsletter, które jeszcze tam nie trafiły. */
+function ghl_wyslij_zalegle() {
+  const sh = sheet_(SHEET.NEWSLETTER);
+  const H = headerMap_(sh);
+  const rows = tableToObjects_(sh.getDataRange().getValues());
+  let ok = 0, zle = 0;
+  rows.forEach(function (r) {
+    if (str_(r.ghl) === GHL_OK || !str_(r.kod)) return;
+    const w = ghlSubscribe_({ email: str_(r.email), imie: str_(r.imie), kod: str_(r.kod) }, CONFIG);
+    writeFields_(sh, H, r._row, { ghl: w.status, uwagi: w.uwagi });
+    if (w.status === GHL_OK) ok++; else zle++;
+  });
+  const tekst = 'GHL: przekazano ' + ok + ', nie udało się ' + zle + '.';
+  log_(zle ? 'WARN' : 'INFO', 'ghl_wyslij_zalegle', tekst);
+  return tekst;
+}
+
+/** Dla właściciela: sprawdza token, lokalizację i pole na kod w GHL, bez tworzenia kontaktu. Wynik w zakładce Log. */
+function ghl_test() {
+  const props = PropertiesService.getScriptProperties();
+  const token = props.getProperty('GHL_TOKEN'), loc = props.getProperty('GHL_LOCATION_ID');
+  let tekst;
+  if (!token || !loc) tekst = 'Brak GHL_TOKEN albo GHL_LOCATION_ID we Właściwościach skryptu.';
+  else {
+    props.deleteProperty('GHL_POLE_KOD_ID');
+    const pole = ghlFieldId_(token, loc, CONFIG.NEWSLETTER.POLE_KOD, props);
+    tekst = pole ? 'GHL działa: pole contact.' + CONFIG.NEWSLETTER.POLE_KOD + ' ma id ' + pole + '.'
+      : 'GHL: nie znaleziono pola contact.' + CONFIG.NEWSLETTER.POLE_KOD + ' (sprawdź klucz pola i uprawnienia tokenu: contacts.write, locations/customFields.readonly).';
+  }
+  log_(/^GHL działa/.test(tekst) ? 'INFO' : 'ERROR', 'ghl_test', tekst);
+  return tekst;
 }
 
 function json_(obj) {
@@ -973,7 +1144,7 @@ function createOrder_(body) {
     const bonSheet = data.voucher ? ss_().getSheetByName(SHEET.BONY) : null;
     if (data.voucher) {
       const bonRows = bonSheet ? tableToObjects_(bonSheet.getDataRange().getValues()) : [];
-      voucher = checkVoucher_(data.voucher, bonRows, orders, priced.subtotal, now, CONFIG);
+      voucher = checkVoucher_(data.voucher, bonRows, orders, priced.subtotal, now, CONFIG, priced.lines);
       if (!voucher.ok) return { ok: false, error: 'validation', fields: ['voucher'], voucher: voucher };
     }
     const rabat = voucher ? voucher.rabat : 0;
@@ -1435,6 +1606,9 @@ function diagnostyka() {
   let quota = '?';
   try { quota = MailApp.getRemainingDailyQuota(); } catch (e) { /* brak uprawnień przy pierwszym uruchomieniu */ }
   log_('INFO', 'diagnostyka', 'Sprzedaż: ' + (salesOpen_() ? 'włączona (Sklep, sprzedaz: TAK).' : 'wstrzymana (Sklep, sprzedaz: NIE), strona nie przyjmuje zamówień.'));
+  const gp = PropertiesService.getScriptProperties();
+  log_(gp.getProperty('GHL_TOKEN') && gp.getProperty('GHL_LOCATION_ID') ? 'INFO' : 'WARN', 'diagnostyka', 'Newsletter: GHL '
+    + (gp.getProperty('GHL_TOKEN') && gp.getProperty('GHL_LOCATION_ID') ? 'skonfigurowany (sprawdzisz go funkcją ghl_test).' : 'nie jest skonfigurowany: brak GHL_TOKEN albo GHL_LOCATION_ID we Właściwościach skryptu.'));
   log_('INFO', 'diagnostyka', 'Pozostały dzienny limit maili: ' + quota + '. Błędów: '
     + wyniki.filter(function (w) { return w[0] === 'ERROR'; }).length + ', ostrzeżeń: '
     + wyniki.filter(function (w) { return w[0] === 'WARN'; }).length + '.');

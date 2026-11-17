@@ -81,6 +81,8 @@
     if (v.reason === 'wykorzystany') return 'Ten bon został już wykorzystany.';
     if (v.reason === 'wygasl') return 'Ten bon stracił ważność.';
     if (v.reason === 'prog') return 'Bon działa, gdy zapachy kosztują co najmniej ' + U.price(v.prog) + '. Brakuje ' + U.price(v.brakuje) + '.';
+    if (v.reason === 'essentials') return 'Ten kod działa z zestawem NICCI ESSENTIALS. Dodaj go do koszyka.';
+    if (v.reason === 'essentials_20ml') return 'Ten kod działa, gdy w koszyku jest też dowolna odlewka 20 ml.';
     return 'Nie znamy tego kodu. Sprawdź, czy jest przepisany tak jak w mailu od nas.';
   }
 
@@ -190,7 +192,15 @@
     // bon: podgląd rabatu z ustawień katalogu; ostatecznie kod i kwotę sprawdza backend przy składaniu zamówienia
     var code = voucherCode(), bon = catalog.bon, disc = 0, bonRow = '';
     if (bon && bon.prog) document.querySelectorAll('[data-bon-prog]').forEach(function (el) { el.textContent = U.price(bon.prog); });
-    if (code && RULES.voucher() && bon && bon.kwota) {
+    if (code && RULES.voucher() && /^NICCI-/.test(code)) {
+      // kod z newslettera (decyzja 101): zestaw NICCI ESSENTIALS za 1 zł, gdy w koszyku jest też odlewka 20 ml
+      var items = N.cart.items();
+      var ess = (catalog.sets || []).filter(function (s) { return s.id === 'essentials'; })[0];
+      var hasEss = ess && items.some(function (i) { return i.type === 'set' && i.id === 'essentials'; });
+      var has20 = items.some(function (i) { return i.type === 'decant' && Number(i.ml) === 20; });
+      if (hasEss && has20) disc = Math.max(0, ess.price - 100);
+      bonRow = '<div class="os__bon"><dt>Kod ' + esc(code) + '</dt><dd>' + (disc ? '−' + U.price(disc) : hasEss ? 'z odlewką 20 ml' : 'z zestawem Essentials') + '</dd></div>';
+    } else if (code && RULES.voucher() && bon && bon.kwota) {
       if (sum.subtotal >= bon.prog) disc = Math.min(bon.kwota, sum.subtotal);
       bonRow = '<div class="os__bon"><dt>Bon ' + esc(code) + '</dt><dd>' + (disc ? '−' + U.price(disc) : 'od ' + U.price(bon.prog) + ' za zapachy') + '</dd></div>';
     }

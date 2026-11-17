@@ -103,7 +103,7 @@ if (require.main === module) {
         else {
           let body = null;
           try { body = JSON.parse(raw); } catch (e) { body = null; }
-          res = !body ? { ok: false, error: 'server_error' } : body.action === 'createOrder' ? api.createOrder(body, now) : { ok: false, error: 'unknown_action' };
+          res = !body ? { ok: false, error: 'server_error' } : body.action === 'createOrder' ? api.createOrder(body, now) : body.action === 'newsletter' ? { ok: true } : { ok: false, error: 'unknown_action' };
         }
       } else {
         const q = new URLSearchParams(req.query || '');
