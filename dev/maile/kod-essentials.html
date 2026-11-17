@@ -42,21 +42,29 @@
 </div>
 
 <!-- każda sekcja to pas na całą szerokość: marginesy obok treści mają kolor sekcji -->
+<!-- nagłówek (decyzje 106 i 107): pod grafiką 600 px leży szersze tło z tą samą sceną (skały i światło przedłużone w bok,
+     dev/grafiki/mail_tlo_szerokie.py), więc grafika łączy się z bocznymi krawędziami okna. Klient bez obrazów w tle
+     (np. Outlook na Windows) pokaże gładki kolor #090807 po bokach. -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#090807" style="background-color:#090807;">
+<tr><td align="center" background="https://niccifragrance.pl/img/email/essentials-naglowek-tlo-3600.jpg" style="padding:0;background-color:#090807;background-image:url('https://niccifragrance.pl/img/email/essentials-naglowek-tlo-3600.jpg');background-position:center top;background-repeat:no-repeat;background-size:1800px auto;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
+  <tr><td style="padding:0;">
+    <a href="https://niccifragrance.pl/katalog?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=kod-essentials#zestawy" target="_blank">
+      <img src="https://niccifragrance.pl/img/email/essentials-naglowek-v3-1200.jpg" width="600" alt="Nicci Fragrance. NICCI ESSENTIALS −99% na Siedem Legend: siedem flakonów perfum i siedem odlewek po 1 ml" style="display:block;width:100%;max-width:600px;height:auto;">
+    </a>
+  </td></tr>
+</table>
+</td></tr>
+</table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#090807" style="background:#090807;">
 <tr><td align="center" style="padding:0;">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
-  <!-- nagłówek: logo na grafice, jedno światło z góry, grafika do krawędzi (dev/grafiki/mail_naglowek.py, decyzja 106) -->
-  <tr><td style="padding:0;">
-    <a href="https://niccifragrance.pl/katalog?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=kod-essentials#zestawy" target="_blank">
-      <img src="https://niccifragrance.pl/img/email/essentials-naglowek-v2-1200.jpg" width="600" alt="Nicci Fragrance. NICCI ESSENTIALS −99% na Siedem Legend: siedem flakonów perfum i siedem odlewek po 1 ml" style="width:100%;max-width:600px;height:auto;">
-    </a>
-  </td></tr>
   <!-- powitanie -->
   <tr><td class="pad" align="center" style="padding:44px 56px 8px;background:#090807;">
     <img src="https://niccifragrance.pl/img/email/znak-nicci-zloto.png" width="34" height="40" alt="" style="width:34px;height:auto;margin:0 auto 22px;">
     <p class="sans" style="margin:0 0 14px;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#d5a865;">Witamy w Nicci</p>
-    <h1 class="serif h1" style="margin:0;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500;font-size:40px;line-height:46px;color:#f6efe6;">{{contact.first_name}}, siedem legend czeka na Ciebie</h1>
-    <p class="sans" style="margin:20px 0 0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#d9cbb9;">Dziękujemy, że jesteś z&nbsp;nami. Obiecaliśmy kod, więc oto on: siedem zapachów z&nbsp;najwyższej półki po 1&nbsp;ml, za złotówkę. Każdy ponosisz przez cały dzień i&nbsp;sprawdzisz, który zostaje z&nbsp;Tobą na dłużej.</p>
+    <h1 class="serif h1" style="margin:0;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500;font-size:40px;line-height:46px;color:#f6efe6;">{{contact.first_name}}, Siedem Legend za&nbsp;złotówkę</h1>
+    <p class="sans" style="margin:20px 0 0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#d9cbb9;">Dziękujemy za zapis. Oto Twój kod −99% na zestaw NICCI&nbsp;ESSENTIALS: siedem zapachów z&nbsp;najwyższej półki po 1&nbsp;ml. Każdy ponosisz przez cały dzień i&nbsp;sprawdzisz, który chcesz mieć w&nbsp;większej odlewce.</p>
   </td></tr>
 
   <!-- kod -->
@@ -65,7 +73,8 @@
       <tr><td align="center" style="padding:26px 20px 24px;">
         <p class="sans" style="margin:0 0 12px;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#d5a865;">Twój kod −99%</p>
         <p class="sans code" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:32px;line-height:40px;font-weight:500;letter-spacing:6px;color:#fbf3e6;">{{contact.kod_essentials}}</p>
-        <p class="sans" style="margin:12px 0 0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:20px;color:#a99a88;">Jednorazowy, ważny 30 dni od zapisu.</p>
+        <p class="sans" style="margin:12px 0 0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:20px;color:#a99a88;">Wyślij nam ten kod przy składaniu zamówienia z&nbsp;dowolną odlewką 20&nbsp;ml, a&nbsp;zestaw dołączymy za 1&nbsp;zł.</p>
+        <p class="sans" style="margin:8px 0 0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:20px;color:#a99a88;">Jednorazowy, ważny 30 dni od zapisu.</p>
       </td></tr>
     </table>
   </td></tr>
@@ -89,14 +98,6 @@
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#221e1a;">
             <tr><td style="padding:18px 16px 20px;">
               <p class="serif" style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:30px;color:#d5a865;">01</p>
-              <p class="sans" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#e8d7c3;">Dodaj do koszyka zestaw NICCI ESSENTIALS.</p>
-            </td></tr>
-          </table>
-        </td>
-        <td class="step" width="33%" valign="top" style="padding:0 6px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#221e1a;">
-            <tr><td style="padding:18px 16px 20px;">
-              <p class="serif" style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:30px;color:#d5a865;">02</p>
               <p class="sans" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#e8d7c3;">Wybierz dowolny zapach w&nbsp;odlewce 20&nbsp;ml.</p>
             </td></tr>
           </table>
@@ -104,8 +105,16 @@
         <td class="step" width="33%" valign="top" style="padding:0 6px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#221e1a;">
             <tr><td style="padding:18px 16px 20px;">
+              <p class="serif" style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:30px;color:#d5a865;">02</p>
+              <p class="sans" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#e8d7c3;">Składając zamówienie, wyślij nam swój kod.</p>
+            </td></tr>
+          </table>
+        </td>
+        <td class="step" width="33%" valign="top" style="padding:0 6px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#221e1a;">
+            <tr><td style="padding:18px 16px 20px;">
               <p class="serif" style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:30px;color:#d5a865;">03</p>
-              <p class="sans" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#e8d7c3;">Wpisz kod w&nbsp;polu „Kod bonu”. Zestaw kosztuje 1&nbsp;zł.</p>
+              <p class="sans" style="margin:0;font-family:'Jost','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#e8d7c3;">Zestaw NICCI ESSENTIALS dołączymy za 1&nbsp;zł.</p>
             </td></tr>
           </table>
         </td>
@@ -186,7 +195,7 @@
       </td></tr>
       <tr><td style="padding:14px 0;border-top:1px solid #3a332c;border-bottom:1px solid #3a332c;">
         <p class="sans" style="margin:0;font-family:'Jost',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#d5a865;">Szybka wysyłka</p>
-        <p class="sans" style="margin:4px 0 0;font-family:'Jost',Helvetica,Arial,sans-serif;font-size:15px;line-height:23px;color:#d9cbb9;">Zwykle w&nbsp;ciągu 1 dnia roboczego, paczkomatem albo kurierem.</p>
+        <p class="sans" style="margin:4px 0 0;font-family:'Jost',Helvetica,Arial,sans-serif;font-size:15px;line-height:23px;color:#d9cbb9;">Zwykle w&nbsp;ciągu 1 dnia roboczego od zaksięgowania wpłaty, paczkomatem albo kurierem.</p>
       </td></tr>
     </table>
   </td></tr>
