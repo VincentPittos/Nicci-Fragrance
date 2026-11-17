@@ -1,70 +1,68 @@
 #!/usr/bin/env python3
 """
-Nagłówek maila z kodem −99% (dev/maile/kod-essentials.html, decyzja 101): grafika „−99% na Siedem Legend” wydłużona
-w górę o pas na logo. Pas to dobudowane ciemne tło z poświatą, która wychodzi zza logo i płynnie przechodzi
-w poświatę nad „−99%”. Logo stoi tam, gdzie wcześniej stało w osobnym czarnym pasku (66 × 72 px przy szerokości
-maila 600 px, 36 px od góry). Boki i dół grafiki wtapiają się w kolor tła maila (TLO), więc marginesy obok grafiki
-mają ten sam kolor co sekcje.
+Nagłówek maila z kodem −99% (dev/maile/kod-essentials.html, decyzje 101 i 106).
 
-    python3 dev/grafiki/mail_naglowek.py LOGO_PNG
+Tło: zdjęcie bazowe grafiki „−99% na Siedem Legend” bez napisu (baza z obniżoną skałą, 1856 × 2320), dobudowane
+u góry do 2:3 i przerobione w Nano Banana Pro (Muapi): skały do samych krawędzi kadru, bez winiety i ściemnień,
+jedno naturalne, ciepłe światło z góry (poświata u góry na środku, za logo). Flakony i odlewki zostają na miejscu,
+więc napis kładziemy tym samym dev/grafiki/napis_99.py (styl L_legendy_anton_krem, dopisek „na Siedem Legend”)
+i tą samą maską pierwszego planu co na poście i w popupie. Na koniec logo na górze. Bez dorobionej poświaty i bez
+wtapiania boków i dołu w kolor maila: grafika dochodzi do krawędzi.
 
-LOGO_PNG: site/img/marka/logo-pelne-zloto.svg wyrenderowane do PNG z przezroczystością (264 × 288 px, 2× na 1200).
-Wynik: site/img/email/essentials-naglowek-1200.jpg (1200 × 1772).
+    python3 dev/grafiki/mail_naglowek.py TLO_MUAPI.jpg BAZA_MASKA.png LOGO_PNG [SKALA DY]
+
+TLO_MUAPI.jpg  wynik Muapi (kadr 2:3, wejście: baza 1856 × 2320 z dobudowanymi 464 px u góry)
+BAZA_MASKA.png maska pierwszego planu bazy (1856 × 2320)
+LOGO_PNG       site/img/marka/logo-pelne-zloto.svg wyrenderowane do PNG z przezroczystością (264 × 288)
+SKALA DY       dopasowanie wyniku do wejścia (domyślnie 0.9138 i -9: zmierzone na flakonach, korelacja 0,97)
+Fonty: NICCI_FONTY (jak w napis_99.py). Wynik: site/img/email/essentials-naglowek-v2-1200.jpg
+(nowa nazwa, bo /img/* ma w przeglądarce pamięć podręczną na tydzień).
 """
 import os
+import subprocess
 import sys
+import tempfile
 
 import numpy as np
 from PIL import Image
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SRC = os.path.join(ROOT, 'dev', 'grafiki', 'zrodla', 'kampanie', 'essentials-legend-v3-4x5.png')
-OUT = os.path.join(ROOT, 'site', 'img', 'email', 'essentials-naglowek-1200.jpg')
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+OUT = os.path.join(ROOT, 'site', 'img', 'email', 'essentials-naglowek-v2-1200.jpg')
+W_BAZA, H_BAZA, DOBUDOWA = 1856, 2320, 464
 W = 1200
-PAS = 272                      # 136 px w mailu: 36 nad logo, 72 logo, 28 pod logo
-LOGO_W, LOGO_H, LOGO_Y = 132, 144, 72
-TLO = np.array([9, 8, 7], np.float32)   # #090807, tło maila i ciemnych sekcji
-
-
-def smooth(t):
-    t = np.clip(t, 0, 1)
-    return t * t * (3 - 2 * t)
+LOGO_W, LOGO_H, LOGO_Y = 132, 144, 72   # przy szerokości 1200 (66 × 72 px w mailu), jak wcześniej
 
 
 def main():
-    logo = Image.open(sys.argv[1]).convert('RGBA').resize((LOGO_W, LOGO_H), Image.LANCZOS)
-    img = Image.open(SRC).convert('RGB').resize((W, round(W * 2320 / 1856)), Image.LANCZOS)
-    a = np.asarray(img).astype(np.float32)
-    H = a.shape[0]
+    tlo_p, maska_p, logo_p = sys.argv[1:4]
+    skala = float(sys.argv[4]) if len(sys.argv) > 4 else 0.9138
+    dy = int(sys.argv[5]) if len(sys.argv) > 5 else -9
 
-    # pas nad grafiką: tło + poświata (gaussowska elipsa) ze środkiem za logo
-    yy, xx = np.mgrid[0:PAS, 0:W].astype(np.float32)
-    cx, cy = W / 2, LOGO_Y + LOGO_H / 2
-    glow = np.exp(-(((xx - cx) / (W * 0.20)) ** 2 + ((yy - cy) / (PAS * 0.95)) ** 2))[..., None]
-    szczyt = np.array([112, 80, 40], np.float32)       # ciepłe złoto, jak poświata nad „−99%”
-    pas = TLO + (szczyt - TLO) * glow
-    # dół pasa przechodzi dokładnie w pierwszy wiersz grafiki (średnia z 6 wierszy, wygładzona w poziomie)
-    gora = a[:6].mean(0)
-    k = 31
-    gora = np.stack([np.convolve(np.pad(gora[:, c], k // 2, mode='edge'), np.ones(k) / k, mode='valid') for c in range(3)], -1)
-    w = smooth((yy - PAS * 0.35) / (PAS * 0.65))[..., None]
-    pas = pas * (1 - w) + (pas + (gora[None, :, :] - pas[-1:, :, :])) * w
+    # wynik Muapi w skali wejścia; wiersz y wejścia to wiersz y + dy wyniku
+    t = Image.open(tlo_p).convert('RGB')
+    t = t.resize((W_BAZA, round(t.height / skala)), Image.LANCZOS)
+    a = np.asarray(t)
+    y0 = DOBUDOWA + dy
+    need = y0 + H_BAZA
+    if a.shape[0] < need:   # brakujące wiersze na samym dole (skała): powielamy ostatni
+        a = np.concatenate([a, np.repeat(a[-1:], need - a.shape[0], 0)], 0)
+    gora, kadr = a[:y0], a[y0:need]
 
-    full = np.concatenate([pas, a], 0)
-    FH = full.shape[0]
-    # boki i dół wtopione w tło maila
-    yy, xx = np.mgrid[0:FH, 0:W].astype(np.float32)
-    bok = smooth(np.minimum(xx, W - 1 - xx) / 56.0)
-    dol = smooth((FH - 1 - yy) / 70.0)
-    m = (bok * dol)[..., None]
-    full = full * m + TLO * (1 - m)
-    # drobne ziarno, żeby poświata nie robiła pasów w JPG
-    rng = np.random.default_rng(3)
-    full = full + rng.normal(0, 1.1, full.shape[:2])[..., None]
-    out = Image.fromarray(np.clip(full, 0, 255).astype(np.uint8))
-    out.paste(logo, ((W - LOGO_W) // 2, LOGO_Y), logo)
-    out.save(OUT, quality=84, optimize=True, progressive=True)
-    print(OUT, out.size, os.path.getsize(OUT) // 1024, 'KB')
+    with tempfile.TemporaryDirectory() as tmp:
+        baza = os.path.join(tmp, 'baza.png')
+        Image.fromarray(kadr).save(baza)
+        env = dict(os.environ, PODPIS='na Siedem Legend', SUB_MODE='prawo')
+        subprocess.run([sys.executable, '-I', os.path.join(HERE, 'napis_99.py'), baza, maska_p, tmp, 'L_legendy_anton_krem'],
+                       check=True, env=env, stdout=subprocess.DEVNULL)
+        z_napisem = np.asarray(Image.open(os.path.join(tmp, 'L_legendy_anton_krem.png')).convert('RGB'))
+
+    full = Image.fromarray(np.concatenate([gora, z_napisem], 0))
+    full = full.resize((W, round(full.height * W / W_BAZA)), Image.LANCZOS)
+    logo = Image.open(logo_p).convert('RGBA').resize((LOGO_W, LOGO_H), Image.LANCZOS)
+    full.paste(logo, ((W - LOGO_W) // 2, LOGO_Y), logo)
+    full.save(OUT, quality=86, optimize=True, progressive=True)
+    print(OUT, full.size, os.path.getsize(OUT) // 1024, 'KB')
 
 
 if __name__ == '__main__':
