@@ -907,6 +907,32 @@ test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, wi�
 });
 
 
+test('nuty: każda miniatura z reguł ma plik i podpis, a nuty dostają właściwe zdjęcie (decyzja 106)', () => {
+  const fs = require('fs'), path = require('path');
+  const N = require(path.join(__dirname, '..', 'site', 'js', 'nuty.js'));
+  const pliki = new Set(fs.readdirSync(path.join(__dirname, '..', 'site', 'img', 'nuty')).map((f) => f.replace(/\.webp$/, '')));
+  const slugi = [...new Set(N.REGULY.map((r) => r[1]))];
+  deq(slugi.filter((s) => !pliki.has(s)), [], 'reguła bez pliku');
+  deq(slugi.filter((s) => !N.NAZWY[s]), [], 'miniatura bez podpisu');
+  deq([...pliki].filter((f) => slugi.indexOf(f) === -1), [], 'plik, którego żadna reguła nie używa');
+  const oczek = {
+    'truskawka': 'truskawka', 'Absolut kawy': 'kawa', 'pieprz różowy': 'rozowy-pieprz', 'różowy pieprz': 'rozowy-pieprz', 'drzewo różane': 'drewno',
+    'róża damasceńska': 'roza', 'czarny i różowy pieprz': 'rozowy-pieprz', 'karmel': 'karmel', 'Karmel dulce de leche': 'karmel', 'miód': 'miod', 'Mango': 'mango', 'marakuja': 'marakuja',
+    'figa': 'figa', 'Daktyle': 'suszone-owoce', 'śliwka': 'sliwka', 'agrest': 'agrest', 'Morela': 'morela', 'sosna': 'sosna', 'igły sosnowe': 'sosna',
+    'jodła himalajska': 'sosna', 'Jagody jałowca': 'jalowiec', 'Cade (jałowiec)': 'jalowiec', 'jałowiec wirginijski': 'cedr', 'cedr': 'cedr',
+    'limonka': 'limonka', 'cytryna': 'cytryna', 'osmanthus': 'osmanthus', 'czerwona piwonia': 'piwonia', 'Magnolia': 'magnolia', 'mimoza': 'mimoza',
+    'Kwiat bzu': 'bez', 'Konwalia': 'konwalia', 'Białe kwiaty': 'biale-kwiaty', 'gardenia tahitańska': 'biale-kwiaty', 'kwiat pomarańczy': 'kwiat-pomaranczy',
+    'gałka muszkatołowa': 'galka', 'kolendra': 'kolendra', 'Esencja liścia kurkumy': 'kurkuma', 'kmin': 'przyprawy', 'Fiołek': 'fiolek',
+    'liść fiołka': 'fiolek', 'gruszka': 'gruszka', 'Herbata oolong': 'herbata', 'Czarna orchidea': 'orchidea', 'gorzki migdał': 'migdal',
+    'orzech laskowy': 'orzechy', 'Esencja koniaku': 'koniak', 'absolut rumowy': 'koniak', 'likier wiśniowy': 'wisnia', 'Syrop czereśniowy': 'wisnia',
+    'białe piżma': 'pizmo', 'absolut tonki': 'tonka', 'lawandyna': 'lawenda', 'mirra': 'zywice', 'Balsam peruwiański': 'zywice', 'amberwood': 'drewno',
+    'Kaszmeran': 'drewno', 'meksykańska czekolada': 'kakao', 'ambroksan': 'ambra'
+  };
+  Object.keys(oczek).forEach((n) => assert.equal(N.slug(n), oczek[n], n));
+  assert.equal(N.slug('cyklamen'), null, 'cyklamen bez miniatury (wcześniej zdjęcie konwalii): sam tekst');
+  assert.equal(N.slug('davana'), null, 'davana bez miniatury: sam tekst');
+});
+
 (async () => {
   for (const [name, fn] of tests) {
     try { await fn(); passed++; console.log('ok   ' + name); } catch (e) { console.log('FAIL ' + name + '\n     ' + e.message); process.exitCode = 1; }
