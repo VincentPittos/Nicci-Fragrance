@@ -143,8 +143,8 @@
   // grafikę z site/img/zestawy (dev/grafiki/zestawy_grafiki.py), a pusty opis w arkuszu zastępuje opis poniżej;
   // opis wpisany w arkuszu ma pierwszeństwo.
   var ZESTAWY_UKRYTE = ['z01', 'z03'];
-  // grafiki zestawów: z Nano Banana Pro (v2, decyzja 102), Winter na razie z dev/grafiki/zestawy_grafiki.py
-  var ZESTAWY_ZDJECIA = { essentials: 'essentials-v2', z04: 'z04-v2', z05: 'z05-v2', z06: 'z06-v2', z07: 'z07' };
+  // grafiki zestawów: z Nano Banana Pro przez Muapi (decyzje 102 i 103), dev/grafiki/zestawy_muapi.py
+  var ZESTAWY_ZDJECIA = { essentials: 'essentials-v3', z04: 'z04-v2', z05: 'z05-v2', z06: 'z06-v2', z07: 'z07-v2' };
   var ZESTAWY_OPISY = {
     z04: 'Pięć słodkich zapachów, z których każdy idzie w inną stronę: kakao z pomarańczą, cola z cynamonem, wiśniowy likier, owocowa Erba Pura i szafranowy Baccarat Rouge 540. Dla kogoś, kto lubi, gdy zapach otula, i chce sprawdzić, która słodycz pasuje mu najbardziej.',
     z05: 'Pięć zapachów na dobry początek: świeży grejpfrut, cytryna z imbirem, kwiatowa elegancja Amouage, drzewa z kadzidłem i miękka skóra Toma Forda. Każdy jest inny, więc szybko poczujesz, w którą stronę ciągnie Cię nos.',

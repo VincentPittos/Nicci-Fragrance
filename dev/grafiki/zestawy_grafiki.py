@@ -10,6 +10,8 @@ przez mnożenie, więc zostaje miękki.
 
 Wynik: site/img/zestawy/ID-{400,600,800}.{webp,avif} (4:5, jak zdjęcia produktów).
 Składnik bez zdjęcia na stronie jest pomijany z ostrzeżeniem (np. p60 Bottled Absolu w z07).
+Od decyzji 102 i 103 strona używa grafik z Nano Banana Pro (dev/grafiki/zestawy_muapi.py); ten skrypt zostaje
+jako zapas dla nowego zestawu.
 """
 import json
 import os
