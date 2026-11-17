@@ -68,17 +68,20 @@
   <header class="section-head container container--wide catalog-page__head">
     <p class="t-eyebrow t-eyebrow--rule">Katalog</p>
     <h1 class="t-h2" id="catalog-t">Wszystkie zapachy</h1>
-    <p class="t-lead catalog-page__lead">Perfumy niszowe i designerskie w odlewkach 5, 10 i&nbsp;20&nbsp;ml. Szukaj po nazwie, marce albo nucie, a&nbsp;jeśli nie wiesz, od czego zacząć, <a class="link" href="/quiz">quiz dobierze trzy zapachy</a> w minutę. Kilka zapachów w&nbsp;jednym pudełku znajdziesz w&nbsp;<a class="link" href="#zestawy">zestawach odkrywców</a> pod listą.</p>
+    <p class="t-lead catalog-page__lead">Perfumy niszowe i designerskie w odlewkach 5, 10 i&nbsp;20&nbsp;ml. Szukaj po nazwie, marce albo nucie, a&nbsp;jeśli nie wiesz, od czego zacząć, <a class="link" href="/quiz">quiz dobierze trzy zapachy</a> w minutę. Kilka zapachów w&nbsp;jednym pudełku znajdziesz w&nbsp;zakładce <a class="link" href="#zestawy" data-tab-link="zestawy">Zestawy</a>.</p>
   </header>
-  <div class="container container--wide" data-catalog></div>
-</section>
-
-<section class="sets" id="zestawy" aria-labelledby="sets-t">
-  <header class="section-head container">
-    <p class="t-eyebrow t-eyebrow--rule">Zestawy odkrywców</p>
-    <h2 class="t-h2" id="sets-t">Kilka zapachów na próbę</h2>
-  </header>
-  <div class="container" data-sets></div>
+  <!-- zakładki (decyzja 99): Zapachy i Zestawy; adres /katalog#zestawy otwiera zestawy (js/katalog-zakladki.js) -->
+  <div class="container container--wide">
+    <div class="cat-tabs" role="tablist" aria-label="Katalog" data-cat-tabs>
+      <button type="button" class="cat-tabs__tab" role="tab" id="tab-zapachy" aria-controls="panel-zapachy" aria-selected="true" data-tab="zapachy">Zapachy<span class="cat-tabs__n" data-tab-n="zapachy"></span></button>
+      <button type="button" class="cat-tabs__tab" role="tab" id="tab-zestawy" aria-controls="zestawy" aria-selected="false" tabindex="-1" data-tab="zestawy">Zestawy<span class="cat-tabs__n" data-tab-n="zestawy"></span></button>
+    </div>
+  </div>
+  <div class="container container--wide cat-panel" id="panel-zapachy" role="tabpanel" aria-labelledby="tab-zapachy" data-catalog></div>
+  <div class="container container--wide cat-panel" id="zestawy" role="tabpanel" aria-labelledby="tab-zestawy" hidden>
+    <p class="cat-panel__lead">Kilka zapachów w&nbsp;jednym zamówieniu, w&nbsp;odlewkach prosto z&nbsp;oryginalnych flakonów. Ponosisz każdy przez dzień albo dwa i&nbsp;wiesz, który weźmiesz w&nbsp;większej odlewce.</p>
+    <div data-sets data-sets-grid></div>
+  </div>
 </section>
 </main>
 
@@ -137,6 +140,7 @@
 <script src="/js/katalog.js" defer></script>
 <script src="/js/produkt.js" defer></script>
 <script src="/js/zestawy.js" defer></script>
+<script src="/js/katalog-zakladki.js" defer></script>
 <script src="/js/dane-strukturalne.js" defer></script>
 </body>
 </html>

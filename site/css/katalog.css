@@ -383,3 +383,43 @@ button.set-card__item { cursor: pointer; }
 .faq__a p + p { margin-top: var(--n-space-3); }
 .faq__more { margin-top: var(--n-space-5); font-size: var(--n-size-small); color: var(--text-muted); }
 @media (min-width: 64rem) { .faq__q { font-size: 1.625rem; } }
+
+/* ---------- zakładki katalogu: Zapachy i Zestawy (decyzja 99) ---------- */
+.cat-tabs {
+  display: flex; gap: var(--n-space-6);
+  margin-bottom: var(--n-space-6);
+  border-bottom: var(--n-hairline) solid var(--border-hairline);
+  scroll-margin-top: 5.5rem;
+}
+.cat-tabs__tab {
+  position: relative;
+  display: inline-flex; align-items: baseline; gap: 0.5rem;
+  min-height: 3rem; padding: 0.75rem 0;
+  border: 0; background: none; cursor: pointer;
+  font-size: 0.875rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--n-dur-base) var(--n-ease-out);
+}
+.cat-tabs__tab::after {
+  content: ""; position: absolute; inset: auto 0 calc(var(--n-hairline) * -1); height: 2px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--n-dur-base) var(--n-ease-out);
+}
+.cat-tabs__tab[aria-selected="true"] { color: var(--text-strong); }
+.cat-tabs__tab[aria-selected="true"]::after { transform: scaleX(1); }
+@media (hover: hover) { .cat-tabs__tab:hover { color: var(--text-strong); } }
+.cat-tabs__n { font-size: var(--n-size-micro); letter-spacing: 0.04em; color: var(--text-accent); font-variant-numeric: tabular-nums; }
+.cat-panel__lead { max-width: 46rem; margin-bottom: var(--n-space-6); font-size: 1.0625rem; line-height: 1.6; color: var(--text); }
+
+/* ---------- karty zestawów w stylu kart zapachów ---------- */
+.grid--sets { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 40rem) { .grid--sets { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .grid--sets { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 90rem) { .grid--sets { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 39.99rem) { .grid--sets { max-width: 26rem; } }
+.card__flag--set { background: var(--n-cream-50); color: var(--n-gold-700); box-shadow: inset 0 0 0 1px var(--n-gold); }
+.card--set .card__brand { font-size: 1.625rem; }
+.card--set .card__name { font-family: var(--font-body); font-size: var(--n-size-small); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-accent); }
+.card--set .card__desc--full { display: block; -webkit-line-clamp: unset; overflow: visible; -webkit-mask-image: none; mask-image: none; text-align: left; }
+.card--set .set-card__list { text-align: left; }
+.card--set .set-card__save, .card--set .set-card__missing { text-align: center; }

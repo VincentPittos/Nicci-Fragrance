@@ -95,7 +95,7 @@
     if (inflight && !force) return inflight;
     var p = N.fetchCatalog(force);
     inflight = p.then(function (data) {
-      memory = data = withKorekty(withPhotos(data));
+      memory = data = prepare(data);
       ss('set', CAT_KEY, JSON.stringify({ t: Date.now(), data: data }));
       inflight = null;
       return data;
@@ -138,13 +138,36 @@
     return data;
   }
 
+  // Zestawy (decyzja 99): LV Discovery Set i Nous Tous Discovery Set zdjęte ze strony od razu, zanim właściciel
+  // uruchomi Zestawy_2026_11.gs (po zmianie w arkuszu tych zestawów i tak nie ma w katalogu). Każdy zestaw dostaje
+  // grafikę z site/img/zestawy (dev/grafiki/zestawy_grafiki.py), a pusty opis w arkuszu zastępuje opis poniżej;
+  // opis wpisany w arkuszu ma pierwszeństwo.
+  var ZESTAWY_UKRYTE = ['z01', 'z03'];
+  var ZESTAWY_ZDJECIA = ['essentials', 'z04', 'z05', 'z06', 'z07'];
+  var ZESTAWY_OPISY = {
+    z04: 'Pięć słodkich zapachów, z których każdy idzie w inną stronę: kakao z pomarańczą, cola z cynamonem, wiśniowy likier, owocowa Erba Pura i szafranowy Baccarat Rouge 540. Dla kogoś, kto lubi, gdy zapach otula, i chce sprawdzić, która słodycz pasuje mu najbardziej.',
+    z05: 'Pięć zapachów na dobry początek: świeży grejpfrut, cytryna z imbirem, kwiatowa elegancja Amouage, drzewa z kadzidłem i miękka skóra Toma Forda. Każdy jest inny, więc szybko poczujesz, w którą stronę ciągnie Cię nos.',
+    z06: 'Pięć zapachów na chłodniejsze dni: świeży Y Parfum, ciepły Sauvage Parfum z wanilią, zamszowy Ganymede, otulający Noir Extreme i Cedrat Boise, w którym cytryna spotyka skórę. Dla kogoś, kto szuka zapachu na jesień i chce wybrać go po kilku dniach noszenia.',
+    z07: 'Pięć ciepłych zapachów na zimowe wieczory: bursztynowy Grand Soir, tytoń z wanilią Toma Forda, szafran z oudem i tonką od Montale, marakuja z różą i oudem od Maison Crivelli oraz Bottled Absolu od Hugo Boss. Dla kogoś, kto lubi zapachy gęste, słodkie i wyraźne.'
+  };
+  function withZestawy(data) {
+    if (!data || !data.sets) return data;
+    data.sets = data.sets.filter(function (s) { return ZESTAWY_UKRYTE.indexOf(s.id) === -1; });
+    data.sets.forEach(function (s) {
+      if (!s.zdjecie && ZESTAWY_ZDJECIA.indexOf(s.id) !== -1) s.zdjecie = '/img/zestawy/' + s.id + '-800.webp';
+      if (!s.opis && ZESTAWY_OPISY[s.id]) s.opis = ZESTAWY_OPISY[s.id];
+    });
+    return data;
+  }
+  function prepare(data) { return withZestawy(withKorekty(withPhotos(data))); }
+
   function catalog(force) {
     if (force) return fetchFresh(true);
     if (memory) return Promise.resolve(memory);
     var saved = null;
     try { saved = JSON.parse(ss('get', CAT_KEY) || 'null'); } catch (e) { saved = null; }
     if (saved && saved.data) {
-      memory = withKorekty(withPhotos(saved.data));
+      memory = prepare(saved.data);
       if (Date.now() - saved.t > FRESH_MS) {
         fetchFresh(true).then(function (d) { listeners.forEach(function (fn) { fn(d); }); }, function () {});
       }

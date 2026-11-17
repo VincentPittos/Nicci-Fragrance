@@ -797,6 +797,24 @@ test('zestaw Essentials: 7 zapachów po 1 ml za 99 zł, funkcja dla arkusza dopi
   assert.equal(ss.sheets[ctx.SHEET.ZESTAWY].grid.length, sheet.Zestawy.length, 'drugie uruchomienie niczego nie dopisuje');
 });
 
+test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, więc Winter Discovery Set jest dostępny', () => {
+  const fs = require('fs'), path = require('path'), vm = require('vm');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Zestawy_2026_11.gs'), 'utf8');
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Zestawy_2026_11.gs' });
+  const kopia = (t) => JSON.parse(JSON.stringify(t));
+  const ss = fakeSpreadsheet({ [ctx.SHEET.ZESTAWY]: kopia(sheet.Zestawy), [ctx.SHEET.PRODUKTY]: kopia(sheet.Produkty), [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+  assert.match(vm.runInContext('zestawy_2026_11()', ctx), /z01: TAK → NIE; z03: TAK → NIE; p60: NIE → TAK/);
+  const P = be.tableToObjects_(ss.sheets[ctx.SHEET.PRODUKTY].grid), Z = be.tableToObjects_(ss.sheets[ctx.SHEET.ZESTAWY].grid);
+  const c = be.buildCatalog_(P, Z, {}, cfg, NOW);
+  deq(c.sets.map((z) => z.id).filter((id) => id === 'z01' || id === 'z03'), [], 'LV i Nous Tous poza katalogiem');
+  assert.equal(c.sets.find((z) => z.id === 'z07').available, true, 'Winter Discovery Set dostępny');
+  assert.match(vm.runInContext('zestawy_2026_11()', ctx), /z01: już NIE; z03: już NIE; p60: już TAK/, 'drugie uruchomienie niczego nie zmienia');
+});
+
 
 (async () => {
   for (const [name, fn] of tests) {

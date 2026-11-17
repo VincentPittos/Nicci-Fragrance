@@ -10,6 +10,8 @@
   var root = document.querySelector('[data-sets]');
   if (!root) return;
   var MAX = 5;
+  // /katalog, zakładka „Zestawy” (decyzja 99): siatka kart w stylu kart zapachów zamiast poziomego rzędu
+  var GRID = root.hasAttribute('data-sets-grid');
   // strona ofert pokazuje tylko wybrane zestawy (data-sets-only="id1,id2", w tej kolejności) z własnym nadtytułem
   var ONLY = (root.getAttribute('data-sets-only') || '').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
   var EYEBROW = root.getAttribute('data-sets-eyebrow') || 'Zestaw odkrywców';
@@ -63,15 +65,69 @@
       '</div></article>';
   }
 
+  /** „SWEET & SPICY SET” → „Sweet & Spicy Set”; NICCI zostaje wielkimi literami. */
+  function nazwa(s) {
+    return String(s || '').split(/\s+/).map(function (w) {
+      return w === 'NICCI' || w === '&' ? w : w.charAt(0) + w.slice(1).toLowerCase();
+    }).join(' ');
+  }
+  function zawartosc(s) {
+    var sk = s.sklad || [];
+    var ml = sk.map(function (x) { return x.ml; });
+    var same = ml.length && ml.every(function (m) { return m === ml[0]; });
+    var n = sk.length + ' ' + A.plural(sk.length, ['zapach', 'zapachy', 'zapachów']);
+    return same ? n + ' po ' + ml[0] + '&nbsp;ml' : n + ', razem ' + ml.reduce(function (t, m) { return t + (m || 0); }, 0) + '&nbsp;ml';
+  }
+  function media(s) {
+    if (!s.zdjecie) return '<span class="card__ph" aria-hidden="true"><span class="card__ph-mark" data-t="N"></span><span class="card__ph-brand" data-t="Nicci"></span></span>';
+    var base = s.zdjecie.replace(/-800\.webp$/, '');
+    var sizes = '(min-width: 90rem) 22vw, (min-width: 64rem) 30vw, 50vw';
+    var set = function (ext) { return [400, 600, 800].map(function (w) { return base + '-' + w + '.' + ext + ' ' + w + 'w'; }).join(', '); };
+    return '<picture class="pic"><source type="image/avif" srcset="' + esc(set('avif')) + '" sizes="' + sizes + '">' +
+      '<img src="' + esc(base + '-400.webp') + '" srcset="' + esc(set('webp')) + '" sizes="' + sizes + '" alt="" width="800" height="1000" loading="lazy" decoding="async"></picture>';
+  }
+  function gridCard(s) {
+    var missing = (s.sklad || []).filter(function (x) { return !x.available; });
+    var save = s.cenaOsobno && s.cenaOsobno > s.price ? s.cenaOsobno - s.price : 0;
+    var id = 'set-' + esc(s.id);
+    return '<article class="card card--grafit theme-graphite card--set" data-set-id="' + esc(s.id) + '" aria-labelledby="' + id + '"' + (s.available ? '' : ' data-soldout') + '>' +
+      '<div class="card__media">' + media(s) +
+        (s.available ? '<span class="card__flag card__flag--set">Zestaw</span>' : '<span class="card__flag">Chwilowo niedostępny</span>') + '</div>' +
+      '<div class="card__body">' +
+        '<header class="card__head"><h3 class="card__brand" id="' + id + '">' + esc(nazwa(s.nazwa)) + '</h3>' +
+          '<p class="card__name">' + zawartosc(s) + '</p></header>' +
+        (s.opis ? '<p class="card__desc card__desc--full">' + esc(s.opis) + '</p>' : '') +
+        '<ul class="set-card__list" role="list" aria-label="Skład zestawu">' + (s.sklad || []).map(function (x) {
+          var label = '<span><b>' + esc(x.marka) + '</b> ' + esc(x.nazwa) + '</span>';
+          var inCatalog = cat && N.findProduct(cat, x.id);
+          return '<li' + (x.available ? '' : ' data-missing') + '>' +
+            (inCatalog ? '<button type="button" class="set-card__item" data-open-product="' + esc(x.id) + '" aria-haspopup="dialog">' + label + '</button>'
+              : '<span class="set-card__item">' + label + '</span>') +
+            '<span class="set-card__ml">' + x.ml + '&nbsp;ml</span></li>';
+        }).join('') + '</ul>' +
+        '<div class="card__buy">' +
+          '<div class="card__row"><p class="price">' + U.price(s.price) + '</p></div>' +
+          (save ? '<p class="set-card__save">Osobno ' + U.price(s.cenaOsobno) + ', oszczędzasz ' + U.price(save) + '</p>' : '') +
+          (missing.length ? '<p class="set-card__missing">Chwilowo brakuje: ' + missing.map(function (x) { return esc(x.marka + ' ' + x.nazwa); }).join(', ') + '</p>' : '') +
+          '<div class="card__action" data-set-action>' + action(s) + '</div>' +
+        '</div></div></article>';
+  }
+
   function render(catalog) {
     cat = catalog;
     sets = catalog.sets || [];
     if (ONLY.length) sets = ONLY.map(function (id) { return sets.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean);
     var section = root.closest('section');
-    if (!sets.length) { if (section) section.hidden = true; return; }
+    if (!sets.length) {
+      if (GRID) { root.innerHTML = '<p class="cat-empty">Teraz nie mamy zestawów w sprzedaży. Zajrzyj do zakładki Zapachy.</p>'; return; }
+      if (section) section.hidden = true;
+      return;
+    }
     // dostępne najpierw, potem kolejność z arkusza
     var list = ONLY.length ? sets.slice() : sets.slice().sort(function (a, b) { return Number(b.available) - Number(a.available); });
-    root.innerHTML = '<ul class="set-row" role="list">' + list.map(function (s) { return '<li>' + card(s) + '</li>'; }).join('') + '</ul>';
+    root.innerHTML = GRID
+      ? '<div class="grid grid--4 grid--sets">' + list.map(gridCard).join('') + '</div>'
+      : '<ul class="set-row" role="list">' + list.map(function (s) { return '<li>' + card(s) + '</li>'; }).join('') + '</ul>';
     jump();
   }
 
@@ -79,7 +135,7 @@
   // więc po wczytaniu przewijamy jeszcze raz (raz na wejście).
   var jumped = false;
   function jump() {
-    if (jumped || location.hash !== '#zestawy') return;
+    if (GRID || jumped || location.hash !== '#zestawy') return; // w katalogu przewija skrypt zakładek
     jumped = true;
     var section = root.closest('section');
     if (section) requestAnimationFrame(function () { section.scrollIntoView({ block: 'start' }); });
