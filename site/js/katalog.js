@@ -16,6 +16,9 @@
   var state = { by: 'rodzina', szukaj: '', rodzina: [], marka: [], pora: '', sezon: '', profil: '', wyrozn: '', tylkoDostepne: true };
   var drawer = null;
   var MARKI_NA_START = 8;
+  // strona ofert (decyzja 100): ten sam katalog, ale tylko zapachy z obniżką; tekst pustej listy podaje oferty.js
+  var PROMO = root.hasAttribute('data-catalog-promocje');
+  function view(c) { return PROMO ? Object.assign({}, c, { products: (c.products || []).filter(function (p) { return p.promocja > 0; }) }) : c; }
 
   var PORA = [['dzień', 'Na dzień'], ['wieczór', 'Na wieczór']];
   var SEZON = [['wiosna', 'Wiosna'], ['lato', 'Lato'], ['jesień', 'Jesień'], ['zima', 'Zima']];
@@ -31,7 +34,8 @@
     return p.odbior === profil ? 1 : -1;
   }
   // wyróżnione (październik 2026): pole w katalogu, etykieta, wartość ?pokaz= w adresie
-  var WYROZN = [['promocja', 'Promocje', 'promocje'], ['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']];
+  var WYROZN = [['promocja', 'Promocje', 'promocje'], ['bestseller', 'Bestsellery', 'bestsellery'], ['nowosc', 'Nowości', 'nowosci']]
+    .filter(function (w) { return !(PROMO && w[0] === 'promocja'); });
 
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
   function zapachy(n) { return n + ' ' + A.plural(n, ['zapach', 'zapachy', 'zapachów']); }
@@ -387,7 +391,8 @@
 
   function load(force) {
     A.catalog(force).then(function (c) {
-      catalog = c;
+      catalog = view(c);
+      if (PROMO && !catalog.products.length) { pusto(); return; }
       presets();
       shell();
       bind();
@@ -396,7 +401,16 @@
     }, error);
   }
 
-  A.onCatalog(function (c) { if (catalog) { catalog = c; update(); } });
+  function pusto() {
+    root.innerHTML = '<div class="cat-empty"><p class="cat-empty__title">' + esc(root.getAttribute('data-pusto-tytul') || 'Teraz nie mamy obniżek') + '</p>' +
+      '<p>' + (root.getAttribute('data-pusto') || 'Wszystkie zapachy znajdziesz w katalogu.') + '</p>' +
+      '<div class="cat-empty__actions"><a class="btn btn--outline" href="' + A.url('/katalog') + '">Zobacz katalog</a></div></div>';
+    catalog = null;
+  }
+  A.onCatalog(function (c) {
+    if (catalog) { catalog = view(c); update(); }
+    else if (PROMO && view(c).products.length) load(false);
+  });
 
   skeleton();
   load(false);

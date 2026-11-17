@@ -1,67 +1,155 @@
 /**
- * NICCI: strona ofert specjalnych /oferty. Kampanię i fazę wybiera js/oferty-kampanie.js (daty w jednym miejscu).
- * Licznik w hero, siatka zapachów z obniżką (produkty z „promocja” > 0 z arkusza, od największej obniżki)
- * z przełącznikiem wysokości rabatu, a w Święta zestawy prezentowe (zestawy.js, data-sets-only).
+ * NICCI: strona ofert specjalnych /oferty w stylu katalogu (decyzja 100). Kampanię, fazę i daty wybiera
+ * js/oferty-kampanie.js. Tu: teksty nagłówka, widget odliczania (cyfry z animacją przy zmianie, pasek dni kampanii,
+ * dzisiejszy dzień wypełnia się z upływem godzin), tekst pustej listy dla katalogu (katalog.js w trybie
+ * data-catalog-promocje) i zakładka zestawów prezentowych w Święta.
  *
  * Podgląd do akceptacji: ?podglad=1 dokłada PRZYKŁADOWE obniżki i zestawy prezentowe, wyłącznie w przeglądarce
- * oglądającego (nic nie trafia do arkusza ani do zamówień) i pokazuje o tym pasek na dole ekranu.
+ * oglądającego (nic nie trafia do arkusza ani do zamówień) i pokazuje o tym pasek na górze strony.
+ * ?kampania=black-weeks|christmas wymusza kampanię, ?teraz=2026-11-25T19:42 udaje inny moment.
  */
 (function () {
   'use strict';
-  var A = window.NicciApp, U = window.NicciUI, C = window.NicciCard, K = window.NicciKampanie;
+  var A = window.NicciApp, U = window.NicciUI, K = window.NicciKampanie;
   if (!A || !K) return;
   var params = new URLSearchParams(location.search);
   var PODGLAD = params.has('podglad');
   var KAMP = K.kampania || 'brak';
+  var KDEF = (K.lista || []).filter(function (x) { return x.id === KAMP; })[0] || null;
+  var DZIEN = 86400000;
 
   var TEKSTY = {
     'black-weeks': {
-      theme: 'theme-dark', eyebrow: 'Oferty Black Weeks', title: 'Do −50% na wybrane zapachy',
-      lead: 'Ceny obowiązują do 29 listopada do północy. Przy każdej obniżce widzisz cenę sprzed niej.',
-      przed: 'Lista ofert pojawi się tutaj 23 listopada o północy.',
+      eyebrow: 'Black Weeks · 23 do 29 listopada',
+      title: 'Zapachy z najwyższej półki nawet o połowę taniej',
+      lead: 'Dziesiątki zapachów w promocji przez siedem dni. Przy każdej obniżce widzisz cenę sprzed niej.',
+      timer: { przed: 'Do startu Black Weeks', trwa: 'Do końca Black Weeks' },
+      note: { przed: 'Start 23 listopada o północy.', trwa: 'Ceny Black Weeks obowiązują do 29 listopada do północy.' },
+      pustoTytul: { przed: 'Oferty pojawią się 23 listopada', trwa: 'Oferty chwilowo się wyprzedały' },
+      pusto: { przed: 'Lista obniżek pojawi się tutaj o północy, gdy zacznie się Black Weeks.', trwa: 'Wszystkie zapachy znajdziesz w katalogu.' },
       rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 29 listopada do północy. ' +
         'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
     },
     christmas: {
-      theme: 'theme-light', eyebrow: 'Świąteczne obniżki', title: '−20% na wybrane perfumy',
-      lead: 'Odlewka ulubionego zapachu to też dobry prezent. Ceny obowiązują do 24 grudnia.',
-      przed: 'Lista świątecznych obniżek pojawi się tutaj 30 listopada.',
+      eyebrow: 'Święta z Nicci · do 24 grudnia',
+      title: 'Luksus pod choinkę',
+      lead: '−20% na wybrane perfumy i zestawy prezentowe dla niego, dla niej, dla taty i dla mamy. Prezent, który zachwyca od pierwszej nuty.',
+      timer: { przed: 'Do startu świątecznych ofert', trwa: 'Do Wigilii' },
+      note: { przed: 'Start 30 listopada o północy.', trwa: 'Świąteczne ceny obowiązują do 24 grudnia.' },
+      pustoTytul: { przed: 'Świąteczne oferty pojawią się 30 listopada', trwa: 'Oferty chwilowo się wyprzedały' },
+      pusto: { przed: 'Lista obniżek pojawi się tutaj o północy, gdy zaczną się świąteczne oferty.', trwa: 'Wszystkie zapachy znajdziesz w katalogu.' },
       rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 24 grudnia. ' +
         'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
     },
     brak: {
-      theme: 'theme-dark', eyebrow: 'Oferty', title: 'Zapachy w obniżonych cenach', lead: '', przed: '',
+      eyebrow: 'Oferty specjalne',
+      title: 'Następna oferta już wkrótce',
+      lead: 'O nowych obniżkach piszemy najpierw w newsletterze. Zapisz się, a od razu dostaniesz kod −99% na zestaw NICCI ESSENTIALS.',
+      pustoTytul: { po: 'Teraz nie mamy obniżek' },
+      pusto: { po: 'Wszystkie zapachy znajdziesz w katalogu.' },
       rules: 'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
     }
   };
   var T = TEKSTY[KAMP];
+  var FAZA = K.faza; // przed, trwa albo po
 
-  // ---------- licznik ----------
+  // ---------- nagłówek i teksty dla katalogu (katalog.js czyta je przy pierwszym renderze) ----------
+  function head() {
+    document.querySelector('[data-offers-eyebrow]').textContent = T.eyebrow;
+    document.querySelector('[data-offers-title]').textContent = T.title;
+    var lead = document.querySelector('[data-offers-lead]');
+    lead.textContent = T.lead; lead.hidden = !T.lead;
+    document.querySelector('[data-offers-rules]').textContent = T.rules;
+    var cat = document.querySelector('[data-catalog]');
+    if (cat) {
+      cat.setAttribute('data-pusto-tytul', (T.pustoTytul || {})[FAZA] || 'Teraz nie mamy obniżek');
+      cat.setAttribute('data-pusto', ((T.pusto || {})[FAZA] || '').replace('w katalogu', 'w <a class="link" href="' + A.url('/katalog') + '">katalogu</a>'));
+    }
+    // zestawy prezentowe tylko w trwających Świętach
+    var tabsBox = document.querySelector('[data-offers-tabs-box]');
+    if (tabsBox) tabsBox.hidden = !(KAMP === 'christmas' && FAZA === 'trwa');
+  }
+  head();
+
+  // ---------- widget odliczania ----------
+  var box = document.querySelector('[data-timer]');
+  var DNI_TYG = ['nd', 'pn', 'wt', 'śr', 'cz', 'pt', 'sb'];
   function two(n) { return (n < 10 ? '0' : '') + n; }
   function words(n, forms) { return n + ' ' + A.plural(n, forms); }
+  function now() { return Date.now() + K.przesuniecie; }
+
+  var days = [];
+  function buildDays() {
+    if (!KDEF) return;
+    var od = new Date(KDEF.od).getTime(), koniec = new Date(KDEF.do).getTime();
+    var n = Math.round((koniec - od) / DZIEN);
+    var list = box.querySelector('[data-timer-days]');
+    list.style.setProperty('--n', n);
+    list.classList.toggle('offer-timer__days--many', n > 10);
+    var html = '';
+    for (var i = 0; i < n; i++) {
+      // data w czasie polskim (CET): południe danego dnia, żeby strefa przeglądarki nie przesuwała daty
+      var pl = new Date(od + i * DZIEN + 13 * 3600000);
+      var nr = pl.getUTCDate(), tyg = DNI_TYG[pl.getUTCDay()];
+      var label = n > 10 ? nr + '.' + two(pl.getUTCMonth() + 1) : String(nr); // przy wielu dniach CSS pokazuje tylko pierwszy, ostatni i dzisiejszy
+      html += '<li class="offer-timer__dd"><span class="offer-timer__bar"><span class="offer-timer__fill"></span></span>' +
+        '<span class="offer-timer__dn">' + label + '</span>' + (n <= 10 ? '<span class="offer-timer__dw">' + tyg + '</span>' : '') + '</li>';
+    }
+    list.innerHTML = html;
+    days = Array.prototype.slice.call(list.children);
+    days.od = od; days.n = n;
+  }
+
+  function setDigit(el, v) {
+    if (el.textContent === v) return;
+    el.textContent = v;
+    el.classList.remove('is-tick');
+    void el.offsetWidth; // ponowne uruchomienie animacji
+    el.classList.add('is-tick');
+  }
+
   var lastMin = -1;
   function tick() {
-    if (!K.cel) return;
-    var left = Math.max(0, K.cel.getTime() - (Date.now() + K.przesuniecie));
+    var t = now();
+    var left = Math.max(0, K.cel.getTime() - t);
     var s = Math.floor(left / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
-    document.querySelectorAll('[data-countdown]').forEach(function (box) {
-      box.querySelector('[data-cd-d]').textContent = two(d);
-      box.querySelector('[data-cd-d-u]').textContent = A.plural(d, ['dzień', 'dni', 'dni']);
-      box.querySelector('[data-cd-h]').textContent = two(h);
-      box.querySelector('[data-cd-m]').textContent = two(m);
-      box.querySelector('[data-cd-s]').textContent = two(sec);
-      if (m !== lastMin) {
-        box.querySelector('[data-cd-text]').textContent = (K.faza === 'przed' ? 'Do startu zostało ' : 'Zostało ') +
-          words(d, ['dzień', 'dni', 'dni']) + ', ' + words(h, ['godzina', 'godziny', 'godzin']) + ' i ' + words(m, ['minuta', 'minuty', 'minut']) + '.';
-      }
-    });
-    lastMin = m;
+    setDigit(box.querySelector('[data-t="d"]'), two(d));
+    box.querySelector('[data-tu="d"]').textContent = A.plural(d, ['dzień', 'dni', 'dni']);
+    setDigit(box.querySelector('[data-t="h"]'), two(h));
+    setDigit(box.querySelector('[data-t="m"]'), two(m));
+    setDigit(box.querySelector('[data-t="s"]'), two(sec));
+    if (days.length) {
+      var idx = FAZA === 'trwa' ? Math.floor((t - days.od) / DZIEN) : -1;
+      var frac = FAZA === 'trwa' ? ((t - days.od) % DZIEN) / DZIEN : 0;
+      days.forEach(function (li, i) {
+        li.classList.toggle('is-past', i < idx);
+        li.classList.toggle('is-today', i === idx);
+        li.style.setProperty('--p', i < idx ? 1 : i === idx ? frac.toFixed(3) : 0);
+      });
+      box.querySelector('[data-timer-day]').textContent = FAZA === 'trwa' && idx >= 0 ? 'Dzień ' + (idx + 1) + ' z ' + days.n : '';
+    }
+    if (m !== lastMin) {
+      box.querySelector('[data-timer-text]').textContent = (FAZA === 'przed' ? 'Do startu zostało ' : 'Do końca zostało ') +
+        words(d, ['dzień', 'dni', 'dni']) + ', ' + words(h, ['godzina', 'godziny', 'godzin']) + ' i ' + words(m, ['minuta', 'minuty', 'minut']) + '.';
+      lastMin = m;
+    }
     if (left === 0 && !PODGLAD && !params.has('teraz')) setTimeout(function () { location.reload(); }, 1500); // start albo koniec kampanii
+  }
+
+  function initTimer() {
+    if (!box || !KDEF || !K.cel || FAZA === 'po' || !T.timer) return;
+    box.hidden = false;
+    box.querySelector('[data-timer-label]').textContent = T.timer[FAZA];
+    box.querySelector('[data-timer-note]').textContent = T.note[FAZA];
+    box.classList.add('offer-timer--' + KAMP);
+    buildDays();
+    tick();
+    setInterval(function () { if (!document.hidden) tick(); }, 1000);
   }
 
   // ---------- podgląd: przykładowe obniżki i zestawy prezentowe ----------
   var PRZYKLAD = {
-    'black-weeks': { p06: 50, p43: 30, p10: 30, p45: 30, p16: 25, p11: 20, p35: 20, p01: 20 },
+    'black-weeks': { p06: 50, p43: 30, p10: 30, p45: 30, p16: 25, p11: 20, p35: 20, p01: 20, p24: 40, p29: 40, p87: 30, p52: 25 },
     christmas: { p43: 20, p05: 20, p87: 20, p86: 20, p08: 20, p11: 20, p01: 20, p35: 20 }
   };
   var PREZENTY = [
@@ -104,72 +192,7 @@
     A.onCatalog = function (fn) { return origOn.call(A, function (c) { fn(podglad(c)); }); };
   }
 
-  // ---------- siatka obniżek ----------
-  var section = document.getElementById('oferty');
-  var grid = section.querySelector('[data-offers-grid]');
-  var tabs = section.querySelector('[data-offers-tabs]');
-  var empty = section.querySelector('[data-offers-empty]');
-  var SIZES = '(min-width: 80rem) 20rem, (min-width: 56rem) 30vw, 46vw';
-  var filter = 0;
-  var list = [];
-
-  function head() {
-    section.classList.add(T.theme);
-    section.querySelector('[data-offers-eyebrow]').textContent = T.eyebrow;
-    section.querySelector('[data-offers-title]').textContent = T.title;
-    var lead = section.querySelector('[data-offers-lead]');
-    lead.textContent = T.lead; lead.hidden = !T.lead;
-    section.querySelector('[data-offers-rules]').textContent = T.rules;
-  }
-
-  function cards() {
-    var shown = filter ? list.filter(function (p) { return p.promocja === filter; }) : list;
-    grid.innerHTML = shown.map(function (p) { return C.render(p, { sizes: SIZES }); }).join('');
-    C.mount(grid, shown);
-  }
-
-  function renderTabs() {
-    var levels = [];
-    list.forEach(function (p) { if (levels.indexOf(p.promocja) === -1) levels.push(p.promocja); });
-    levels.sort(function (a, b) { return b - a; });
-    tabs.hidden = levels.length < 2;
-    if (tabs.hidden) return;
-    var tab = function (v, label, n) {
-      return '<button type="button" class="offers__tab" data-level="' + v + '" aria-pressed="' + (filter === v) + '">' + label + '<span>' + n + '</span></button>';
-    };
-    tabs.innerHTML = tab(0, 'Wszystkie', list.length) + levels.map(function (v) {
-      return tab(v, '−' + String(v).replace('.', ',') + '%', list.filter(function (p) { return p.promocja === v; }).length);
-    }).join('');
-  }
-
-  function render(catalog) {
-    if (K.faza === 'przed') {
-      grid.hidden = true; tabs.hidden = true;
-      empty.textContent = T.przed; empty.hidden = !T.przed;
-      return;
-    }
-    list = (catalog.products || []).filter(function (p) { return p.promocja > 0 && !U.isSoldOut(p); })
-      .sort(function (a, b) { return b.promocja - a.promocja || (a.kolejnosc || 0) - (b.kolejnosc || 0); });
-    if (!list.length) {
-      grid.hidden = true; tabs.hidden = true;
-      empty.innerHTML = 'Teraz nie mamy obniżek. Wszystkie zapachy znajdziesz w&nbsp;<a class="link" href="' + A.url('/katalog') + '">katalogu</a>.';
-      empty.hidden = false;
-      return;
-    }
-    grid.hidden = false; empty.hidden = true;
-    if (filter && !list.some(function (p) { return p.promocja === filter; })) filter = 0;
-    renderTabs();
-    cards();
-  }
-
-  tabs.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-level]'); if (!b) return;
-    filter = Number(b.getAttribute('data-level'));
-    tabs.querySelectorAll('[data-level]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-    cards();
-  });
-
-  // ---------- newsletter: przyciski „Chcę kod” i „Przypomnij mi o starcie” ----------
+  // ---------- newsletter: przyciski „Chcę kod” ----------
   document.addEventListener('click', function (e) {
     if (!e.target.closest('[data-nl-open]')) return;
     if (window.NicciNewsletter) window.NicciNewsletter.open();
@@ -180,7 +203,6 @@
     document.querySelectorAll('[data-nl-open]').forEach(function (b) {
       var a = document.createElement('a');
       a.className = b.className; a.href = A.url('/katalog'); a.textContent = 'Zobacz katalog';
-      if (b.hasAttribute('data-tylko')) a.setAttribute('data-tylko', b.getAttribute('data-tylko'));
       b.replaceWith(a);
     });
     var band = document.querySelector('.offer-nl'); if (band) band.hidden = true;
@@ -195,13 +217,7 @@
   }
 
   function init() {
-    head();
-    tick();
-    if (K.cel) setInterval(function () { if (!document.hidden) tick(); }, 1000);
-    A.catalog().then(render, function () {
-      grid.hidden = true; empty.textContent = 'Oferty chwilowo się nie wczytały. Odśwież stronę za moment.'; empty.hidden = false;
-    });
-    A.onCatalog(render);
+    initTimer();
     // newsletter.js ładuje się po tym pliku: sprawdzamy go, gdy wszystkie skrypty już działają
     if (document.readyState === 'complete') newsletterReady(); else window.addEventListener('load', newsletterReady);
     if (PODGLAD) banner();

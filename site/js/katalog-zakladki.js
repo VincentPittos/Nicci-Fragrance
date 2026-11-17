@@ -46,6 +46,8 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-tab-link], a[href="#zestawy"], a[href="/katalog#zestawy"]');
     if (!a) return;
+    // na stronie ofert link do zestawów w menu prowadzi do katalogu, nie do zakładki zestawów prezentowych
+    if (a.getAttribute('href') === '/katalog#zestawy' && !/^\/katalog(\.html)?$/.test(location.pathname)) return;
     e.preventDefault();
     select(a.dataset.tabLink || 'zestawy', { history: true, scroll: true });
   });
@@ -54,7 +56,12 @@
   if (location.hash === '#zestawy') select('zestawy', { scroll: true });
 
   function counts(c) {
-    var n = { zapachy: (c.products || []).length, zestawy: (c.sets || []).length };
+    var cat = document.querySelector('[data-catalog]'), sets = document.querySelector('[data-sets]');
+    var only = sets && sets.getAttribute('data-sets-only') ? sets.getAttribute('data-sets-only').split(',') : null;
+    var n = {
+      zapachy: (c.products || []).filter(function (p) { return !(cat && cat.hasAttribute('data-catalog-promocje')) || p.promocja > 0; }).length,
+      zestawy: (c.sets || []).filter(function (s) { return !only || only.indexOf(s.id) !== -1; }).length
+    };
     bar.querySelectorAll('[data-tab-n]').forEach(function (el) { el.textContent = n[el.dataset.tabN] || ''; });
   }
   if (A) { A.catalog().then(counts, function () {}); A.onCatalog(counts); }

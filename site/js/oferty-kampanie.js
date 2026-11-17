@@ -1,6 +1,6 @@
 /**
  * NICCI: kalendarz kampanii strony /oferty. Ładowany w <head> bez defer (mały), żeby przed pierwszym malowaniem
- * ustawić <html data-kampania data-faza>: CSS pokazuje wtedy od razu właściwe hero, bez mignięcia innej kampanii.
+ * ustawić <html data-kampania data-faza>: CSS pokazuje wtedy od razu właściwe treści, bez mignięcia innej kampanii.
  * Daty w czasie polskim (CET, +01:00). Licznik w hero odlicza do startu (faza „przed”) albo do celu kampanii.
  *
  * Podgląd: ?kampania=black-weeks|christmas wymusza kampanię, ?teraz=2026-11-25T19:42 udaje inny moment.
@@ -29,19 +29,6 @@ window.NicciKampanie = (function () {
   var html = document.documentElement;
   html.setAttribute('data-kampania', k ? k.id : 'brak');
   html.setAttribute('data-faza', faza);
-
-  // obraz hero aktywnej kampanii pobierany od razu (oba <img> w HTML są lazy, żeby ukryte hero nic nie ściągało)
-  if (k) {
-    var pre = function (media, name, widths) {
-      var l = document.createElement('link');
-      l.rel = 'preload'; l.as = 'image'; l.type = 'image/avif'; l.media = media;
-      l.setAttribute('imagesrcset', widths.map(function (w) { return '/img/kampanie/' + name + '-' + w + '.avif ' + w + 'w'; }).join(', '));
-      l.setAttribute('imagesizes', '100vw');
-      document.head.appendChild(l);
-    };
-    pre('(min-width: 48rem)', k.id, [1280, 1920, 2560]);
-    pre('(max-width: 47.99rem)', k.id + '-pion', [640, 960]);
-  }
 
   return {
     lista: LISTA,
