@@ -6,10 +6,10 @@ Grafiki kampanii na stronę (popup newslettera, strona ofert): tła z OpenArt be
     python3 dev/grafiki/kampanie.py [NAZWA_WYNIKU ...]   (bez nazw: wszystkie)
 
 Wynik w site/img/kampanie/NAZWA-SZEROKOŚĆ.{webp,avif}:
-  essentials-legendy-*  popup newslettera i pas na /oferty (decyzja 98): ta sama grafika co post na Instagram,
-                     −99% za korkami flakonów i dopisek „na Siedem Legend”; zdjęcie z obniżoną skałą
+  essentials-siedem-legend-*  popup newslettera i pas na /oferty (decyzja 98): ta sama grafika co post na Instagram,
+                     −99% za korkami flakonów i dopisek „na siedem legend” (Carattere, małe litery jak dotąd); zdjęcie z obniżoną skałą
                      (essentials_nizsza_skala.py), kadr przybliżony 1,1 raza, napis: napis_99.py, styl L_legendy_anton_krem.
-                     Nowa nazwa pliku zamiast essentials-99, bo /img/* ma w przeglądarce pamięć podręczną na tydzień.
+                     Każda zmiana grafiki to nowa nazwa pliku, bo /img/* ma w przeglądarce pamięć podręczną na tydzień.
   black-weeks-*      hero strony ofert 16:9 na komputerze, black-weeks-pion-* 4:5 na telefonie
   christmas-*        to samo dla oferty świątecznej
 """
@@ -27,7 +27,7 @@ OUT = os.path.join(ROOT, 'site', 'img', 'kampanie')
 
 # (plik źródłowy, nazwa wyniku, kadr jako ułamki (lewo, góra, prawo, dół) albo None, szerokości)
 ZADANIA = [
-    ('essentials-legendy-4x5.png', 'essentials-legendy', None, (480, 720, 960, 1080)),
+    ('essentials-siedem-legend-4x5.png', 'essentials-siedem-legend', None, (480, 720, 960, 1080)),
     ('black-weeks-16x9.webp', 'black-weeks', None, (1280, 1920, 2560)),
     ('black-weeks-4x5.webp', 'black-weeks-pion', None, (640, 960)),
     ('christmas-16x9.webp', 'christmas', None, (1280, 1920, 2560)),
