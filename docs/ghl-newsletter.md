@@ -35,14 +35,15 @@ Nazwy przycisków poniżej pochodzą z pomocy HighLevel (listopad 2026). Panel b
    Zapisz.
 4. Wejdź do nowego sub-konta (kliknij jego nazwę na liście albo **Switch to Sub-Account**).
 5. **Settings**, **Business Profile**: sprawdź strefę czasową i skopiuj **Location ID** (jest w Business Profile; to też ciąg po `/location/` w adresie panelu). Będzie potrzebny w kroku 6.
-6. **Settings**, **Email Services**: usługą wysyłki ma być **LC Email** (domyślna w nowym sub-koncie).
+6. **Settings**, **Email Services** (w nowym układzie panelu: **Settings**, **Communications**, **Email**): usługą wysyłki ma być **LC Email** (domyślna w nowym sub-koncie).
 
 ## Krok 2. Domena wysyłkowa dla kontakt@niccifragrance.pl
 
 Bez tego GHL wysyła z zastępczego adresu w swojej domenie (np. `...@mg.msgsndr.com`), a mail od kontakt@niccifragrance.pl trafiałby do spamu. DNS domeny jest w **Cloudflare**.
 
-1. W sub-koncie: **Settings**, **Email Services**, zakładka **Dedicated Domain and IP**, **Add Domain**.
-2. Wpisz poddomenę tylko do wysyłki: **`mg.niccifragrance.pl`** (pomoc GHL zaleca osobną poddomenę, nieużywaną do niczego innego).
+1. W sub-koncie: **Settings**, **Email Services**, zakładka **Dedicated Domain and IP**, **Add Domain**. W nowym układzie panelu (listopad 2026): **Settings**, **Communications**, **Email**, przycisk **+ Add Domain** w prawym górnym rogu.
+2. Wpisz poddomenę tylko do wysyłki: **`mg.niccifragrance.pl`**, czyli domenę, a nie adres e-mail (pomoc GHL zaleca osobną poddomenę, nieużywaną do niczego innego). Domeny głównej `niccifragrance.pl` GHL nie przyjmie, bo ma już pocztę Google (MX i SPF): to błąd „Domain already pointing to email server!”.
+   Adresu kontakt@niccifragrance.pl nie dodaje się w tym miejscu: wpisuje się go jako nadawcę w akcji **Send Email** w workflow (krok 5), gdy domena jest zweryfikowana.
 3. GHL pokaże rekordy DNS z przyciskiem kopiowania. Jeśli zaproponuje automatyczną konfigurację w Cloudflare, możesz z niej skorzystać. Ręcznie:
    * Cloudflare, domena `niccifragrance.pl`, **DNS**, **Records**, **Add record**;
    * dla każdego rekordu z GHL: ten sam **Type**, **Name** i **Content** (Name tak, jak pokazuje GHL; Cloudflare sam dopisuje `niccifragrance.pl`);
