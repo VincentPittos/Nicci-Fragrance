@@ -48,13 +48,14 @@ Bez tego GHL wysyła z zastępczego adresu w swojej domenie (np. `...@mg.msgsndr
 
    | Type | Name | Content | Uwagi |
    |---|---|---|---|
-   | TXT | `mg` | `v=spf1 include:mailgun.org ~all` | SPF poddomeny |
-   | TXT | z ekranu GHL, bez `.niccifragrance.pl` (np. `xxx._domainkey.mg`) | długi klucz z ekranu GHL, skopiowany w całości | DKIM, inny dla każdej domeny |
+   | TXT | `mg` | `v=spf1 include:spf.leadconnectorhq.com include:mailgun.org ~all` | SPF poddomeny (tak pokazał GHL; pomoc GHL podaje sam `include:mailgun.org`) |
+   | TXT | z ekranu GHL, bez `.niccifragrance.pl` (u nas `krs._domainkey.mg`) | długi klucz `k=rsa; p=...` z ekranu GHL, skopiowany w całości | DKIM, inny dla każdej domeny |
    | MX | `mg` | `mxa.mailgun.org` | Priority 10 |
    | MX | `mg` | `mxb.mailgun.org` | Priority 10 |
    | CNAME | `email.mg` | `mailgun.org` | **Proxy status: DNS only** (szara chmurka) |
 
    Wartości z tabeli są według pomocy GHL (artykuł o konfiguracji LC Email w Google Domains, ten sam zestaw 5 rekordów u każdego dostawcy DNS). Jeśli ekran GHL pokazuje coś innego, wpisz to, co pokazuje GHL. Pomarańczowa chmurka przy CNAME psuje weryfikację. Rekordy MX na `mg` nie dotykają poczty Google na `niccifragrance.pl`.
+   Stan 18.11.2026: wszystkie 5 rekordów widać w publicznym DNS (Cloudflare i Google), CNAME bez proxy, domena zweryfikowana w GHL.
    Jeśli na liście domen jest też sama `niccifragrance.pl`, usuń ją (trzy kropki na karcie, **Delete Domain**) i nie dodawaj jej rekordów: drugi rekord SPF i MX Mailgun na domenie głównej zepsułyby skrzynkę Google.
 4. **Nie ruszaj** istniejących rekordów domeny głównej: MX Google, TXT `v=spf1 include:_spf.google.com ~all` i `google._domainkey`. Od nich zależy skrzynka kontakt@niccifragrance.pl w Google Workspace. Rekordy GHL idą na poddomenę `mg`.
 5. W GHL kliknij weryfikację. Pomoc GHL podaje do 24 godzin propagacji (w Cloudflare zwykle kilka minut). Błąd „pre-existing record” oznacza rekord wieloznaczny `*.niccifragrance.pl` (usuń go na czas weryfikacji), a „Domain already pointing to email server!” istniejący rekord MX albo SPF na tej poddomenie.
