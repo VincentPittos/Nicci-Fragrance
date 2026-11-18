@@ -44,15 +44,23 @@ Bez tego GHL wysyła z zastępczego adresu w swojej domenie (np. `...@mg.msgsndr
 1. W sub-koncie: **Settings**, **Email Services**, zakładka **Dedicated Domain and IP**, **Add Domain**. W nowym układzie panelu (listopad 2026): **Settings**, **Communications**, **Email**, przycisk **+ Add Domain** w prawym górnym rogu.
 2. Wpisz poddomenę tylko do wysyłki: **`mg.niccifragrance.pl`**, czyli domenę, a nie adres e-mail (pomoc GHL zaleca osobną poddomenę, nieużywaną do niczego innego). Domeny głównej `niccifragrance.pl` GHL nie przyjmie, bo ma już pocztę Google (MX i SPF): to błąd „Domain already pointing to email server!”.
    Adresu kontakt@niccifragrance.pl nie dodaje się w tym miejscu: wpisuje się go jako nadawcę w akcji **Send Email** w workflow (krok 5), gdy domena jest zweryfikowana.
-3. GHL pokaże rekordy DNS z przyciskiem kopiowania. Jeśli zaproponuje automatyczną konfigurację w Cloudflare, możesz z niej skorzystać. Ręcznie:
-   * Cloudflare, domena `niccifragrance.pl`, **DNS**, **Records**, **Add record**;
-   * dla każdego rekordu z GHL: ten sam **Type**, **Name** i **Content** (Name tak, jak pokazuje GHL; Cloudflare sam dopisuje `niccifragrance.pl`);
-   * przy rekordach **CNAME** ustaw **Proxy status: DNS only** (szara chmurka). Pomarańczowa chmurka psuje weryfikację poczty;
-   * TTL: Auto.
+3. Po dodaniu domena ma status **Inactive** i napis „Unverified domain will be auto deleted after ...”: to normalne, dopóki w DNS nie ma jej rekordów. Kliknij **Verify Now** na karcie `mg.niccifragrance.pl`: GHL pokaże 5 rekordów z przyciskiem kopiowania. Jeśli zaproponuje automatyczną konfigurację w Cloudflare, możesz z niej skorzystać. Ręcznie: Cloudflare, domena `niccifragrance.pl`, **DNS**, **Records**, **Add record**, w polu **Name** sam przedrostek (Cloudflare dopisuje `niccifragrance.pl`), TTL Auto.
+
+   | Type | Name | Content | Uwagi |
+   |---|---|---|---|
+   | TXT | `mg` | `v=spf1 include:mailgun.org ~all` | SPF poddomeny |
+   | TXT | z ekranu GHL, bez `.niccifragrance.pl` (np. `xxx._domainkey.mg`) | długi klucz z ekranu GHL, skopiowany w całości | DKIM, inny dla każdej domeny |
+   | MX | `mg` | `mxa.mailgun.org` | Priority 10 |
+   | MX | `mg` | `mxb.mailgun.org` | Priority 10 |
+   | CNAME | `email.mg` | `mailgun.org` | **Proxy status: DNS only** (szara chmurka) |
+
+   Wartości z tabeli są według pomocy GHL (artykuł o konfiguracji LC Email w Google Domains, ten sam zestaw 5 rekordów u każdego dostawcy DNS). Jeśli ekran GHL pokazuje coś innego, wpisz to, co pokazuje GHL. Pomarańczowa chmurka przy CNAME psuje weryfikację. Rekordy MX na `mg` nie dotykają poczty Google na `niccifragrance.pl`.
+   Jeśli na liście domen jest też sama `niccifragrance.pl`, usuń ją (trzy kropki na karcie, **Delete Domain**) i nie dodawaj jej rekordów: drugi rekord SPF i MX Mailgun na domenie głównej zepsułyby skrzynkę Google.
 4. **Nie ruszaj** istniejących rekordów domeny głównej: MX Google, TXT `v=spf1 include:_spf.google.com ~all` i `google._domainkey`. Od nich zależy skrzynka kontakt@niccifragrance.pl w Google Workspace. Rekordy GHL idą na poddomenę `mg`.
 5. W GHL kliknij weryfikację. Pomoc GHL podaje do 24 godzin propagacji (w Cloudflare zwykle kilka minut). Błąd „pre-existing record” oznacza rekord wieloznaczny `*.niccifragrance.pl` (usuń go na czas weryfikacji), a „Domain already pointing to email server!” istniejący rekord MX albo SPF na tej poddomenie.
 6. Zalecane: rekord DMARC dla domeny głównej. Cloudflare, **Add record**, Type **TXT**, Name `_dmarc`, Content `v=DMARC1; p=none`. Polityka `p=none` niczego nie blokuje, a Gmail i Yahoo oczekują DMARC od nadawców poczty masowej.
-7. Nowa domena wysyłkowa: na początku małe wysyłki (sam newsletter z popupu się do tego nadaje), bez masowych kampanii od pierwszego dnia.
+7. Po weryfikacji (zielone znaczniki, status aktywny, certyfikat SSL GHL generuje sam): zakładka **Domain Configuration**, ustaw `mg.niccifragrance.pl` jako domyślną (**Default**). Bez domyślnej domeny wysyłki bez przypisania mogą iść przez wspólną infrastrukturę GHL.
+8. Nowa domena wysyłkowa: na początku małe wysyłki (sam newsletter z popupu się do tego nadaje), bez masowych kampanii od pierwszego dnia.
 
 ## Krok 3. Link do wypisania
 
