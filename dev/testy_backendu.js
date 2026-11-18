@@ -817,15 +817,15 @@ test('newsletter: kod NICCI daje zestaw Essentials za 1 zł tylko z odlewką 20 
   assert.equal(be.checkVoucher_('NICCI-ABC234', [uzyty], zam, 0, NOW, cfg, lines([ess, z20])).reason, 'wykorzystany');
   assert.match(be.newsletterCode_(), /^NICCI-[A-HJ-NP-Z2-9]{6}$/);
   // wspólny kod (decyzja 109): bez wiersza w Bony, ta sama reguła, raz na adres e-mail
-  assert.equal(N.KOD_WSPOLNY, 'NICCI-LEGEND');
-  const w = be.checkVoucher_('NICCI-LEGEND', [], [], 0, NOW, cfg, lines([ess, z20]), 'anna@example.com');
+  assert.equal(N.KOD_WSPOLNY, 'NICCI-L3G3ND');
+  const w = be.checkVoucher_('NICCI-L3G3ND', [], [], 0, NOW, cfg, lines([ess, z20]), 'anna@example.com');
   assert.equal(w.ok, true); assert.equal(w.rabat, 9800); assert.equal(w.row, null);
-  deq(be.checkVoucher_('NICCI-LEGEND', [], [], 0, NOW, cfg, lines([ess, z10]), 'anna@example.com'), { ok: false, reason: 'essentials_20ml' });
-  const jej = [{ numer: 'NF-0102', status: 'OPŁACONE', rezerwacja_do: '', bon: 'NICCI-LEGEND', email: 'Anna@Example.com' }];
-  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').reason, 'wykorzystany', 'drugi raz ten sam adres');
-  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'ola@example.com').ok, true, 'inny adres może');
+  deq(be.checkVoucher_('NICCI-L3G3ND', [], [], 0, NOW, cfg, lines([ess, z10]), 'anna@example.com'), { ok: false, reason: 'essentials_20ml' });
+  const jej = [{ numer: 'NF-0102', status: 'OPŁACONE', rezerwacja_do: '', bon: 'NICCI-L3G3ND', email: 'Anna@Example.com' }];
+  assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').reason, 'wykorzystany', 'drugi raz ten sam adres');
+  assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'ola@example.com').ok, true, 'inny adres może');
   const anul = [Object.assign({}, jej[0], { status: 'ANULOWANE' })];
-  assert.equal(be.checkVoucher_('NICCI-LEGEND', [], anul, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').ok, true, 'anulowane zamówienie oddaje kod');
+  assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], anul, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').ok, true, 'anulowane zamówienie oddaje kod');
 });
 
 test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt w GHL (upsert, potem tag); bez wspólnego kodu osobny kod na adres', () => {
@@ -867,7 +867,7 @@ test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt 
   assert.match(String(nl[0].zgoda), /^TAK, \d\d\.\d\d\.\d{4}/);
   assert.equal(nl[0].ghl, 'przekazany do GHL');
   const kod = nl[0].kod;
-  assert.equal(kod, 'NICCI-LEGEND', 'wspólny kod');
+  assert.equal(kod, 'NICCI-L3G3ND', 'wspólny kod');
   assert.equal(be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid).length, 0, 'wspólny kod bez wiersza w Bony');
   // kolejność i treść zapytań do GHL
   assert.deepEqual(calls.map((c) => c.method + ' ' + c.url.replace('https://services.leadconnectorhq.com', '')),
@@ -891,7 +891,7 @@ test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt 
   const nl2 = be.tableToObjects_(ss.sheets[ctx.SHEET.NEWSLETTER].grid);
   assert.equal(nl2.length, 3); assert.equal(nl2[2].kod, kod2);
   assert.equal(be.tableToObjects_(ss.sheets[ctx.SHEET.BONY].grid).length, 1, 'jeden kod na adres');
-  vm.runInContext("CONFIG.NEWSLETTER.KOD_WSPOLNY = 'NICCI-LEGEND'", ctx);
+  vm.runInContext("CONFIG.NEWSLETTER.KOD_WSPOLNY = 'NICCI-L3G3ND'", ctx);
   // walidacja i ukryte pole
   ctx.zle = { imie: 'Anna', email: 'zly-adres', zgoda: true };
   deq(vm.runInContext('subscribe_(zle)', ctx), { ok: false, error: 'validation' });

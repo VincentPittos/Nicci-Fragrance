@@ -58,7 +58,7 @@ const CONFIG = {
   // e-mail zamówienia, bez terminu ważności i bez wierszy w zakładce Bony. Pusty: osobny losowy kod NICCI-XXXXXX dla
   // każdego adresu (wiersz w Bony, WAZNOSC_DNI dni, pole POLE_KOD w GHL).
   NEWSLETTER: { ZESTAW: 'essentials', CENA_ZESTAWU: 1, ODLEWKA_ML: 20, WAZNOSC_DNI: 30, TAG: 'newsletter-essentials',
-    POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60, KOD_WSPOLNY: 'NICCI-LEGEND' },
+    POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60, KOD_WSPOLNY: 'NICCI-L3G3ND' },
   // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
   // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
   TRACKING_URLS: {
