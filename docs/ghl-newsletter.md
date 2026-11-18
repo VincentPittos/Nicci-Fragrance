@@ -103,7 +103,7 @@ Szablon ma w stopce link do wypisania (`{{email.unsubscribe_link}}`), bo maile w
 
 ## Krok 7. Apps Script (arkusz sklepu)
 
-1. Otwórz arkusz sklepu, **Rozszerzenia**, **Apps Script**.
+1. Otwórz arkusz sklepu, **Rozszerzenia**, **Apps Script**. Arkusz sklepu to **kopia na koncie Google `kontakt@niccifragrance.pl`** (zrobiona 25.09.2026, z niej jest wdrożenie, którego adres ma strona; decyzja 73). Oryginał „Nicci Fragrance: katalog i zamówienia” na Dysku Skalentry to tylko szablon: ma 71 zapachów (bez p72 do p100) i jego projekt Apps Script nie ma wdrożenia. Sprawdzenie, że to właściwy projekt: **Wdróż**, **Zarządzaj wdrożeniami**, adres kończy się na `…6M6FRPTw/exec`.
 2. Plik **Code.gs**: zaznacz całą treść, usuń i wklej aktualny `Code.gs` (link na górze). Zapisz (Ctrl+S).
 3. Dodaj trzy pliki, jeśli ich jeszcze nie ma (plus obok **Pliki**, **Skrypt**, nazwa jak niżej, wklej treść z linku, zapisz): `Zestaw_Essentials_2026_11`, `Zestawy_2026_11`, `Korekta_2026_11`.
 4. **Ustawienia projektu** (koło zębate), **Właściwości skryptu**, **Dodaj właściwość skryptu**:
@@ -117,7 +117,7 @@ Szablon ma w stopce link do wypisania (`{{email.unsubscribe_link}}`), bo maile w
    * **`zestaw_essentials_2026_11`**: dopisze zestaw NICCI ESSENTIALS do zakładki Zestawy. Bez niego kod nie ma czego obniżyć, a link z maila prowadzi do zakładki Zestawy na stronie;
    * **`zestawy_2026_11`**: włączy Bottled Absolu (Winter Discovery Set) i wyłączy zestawy LV i Nous Tous;
    * **`korekta_2026_11`**: poprawki nut i opisów (w tym p60).
-7. **Wdróż**, **Zarządzaj wdrożeniami**, ołówek przy obecnym wdrożeniu, **Wersja: Nowa wersja**, **Wdróż**. Adres zostaje ten sam, więc strona nie wymaga zmian.
+7. **Wdróż**, **Zarządzaj wdrożeniami**, ołówek przy obecnym wdrożeniu, **Wersja: Nowa wersja**, opis np. `18.11.2026 newsletter GHL, kod NICCI-L3G3ND, zestaw Essentials, korekta nut` (opis jest tylko etykietą), **Wdróż**. Adres zostaje ten sam, więc strona nie wymaga zmian. Nie wybieraj **Nowe wdrożenie**: dostaje nowy adres.
 
 ## Krok 8. Polityka prywatności
 
