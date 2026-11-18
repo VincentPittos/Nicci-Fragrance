@@ -1,7 +1,7 @@
 /**
  * NICCI: popup newslettera z kodem −99% na zestaw NICCI ESSENTIALS (do zamówienia za co najmniej 250 zł, decyzja 111).
  *
- * Kiedy się pokazuje: po 25 s na stronie albo po przewinięciu 45% strony, a na komputerze także, gdy kursor
+ * Kiedy się pokazuje: po 10 s na stronie (decyzja 112, wcześniej 25 s) albo po przewinięciu 45% strony, a na komputerze także, gdy kursor
  * wychodzi nad pasek przeglądarki (najwcześniej po 8 s). Nie na zamówieniu, potwierdzeniu, regulaminie i polityce
  * prywatności, nie przy otwartym koszyku. Raz na wizytę; po „Nie, dziękuję” albo zamknięciu wraca po 14 dniach,
  * po zapisie nigdy. Pamięć w localStorage (bez ciasteczek).
@@ -209,7 +209,7 @@
 
   function arm() {
     var t0 = Date.now();
-    setTimeout(tryOpen, 25000);
+    setTimeout(tryOpen, 10000);
     var onScroll = function () {
       var max = document.documentElement.scrollHeight - innerHeight;
       if (max > 0 && scrollY / max >= 0.45) { removeEventListener('scroll', onScroll); tryOpen(); }
