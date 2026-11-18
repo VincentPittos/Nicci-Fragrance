@@ -6,7 +6,7 @@
 2. Strona wysyła zapis do backendu sklepu w Apps Script (ten sam adres co katalog i zamówienia).
 3. Backend zapisuje zgodę w zakładce **Newsletter** (data i godzina zgody, strona, kod, wynik przekazania do GHL), a potem tworzy albo aktualizuje kontakt w sub-koncie GHL (imię, e-mail) i dodaje mu tag **newsletter-essentials**.
 4. Tag uruchamia workflow w GHL, który wysyła z adresu **kontakt@niccifragrance.pl** mail z kodem (szablon `dev/maile/kod-essentials.html`).
-5. Na razie każdy dostaje ten sam kod **NICCI-L3G3ND** (decyzja 109, `CONFIG.NEWSLETTER.KOD_WSPOLNY` w `Code.gs`). Kod jest wpisany wprost w mail. Działa z zestawem NICCI ESSENTIALS i dowolną odlewką 20 ml: zestaw kosztuje wtedy 1 zł. Raz na osobę: przy zamówieniu przez stronę pilnuje tego backend (raz na adres e-mail), przy zamówieniu w wiadomościach sprawdzasz to sam.
+5. Na razie każdy dostaje ten sam kod **NICCI-L3G3ND** (decyzja 109, `CONFIG.NEWSLETTER.KOD_WSPOLNY` w `Code.gs`). Kod jest wpisany wprost w mail. Działa z zestawem NICCI ESSENTIALS przy zamówieniu za co najmniej 250 zł (reszta zamówienia bez tego zestawu i bez dostawy; decyzja 111, wcześniej odlewka 20 ml): zestaw kosztuje wtedy 1 zł. Raz na osobę: przy zamówieniu przez stronę pilnuje tego backend (raz na adres e-mail), przy zamówieniu w wiadomościach sprawdzasz to sam.
 
 Strona nigdy nie dostaje kodu w odpowiedzi: kod trafia tylko do skrzynki, na którą przyszedł zapis.
 

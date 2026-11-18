@@ -1,5 +1,5 @@
 /**
- * NICCI: popup newslettera z kodem −99% na zestaw NICCI ESSENTIALS (do zamówienia z odlewką 20 ml).
+ * NICCI: popup newslettera z kodem −99% na zestaw NICCI ESSENTIALS (do zamówienia za co najmniej 250 zł, decyzja 111).
  *
  * Kiedy się pokazuje: po 25 s na stronie albo po przewinięciu 45% strony, a na komputerze także, gdy kursor
  * wychodzi nad pasek przeglądarki (najwcześniej po 8 s). Nie na zamówieniu, potwierdzeniu, regulaminie i polityce
@@ -59,7 +59,7 @@
           '<h2 class="nl__title" id="nl-t">Siedem zapachów za&nbsp;złotówkę</h2>' +
           '<p class="nl__desc" id="nl-d">Zapisz się do newslettera, a wyślemy Ci kod −99% na zestaw Nicci Essentials: ' +
             'Aventus, Imagination, Erba Pura, Bois Impérial, Chocolate Greedy, Black Orchid i&nbsp;Red Tobacco, każdy po 1&nbsp;ml. ' +
-            'Kod działa do zamówienia z&nbsp;dowolną odlewką 20&nbsp;ml.</p>' +
+            'Kod działa przy zamówieniu za co najmniej 250&nbsp;zł.</p>' +
           '<div class="nl__step1">' +
             '<button type="button" class="btn btn--primary btn--block" data-nl-next>Chcę kod −99%</button>' +
             '<button type="button" class="nl__decline" data-nl-close>Nie, dziękuję</button>' +
@@ -84,7 +84,7 @@
           '<span class="nl__done-mark">' + ICON_OK + '</span>' +
           '<h2 class="nl__title" id="nl-t2">Gotowe</h2>' +
           '<p class="nl__desc">Kod jest już w&nbsp;drodze na Twój e-mail. Jeśli go nie widzisz, zajrzyj do zakładki Oferty albo do spamu.</p>' +
-          '<a class="btn btn--primary btn--block" href="/katalog">Wybierz odlewkę 20&nbsp;ml</a>' +
+          '<a class="btn btn--primary btn--block" href="/katalog">Wybierz zapachy</a>' +
           '<button type="button" class="nl__decline" data-nl-close>Wróć do strony</button>' +
         '</div>' +
       '</div>' +

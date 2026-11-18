@@ -798,18 +798,25 @@ test('zestaw Essentials: 7 zapachów po 1 ml za 99 zł, funkcja dla arkusza dopi
   assert.equal(ss.sheets[ctx.SHEET.ZESTAWY].grid.length, sheet.Zestawy.length, 'drugie uruchomienie niczego nie dopisuje');
 });
 
-test('newsletter: kod NICCI daje zestaw Essentials za 1 zł tylko z odlewką 20 ml, jednorazowo', () => {
+test('newsletter: kod NICCI daje zestaw Essentials za 1 zł przy zakupie za co najmniej 250 zł, jednorazowo', () => {
   const N = cfg.NEWSLETTER;
+  assert.equal(N.MIN_ZAKUP, 250);
   const bon = { kod: 'NICCI-ABC234', kwota: '', prog: '', wazny_do: '', powod: N.TAG, email: 'anna@example.com', wykorzystany_w: '', _row: 2 };
   const lines = (items) => be.priceOrder_(items, 'paczkomat', productRows, setRows, {}, cfg).lines;
+  const suma = (items) => lines(items).reduce((s, l) => s + l.suma, 0);
   const ess = { type: 'set', id: 'essentials', qty: 1 };
-  const z20 = { type: 'decant', id: 'p01', ml: 20, qty: 1 };
-  const z10 = { type: 'decant', id: 'p01', ml: 10, qty: 1 };
+  const z20 = { type: 'decant', id: 'p01', ml: 20, qty: 1 };   // 360 zł: wystarcza
+  const z10 = { type: 'decant', id: 'p01', ml: 10, qty: 1 };   // 190 zł: za mało
+  assert.ok(suma([z20]) >= 25000 && suma([z10]) < 25000, 'dane testu: odlewka 20 ml p01 ponad progiem, 10 ml poniżej');
   const ok = be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z20]));
   assert.equal(ok.ok, true);
   assert.equal(ok.rabat, 9900 - 100, 'zestaw za 1 zł');
-  deq(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z10])), { ok: false, reason: 'essentials_20ml' });
+  deq(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z10])),
+    { ok: false, reason: 'essentials_prog', prog: 25000, brakuje: 25000 - suma([z10]) });
+  assert.equal(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([ess, z10, z10])).ok, true, 'dwie odlewki 10 ml razem ponad progiem');
   deq(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([z20])), { ok: false, reason: 'essentials' });
+  assert.equal(be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([{ type: 'set', id: 'essentials', qty: 3 }])).reason,
+    'essentials_prog', 'zestawy Essentials nie liczą się do progu');
   const dwa = be.checkVoucher_('NICCI-ABC234', [bon], [], 0, NOW, cfg, lines([{ type: 'set', id: 'essentials', qty: 2 }, z20]));
   assert.equal(dwa.rabat, 9800, 'rabat na jeden zestaw, nie na każdy');
   const uzyty = Object.assign({}, bon, { wykorzystany_w: 'NF-0101' });
@@ -820,7 +827,7 @@ test('newsletter: kod NICCI daje zestaw Essentials za 1 zł tylko z odlewką 20 
   assert.equal(N.KOD_WSPOLNY, 'NICCI-L3G3ND');
   const w = be.checkVoucher_('NICCI-L3G3ND', [], [], 0, NOW, cfg, lines([ess, z20]), 'anna@example.com');
   assert.equal(w.ok, true); assert.equal(w.rabat, 9800); assert.equal(w.row, null);
-  deq(be.checkVoucher_('NICCI-L3G3ND', [], [], 0, NOW, cfg, lines([ess, z10]), 'anna@example.com'), { ok: false, reason: 'essentials_20ml' });
+  assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], [], 0, NOW, cfg, lines([ess, z10]), 'anna@example.com').reason, 'essentials_prog');
   const jej = [{ numer: 'NF-0102', status: 'OPŁACONE', rezerwacja_do: '', bon: 'NICCI-L3G3ND', email: 'Anna@Example.com' }];
   assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'anna@example.com').reason, 'wykorzystany', 'drugi raz ten sam adres');
   assert.equal(be.checkVoucher_('NICCI-L3G3ND', [], jej, 0, NOW, cfg, lines([ess, z20]), 'ola@example.com').ok, true, 'inny adres może');

@@ -53,11 +53,12 @@ const CONFIG = {
   // Newsletter (popup na stronie, decyzja 101): zapis trafia do zakładki Newsletter i do GHL (kontakt z polem na kod
   // i tagiem), a mail z kodem wysyła workflow w GHL uruchamiany tagiem. Token i lokalizacja GHL są tylko we
   // Właściwościach skryptu (GHL_TOKEN, GHL_LOCATION_ID), nigdy w tym pliku. Kod jest jednorazowy, jeden na adres
-  // e-mail, i działa z zestawem ZESTAW oraz dowolną odlewką ODLEWKA_ML: zestaw kosztuje wtedy CENA_ZESTAWU zł.
+  // e-mail, i działa z zestawem ZESTAW, gdy reszta zamówienia (bez tego zestawu i bez dostawy) kosztuje co najmniej
+  // MIN_ZAKUP zł (decyzja 111, wcześniej odlewka 20 ml): zestaw kosztuje wtedy CENA_ZESTAWU zł.
   // KOD_WSPOLNY (decyzja 109): na razie jeden kod dla wszystkich zapisów, wpisany wprost w mail; działa raz na adres
   // e-mail zamówienia, bez terminu ważności i bez wierszy w zakładce Bony. Pusty: osobny losowy kod NICCI-XXXXXX dla
   // każdego adresu (wiersz w Bony, WAZNOSC_DNI dni, pole POLE_KOD w GHL).
-  NEWSLETTER: { ZESTAW: 'essentials', CENA_ZESTAWU: 1, ODLEWKA_ML: 20, WAZNOSC_DNI: 30, TAG: 'newsletter-essentials',
+  NEWSLETTER: { ZESTAW: 'essentials', CENA_ZESTAWU: 1, MIN_ZAKUP: 250, WAZNOSC_DNI: 30, TAG: 'newsletter-essentials',
     POLE_KOD: 'kod_essentials', ZRODLO: 'niccifragrance.pl, popup newslettera', MAX_NA_GODZINE: 60, KOD_WSPOLNY: 'NICCI-L3G3ND' },
   // Linki śledzenia w mailu „w drodze”. Przewoźnika wybierasz w kolumnie przewoznik (przy paczkomacie zawsze InPost).
   // Automatycznie odpowiedział tylko link DPD (InPost i DHL blokują boty): sprawdź każdy na pierwszej przesyłce.
@@ -576,7 +577,7 @@ function orderHoldsVoucher_(rec, now) {
 
 /**
  * Sprawdza bon dla zamówienia. subtotal w groszach, same zapachy bez dostawy.
- * → {ok:true, kod, rabat, row} | {ok:false, reason:'nieznany'|'wykorzystany'|'wygasl'|'prog'|'essentials'|'essentials_20ml', prog?, brakuje?}
+ * → {ok:true, kod, rabat, row} | {ok:false, reason:'nieznany'|'wykorzystany'|'wygasl'|'prog'|'essentials'|'essentials_prog', prog?, brakuje?}
  * Kod z newslettera (powod = CONFIG.NEWSLETTER.TAG) zamiast progu sprawdza pozycje zamówienia (lines z priceOrder_).
  * wykorzystany_w z numerem, którego nie ma w zamówieniach (np. wpis ręczny), też oznacza wykorzystany.
  */
@@ -607,12 +608,17 @@ function checkVoucher_(code, bonRows, orderRows, subtotal, now, cfg, lines, emai
   return { ok: true, kod: normVoucher_(bon.kod), rabat: Math.min(kwota, subtotal), row: bon._row };
 }
 
-/** Kod z newslettera: jeden zestaw ZESTAW za CENA_ZESTAWU zł, gdy w zamówieniu jest też odlewka ODLEWKA_ML. */
+/**
+ * Kod z newslettera: jeden zestaw ZESTAW za CENA_ZESTAWU zł, gdy reszta zamówienia (odlewki i inne zestawy, bez
+ * zestawów ZESTAW i bez dostawy) kosztuje co najmniej MIN_ZAKUP zł.
+ */
 function newsletterVoucher_(bon, lines, cfg) {
   const N = cfg.NEWSLETTER;
   const set = lines.filter(function (l) { return l.typ === 'set' && l.id === N.ZESTAW; })[0];
   if (!set) return { ok: false, reason: 'essentials' };
-  if (!lines.some(function (l) { return l.typ === 'decant' && l.ml === N.ODLEWKA_ML; })) return { ok: false, reason: 'essentials_20ml' };
+  const prog = toGrosze_(N.MIN_ZAKUP) || 0;
+  const reszta = lines.reduce(function (s, l) { return l.typ === 'set' && l.id === N.ZESTAW ? s : s + (l.suma || 0); }, 0);
+  if (reszta < prog) return { ok: false, reason: 'essentials_prog', prog: prog, brakuje: prog - reszta };
   return { ok: true, kod: normVoucher_(bon.kod), rabat: Math.max(0, set.cena - (toGrosze_(N.CENA_ZESTAWU) || 0)), row: bon._row };
 }
 
