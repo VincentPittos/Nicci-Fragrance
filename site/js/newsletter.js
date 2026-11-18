@@ -16,7 +16,7 @@
  */
 (function () {
   'use strict';
-  var TRYB = 'wylaczony'; // właściciel 17.11: popup schowany do poprawy maila (decyzja 105)
+  var TRYB = 'zapis'; // właściciel 18.11: start zapisów po teście maila z GHL (decyzja 111)
   var API = window.Nicci && window.Nicci.CONFIG && window.Nicci.CONFIG.API_URL;
   var ENDPOINT = TRYB === 'zapis' && API && !/UZUPELNIJ/.test(API) ? API : '';
   // przed startem zapisów osobna pamięć i krótsza przerwa, żeby zamknięcie zapowiedzi nie chowało popupu po starcie
