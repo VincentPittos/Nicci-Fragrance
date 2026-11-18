@@ -5,6 +5,8 @@
  * wychodzi nad pasek przeglądarki (najwcześniej po 8 s). Nie na zamówieniu, potwierdzeniu, regulaminie i polityce
  * prywatności, nie przy otwartym koszyku. Raz na wizytę; po „Nie, dziękuję” albo zamknięciu wraca po 14 dniach,
  * po zapisie nigdy. Pamięć w localStorage (bez ciasteczek).
+ * Przycisk „Kod −99%” (decyzja 113): stała zakładka przy prawej krawędzi (telefon: mały przycisk w prawym dolnym
+ * rogu), otwiera ten sam popup w każdej chwili, także po zamknięciu; po zapisie znika.
  *
  * Wysyłka (decyzja 101): backend sklepu w Apps Script (API_URL z nicci-api.js, action: newsletter). Backend zapisuje
  * zgodę w zakładce Newsletter, wystawia jednorazowy kod i przekazuje kontakt do GHL, a GHL wysyła mail z kodem.
@@ -179,7 +181,7 @@
     var btn = form.querySelector('.nl__submit');
     btn.setAttribute('aria-busy', 'true'); btn.disabled = true;
     send({ imie: imie, email: email, zgoda: true, zrodlo: 'popup-essentials', strona: location.pathname })
-      .then(function () { save('zapisany'); done(false); }, function () {
+      .then(function () { save('zapisany'); done(false); removeTab(); }, function () {
         var err = dlg.querySelector('.nl__error');
         err.textContent = 'Nie udało się zapisać. Spróbuj ponownie za chwilę.'; err.hidden = false;
       })
@@ -228,11 +230,28 @@
     open: function () { if (this.enabled) open(true); }
   };
 
+  // ---------- przycisk na boku strony (decyzja 113) ----------
+  var tab = null;
+  function addTab() {
+    if (tab || SKIP.test(location.pathname) || load().stan === 'zapisany') return;
+    tab = document.createElement('button');
+    tab.type = 'button';
+    tab.className = 'nl-tab';
+    tab.setAttribute('aria-haspopup', 'dialog');
+    tab.setAttribute('aria-label', 'Kod −99% na zestaw NICCI ESSENTIALS: zapisz się do newslettera');
+    tab.innerHTML = '<span aria-hidden="true">Kod −99%</span>';
+    tab.addEventListener('click', function () { open(true); });
+    document.body.appendChild(tab);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (tab) tab.classList.add('is-on'); }); });
+  }
+  function removeTab() { if (tab) { tab.remove(); tab = null; } }
+
   function init() {
     if (typeof HTMLDialogElement === 'undefined') return;
     if (preview) { open(preview === 'gotowe' ? 'gotowe' : null); return; }
-    if (TRYB === 'wylaczony' || (TRYB === 'zapis' && !ENDPOINT) || !allowed()) return;
-    arm();
+    if (TRYB === 'wylaczony' || (TRYB === 'zapis' && !ENDPOINT)) return;
+    addTab();
+    if (allowed()) arm();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

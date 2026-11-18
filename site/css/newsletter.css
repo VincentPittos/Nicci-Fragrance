@@ -191,7 +191,58 @@ html.nl-open { overflow: hidden; padding-right: var(--sbw, 0px); }
   .nl__close { top: 0.75rem; right: 0.75rem; width: 2.75rem; height: 2.75rem; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
+/* ---------- przycisk „Kod −99%” (decyzja 113) ----------
+   Telefon: mały przycisk w prawym dolnym rogu (nad paskiem zamówienia na wyniku quizu).
+   Komputer: pionowa zakładka przy prawej krawędzi, w połowie wysokości ekranu. Pod szufladami i popupem. */
+.nl-tab {
+  position: fixed;
+  right: var(--n-space-3);
+  bottom: calc(var(--n-space-3) + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--n-space-4);
+  border: var(--n-hairline) solid rgba(213, 168, 101, 0.7);
+  border-radius: 999px;
+  background: var(--n-black);
+  color: var(--n-gold);
+  font: 500 0.75rem/1 var(--n-font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0.5rem 1.5rem rgba(4, 4, 4, 0.28);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 320ms var(--n-ease-out), transform 320ms var(--n-ease-out), background-color 200ms var(--n-ease-out), color 200ms var(--n-ease-out);
+}
+.nl-tab.is-on { opacity: 1; transform: none; }
+.nl-tab:hover { color: var(--n-gold-soft); background: var(--n-graphite-900); }
+.nl-tab:focus-visible { outline: 2px solid var(--n-gold-soft); outline-offset: 3px; }
+html.nl-open .nl-tab, html.drawer-open .nl-tab { opacity: 0; pointer-events: none; }
+body:has(.order-bar:not([hidden])) .nl-tab { bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
+
+@media (min-width: 48rem) {
+  .nl-tab,
+  body:has(.order-bar:not([hidden])) .nl-tab {
+    top: 50%;
+    right: 0;
+    bottom: auto;
+    min-height: 0;
+    padding: var(--n-space-5) 0.8rem;
+    border-right: 0;
+    border-radius: var(--n-radius-1) 0 0 var(--n-radius-1);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.2em;
+    box-shadow: -0.5rem 0 1.5rem rgba(4, 4, 4, 0.22);
+    transform: translate(0.5rem, -50%);
+  }
+  .nl-tab.is-on { transform: translate(0, -50%); }
+  .nl-tab:hover { padding-right: 1.05rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .nl, .nl::backdrop { transition: none; }
+  .nl, .nl::backdrop, .nl-tab { transition: none; }
   .nl { transform: none; }
 }

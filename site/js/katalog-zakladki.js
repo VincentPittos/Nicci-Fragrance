@@ -64,5 +64,27 @@
     };
     bar.querySelectorAll('[data-tab-n]').forEach(function (el) { el.textContent = n[el.dataset.tabN] || ''; });
   }
-  if (A) { A.catalog().then(counts, function () {}); A.onCatalog(counts); }
+  // pasek zestawów nad listą zapachów (decyzja 113): tylko dostępne zestawy, przycisk przełącza zakładkę
+  function strip(c) {
+    var el = document.querySelector('[data-sets-strip]'), U = window.NicciUI;
+    if (!el || !U) return;
+    var list = (c.sets || []).filter(function (s) { return s.available; });
+    if (!list.length) { el.hidden = true; return; }
+    var min = Math.min.apply(null, list.map(function (s) { return s.price; }));
+    var pic = function (s) {
+      if (!s.zdjecie) return '';
+      var base = s.zdjecie.replace(/-800\.webp$/, '');
+      return '<picture><source type="image/avif" srcset="' + U.esc(base + '-400.avif') + '">' +
+        '<img src="' + U.esc(base + '-400.webp') + '" alt="" width="400" height="500" loading="lazy" decoding="async"></picture>';
+    };
+    el.innerHTML = '<div class="sets-strip__thumbs" aria-hidden="true">' + list.map(pic).join('') + '</div>' +
+      '<div class="sets-strip__text"><p class="t-eyebrow">Zestawy odkrywców</p>' +
+      '<p class="sets-strip__title">' + list.length + ' ' + A.plural(list.length, ['zestaw', 'zestawy', 'zestawów']) + ' od ' + U.price(min) + '</p></div>' +
+      '<a class="btn btn--primary sets-strip__btn" href="#zestawy" data-tab-link="zestawy">Zobacz zestawy</a>';
+    el.hidden = false;
+  }
+  if (A) {
+    A.catalog().then(function (c) { counts(c); strip(c); }, function () {});
+    A.onCatalog(function (c) { counts(c); strip(c); });
+  }
 })();

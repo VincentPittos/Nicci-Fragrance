@@ -423,3 +423,46 @@ button.set-card__item { cursor: pointer; }
 .card--set .card__desc--full { display: block; -webkit-line-clamp: unset; overflow: visible; -webkit-mask-image: none; mask-image: none; text-align: left; }
 .card--set .set-card__list { text-align: left; }
 .card--set .set-card__save, .card--set .set-card__missing { text-align: center; }
+
+/* ---------- pasek zestawów nad listą zapachów (decyzja 113) ----------
+   Telefon: napis u góry, pod nim miniatury i przycisk. Komputer: miniatury, napis i przycisk w jednym rzędzie. */
+.sets-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "text text" "thumbs btn";
+  align-items: center;
+  gap: var(--n-space-3) var(--n-space-4);
+  margin-bottom: var(--n-space-6);
+  padding: var(--n-space-4);
+  border: var(--n-hairline) solid rgba(213, 168, 101, 0.45);
+  border-radius: var(--n-radius-1);
+}
+.sets-strip[hidden] { display: none; }
+.sets-strip__text { grid-area: text; }
+.sets-strip__thumbs { grid-area: thumbs; display: flex; min-width: 0; padding-left: 0.625rem; overflow: hidden; }
+/* telefon: tyle miniatur, ile mieści się obok przycisku */
+.sets-strip__thumbs picture:nth-child(n+5) { display: none; }
+@media (max-width: 23.99rem) { .sets-strip__thumbs picture:nth-child(n+4) { display: none; } }
+.sets-strip__thumbs picture {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: -0.625rem;
+  overflow: hidden;
+  border: 2px solid var(--bg-graphite);
+  border-radius: 50%;
+  background: #F1EFEC;
+}
+.sets-strip__thumbs img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.sets-strip__text .t-eyebrow { margin: 0; }
+.sets-strip__title { margin-top: 0.25rem; font-family: var(--font-display); font-size: 1.375rem; line-height: 1.2; color: var(--text-strong); }
+.sets-strip__btn { grid-area: btn; min-height: 2.75rem; padding-inline: var(--n-space-4); }
+.sets-strip__btn::after { content: ''; position: absolute; inset: 0; }
+@media (min-width: 48rem) {
+  .sets-strip { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "thumbs text btn"; gap: var(--n-space-5); padding: var(--n-space-4) var(--n-space-5); }
+  .sets-strip__thumbs { padding-left: 0.75rem; }
+  .sets-strip__thumbs picture, .sets-strip__thumbs picture:nth-child(n+4) { display: block; width: 4rem; height: 4rem; margin-left: -0.75rem; }
+  .sets-strip__title { font-size: 1.5rem; }
+  .sets-strip__btn { padding-inline: var(--n-space-6); }
+}
