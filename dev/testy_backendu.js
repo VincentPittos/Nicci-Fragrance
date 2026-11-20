@@ -922,7 +922,7 @@ test('ceny 2026-11: +5% w górę do pełnych 10 zł, powyżej 280 zł bez zmian,
   const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: sheet.Produkty, [ctx.SHEET.ZESTAWY]: sheet.Zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
   ss.deleteSheet = (sh) => { Object.keys(ss.sheets).forEach((k) => { if (ss.sheets[k] === sh) delete ss.sheets[k]; }); };
   ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
-  [[50, 60], [60, 70], [70, 80], [75, 80], [80, 90], [90, 100], [100, 110], [145, 160], [150, 160], [190, 200], [200, 210], [220, 240], [250, 270], [270, 290], [280, 300], [290, 290], [300, 300], [370, 370], [480, 480], [520, 520]]
+  [[50, 60], [60, 70], [70, 80], [75, 80], [80, 90], [85, 90], [90, 100], [100, 110], [130, 140], [145, 160], [150, 160], [190, 200], [200, 210], [220, 240], [250, 270], [270, 290], [280, 300], [290, 290], [300, 300], [370, 370], [480, 480], [520, 520]]
     .forEach(([a, b]) => assert.equal(vm.runInContext('cena2026_11_(' + a + ')', ctx), b, String(a)));
 
   const P = ss.sheets[ctx.SHEET.PRODUKTY].grid, Z = ss.sheets[ctx.SHEET.ZESTAWY].grid;
@@ -940,6 +940,7 @@ test('ceny 2026-11: +5% w górę do pełnych 10 zł, powyżej 280 zł bez zmian,
     } else assert.deepEqual(r[j], stara, r[0] + ' ' + col + ': inne kolumny i puste ceny bez zmian');
   }));
   assert.ok(zmian > 150, 'większość cen odlewek w górę');
+  assert.equal(vm.runInContext('CENY_2026_11.CENY_PLUS_10.join()', ctx), '50,60,70,80,90', 'te ceny +10% zamiast +5%');
   P.slice(1).forEach((r, i) => ['cena_5', 'cena_10', 'cena_20'].forEach((col) => {
     const j = hp.indexOf(col), st = num(przedP[i + 1][j]);
     if (st && st <= 280) assert.ok(num(r[j]) > st, r[0] + ' ' + col + ': każda cena do 280 zł w górę');

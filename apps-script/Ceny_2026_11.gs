@@ -4,23 +4,26 @@
  * Uruchom raz funkcję ceny_2026_11 z edytora Apps Script. Działa z obecnym Code.gs i nie wymaga nowego
  * wdrożenia: strona pokaże nowe ceny przy następnym odświeżeniu katalogu (do 5 minut).
  *   Produkty: cena_5, cena_10 i cena_20 razy 1,05, zaokrąglone zawsze w górę do pełnych 10 zł, np. 80 → 84 → 90,
- *             145 → 152,25 → 160, 200 → 210. Ceny powyżej 280 zł zostają bez zmian (decyzja 114).
+ *             145 → 152,25 → 160, 200 → 210. Ceny 50, 60, 70, 80 i 90 zł razy 1,10 zamiast 1,05 (50 → 60, 90 → 100).
+ *             Ceny powyżej 280 zł zostają bez zmian (decyzja 114).
  *   Zestawy:  kolumna cena tak samo, poza NICCI ESSENTIALS (zostaje 99 zł, cena z kampanii −99%).
  * Puste komórki (pojemność nie w sprzedaży) zostają puste. Kolumny promocji i stanów bez zmian.
  * Przed zmianą skrypt zapisuje stare ceny w nowej zakładce „Ceny przed 2026-11”. Gdy ta zakładka już istnieje,
  * niczego nie zmienia (drugie uruchomienie nie podnosi cen drugi raz). ceny_2026_11_cofnij przywraca ceny
  * z tej zakładki i usuwa ją. Wynik trafia do zakładki Log.
  */
-const CENY_2026_11 = { MNOZNIK_PROMIL: 1050, ZAOKRAGLENIE: 10, MAKS_CENA: 280, POMIN_ZESTAWY: ['essentials'], ZAKLADKA: 'Ceny przed 2026-11' };
+const CENY_2026_11 = { MNOZNIK_PROMIL: 1050, ZAOKRAGLENIE: 10, MAKS_CENA: 280, CENY_PLUS_10: [50, 60, 70, 80, 90], MNOZNIK_PLUS_10: 1100,
+  POMIN_ZESTAWY: ['essentials'], ZAKLADKA: 'Ceny przed 2026-11' };
 
 /**
- * 80 → 84 → 90; 145 → 152,25 → 160; 200 → 210 (dokładnie 210, bez dodatkowych 10 zł); powyżej MAKS_CENA bez zmian.
+ * 80 → 88 → 90 (+10%); 145 → 152,25 → 160; 200 → 210 (dokładnie 210, bez dodatkowych 10 zł); powyżej MAKS_CENA bez zmian.
  * Tolerancja 1e-9 chroni przed błędem zapisu ułamków (210,00000001 nie może dać 220).
  */
 function cena2026_11_(v) {
   const k = CENY_2026_11;
   if (v > k.MAKS_CENA) return v;
-  return Math.ceil(v * k.MNOZNIK_PROMIL / (1000 * k.ZAOKRAGLENIE) - 1e-9) * k.ZAOKRAGLENIE;
+  const promil = k.CENY_PLUS_10.indexOf(v) !== -1 ? k.MNOZNIK_PLUS_10 : k.MNOZNIK_PROMIL;
+  return Math.ceil(v * promil / (1000 * k.ZAOKRAGLENIE) - 1e-9) * k.ZAOKRAGLENIE;
 }
 
 function liczbaCeny2026_11_(v) {
