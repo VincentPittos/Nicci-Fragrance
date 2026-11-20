@@ -3,20 +3,24 @@
  *
  * Uruchom raz funkcję ceny_2026_11 z edytora Apps Script. Działa z obecnym Code.gs i nie wymaga nowego
  * wdrożenia: strona pokaże nowe ceny przy następnym odświeżeniu katalogu (do 5 minut).
- *   Produkty: cena_5, cena_10 i cena_20 razy 1,05, zaokrąglone do pełnych 10 zł (połowa w górę), np. 145 → 150,
- *             150 → 160, 370 → 390. Najtańsze ceny bywają bez zmiany (np. 80 → 84 → 80).
+ *   Produkty: cena_5, cena_10 i cena_20 razy 1,05, zaokrąglone zawsze w górę do pełnych 10 zł, np. 80 → 84 → 90,
+ *             145 → 152,25 → 160, 200 → 210. Ceny powyżej 280 zł zostają bez zmian (decyzja 114).
  *   Zestawy:  kolumna cena tak samo, poza NICCI ESSENTIALS (zostaje 99 zł, cena z kampanii −99%).
  * Puste komórki (pojemność nie w sprzedaży) zostają puste. Kolumny promocji i stanów bez zmian.
  * Przed zmianą skrypt zapisuje stare ceny w nowej zakładce „Ceny przed 2026-11”. Gdy ta zakładka już istnieje,
  * niczego nie zmienia (drugie uruchomienie nie podnosi cen drugi raz). ceny_2026_11_cofnij przywraca ceny
  * z tej zakładki i usuwa ją. Wynik trafia do zakładki Log.
  */
-const CENY_2026_11 = { MNOZNIK_PROMIL: 1050, ZAOKRAGLENIE: 10, POMIN_ZESTAWY: ['essentials'], ZAKLADKA: 'Ceny przed 2026-11' };
+const CENY_2026_11 = { MNOZNIK_PROMIL: 1050, ZAOKRAGLENIE: 10, MAKS_CENA: 280, POMIN_ZESTAWY: ['essentials'], ZAKLADKA: 'Ceny przed 2026-11' };
 
-/** 145 → 152,25 → 150; 150 → 157,5 → 160; liczenie w całkowitych, żeby 105,0 nie wyszło jako 104,999. */
+/**
+ * 80 → 84 → 90; 145 → 152,25 → 160; 200 → 210 (dokładnie 210, bez dodatkowych 10 zł); powyżej MAKS_CENA bez zmian.
+ * Tolerancja 1e-9 chroni przed błędem zapisu ułamków (210,00000001 nie może dać 220).
+ */
 function cena2026_11_(v) {
   const k = CENY_2026_11;
-  return Math.round(v * k.MNOZNIK_PROMIL / (1000 * k.ZAOKRAGLENIE)) * k.ZAOKRAGLENIE;
+  if (v > k.MAKS_CENA) return v;
+  return Math.ceil(v * k.MNOZNIK_PROMIL / (1000 * k.ZAOKRAGLENIE) - 1e-9) * k.ZAOKRAGLENIE;
 }
 
 function liczbaCeny2026_11_(v) {
@@ -39,7 +43,7 @@ function ceny_2026_11() {
   ];
   const kopia = [['typ', 'id', 'pole', 'cena', 'nowa']];
   const zmiany = [];
-  let zmienione = 0, bez = 0;
+  let zmienione = 0, bez = 0, powyzej = 0;
   plan.forEach(function (p) {
     if (!p.sheet) throw new Error('Brak zakładki dla: ' + p.typ);
     const H = headerMap_(p.sheet);
@@ -54,6 +58,7 @@ function ceny_2026_11() {
         const stara = liczbaCeny2026_11_(r[0]);
         if (!id || stara === null) return;
         if (p.typ === 'zestaw' && k.POMIN_ZESTAWY.indexOf(id) !== -1) return;
+        if (stara > k.MAKS_CENA) { powyzej++; return; }
         const nowa = cena2026_11_(stara);
         kopia.push([p.typ, id, pole, r[0], nowa]);
         if (nowa === stara) { bez++; return; }
@@ -67,8 +72,8 @@ function ceny_2026_11() {
   bk.getRange(1, 1, kopia.length, kopia[0].length).setValues(kopia);
   zmiany.forEach(function (z) { z.sheet.getRange(z.row, z.col).setValue(z.nowa); });
   invalidateCatalog_();
-  const t = 'Ceny +5%, do pełnych 10 zł: zmienione ' + zmienione + ', bez zmiany po zaokrągleniu ' + bez +
-    ' (NICCI ESSENTIALS bez zmian). Stare ceny w zakładce „' + k.ZAKLADKA + '”.';
+  const t = 'Ceny +5%, w górę do pełnych 10 zł: zmienione ' + zmienione + ', powyżej ' + k.MAKS_CENA + ' zł bez zmian ' + powyzej +
+    (bez ? ', bez zmiany po zaokrągleniu ' + bez : '') + ' (NICCI ESSENTIALS bez zmian). Stare ceny w zakładce „' + k.ZAKLADKA + '”.';
   log_('INFO', 'ceny_2026_11', t);
   return t;
 }

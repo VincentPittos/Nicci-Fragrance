@@ -912,7 +912,7 @@ test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt 
   assert.equal(ostatni.ghl, 'czeka na GHL');
 });
 
-test('ceny 2026-11: +5% do pełnych 10 zł, NICCI ESSENTIALS bez zmian, kopia starych cen, bez podwójnej podwyżki, cofnięcie', () => {
+test('ceny 2026-11: +5% w górę do pełnych 10 zł, powyżej 280 zł bez zmian, NICCI ESSENTIALS bez zmian, kopia starych cen, bez podwójnej podwyżki, cofnięcie', () => {
   const fs = require('fs'), path = require('path'), vm = require('vm');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
     fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Ceny_2026_11.gs'), 'utf8');
@@ -922,14 +922,14 @@ test('ceny 2026-11: +5% do pełnych 10 zł, NICCI ESSENTIALS bez zmian, kopia st
   const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: sheet.Produkty, [ctx.SHEET.ZESTAWY]: sheet.Zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
   ss.deleteSheet = (sh) => { Object.keys(ss.sheets).forEach((k) => { if (ss.sheets[k] === sh) delete ss.sheets[k]; }); };
   ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
-  [[50, 50], [70, 70], [75, 80], [80, 80], [90, 90], [100, 110], [145, 150], [150, 160], [190, 200], [250, 260], [300, 320], [370, 390], [480, 500], [520, 550], [540, 570]]
+  [[50, 60], [60, 70], [70, 80], [75, 80], [80, 90], [90, 100], [100, 110], [145, 160], [150, 160], [190, 200], [200, 210], [220, 240], [250, 270], [270, 290], [280, 300], [290, 290], [300, 300], [370, 370], [480, 480], [520, 520]]
     .forEach(([a, b]) => assert.equal(vm.runInContext('cena2026_11_(' + a + ')', ctx), b, String(a)));
 
   const P = ss.sheets[ctx.SHEET.PRODUKTY].grid, Z = ss.sheets[ctx.SHEET.ZESTAWY].grid;
   const przedP = JSON.parse(JSON.stringify(P)), przedZ = JSON.parse(JSON.stringify(Z));
   const num = (v) => (String(v).trim() === '' ? null : Number(String(v).replace(',', '.')));
   const t = vm.runInContext('ceny_2026_11()', ctx);
-  assert.match(t, /^Ceny \+5%, do pełnych 10 zł: zmienione \d+, bez zmiany po zaokrągleniu \d+ \(NICCI ESSENTIALS bez zmian\)/);
+  assert.match(t, /^Ceny \+5%, w górę do pełnych 10 zł: zmienione \d+, powyżej 280 zł bez zmian \d+ \(NICCI ESSENTIALS bez zmian\)/);
   const hp = P[0], hz = Z[0];
   let zmian = 0;
   P.slice(1).forEach((r, i) => hp.forEach((col, j) => {
@@ -940,6 +940,10 @@ test('ceny 2026-11: +5% do pełnych 10 zł, NICCI ESSENTIALS bez zmian, kopia st
     } else assert.deepEqual(r[j], stara, r[0] + ' ' + col + ': inne kolumny i puste ceny bez zmian');
   }));
   assert.ok(zmian > 150, 'większość cen odlewek w górę');
+  P.slice(1).forEach((r, i) => ['cena_5', 'cena_10', 'cena_20'].forEach((col) => {
+    const j = hp.indexOf(col), st = num(przedP[i + 1][j]);
+    if (st && st <= 280) assert.ok(num(r[j]) > st, r[0] + ' ' + col + ': każda cena do 280 zł w górę');
+  }));
   const zc = hz.indexOf('cena');
   Z.slice(1).forEach((r, i) => {
     const stara = num(przedZ[i + 1][zc]);
@@ -948,10 +952,11 @@ test('ceny 2026-11: +5% do pełnych 10 zł, NICCI ESSENTIALS bez zmian, kopia st
   });
   const kopia = ss.sheets['Ceny przed 2026-11'].grid;
   deq(kopia[0], ['typ', 'id', 'pole', 'cena', 'nowa']);
-  // katalog z nowymi cenami: p01 20 ml 360 → 380 zł, zestawy ze sklepu po nowej cenie
+  // katalog z nowymi cenami: p01 10 ml 190 → 200 zł, 20 ml 360 zł bez zmian (powyżej 280 zł)
   const c = be.buildCatalog_(be.tableToObjects_(P), be.tableToObjects_(Z), {}, cfg, NOW);
   const p01 = c.products.find((p) => p.id === 'p01');
-  assert.equal(p01.variants.find((v) => v.ml === 20).price, 38000);
+  assert.equal(p01.variants.find((v) => v.ml === 10).price, 20000);
+  assert.equal(p01.variants.find((v) => v.ml === 20).price, 36000);
   assert.equal(c.sets.find((s) => s.id === 'essentials').price, 9900);
 
   const po = JSON.parse(JSON.stringify(P));
