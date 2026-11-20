@@ -912,6 +912,60 @@ test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt 
   assert.equal(ostatni.ghl, 'czeka na GHL');
 });
 
+test('ceny 2026-11: +5% do pełnych 10 zł, NICCI ESSENTIALS bez zmian, kopia starych cen, bez podwójnej podwyżki, cofnięcie', () => {
+  const fs = require('fs'), path = require('path'), vm = require('vm');
+  const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
+    fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Ceny_2026_11.gs'), 'utf8');
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  vm.createContext(ctx);
+  vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Ceny_2026_11.gs' });
+  const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: sheet.Produkty, [ctx.SHEET.ZESTAWY]: sheet.Zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
+  ss.deleteSheet = (sh) => { Object.keys(ss.sheets).forEach((k) => { if (ss.sheets[k] === sh) delete ss.sheets[k]; }); };
+  ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
+  [[50, 50], [70, 70], [75, 80], [80, 80], [90, 90], [100, 110], [145, 150], [150, 160], [190, 200], [250, 260], [300, 320], [370, 390], [480, 500], [520, 550], [540, 570]]
+    .forEach(([a, b]) => assert.equal(vm.runInContext('cena2026_11_(' + a + ')', ctx), b, String(a)));
+
+  const P = ss.sheets[ctx.SHEET.PRODUKTY].grid, Z = ss.sheets[ctx.SHEET.ZESTAWY].grid;
+  const przedP = JSON.parse(JSON.stringify(P)), przedZ = JSON.parse(JSON.stringify(Z));
+  const num = (v) => (String(v).trim() === '' ? null : Number(String(v).replace(',', '.')));
+  const t = vm.runInContext('ceny_2026_11()', ctx);
+  assert.match(t, /^Ceny \+5%, do pełnych 10 zł: zmienione \d+, bez zmiany po zaokrągleniu \d+ \(NICCI ESSENTIALS bez zmian\)/);
+  const hp = P[0], hz = Z[0];
+  let zmian = 0;
+  P.slice(1).forEach((r, i) => hp.forEach((col, j) => {
+    const stara = przedP[i + 1][j];
+    if (['cena_5', 'cena_10', 'cena_20'].includes(col) && num(stara)) {
+      assert.equal(r[j], vm.runInContext('cena2026_11_(' + num(stara) + ')', ctx), r[0] + ' ' + col);
+      if (num(r[j]) !== num(stara)) zmian++;
+    } else assert.deepEqual(r[j], stara, r[0] + ' ' + col + ': inne kolumny i puste ceny bez zmian');
+  }));
+  assert.ok(zmian > 150, 'większość cen odlewek w górę');
+  const zc = hz.indexOf('cena');
+  Z.slice(1).forEach((r, i) => {
+    const stara = num(przedZ[i + 1][zc]);
+    if (r[0] === 'essentials') assert.equal(num(r[zc]), 99, 'Essentials zostaje 99 zł');
+    else if (stara) assert.equal(r[zc], vm.runInContext('cena2026_11_(' + stara + ')', ctx), r[0]);
+  });
+  const kopia = ss.sheets['Ceny przed 2026-11'].grid;
+  deq(kopia[0], ['typ', 'id', 'pole', 'cena', 'nowa']);
+  // katalog z nowymi cenami: p01 20 ml 360 → 380 zł, zestawy ze sklepu po nowej cenie
+  const c = be.buildCatalog_(be.tableToObjects_(P), be.tableToObjects_(Z), {}, cfg, NOW);
+  const p01 = c.products.find((p) => p.id === 'p01');
+  assert.equal(p01.variants.find((v) => v.ml === 20).price, 38000);
+  assert.equal(c.sets.find((s) => s.id === 'essentials').price, 9900);
+
+  const po = JSON.parse(JSON.stringify(P));
+  assert.match(vm.runInContext('ceny_2026_11()', ctx), /już jest, więc ceny były podniesione/);
+  deq(P, po, 'drugie uruchomienie niczego nie zmienia');
+
+  P[1][hp.indexOf('cena_10')] = 999; // ręczna zmiana właściciela po podwyżce zostaje przy cofaniu
+  assert.match(vm.runInContext('ceny_2026_11_cofnij()', ctx), /^Cofnięta podwyżka cen: przywrócone \d+; zostawione \(zmienione ręcznie po podwyżce\): p01\.cena_10\./);
+  P[1][hp.indexOf('cena_10')] = przedP[1][hp.indexOf('cena_10')];
+  deq(P, przedP, 'ceny odlewek jak przed podwyżką');
+  deq(Z, przedZ, 'ceny zestawów jak przed podwyżką');
+  assert.equal(ss.sheets['Ceny przed 2026-11'], undefined, 'zakładka kopii usunięta');
+});
+
 test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, więc Winter Discovery Set jest dostępny', () => {
   const fs = require('fs'), path = require('path'), vm = require('vm');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
