@@ -912,64 +912,42 @@ test('newsletter: zapis daje wspólny kod (bez wiersza w Bony) i tworzy kontakt 
   assert.equal(ostatni.ghl, 'czeka na GHL');
 });
 
-test('ceny 2026-11: +5% w górę do pełnych 10 zł, powyżej 280 zł bez zmian, NICCI ESSENTIALS bez zmian, kopia starych cen, bez podwójnej podwyżki, cofnięcie', () => {
+test('ceny 2026-11 (druga podwyżka): do 200 zł +5% w górę do pełnych 10 zł, NICCI ESSENTIALS bez zmian, tylko raz, bez cofania', () => {
   const fs = require('fs'), path = require('path'), vm = require('vm');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +
     fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Ceny_2026_11.gs'), 'utf8');
-  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) } };
+  const props = {};
+  const ctx = { console, Intl, Date, JSON, Math, Logger: { log() {} }, CacheService: { getScriptCache: () => ({ remove() {} }) },
+    PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] || null, setProperty: (k, v) => { props[k] = v; } }) } };
   vm.createContext(ctx);
   vm.runInContext(code + '\n;this.SHEET = SHEET;', ctx, { filename: 'Ceny_2026_11.gs' });
   const ss = fakeSpreadsheet({ [ctx.SHEET.PRODUKTY]: sheet.Produkty, [ctx.SHEET.ZESTAWY]: sheet.Zestawy, [ctx.SHEET.LOG]: [['czas', 'poziom', 'zdarzenie', 'szczegoly']] });
-  ss.deleteSheet = (sh) => { Object.keys(ss.sheets).forEach((k) => { if (ss.sheets[k] === sh) delete ss.sheets[k]; }); };
   ctx.SpreadsheetApp = { getActiveSpreadsheet: () => ss };
-  [[50, 60], [60, 70], [70, 80], [75, 80], [80, 90], [85, 90], [90, 100], [100, 110], [130, 140], [145, 160], [150, 160], [190, 200], [200, 210], [220, 240], [250, 270], [270, 290], [280, 300], [290, 290], [300, 300], [370, 370], [480, 480], [520, 520]]
+  [[50, 60], [60, 70], [70, 80], [90, 100], [100, 110], [145, 160], [150, 160], [160, 170], [190, 200], [200, 210], [210, 210], [290, 290]]
     .forEach(([a, b]) => assert.equal(vm.runInContext('cena2026_11_(' + a + ')', ctx), b, String(a)));
+  assert.equal(vm.runInContext('typeof ceny_2026_11_cofnij + typeof ceny_2026_11_druga_cofnij + typeof ceny_2026_11', ctx), 'undefinedundefinedundefined', 'bez cofania i bez pierwszej funkcji');
 
   const P = ss.sheets[ctx.SHEET.PRODUKTY].grid, Z = ss.sheets[ctx.SHEET.ZESTAWY].grid;
   const przedP = JSON.parse(JSON.stringify(P)), przedZ = JSON.parse(JSON.stringify(Z));
   const num = (v) => (String(v).trim() === '' ? null : Number(String(v).replace(',', '.')));
-  const t = vm.runInContext('ceny_2026_11()', ctx);
-  assert.match(t, /^Ceny \+5%, w górę do pełnych 10 zł: zmienione \d+, powyżej 280 zł bez zmian \d+ \(NICCI ESSENTIALS bez zmian\)/);
-  const hp = P[0], hz = Z[0];
-  let zmian = 0;
+  assert.match(vm.runInContext('ceny_2026_11_druga()', ctx), /^Ceny do 200 zł \+5%, w górę do pełnych 10 zł: zmienione \d+, powyżej 200 zł bez zmian \d+ \(NICCI ESSENTIALS bez zmian\)\. Nowe ceny podstawowe od \d\d\.\d\d\.\d{4}/);
+  const hp = P[0], hz = Z[0], zc = hz.indexOf('cena');
   P.slice(1).forEach((r, i) => hp.forEach((col, j) => {
-    const stara = przedP[i + 1][j];
-    if (['cena_5', 'cena_10', 'cena_20'].includes(col) && num(stara)) {
-      assert.equal(r[j], vm.runInContext('cena2026_11_(' + num(stara) + ')', ctx), r[0] + ' ' + col);
-      if (num(r[j]) !== num(stara)) zmian++;
-    } else assert.deepEqual(r[j], stara, r[0] + ' ' + col + ': inne kolumny i puste ceny bez zmian');
+    const st = num(przedP[i + 1][j]);
+    if (['cena_5', 'cena_10', 'cena_20'].includes(col) && st && st <= 200) assert.equal(r[j], Math.ceil(st * 1.05 / 10 - 1e-9) * 10, r[0] + ' ' + col);
+    else assert.deepEqual(r[j], przedP[i + 1][j], r[0] + ' ' + col + ': powyżej 200 zł, puste i inne kolumny bez zmian');
   }));
-  assert.ok(zmian > 150, 'większość cen odlewek w górę');
-  assert.equal(vm.runInContext('CENY_2026_11.CENY_PLUS_10.join()', ctx), '50,60,70,80,90', 'te ceny +10% zamiast +5%');
-  P.slice(1).forEach((r, i) => ['cena_5', 'cena_10', 'cena_20'].forEach((col) => {
-    const j = hp.indexOf(col), st = num(przedP[i + 1][j]);
-    if (st && st <= 280) assert.ok(num(r[j]) > st, r[0] + ' ' + col + ': każda cena do 280 zł w górę');
-  }));
-  const zc = hz.indexOf('cena');
   Z.slice(1).forEach((r, i) => {
-    const stara = num(przedZ[i + 1][zc]);
+    const st = num(przedZ[i + 1][zc]);
     if (r[0] === 'essentials') assert.equal(num(r[zc]), 99, 'Essentials zostaje 99 zł');
-    else if (stara) assert.equal(r[zc], vm.runInContext('cena2026_11_(' + stara + ')', ctx), r[0]);
+    else if (st && st <= 200) assert.equal(r[zc], Math.ceil(st * 1.05 / 10 - 1e-9) * 10, r[0]);
+    else assert.deepEqual(r[zc], przedZ[i + 1][zc], r[0]);
   });
-  const kopia = ss.sheets['Ceny przed 2026-11'].grid;
-  deq(kopia[0], ['typ', 'id', 'pole', 'cena', 'nowa']);
-  // katalog z nowymi cenami: p01 10 ml 190 → 200 zł, 20 ml 360 zł bez zmian (powyżej 280 zł)
-  const c = be.buildCatalog_(be.tableToObjects_(P), be.tableToObjects_(Z), {}, cfg, NOW);
-  const p01 = c.products.find((p) => p.id === 'p01');
-  assert.equal(p01.variants.find((v) => v.ml === 10).price, 20000);
-  assert.equal(p01.variants.find((v) => v.ml === 20).price, 36000);
-  assert.equal(c.sets.find((s) => s.id === 'essentials').price, 9900);
-
+  assert.ok(props.CENY_2026_11_DRUGA, 'znacznik zapisany');
+  assert.equal(Object.keys(ss.sheets).length, 3, 'bez zakładki z kopią starych cen');
   const po = JSON.parse(JSON.stringify(P));
-  assert.match(vm.runInContext('ceny_2026_11()', ctx), /już jest, więc ceny były podniesione/);
+  assert.match(vm.runInContext('ceny_2026_11_druga()', ctx), /^Ta podwyżka była już zrobiona/);
   deq(P, po, 'drugie uruchomienie niczego nie zmienia');
-
-  P[1][hp.indexOf('cena_10')] = 999; // ręczna zmiana właściciela po podwyżce zostaje przy cofaniu
-  assert.match(vm.runInContext('ceny_2026_11_cofnij()', ctx), /^Cofnięta podwyżka cen: przywrócone \d+; zostawione \(zmienione ręcznie po podwyżce\): p01\.cena_10\./);
-  P[1][hp.indexOf('cena_10')] = przedP[1][hp.indexOf('cena_10')];
-  deq(P, przedP, 'ceny odlewek jak przed podwyżką');
-  deq(Z, przedZ, 'ceny zestawów jak przed podwyżką');
-  assert.equal(ss.sheets['Ceny przed 2026-11'], undefined, 'zakładka kopii usunięta');
 });
 
 test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, więc Winter Discovery Set jest dostępny', () => {
