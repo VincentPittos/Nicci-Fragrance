@@ -244,3 +244,9 @@ html[data-faza="przed"] [data-kampania-tylko="christmas"] { display: none !impor
   .offers-page .cat__tools { grid-template-columns: minmax(0, 1fr); grid-template-areas: "search" "bar" "quick"; }
   .offers-page .cat__sort { margin-left: auto; }
 }
+
+/* nagłówek ofert w dwóch wierszach (właściciel 22.11): każdy wiersz w jednej linii, rozmiar dopasowany do szerokości
+   kolumny obok widgetu (pierwszy wiersz Cormorant 500 ma ok. 10,2 em), ale nie większy niż zwykły nagłówek */
+.offers__top .offers__head { container-type: inline-size; }
+.offers__head .t-h2 { max-width: none; font-size: min(var(--n-size-h2), 9.6cqi); }
+.offers__line { display: block; white-space: nowrap; }

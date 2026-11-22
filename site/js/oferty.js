@@ -21,7 +21,8 @@
   var TEKSTY = {
     'black-weeks': {
       eyebrow: 'Oferty specjalne',
-      title: 'Zapachy z najwyższej półki nawet o połowę taniej',
+      // wiersze nagłówka (właściciel 22.11: dwa wiersze, nie trzy); oferty.css dobiera rozmiar do szerokości kolumny
+      title: ['Zapachy z najwyższej półki', 'nawet o połowę taniej'],
       lead: 'Wybrane zapachy taniej przez siedem dni. Przy każdej obniżce pokazujemy najniższą cenę z 30 dni przed nią.',
       timer: { przed: 'Do startu Black Weeks', trwa: 'Do końca Black Weeks' },
       note: { przed: 'Start 23 listopada o północy.', trwa: 'Ceny Black Weeks obowiązują do 29 listopada do północy.' },
@@ -54,7 +55,8 @@
   // ---------- nagłówek i teksty dla katalogu (katalog.js czyta je przy pierwszym renderze) ----------
   function head() {
     document.querySelector('[data-offers-eyebrow]').textContent = T.eyebrow;
-    document.querySelector('[data-offers-title]').textContent = T.title;
+    var tytul = document.querySelector('[data-offers-title]');
+    tytul.innerHTML = [].concat(T.title).map(function (w) { return '<span class="offers__line">' + U.esc(w) + '</span>'; }).join(' ');
     var lead = document.querySelector('[data-offers-lead]');
     lead.textContent = T.lead; lead.hidden = !T.lead;
     // jak liczymy procent: według trybu z js/rabaty-kampanii.js (decyzja 116)
