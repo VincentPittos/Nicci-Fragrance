@@ -33,7 +33,7 @@ window.NicciKampanie = (function () {
   // Hero kampanii na stronie głównej (index.html: <html data-hero-kampanii>, css/kampania-hero.css). Zdjęcie ma
   // loading="lazy", żeby poza kampanią się nie pobierało; w trakcie kampanii dokładamy preload zdjęcia i fontu,
   // tak samo jak zwykły hero (media, srcset i sizes muszą zgadzać się z <picture> w index.html).
-  var bw4 = '/img/kampanie/bw-hero-4x5-', bw21 = '/img/kampanie/bw-hero-21x9-';
+  var bw4 = '/img/kampanie/bw-hero2-4x5-', bw21 = '/img/kampanie/bw-hero2-21x9-';
   var HERO = {
     'black-weeks': [
       { as: 'image', type: 'image/avif', media: '(max-width: 63.99rem)', fetchpriority: 'high', imagesizes: '100vw',
