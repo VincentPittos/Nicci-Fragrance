@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" data-hero-kampanii>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -38,6 +38,9 @@
 <link rel="stylesheet" href="/css/katalog.css">
 <link rel="stylesheet" href="/css/koszyk.css">
 <link rel="stylesheet" href="/css/newsletter.css">
+<link rel="stylesheet" href="/css/kampania-hero.css">
+<!-- kalendarz kampanii: bez defer, ustawia <html data-kampania data-faza> przed pierwszym malowaniem (hero Black Weeks) -->
+<script src="/js/oferty-kampanie.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -72,6 +75,33 @@
 </header>
 
 <main id="main">
+
+<!-- 1a. HERO KAMPANII Black Weeks (decyzja 116): widoczny tylko od 23.11 00:00 do 30.11 00:00 (css/kampania-hero.css,
+     js/oferty-kampanie.js); wtedy zwykły hero niżej jest ukryty. Zdjęcia z poprawionymi etykietami flakonów,
+     źródła w dev/grafiki/zrodla/kampanie/black-weeks-hero-*.jpg. loading="lazy": poza kampanią się nie pobierają,
+     w trakcie kampanii oferty-kampanie.js dokłada preload. -->
+<section class="bw theme-dark" aria-labelledby="bw-t">
+  <div class="bw__bg">
+    <picture>
+      <source media="(max-width: 63.99rem)" type="image/avif" srcset="/img/kampanie/bw-hero-4x5-640.avif 640w, /img/kampanie/bw-hero-4x5-960.avif 960w, /img/kampanie/bw-hero-4x5-1280.avif 1280w, /img/kampanie/bw-hero-4x5-1856.avif 1856w" sizes="100vw" width="1856" height="2304">
+      <source media="(max-width: 63.99rem)" srcset="/img/kampanie/bw-hero-4x5-640.webp 640w, /img/kampanie/bw-hero-4x5-960.webp 960w, /img/kampanie/bw-hero-4x5-1280.webp 1280w, /img/kampanie/bw-hero-4x5-1856.webp 1856w" sizes="100vw" width="1856" height="2304">
+      <source type="image/avif" srcset="/img/kampanie/bw-hero-21x9-1280.avif 1280w, /img/kampanie/bw-hero-21x9-1920.avif 1920w, /img/kampanie/bw-hero-21x9-2560.avif 2560w, /img/kampanie/bw-hero-21x9-3168.avif 3168w" sizes="(max-width: 84rem) 84rem, 100vw" width="3168" height="1344">
+      <img src="/img/kampanie/bw-hero-21x9-1920.webp" srcset="/img/kampanie/bw-hero-21x9-1280.webp 1280w, /img/kampanie/bw-hero-21x9-1920.webp 1920w, /img/kampanie/bw-hero-21x9-2560.webp 2560w, /img/kampanie/bw-hero-21x9-3168.webp 3168w" sizes="(max-width: 84rem) 84rem, 100vw" width="3168" height="1344" alt="" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="bw__inner">
+    <div class="bw__copy">
+      <p class="bw__eyebrow">Black Weeks</p>
+      <h1 class="bw__deal" id="bw-t" aria-label="Black Weeks: do −50% na wybrane perfumy"><span class="bw__do" aria-hidden="true">DO</span><span class="bw__num" aria-hidden="true">−50%</span></h1>
+      <p class="bw__script">na wybrane perfumy</p>
+      <p class="bw__info">Tylko 7 dni · 23.11 do 29.11</p>
+      <div class="bw__cta">
+        <a class="btn btn--primary" href="/oferty">Zobacz oferty</a>
+        <a class="btn btn--outline" href="/katalog">Pełny katalog</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- 1. HERO -->
 <section class="hero theme-dark" aria-labelledby="hero-t">
@@ -451,6 +481,8 @@
 <script src="/js/card.js" defer></script>
 <script src="/js/karuzela.js" defer></script>
 <script src="/js/korekty-katalogu.js" defer></script>
+<script src="/js/ceny-30dni.js" defer></script>
+<script src="/js/rabaty-kampanii.js" defer></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/koszyk.js" defer></script>
 <script src="/js/newsletter.js" defer></script>

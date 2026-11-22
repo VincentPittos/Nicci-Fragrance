@@ -160,7 +160,97 @@
     });
     return data;
   }
-  function prepare(data) { return withZestawy(withKorekty(withPhotos(data))); }
+  // Moment oglądania: ?teraz= z kalendarza kampanii (js/oferty-kampanie.js) albo z adresu, inaczej zegar przeglądarki.
+  function terazMs() {
+    var K = window.NicciKampanie;
+    if (K && K.teraz) return K.teraz.getTime() + (Date.now() - startStrony);
+    var q = new URLSearchParams(location.search).get('teraz');
+    var t = q ? Date.parse(q + (/[+Z]/.test(q.slice(10)) ? '' : '+01:00')) : NaN;
+    return isNaN(t) ? Date.now() : t + (Date.now() - startStrony);
+  }
+  var startStrony = Date.now();
+
+  // Rabaty kampanii z site/js/rabaty-kampanii.js (decyzja 116): procent dla pojemności, od obecnej ceny z arkusza,
+  // cena po rabacie do najbliższych 5 zł, końcówki 2,5 i 7,5 w górę (właściciel 22.11: 104,50 → 105, 183,75 → 185,
+  // 152,50 → 155, 136 → 135). Tylko w czasie kampanii i przy wstrzymanej sprzedaży (przy otwartej cenę
+  // zamówienia liczy serwer, który ich nie zna). Pozycja z obniżką z arkusza (wasPrice z serwera) zostaje bez zmian.
+  // Katalog z pamięci sesji przechodzi tu drugi raz: rabat naliczony wcześniej (v.rabat) nie nalicza się ponownie,
+  // a po końcu kampanii wraca cena sprzed rabatu.
+  function cenaRabatu(grosze, proc) { return Math.floor(grosze * (100 - proc) / 50000 + 0.5 + 1e-9) * 500; }
+  function withRabaty(data) {
+    var R = window.NicciRabaty;
+    if (!data || !data.products) return data;
+    var teraz = terazMs();
+    var k = R && !data.sprzedaz ? (R.kampanie || []).filter(function (x) { return teraz >= Date.parse(x.od) && teraz < Date.parse(x.do); })[0] : null;
+    data.products.forEach(function (p) {
+      var r = k && k.rabaty[p.id];
+      (p.variants || []).forEach(function (v) {
+        var proc = r ? r[v.ml] : 0;
+        if (v.rabat && v.rabat !== proc) {
+          v.price = v.cenaBazowa;
+          delete v.wasPrice; delete v.rabat; delete v.cenaBazowa; delete v.obnizka; delete v.najnizsza30; delete v.wasTyp;
+        }
+        if (!proc || v.rabat || v.wasPrice) return;
+        var nowa = cenaRabatu(v.price, proc);
+        if (!(nowa > 0 && nowa < v.price)) return;
+        v.cenaBazowa = v.price; v.wasPrice = v.price; v.price = nowa; v.rabat = proc;
+      });
+    });
+    return data;
+  }
+
+  // Najniższa cena z 30 dni przed obniżką (decyzja 116; ustawa o informowaniu o cenach, art. 4 ust. 2): pod każdą
+  // obniżką strona podaje najniższą cenę z 30 dni przed jej startem (dawne ceny: site/js/ceny-30dni.js; start to
+  // początek trwającej kampanii, poza kampanią chwila oglądania). Jak liczyć procent i co przekreślić, wybiera
+  // NicciRabaty.PROCENT: 'od-ceny-przed' to cena sprzed obniżki i procent z listy (rabat z rabaty-kampanii.js albo
+  // procent z arkusza), 'od-najnizszej-30' to najniższa cena z 30 dni i procent od niej (wyrok TSUE C-330/23), a cena,
+  // która nie jest od niej niższa o co najmniej 1%, nie jest wtedy pokazywana jako promocja.
+  function withNajnizsza(data) {
+    var H = window.NicciCeny30 || {};
+    if (!data || !data.products) return data;
+    var odNajnizszej = (window.NicciRabaty || {}).PROCENT === 'od-najnizszej-30';
+    var teraz = terazMs();
+    var start = teraz;
+    (H.kampanie || []).forEach(function (k) {
+      var od = Date.parse(k.od);
+      if (teraz >= od && teraz < Date.parse(k.do)) start = od;
+    });
+    var okresy = (H.okresy || []).filter(function (o) { return Date.parse(o.do) > start - 30 * 86400000; });
+    data.products.forEach(function (p) {
+      var max = 0, min = 100;
+      (p.variants || []).forEach(function (v) {
+        if (!v.wasPrice) return;
+        var przed = v.wasTyp === 'najnizsza' ? v.cenaPrzed : v.wasPrice;
+        var low = Math.min(przed, v.najnizsza30 || przed);
+        okresy.forEach(function (o) {
+          var c = ((o.produkty || {})[p.id] || {})[String(v.ml)];
+          if (c > 0 && c * 100 < low) low = c * 100;
+        });
+        v.cenaPrzed = przed;
+        v.najnizsza30 = low;
+        var proc;
+        if (odNajnizszej) {
+          proc = Math.floor((1 - v.price / low) * 100 + 1e-9);
+          if (proc < 1) {
+            if (v.rabat) { v.price = v.cenaBazowa; delete v.rabat; delete v.cenaBazowa; }
+            delete v.wasPrice; delete v.obnizka; delete v.najnizsza30; delete v.cenaPrzed; delete v.wasTyp;
+            return;
+          }
+          v.wasPrice = low; v.wasTyp = 'najnizsza';
+        } else {
+          proc = v.rabat || Math.floor((1 - v.price / przed) * 100 + 1e-9);
+          v.wasPrice = przed; v.wasTyp = 'przed';
+        }
+        v.obnizka = proc;
+        if (proc > max) max = proc;
+        if (proc < min) min = proc;
+      });
+      if (p.promocja || max) { p.promocja = max; p.promocjaDo = max > 0 && min < max; }
+    });
+    return data;
+  }
+
+  function prepare(data) { return withNajnizsza(withRabaty(withZestawy(withKorekty(withPhotos(data))))); }
 
   function catalog(force) {
     if (force) return fetchFresh(true);

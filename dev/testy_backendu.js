@@ -950,6 +950,68 @@ test('ceny 2026-11 (druga podwyżka): do 200 zł +5% w górę do pełnych 10 zł
   deq(P, po, 'drugie uruchomienie niczego nie zmienia');
 });
 
+test('rabaty Black Weeks i najniższa cena z 30 dni: rabat od obecnej ceny do 5 zł, tylko w czasie kampanii, przy wstrzymanej sprzedaży (decyzja 116)', () => {
+  const fs = require('fs'), path = require('path');
+  const site = path.join(__dirname, '..', 'site');
+  const src = fs.readFileSync(path.join(site, 'js', 'app.js'), 'utf8');
+  const kawalek = (re) => src.match(re)[0];
+  const fn = kawalek(/  function terazMs\(\) \{[\s\S]*?\n  \}\n  var startStrony = Date\.now\(\);\n/) +
+    kawalek(/  function cenaRabatu\(grosze, proc\) \{.*\n/) + kawalek(/  function withRabaty\(data\) \{[\s\S]*?\n  \}\n/) +
+    kawalek(/  function withNajnizsza\(data\) \{[\s\S]*?\n  \}\n/);
+  const H = new Function('window', fs.readFileSync(path.join(site, 'js', 'ceny-30dni.js'), 'utf8') + '\nreturn window.NicciCeny30;')({});
+  const R = new Function('window', fs.readFileSync(path.join(site, 'js', 'rabaty-kampanii.js'), 'utf8') + '\nreturn window.NicciRabaty;')({});
+  const przelicz = (teraz, data, tryb) => {
+    const w = { NicciCeny30: H, NicciRabaty: Object.assign({}, R, { PROCENT: tryb || R.PROCENT }), NicciKampanie: { teraz: new Date(teraz) } };
+    return new Function('window', 'location', fn + '\nreturn function (d) { return withNajnizsza(withRabaty(d)); };')(w, { search: '' })(data);
+  };
+  const live = () => ({ sprzedaz: false, products: [
+    { id: 'p55', promocja: 0, variants: [{ ml: 10, price: 9000 }, { ml: 20, price: 15000 }] },
+    { id: 'p35', promocja: 0, variants: [{ ml: 5, price: 12000 }, { ml: 10, price: 21000 }, { ml: 20, price: 36000 }] },
+    { id: 'p21', promocja: 0, variants: [{ ml: 10, price: 11000 }, { ml: 20, price: 17000 }] },
+    { id: 'p14', promocja: 0, variants: [{ ml: 10, price: 17000 }] }
+  ] });
+  const v = (p) => p.variants.map((x) => [x.ml, x.price / 100, x.wasPrice ? x.wasPrice / 100 : null, x.obnizka || null, x.najnizsza30 ? x.najnizsza30 / 100 : null]);
+  // przed kampanią i przy otwartej sprzedaży: bez rabatów
+  deq(przelicz('2026-11-22T23:59:00+01:00', live()).products.map(v), live().products.map(v));
+  deq(przelicz('2026-11-25T12:00:00+01:00', Object.assign(live(), { sprzedaz: true })).products.map(v), live().products.map(v));
+  // w kampanii: procent z listy od obecnej ceny, cena do najbliższych 5 zł (2,5 i 7,5 w górę), pod spodem najniższa z 30 dni
+  const d = przelicz('2026-11-23T00:00:30+01:00', live());
+  const [eros, tv, lemon, smw] = d.products;
+  deq(v(eros), [[10, 55, 90, 40, 70], [20, 75, 150, 50, 130]]);
+  deq(v(tv), [[5, 120, null, null, null], [10, 185, 210, 12.5, 190], [20, 270, 360, 25, 360]]);
+  deq(v(lemon), [[10, 105, 110, 5, 90], [20, 155, 170, 10, 145]]);
+  deq(v(smw), [[10, 170, null, null, null]], 'zapach spoza listy bez zmian');
+  assert.equal(eros.promocja, 50); assert.equal(eros.promocjaDo, true); assert.equal(tv.promocja, 25);
+  // drugie przeliczenie (katalog z pamięci sesji) daje to samo, a po końcu kampanii wraca zwykła cena
+  const again = przelicz('2026-11-26T10:00:00+01:00', JSON.parse(JSON.stringify(d)));
+  deq(again.products.map(v), d.products.map(v));
+  const po = przelicz('2026-11-30T00:00:01+01:00', JSON.parse(JSON.stringify(d)));
+  deq(po.products.map(v), live().products.map(v));
+  assert.ok(po.products.every((p) => !p.promocja));
+  // tryb zgodny z wyrokiem C-330/23: procent od najniższej ceny z 30 dni, pozorne obniżki bez oznaczenia
+  const z = przelicz('2026-11-23T00:00:30+01:00', live(), 'od-najnizszej-30');
+  deq(v(z.products[0]), [[10, 55, 70, 21, 70], [20, 75, 130, 42, 130]]);
+  deq(v(z.products[2]), [[10, 110, null, null, null], [20, 170, null, null, null]], 'Mancera: 105 zł to więcej niż 90 zł sprzed 30 dni');
+  assert.equal(z.products[2].promocja, 0);
+  // lista: każdy wpis to istniejący zapach z arkusza, procent od 1 do 90, tylko 10 i 20 ml
+  const ids = new Set(productRows.map((r) => r.id));
+  R.kampanie.forEach((k) => Object.keys(k.rabaty).forEach((id) => {
+    assert.ok(ids.has(id), id);
+    Object.keys(k.rabaty[id]).forEach((ml) => { assert.ok(['10', '20'].includes(ml), id + ' ' + ml); assert.ok(k.rabaty[id][ml] >= 1 && k.rabaty[id][ml] <= 90, id); });
+  }));
+  // ceny-30dni.js wygenerowany z aktualnych danych; oba pliki ładowane przed app.js na każdej stronie z app.js
+  const { execSync } = require('child_process');
+  const przed = fs.readFileSync(path.join(site, 'js', 'ceny-30dni.js'), 'utf8');
+  execSync('python3 dev/generuj_ceny_30dni.py', { cwd: path.join(__dirname, '..') });
+  assert.equal(fs.readFileSync(path.join(site, 'js', 'ceny-30dni.js'), 'utf8'), przed, 'ceny-30dni.js aktualny');
+  fs.readdirSync(site).filter((f) => f.endsWith('.html')).forEach((f) => {
+    const html = fs.readFileSync(path.join(site, f), 'utf8');
+    const a = html.indexOf('/js/app.js');
+    if (a === -1) return;
+    ['/js/ceny-30dni.js', '/js/rabaty-kampanii.js'].forEach((s) => { const k = html.indexOf(s); assert.ok(k !== -1 && k < a, f + ': ' + s + ' przed app.js'); });
+  });
+});
+
 test('zestawy 2026-11: funkcja dla arkusza zdejmuje z01 i z03, włącza p60, więc Winter Discovery Set jest dostępny', () => {
   const fs = require('fs'), path = require('path'), vm = require('vm');
   const code = fs.readFileSync(path.join(__dirname, '..', 'apps-script', 'Code.gs'), 'utf8') + '\n' +

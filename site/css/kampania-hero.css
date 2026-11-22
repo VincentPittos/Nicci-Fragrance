@@ -1,0 +1,110 @@
+/* NICCI: hero kampanii na stronie głównej (decyzja 116). Sekcja .bw stoi w index.html przed zwykłym hero i jest
+   ukryta, dopóki js/oferty-kampanie.js (w <head>, przed pierwszym malowaniem) nie ustawi data-kampania="black-weeks"
+   i data-faza="trwa", czyli od 23.11.2026 00:00 do 30.11.2026 00:00 czasu polskiego według zegara odwiedzającego.
+   Wtedy zwykły hero znika, a nagłówek jest pełny (czarny) i sekcja stoi pod nim, nie pod przezroczystym paskiem.
+   Bez JavaScriptu strona pokazuje zwykły hero. Podgląd: /?teraz=2026-11-23T00:01 */
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../fonts/anton-pl-c3f82c.woff2') format('woff2');
+}
+
+.bw { display: none; }
+html[data-kampania="black-weeks"][data-faza="trwa"] .bw { display: block; }
+html[data-kampania="black-weeks"][data-faza="trwa"] .hero { display: none; }
+html[data-kampania="black-weeks"][data-faza="trwa"] .site-header { margin-bottom: 0; background-color: var(--bg-dark); }
+html[data-kampania="black-weeks"][data-faza="trwa"] .site-header::after { opacity: 1; }
+
+.bw {
+  position: relative; isolation: isolate; overflow: hidden;
+  width: 100%; height: clamp(36rem, calc(100vw * 9 / 21), 60rem);
+  background: #0b0a09; color: #fff;
+}
+.bw__bg { position: absolute; inset: 0; z-index: -2; }
+.bw__bg picture { display: contents; }
+.bw__bg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; }
+/* lewa strona przyciemniona pod napisem, flakony po prawej bez zmian */
+.bw__bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgb(8 7 6 / 0.6) 0%, rgb(8 7 6 / 0.3) 36%, rgb(8 7 6 / 0) 52%);
+}
+.bw__inner {
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 90rem; height: 100%; margin: 0 auto; padding: 2rem var(--gutter);
+}
+.bw__copy { position: relative; width: max-content; max-width: 100%; }
+/* poświata za napisem, jak światło nad liczbą w poście z Instagrama */
+.bw__copy::before {
+  content: ""; position: absolute; left: -12%; top: 8%; z-index: -1; width: 115%; height: 72%;
+  background: radial-gradient(50% 50% at 42% 52%, rgb(255 240 214 / 0.3), rgb(255 236 205 / 0.1) 55%, rgb(255 236 205 / 0) 100%);
+  filter: blur(14px); pointer-events: none;
+}
+.bw__eyebrow {
+  margin: 0 -0.15em 0 0;
+  font: 400 clamp(2.9rem, 5.6vw, 6rem)/1 'Anton', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  background: linear-gradient(180deg, #fff 0%, #fbf3e7 55%, #e8d6bd 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 16px rgb(255 236 205 / 0.32)) drop-shadow(0 4px 10px rgb(0 0 0 / 0.55));
+}
+.bw__deal {
+  position: relative; display: inline-block; margin: 0.06em 0 0;
+  font: 400 clamp(9rem, 16.5vw, 19rem)/0.84 'Anton', 'Arial Narrow', sans-serif;
+  letter-spacing: -0.012em;
+  background: linear-gradient(180deg, #fff 0%, #fffdf8 38%, #f5eadb 72%, #e6d4ba 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 22px rgb(255 238 210 / 0.38)) drop-shadow(0 0 6px rgb(255 238 210 / 0.25)) drop-shadow(0 10px 18px rgb(0 0 0 / 0.6));
+}
+/* zapas na pełne litery: gradient (background-clip: text) maluje tylko w ramce, a cyfry Antona są wyższe niż 0,84 */
+.bw__num { display: block; margin: -0.08em 0 -0.06em; padding: 0.1em 0.02em 0.08em 0; }
+/* „DO” wyśrodkowane nad minusem, w połowie między górą cyfr a górą minusa (Anton: minus od 0,016 do 0,281 em,
+   góra minusa 0,375 em, góra cyfr 0,875 em nad linią bazową); left i top w em samego „DO” (0,22 rozmiaru liczby) */
+.bw__do { position: absolute; left: 0.178em; top: 0.59em; font-size: 0.22em; line-height: 1; letter-spacing: 0; }
+.bw__script {
+  position: relative; margin: 0.02em 0 0;
+  font: 400 clamp(2.6rem, 4vw, 4.4rem)/1.1 'Carattere', cursive;
+  color: #f6ecdd;
+  text-shadow: 0 0 18px rgb(255 236 205 / 0.35), 0 3px 10px rgb(0 0 0 / 0.6);
+}
+.bw__info {
+  margin: 1.1rem 0 0;
+  font: 500 1rem/1.4 'Jost', sans-serif; letter-spacing: 0.24em; text-transform: uppercase;
+  color: #f3e9da; text-shadow: 0 2px 8px rgb(0 0 0 / 0.6);
+}
+.bw__cta { display: flex; flex-wrap: wrap; gap: 0.875rem; margin-top: 1.4rem; }
+.bw__cta .btn--outline { --_bd: rgb(255 255 255 / 0.75); --_fg: #fff; }
+
+/* telefon i tablet: napis na górze, pod nim zdjęcie 4:5 z flakonami w dolnej połowie, góra zdjęcia wtapia się w tło */
+@media (max-width: 63.99rem) {
+  .bw { height: auto; }
+  .bw__bg { top: auto; height: auto; }
+  .bw__bg img {
+    height: auto; aspect-ratio: 4 / 5; object-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+  }
+  .bw__bg::after { display: none; }
+  .bw__inner { padding: 2.25rem var(--gutter) calc(125vw * 0.66); }
+  .bw__copy { width: 100%; }
+  .bw__eyebrow { font-size: 15.6vw; letter-spacing: 0.065em; margin-right: -0.065em; white-space: nowrap; }
+  .bw__deal { font-size: 40vw; }
+  .bw__script { font-size: 11.5vw; }
+  .bw__info { margin-top: 0.9rem; font-size: 0.8125rem; letter-spacing: 0.16em; }
+  .bw__cta { margin-top: 1.2rem; }
+  .bw__cta .btn { flex: 1 1 100%; }
+}
+/* tablet: zdjęcie przycięte do kwadratu (dolne 80%, flakony całe), mniejszy napis, przyciski obok siebie */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .bw__bg img { aspect-ratio: 1 / 1; }
+  .bw__inner { padding: 3rem var(--gutter) 80vw; }
+  .bw__eyebrow { font-size: 10vw; }
+  .bw__deal { font-size: 26vw; }
+  .bw__script { font-size: 7.5vw; }
+  .bw__cta .btn { flex: 0 1 auto; }
+}
+@media (forced-colors: active) {
+  .bw__eyebrow, .bw__deal { background: none; color: CanvasText; filter: none; }
+}

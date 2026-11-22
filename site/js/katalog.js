@@ -19,6 +19,20 @@
   // strona ofert (decyzja 100): ten sam katalog, ale tylko zapachy z obniżką; tekst pustej listy podaje oferty.js
   var PROMO = root.hasAttribute('data-catalog-promocje');
   function view(c) { return PROMO ? Object.assign({}, c, { products: (c.products || []).filter(function (p) { return p.promocja > 0; }) }) : c; }
+  // na stronie ofert (właściciel 22.11): domyślnie wszystkie zapachy razem w losowej kolejności (stałej do
+  // przeładowania strony, żeby karty nie skakały przy filtrach), do wyboru grupy i sortowanie
+  var SORT = [['losowo', 'Losowo'], ['obnizka', 'Największa obniżka'], ['cena-rosnaco', 'Cena od najniższej'], ['cena-malejaco', 'Cena od najwyższej'], ['marka', 'Marka A–Z']];
+  var BY = PROMO ? [['wszystkie', 'Wszystkie', 'Wszystkie'], ['rodzina', 'Rodziny zapachowe', 'Rodziny'], ['marka', 'Marki', 'Marki']]
+    : [['rodzina', 'Rodziny zapachowe', 'Rodziny'], ['marka', 'Marki', 'Marki']];
+  if (PROMO) { state.by = 'wszystkie'; state.sort = 'losowo'; }
+  var LOS = {};
+  function los(p) { if (!(p.id in LOS)) LOS[p.id] = Math.random(); return LOS[p.id]; }
+  function cenaOd(p) {
+    var av = (p.variants || []).filter(function (v) { return v.available; });
+    var pr = av.filter(function (v) { return v.wasPrice; });
+    var ceny = (pr.length ? pr : av).map(function (v) { return v.price; });
+    return ceny.length ? Math.min.apply(null, ceny) : Infinity;
+  }
 
   var PORA = [['dzień', 'Na dzień'], ['wieczór', 'Na wieczór']];
   var SEZON = [['wiosna', 'Wiosna'], ['lato', 'Lato'], ['jesień', 'Jesień'], ['zima', 'Zima']];
@@ -63,9 +77,13 @@
             '</div>' +
             '<div class="cat__bar">' +
               '<div class="cat__switch" role="radiogroup" aria-label="Grupuj według" data-by>' +
-                '<button type="button" role="radio" data-by-value="rodzina"><span class="cat__lbl-long">Rodziny zapachowe</span><span class="cat__lbl-short">Rodziny</span></button>' +
-                '<button type="button" role="radio" data-by-value="marka">Marki</button>' +
+                BY.map(function (b) {
+                  return '<button type="button" role="radio" data-by-value="' + b[0] + '">' + (b[1] === b[2] ? b[1] :
+                    '<span class="cat__lbl-long">' + b[1] + '</span><span class="cat__lbl-short">' + b[2] + '</span>') + '</button>';
+                }).join('') +
               '</div>' +
+              (PROMO ? '<label class="cat__sort"><span>Sortuj</span><select data-sort>' +
+                SORT.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('') + '</select></label>' : '') +
               '<button type="button" class="btn btn--outline cat__filters-btn" data-open-filters aria-haspopup="dialog">' +
                 I.svg('filtry', { size: 20 }) + '<span>Filtry</span><span class="cat__badge" data-filter-count></span></button>' +
             '</div>' +
@@ -207,6 +225,16 @@
     // zapachy ze zdjęciem na początku grupy (do czasu zdjęć wszystkich flakonów), potem kolejność z arkusza
     // w grupie: najpierw zapachy ze zdjęciem, wśród nich promocje, bestsellery i nowości, potem kolejność z arkusza
     var wyr = function (p) { return Number(!!(p.promocja || p.bestseller || p.nowosc)); };
+    if (PROMO) {
+      var by = {
+        losowo: function (a, b) { return los(a) - los(b); },
+        obnizka: function (a, b) { return (b.promocja || 0) - (a.promocja || 0) || los(a) - los(b); },
+        'cena-rosnaco': function (a, b) { return cenaOd(a) - cenaOd(b) || los(a) - los(b); },
+        'cena-malejaco': function (a, b) { return cenaOd(b) - cenaOd(a) || los(a) - los(b); },
+        marka: function (a, b) { return a.marka.localeCompare(b.marka, 'pl') || a.nazwa.localeCompare(b.nazwa, 'pl'); }
+      }[state.sort] || function (a, b) { return los(a) - los(b); };
+      return list.sort(function (a, b) { return rank(a) - rank(b) || by(a, b); });
+    }
     return list.sort(function (a, b) {
       return Number(!a.zdjecie) - Number(!b.zdjecie) || rank(a) - rank(b) || wyr(b) - wyr(a) || (a.kolejnosc || 0) - (b.kolejnosc || 0);
     });
@@ -240,6 +268,7 @@
 
   // ---------- widok ----------
   function groupsFor(list) {
+    if (state.by === 'wszystkie') return [{ key: '', items: list }];
     var groups = N.groupProducts(list, state.by);
     if (state.by === 'rodzina') groups.sort(function (a, b) { return b.items.length - a.items.length || a.key.localeCompare(b.key, 'pl'); });
     return groups;
@@ -259,8 +288,8 @@
       var gid = 'grp-' + k;
       var title = state.by === 'rodzina' ? U.cap(g.key) : g.key;
       var n = g.items.length; // liczba rzędów przy 2 i 3 kolumnach: szacunek wysokości grupy poza ekranem (katalog.css)
-      return '<section class="cat-group" aria-labelledby="' + gid + '" style="--r2:' + Math.ceil(n / 2) + ';--r3:' + Math.ceil(n / 3) + '">' +
-        '<h3 class="cat-group__h" id="' + gid + '"><span>' + esc(title) + '</span><span class="cat-group__n">' + zapachy(g.items.length) + '</span></h3>' +
+      return '<section class="cat-group"' + (g.key ? ' aria-labelledby="' + gid + '"' : ' aria-label="Zapachy w promocji"') + ' style="--r2:' + Math.ceil(n / 2) + ';--r3:' + Math.ceil(n / 3) + '">' +
+        (g.key ? '<h3 class="cat-group__h" id="' + gid + '"><span>' + esc(title) + '</span><span class="cat-group__n">' + zapachy(g.items.length) + '</span></h3>' : '') +
         '<div class="grid grid--cat">' + g.items.map(function (p) { return C.render(p, { hl: 4 }); }).join('') + '</div></section>';
     }).join('');
     box.innerHTML = html;
@@ -351,10 +380,14 @@
     root.querySelector('[data-by]').addEventListener('keydown', function (e) {
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) === -1) return;
       e.preventDefault();
-      state.by = state.by === 'rodzina' ? 'marka' : 'rodzina';
+      var wart = BY.map(function (b) { return b[0]; });
+      var krok = e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 1;
+      state.by = wart[(wart.indexOf(state.by) + krok + wart.length) % wart.length];
       update();
       root.querySelector('[data-by-value="' + state.by + '"]').focus();
     });
+    var srt = root.querySelector('[data-sort]');
+    if (srt) srt.addEventListener('change', function () { state.sort = srt.value; update(); });
     document.addEventListener('nicci:filter', function (e) {
       var d = e.detail || {};
       if (d.rodzina) state.rodzina = d.rodzina.slice();

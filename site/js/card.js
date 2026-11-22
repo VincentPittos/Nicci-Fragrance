@@ -67,8 +67,9 @@
     return promo.length ? promo[0].ml : av.length ? av[0].ml : null;
   }
 
-  /** Etykieta promocji (procent z katalogu, np. „Promocja −10%”). */
-  function promoLabel(p) { return 'Promocja −' + String(p.promocja).replace('.', ',') + '%'; }
+  /** Etykieta promocji, np. „Promocja −10%”; procent liczy app.js (withNajnizsza), a gdy pojemności mają różne
+   *  procenty, najwyższy z dopiskiem „do”. */
+  function promoLabel(p) { return 'Promocja ' + (p.promocjaDo ? 'do ' : '') + '−' + String(p.promocja).replace('.', ',') + '%'; }
 
   /** Cena przed obniżką i najniższa cena z 30 dni (wymóg przy obniżce); ukryte, gdy wybrana pojemność jej nie ma. */
   function wasHtml(p, v) {
@@ -76,14 +77,14 @@
     return '<p class="price-was" data-was' + (on ? '' : ' hidden') + '>' + (on ? wasInner(p, v) : '') + '</p>';
   }
   function wasInner(p, v) {
-    return '<span class="visually-hidden">Cena przed obniżką: </span><s>' + U.price(v.wasPrice) + '</s>' +
-      '<span class="price-off">−' + String(p.promocja).replace('.', ',') + '%</span>';
+    return '<span class="visually-hidden">' + (v.wasTyp === 'najnizsza' ? 'Najniższa cena z 30 dni przed obniżką' : 'Cena przed obniżką') + ': </span><s>' + U.price(v.wasPrice) + '</s>' +
+      '<span class="price-off">−' + String(v.obnizka || p.promocja).replace('.', ',') + '%</span>';
   }
   function lowHtml(v) {
     var on = !!(v && v.wasPrice);
     return '<p class="price-low" data-low30' + (on ? '' : ' hidden') + '>' + (on ? lowText(v) : '') + '</p>';
   }
-  function lowText(v) { return 'Najniższa cena z 30 dni przed obniżką: ' + U.price(v.wasPrice); }
+  function lowText(v) { return 'Najniższa cena z 30 dni przed obniżką: ' + U.price(v.najnizsza30 || v.wasPrice); }
 
   function actionHtml(p, ml) {
     if (U.isSoldOut(p)) {

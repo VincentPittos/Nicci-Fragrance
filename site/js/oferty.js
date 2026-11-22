@@ -22,13 +22,12 @@
     'black-weeks': {
       eyebrow: 'Oferty specjalne',
       title: 'Zapachy z najwyższej półki nawet o połowę taniej',
-      lead: 'Dziesiątki zapachów w promocji przez siedem dni. Przy każdej obniżce widzisz cenę sprzed niej.',
+      lead: 'Wybrane zapachy taniej przez siedem dni. Przy każdej obniżce pokazujemy najniższą cenę z 30 dni przed nią.',
       timer: { przed: 'Do startu Black Weeks', trwa: 'Do końca Black Weeks' },
       note: { przed: 'Start 23 listopada o północy.', trwa: 'Ceny Black Weeks obowiązują do 29 listopada do północy.' },
       pustoTytul: { przed: 'Oferty pojawią się 23 listopada', trwa: 'Oferty chwilowo się wyprzedały' },
       pusto: { przed: 'Lista obniżek pojawi się tutaj o północy, gdy zacznie się Black Weeks.', trwa: 'Wszystkie zapachy znajdziesz w katalogu.' },
-      rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 29 listopada do północy. ' +
-        'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
+      rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 29 listopada do północy.'
     },
     christmas: {
       eyebrow: 'Oferty specjalne',
@@ -38,8 +37,7 @@
       note: { przed: 'Start 30 listopada o północy.', trwa: 'Świąteczne ceny obowiązują do 24 grudnia.' },
       pustoTytul: { przed: 'Świąteczne oferty pojawią się 30 listopada', trwa: 'Oferty chwilowo się wyprzedały' },
       pusto: { przed: 'Lista obniżek pojawi się tutaj o północy, gdy zaczną się świąteczne oferty.', trwa: 'Wszystkie zapachy znajdziesz w katalogu.' },
-      rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 24 grudnia. ' +
-        'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
+      rules: 'Obniżka dotyczy pojemności oznaczonych na karcie zapachu i trwa do 24 grudnia.'
     },
     brak: {
       eyebrow: 'Oferty specjalne',
@@ -47,7 +45,7 @@
       lead: 'O nowych obniżkach piszemy najpierw w newsletterze. Zapisz się, a od razu dostaniesz kod −99% na zestaw NICCI ESSENTIALS.',
       pustoTytul: { po: 'Teraz nie mamy obniżek' },
       pusto: { po: 'Wszystkie zapachy znajdziesz w katalogu.' },
-      rules: 'Przy każdej obniżce podajemy cenę sprzed obniżki i najniższą cenę z 30 dni przed nią.'
+      rules: ''
     }
   };
   var T = TEKSTY[KAMP];
@@ -59,7 +57,11 @@
     document.querySelector('[data-offers-title]').textContent = T.title;
     var lead = document.querySelector('[data-offers-lead]');
     lead.textContent = T.lead; lead.hidden = !T.lead;
-    document.querySelector('[data-offers-rules]').textContent = T.rules;
+    // jak liczymy procent: według trybu z js/rabaty-kampanii.js (decyzja 116)
+    var zasada = (window.NicciRabaty || {}).PROCENT === 'od-najnizszej-30'
+      ? 'Przekreślona cena przy obniżce to najniższa cena z 30 dni przed nią i od niej liczymy procent obniżki.'
+      : 'Procent obniżki liczymy od ceny sprzed obniżki. Przy każdej obniżce podajemy też najniższą cenę z 30 dni przed nią.';
+    document.querySelector('[data-offers-rules]').textContent = (T.rules ? T.rules + ' ' : '') + zasada;
     var cat = document.querySelector('[data-catalog]');
     if (cat) {
       cat.setAttribute('data-pusto-tytul', (T.pustoTytul || {})[FAZA] || 'Teraz nie mamy obniżek');

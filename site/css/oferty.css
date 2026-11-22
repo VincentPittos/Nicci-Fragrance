@@ -223,3 +223,24 @@ html[data-faza="przed"] [data-kampania-tylko="christmas"] { display: none !impor
   .offer-timer__n.is-tick { animation: none; }
   .offer-timer__fill, .offer-timer__now { transition: none; }
 }
+
+/* ---------- sortowanie listy ofert (katalog.js w trybie data-catalog-promocje, właściciel 22.11) ---------- */
+.cat__sort { display: inline-flex; align-items: center; gap: 0.6rem; font-size: var(--n-size-small); font-weight: 500; color: var(--text-strong); }
+.cat__sort select {
+  min-height: 2.75rem; padding: 0 2.25rem 0 1rem;
+  border: var(--n-hairline) solid var(--border-input); border-radius: var(--n-radius-pill);
+  background: var(--field-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23776d61' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 0.9rem center / 0.75rem;
+  color: var(--field-fg); font: inherit; font-size: 1rem;
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+}
+.cat__sort select:focus-visible { outline: none; border-color: var(--border-input-focus); box-shadow: 0 0 0 1px var(--border-input-focus); }
+@media (max-width: 29.99rem) {
+  .offers-page .cat__switch button { padding: 0 0.75rem; }
+  .cat__sort { flex: 1 1 100%; }
+  .cat__sort select { flex: 1; }
+}
+/* trzy przyciski grupowania i sortowanie nie mieszczą się obok wyszukiwarki: pasek pod nią na całą szerokość */
+@media (min-width: 64rem) {
+  .offers-page .cat__tools { grid-template-columns: minmax(0, 1fr); grid-template-areas: "search" "bar" "quick"; }
+  .offers-page .cat__sort { margin-left: auto; }
+}

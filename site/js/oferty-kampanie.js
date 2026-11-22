@@ -30,6 +30,28 @@ window.NicciKampanie = (function () {
   html.setAttribute('data-kampania', k ? k.id : 'brak');
   html.setAttribute('data-faza', faza);
 
+  // Hero kampanii na stronie głównej (index.html: <html data-hero-kampanii>, css/kampania-hero.css). Zdjęcie ma
+  // loading="lazy", żeby poza kampanią się nie pobierało; w trakcie kampanii dokładamy preload zdjęcia i fontu,
+  // tak samo jak zwykły hero (media, srcset i sizes muszą zgadzać się z <picture> w index.html).
+  var bw4 = '/img/kampanie/bw-hero-4x5-', bw21 = '/img/kampanie/bw-hero-21x9-';
+  var HERO = {
+    'black-weeks': [
+      { as: 'image', type: 'image/avif', media: '(max-width: 63.99rem)', fetchpriority: 'high', imagesizes: '100vw',
+        imagesrcset: bw4 + '640.avif 640w, ' + bw4 + '960.avif 960w, ' + bw4 + '1280.avif 1280w, ' + bw4 + '1856.avif 1856w' },
+      { as: 'image', type: 'image/avif', media: '(min-width: 64rem)', fetchpriority: 'high', imagesizes: '(max-width: 84rem) 84rem, 100vw',
+        imagesrcset: bw21 + '1280.avif 1280w, ' + bw21 + '1920.avif 1920w, ' + bw21 + '2560.avif 2560w, ' + bw21 + '3168.avif 3168w' },
+      { as: 'font', type: 'font/woff2', href: '/fonts/anton-pl-c3f82c.woff2', crossorigin: '' }
+    ]
+  };
+  if (k && faza === 'trwa' && HERO[k.id] && html.hasAttribute('data-hero-kampanii') && document.head) {
+    HERO[k.id].forEach(function (a) {
+      var l = document.createElement('link');
+      l.rel = 'preload';
+      Object.keys(a).forEach(function (n) { l.setAttribute(n, a[n]); });
+      document.head.appendChild(l);
+    });
+  }
+
   return {
     lista: LISTA,
     teraz: teraz,
