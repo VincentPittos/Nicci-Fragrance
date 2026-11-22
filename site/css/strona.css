@@ -677,7 +677,7 @@ html.ig-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 [data-todo] { outline: 1px dashed var(--danger); outline-offset: 2px; }
 
 /* ---------- pasek kampanii pod nagłówkiem (decyzja 117) ----------
-   Mały czerwony pasek z przesuwającym się napisem „Black Weeks do −50%” (romb między powtórzeniami), tylko w trwającej kampanii
+   Mały czerwony pasek z przesuwającym się napisem „Black Weeks ◆ Rabaty do −50%” (romb między hasłami i powtórzeniami), tylko w trwającej kampanii
    (html[data-kampania][data-faza] ustawia js/oferty-kampanie.js w <head>). Czerwień z etykiety promocji na kartach,
    kremowy tekst (6,9:1). Tor ma dwie jednakowe grupy i przesuwa się o połowę, więc ruch się nie urywa; najechanie
    zatrzymuje, a przy ograniczonym ruchu w systemie napis stoi. */
@@ -690,7 +690,7 @@ html[data-kampania="black-weeks"][data-faza="trwa"] .promo-bar[data-pasek-kampan
   font-size: 0.75rem; font-weight: 500; line-height: 1; letter-spacing: 0.2em; text-transform: uppercase;
   text-decoration: none; white-space: nowrap;
 }
-.promo-bar__track { display: flex; flex: none; animation: promo-bar 63s linear infinite; }
+.promo-bar__track { display: flex; flex: none; animation: promo-bar 57s linear infinite; }
 .promo-bar__grupa { display: flex; flex: none; align-items: center; }
 .promo-bar__item { padding-inline: 1.1rem; }
 .promo-bar__item b { font-weight: 700; }
