@@ -77,29 +77,37 @@ html[data-kampania="black-weeks"][data-faza="trwa"] .site-header::after { opacit
 .bw__cta { display: flex; flex-wrap: wrap; gap: 0.875rem; margin-top: 1.4rem; }
 .bw__cta .btn--outline { --_bd: rgb(255 255 255 / 0.75); --_fg: #fff; }
 
-/* telefon i tablet: napis na górze, pod nim zdjęcie 4:5 z flakonami w dolnej połowie, góra zdjęcia wtapia się w tło */
+/* telefon i tablet (właściciel 22.11, jak zwykły hero): napisy, tuż pod nimi zdjęcie z flakonami, przyciski na dole.
+   .bw__inner i .bw__copy znikają z układu (display: contents), kolejność ustala flex: tekst, zdjęcie (order 1),
+   przyciski (order 2). Ze zdjęcia 4:5 zostaje dolne 70% (8:7), bo nad flakonami jest tylko pusty piasek; góra i dół
+   zdjęcia wtapiają się w tło. */
 @media (max-width: 63.99rem) {
-  .bw { height: auto; }
-  .bw__bg { top: auto; height: auto; }
-  .bw__bg img {
-    height: auto; aspect-ratio: 4 / 5; object-position: 50% 100%;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+  html[data-kampania="black-weeks"][data-faza="trwa"] .bw { display: flex; }
+  .bw {
+    flex-direction: column; height: auto; padding: 2.25rem 0 2rem;
+    background: radial-gradient(70% 26% at 35% 16%, rgb(255 240 214 / 0.13), rgb(255 240 214 / 0) 70%), #0b0a09;
   }
-  .bw__bg::after { display: none; }
-  .bw__inner { padding: 2.25rem var(--gutter) calc(125vw * 0.66); }
-  .bw__copy { width: 100%; }
-  .bw__eyebrow { font-size: 15.6vw; letter-spacing: 0.065em; margin-right: -0.065em; white-space: nowrap; }
+  .bw__inner, .bw__copy { display: contents; }
+  .bw__copy::before { display: none; }
+  .bw__eyebrow, .bw__deal, .bw__script, .bw__info, .bw__cta { position: relative; z-index: 1; margin-inline: var(--gutter); }
+  .bw__eyebrow, .bw__deal { align-self: flex-start; }
+  .bw__eyebrow { font-size: 15.6vw; letter-spacing: 0.065em; margin-right: 0; white-space: nowrap; }
   .bw__deal { font-size: 40vw; }
   .bw__script { font-size: 11.5vw; }
   .bw__info { margin-top: 0.9rem; font-size: 0.8125rem; letter-spacing: 0.16em; }
-  .bw__cta { margin-top: 1.2rem; }
+  .bw__bg { order: 1; position: relative; inset: auto; z-index: 0; margin-top: -0.75rem; }
+  .bw__bg img {
+    height: auto; aspect-ratio: 8 / 7; object-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 13%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 13%, #000 88%, transparent 100%);
+  }
+  .bw__bg::after { display: none; }
+  .bw__cta { order: 2; margin-top: 0.25rem; }
   .bw__cta .btn { flex: 1 1 100%; }
 }
-/* tablet: zdjęcie przycięte do kwadratu (dolne 80%, flakony całe), mniejszy napis, przyciski obok siebie */
+/* tablet: mniejszy napis, przyciski obok siebie */
 @media (min-width: 48rem) and (max-width: 63.99rem) {
-  .bw__bg img { aspect-ratio: 1 / 1; }
-  .bw__inner { padding: 3rem var(--gutter) 80vw; }
+  .bw { padding-top: 3rem; }
   .bw__eyebrow { font-size: 10vw; }
   .bw__deal { font-size: 26vw; }
   .bw__script { font-size: 7.5vw; }
