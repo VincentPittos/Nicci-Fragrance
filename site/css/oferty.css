@@ -137,7 +137,8 @@ html[data-faza="przed"] [data-kampania-tylko="christmas"] { display: none !impor
 /* ---------- strona ofert w stylu katalogu (decyzja 100): nagłówek obok widgetu odliczania ---------- */
 .offers__top { display: grid; gap: var(--n-space-6); align-items: end; margin-bottom: var(--n-space-6); }
 .offers__top .offers__head { padding: 0; margin: 0; }
-@media (min-width: 64rem) { .offers__top { grid-template-columns: minmax(0, 1fr) minmax(26rem, 31rem); gap: var(--n-space-8); } }
+/* nagłówek wyśrodkowany w pionie względem widgetu (właściciel 22.11) */
+@media (min-width: 64rem) { .offers__top { grid-template-columns: minmax(0, 1fr) minmax(26rem, 31rem); gap: var(--n-space-8); align-items: center; } }
 .offers__rules { margin-top: var(--n-space-6); max-width: 46rem; font-size: var(--n-size-small); color: var(--text-muted); }
 .offers-page .cat-tabs { margin-top: 0; }
 
