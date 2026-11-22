@@ -52,6 +52,20 @@ window.NicciKampanie = (function () {
     });
   }
 
+  // Podgląd (?teraz=, ?kampania=) idzie dalej przy kliknięciu w link do innej strony sklepu, więc np. pasek
+  // kampanii albo przycisk w hero oglądane w podglądzie prowadzą do /oferty też w podglądzie.
+  var podglad = ['teraz', 'kampania'].filter(function (n) { return q.get(n); });
+  if (podglad.length) {
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var u = new URL(a.getAttribute('href'), location.href);
+      if (u.origin !== location.origin) return;
+      podglad.forEach(function (n) { if (!u.searchParams.has(n)) u.searchParams.set(n, q.get(n)); });
+      a.setAttribute('href', u.pathname + u.search + u.hash);
+    }, true);
+  }
+
   return {
     lista: LISTA,
     teraz: teraz,
