@@ -675,3 +675,30 @@ html.ig-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 
 /* {TODO}: widoczny znacznik do uzupełnienia przed publikacją */
 [data-todo] { outline: 1px dashed var(--danger); outline-offset: 2px; }
+
+/* ---------- pasek kampanii nad nagłówkiem (decyzja 117) ----------
+   Mały czerwony pasek z Black Weeks, tylko w trwającej kampanii (html[data-kampania][data-faza] ustawia
+   js/oferty-kampanie.js w <head>). Czerwień z etykiety promocji na kartach, kremowy tekst (6,9:1). */
+.promo-bar { display: none; }
+html[data-kampania="black-weeks"][data-faza="trwa"] .promo-bar[data-pasek-kampanii="black-weeks"] { display: flex; }
+.promo-bar {
+  align-items: center; justify-content: center; gap: 0.75rem;
+  min-height: 2.25rem; padding: 0.35rem var(--gutter);
+  background: var(--n-red-700); color: var(--n-cream-50);
+  font-size: 0.75rem; font-weight: 500; line-height: 1.3; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; text-align: center;
+}
+.promo-bar__tag {
+  padding: 0.15rem 0.5rem; border: var(--n-hairline) solid color-mix(in srgb, var(--n-cream-50) 70%, transparent);
+  font-weight: 600; letter-spacing: 0.16em; white-space: nowrap;
+}
+.promo-bar__txt strong { font-weight: 700; }
+.promo-bar__cta { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
+.promo-bar__cta svg { transition: transform var(--n-dur-base) var(--n-ease-out); }
+@media (hover: hover) { .promo-bar:hover .promo-bar__cta svg { transform: translateX(3px); } }
+.promo-bar:focus-visible { outline: 2px solid var(--n-cream-50); outline-offset: -4px; }
+@media (max-width: 47.99rem) {
+  .promo-bar { gap: 0.6rem; font-size: 0.6875rem; letter-spacing: 0.1em; }
+  .promo-bar__long { display: none; }
+}
+@media (max-width: 22.49rem) { .promo-bar__tag { display: none; } }
