@@ -677,28 +677,31 @@ html.ig-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 [data-todo] { outline: 1px dashed var(--danger); outline-offset: 2px; }
 
 /* ---------- pasek kampanii pod nagłówkiem (decyzja 117) ----------
-   Mały czerwony pasek z Black Weeks, tylko w trwającej kampanii (html[data-kampania][data-faza] ustawia
-   js/oferty-kampanie.js w <head>). Czerwień z etykiety promocji na kartach, kremowy tekst (6,9:1). */
+   Mały czerwony pasek z przesuwającym się napisem „Black Weeks · do −50%”, tylko w trwającej kampanii
+   (html[data-kampania][data-faza] ustawia js/oferty-kampanie.js w <head>). Czerwień z etykiety promocji na kartach,
+   kremowy tekst (6,9:1). Tor ma dwie jednakowe grupy i przesuwa się o połowę, więc ruch się nie urywa; najechanie
+   zatrzymuje, a przy ograniczonym ruchu w systemie napis stoi. */
 .promo-bar { display: none; }
 html[data-kampania="black-weeks"][data-faza="trwa"] .promo-bar[data-pasek-kampanii="black-weeks"] { display: flex; }
 .promo-bar {
-  align-items: center; justify-content: center; gap: 0.75rem;
-  min-height: 2.25rem; padding: 0.35rem var(--gutter);
+  overflow: hidden; align-items: center;
+  height: 2.25rem;
   background: var(--n-red-700); color: var(--n-cream-50);
-  font-size: 0.75rem; font-weight: 500; line-height: 1.3; letter-spacing: 0.14em; text-transform: uppercase;
-  text-decoration: none; text-align: center;
+  font-size: 0.75rem; font-weight: 500; line-height: 1; letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
 }
-.promo-bar__tag {
-  padding: 0.15rem 0.5rem; border: var(--n-hairline) solid color-mix(in srgb, var(--n-cream-50) 70%, transparent);
-  font-weight: 600; letter-spacing: 0.16em; white-space: nowrap;
-}
-.promo-bar__txt strong { font-weight: 700; }
-.promo-bar__cta { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
-.promo-bar__cta svg { transition: transform var(--n-dur-base) var(--n-ease-out); }
-@media (hover: hover) { .promo-bar:hover .promo-bar__cta svg { transform: translateX(3px); } }
+.promo-bar__track { display: flex; flex: none; animation: promo-bar 54s linear infinite; }
+.promo-bar__grupa { display: flex; flex: none; align-items: center; }
+.promo-bar__item { padding-inline: 1.1rem; }
+.promo-bar__item b { font-weight: 700; }
+/* romb jako przerywnik (bez znaku z fontu) */
+.promo-bar__sep { width: 0.3rem; height: 0.3rem; background: currentColor; transform: rotate(45deg); opacity: 0.8; }
+@keyframes promo-bar { to { transform: translateX(-50%); } }
+@media (hover: hover) { .promo-bar:hover .promo-bar__track { animation-play-state: paused; } }
 .promo-bar:focus-visible { outline: 2px solid var(--n-cream-50); outline-offset: -4px; }
-@media (max-width: 47.99rem) {
-  .promo-bar { gap: 0.6rem; font-size: 0.6875rem; letter-spacing: 0.1em; }
-  .promo-bar__long { display: none; }
+.promo-bar:focus-visible .promo-bar__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .promo-bar { justify-content: center; }
+  .promo-bar__track { animation: none; }
 }
-@media (max-width: 22.49rem) { .promo-bar__tag { display: none; } }
+@media (max-width: 47.99rem) { .promo-bar { font-size: 0.6875rem; letter-spacing: 0.16em; } .promo-bar__item { padding-inline: 0.9rem; } }
