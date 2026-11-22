@@ -18,7 +18,14 @@
   var MARKI_NA_START = 8;
   // strona ofert (decyzja 100): ten sam katalog, ale tylko zapachy z obniżką; tekst pustej listy podaje oferty.js
   var PROMO = root.hasAttribute('data-catalog-promocje');
-  function view(c) { return PROMO ? Object.assign({}, c, { products: (c.products || []).filter(function (p) { return p.promocja > 0; }) }) : c; }
+  // na stronie ofert karta pokazuje tylko pojemności z obniżką (właściciel 23.11: bez 5 ml, które nie są objęte
+  // rabatem); kopia zapachu, więc katalog, koszyk i pozostałe strony mają dalej wszystkie pojemności
+  function view(c) {
+    if (!PROMO) return c;
+    return Object.assign({}, c, { products: (c.products || []).filter(function (p) { return p.promocja > 0; }).map(function (p) {
+      return Object.assign({}, p, { variants: (p.variants || []).filter(function (v) { return v.wasPrice; }) });
+    }) });
+  }
   // na stronie ofert (właściciel 22.11): domyślnie wszystkie zapachy razem w losowej kolejności (stałej do
   // przeładowania strony, żeby karty nie skakały przy filtrach), do wyboru grupy i sortowanie
   var SORT = [['losowo', 'Losowo'], ['obnizka', 'Największa obniżka'], ['cena-rosnaco', 'Cena od najniższej'], ['cena-malejaco', 'Cena od najwyższej'], ['marka', 'Marka A–Z']];
