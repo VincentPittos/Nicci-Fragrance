@@ -676,7 +676,7 @@ html.ig-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 /* {TODO}: widoczny znacznik do uzupełnienia przed publikacją */
 [data-todo] { outline: 1px dashed var(--danger); outline-offset: 2px; }
 
-/* ---------- pasek kampanii nad nagłówkiem (decyzja 117) ----------
+/* ---------- pasek kampanii pod nagłówkiem (decyzja 117) ----------
    Mały czerwony pasek z Black Weeks, tylko w trwającej kampanii (html[data-kampania][data-faza] ustawia
    js/oferty-kampanie.js w <head>). Czerwień z etykiety promocji na kartach, kremowy tekst (6,9:1). */
 .promo-bar { display: none; }
