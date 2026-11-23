@@ -295,7 +295,15 @@
     }
     if (e.target.closest('[data-similar]')) {
       document.dispatchEvent(new CustomEvent('nicci:similar', { detail: { id: p.id, trigger: e.target.closest('[data-similar]') } }));
+      return;
     }
+    // klik w dowolne miejsce karty, które nie jest przyciskiem, linkiem ani wyborem pojemności, też otwiera szczegóły
+    // (właściciel 23.11); nie, gdy ktoś zaznacza tekst; stopka szczegółów (data-card bez [data-open]) się nie liczy
+    var otworz = card.querySelector('[data-open]');
+    if (!otworz || e.target.closest('button, a, input, label, select, textarea, fieldset, [data-action]')) return;
+    var sel = window.getSelection && window.getSelection();
+    if (sel && !sel.isCollapsed && card.contains(sel.anchorNode)) return;
+    document.dispatchEvent(new CustomEvent('nicci:open-product', { detail: { id: p.id, trigger: otworz } }));
   }
 
   function mount(root, list) {

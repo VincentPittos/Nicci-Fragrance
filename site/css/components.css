@@ -569,3 +569,7 @@
 }
 html.drawer-open { overflow: hidden; padding-right: var(--sbw, 0px); }
 [data-page-root] { transform-origin: 50% 0; }
+
+/* cała karta zapachu otwiera szczegóły (właściciel 23.11; card.js, onClick): kursor ręki na pustych miejscach karty */
+.card[data-card], .rc[data-card] { cursor: pointer; }
+.card[data-card] .seg, .rc[data-card] .seg { cursor: default; }
