@@ -378,6 +378,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .card__flag--best { background: var(--accent); color: var(--n-black); } /* złoto z czarnym tekstem 9,39:1 */
 /* nowość (premiera w tym roku, decyzja 76): jasna etykieta ze złotą ramką, inna niż bestseller i „Wyprzedane” */

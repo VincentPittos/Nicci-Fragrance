@@ -69,7 +69,11 @@
 
   /** Etykieta promocji, np. „Promocja −10%”; procent liczy app.js (withNajnizsza), a gdy pojemności mają różne
    *  procenty, najwyższy z dopiskiem „do”. */
-  function promoLabel(p) { return 'Promocja ' + (p.promocjaDo ? 'do ' : '') + '−' + String(p.promocja).replace('.', ',') + '%'; }
+  // krotko: wstążka na karcie (właściciel 23.11: w jednym rzędzie), np. „do −25%”; pełna wersja w szczegółach i wyniku quizu
+  function promoLabel(p, krotko) {
+    var proc = '−' + String(p.promocja).replace('.', ',') + '%';
+    return krotko ? (p.promocjaDo ? 'do ' : '') + proc : 'Promocja ' + (p.promocjaDo ? 'do ' : '') + proc;
+  }
 
   /** Cena przed obniżką i najniższa cena z 30 dni (wymóg przy obniżce); ukryte, gdy wybrana pojemność jej nie ma. */
   function wasHtml(p, v) {
@@ -122,7 +126,7 @@
     h.push('</button>');
     if (soldOut) h.push('<span class="card__flag">Wyprzedane</span>');
     else if (p.bestseller || p.nowosc || p.promocja) {
-      h.push('<span class="card__flags">' + (p.promocja ? '<span class="card__flag card__flag--promo">' + promoLabel(p) + '</span>' : '') +
+      h.push('<span class="card__flags">' + (p.promocja ? '<span class="card__flag card__flag--promo"><span class="visually-hidden">Promocja </span>' + promoLabel(p, true) + '</span>' : '') +
         (p.nowosc ? '<span class="card__flag card__flag--new">Nowość</span>' : '') +
         (p.bestseller ? '<span class="card__flag card__flag--best">Bestseller</span>' : '') + '</span>');
     }
